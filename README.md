@@ -27,4 +27,4 @@ En muchos casos tomamos inspiración o nos basamos en los siguientes recursos:
 
 * [R para Ciencia de Datos](https://es.r4ds.hadley.nz/) de Hadley Wickham
 
-El código fuente de estos materiales y página web se encuentrá [acá](https://github.com/eliocamp).
+El código fuente de estos materiales y página web se encuentrá [acá](https://github.com/eliocamp/r-clima).
