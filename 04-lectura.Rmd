@@ -1,0 +1,21 @@
+---
+title: "Lectura de datos"
+output: 
+  html_document:
+    code_download: true
+    toc: true
+    toc_float: true
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+:::{.alert .alert-success}
+Ponerle nombre a las variables es a veces la parte más difícil de escribir código. A R no le viene bien cualquier nombre de variable siempre y cuando no empiece con un número o un "_". Pero a los seres humanos que lean el código y tengan que interpretarlos les va a resultas más fácil entender qué hace la variable `temperatura_cordoba` que la variable `xxy1`. 
+
+El consejo es tratar en lo posible usar nombre descriptivos y consistentes. Por ejemplo, siempre usar minúsculas y separar palabras con "_". 
+
+**Tip**: Para hacerse la vida más fácil existen "guías de estilo" para programar que explicitan reglas específicas para escribir código. Por ejemplo [esta](https://rpubs.com/FvD/guia-estilo-r){.alert-link} o [esta otra](https://github.com/eliocamp/tesis/blob/master/docs/gu%C3%ADa_de_estilo.md){.alert-link}. Se trata de reglas únicamente para los ojos humanos, y que no afectan en absoluto la eficiencia o correctitud de la programación. En general, no existen guías buenas o malas, la idea es elegir una y ser consistente. De esta manera, vas a poder entender tu código con más facilidad. 
+:::
