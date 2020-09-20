@@ -7,14 +7,14 @@ navbar:
     menu: 
       - text: Introducción
         href: 01-introduccion.html
-      - text: Proyectos
-        href: 02-proyectos.html
+      - text: Proyectos de RStudio
+        href: 02-proyectos.html        
       - text: Reportes I
         href: 03-reportes-I.html
       - text: Lectura de datos
-        href: 04-lectura-datos.html
+        href: 04-lectura.html
       - text: Manipulación de datos I
-        href: 05-dplyr-I.html
+        href: 05-dplyr.html
       - text: Gráficos I
         href: 06-graficos-I.html
       - text: Gráficos II
@@ -31,10 +31,8 @@ navbar:
         href: 12-ggplot-III.html
   - text: Desafíos
     menu:
-      - text: Leer datos
+      - text: Leer y analizar datos
         href: desafio-1.html
-      - text: Analizar datos
-        href: desafio-2.html
       - text: Graficar datos
         href: desafio-3.html
       - text: Generar un informe

@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -25,8 +25,101 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -93,33 +186,33 @@ summary {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 60px;
+  padding-top: 51px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h2 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h3 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h4 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h5 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h6 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .dropdown-submenu {
   position: relative;
@@ -352,16 +445,16 @@ div.tocify {
       <a href="01-introduccion.html">Introducción</a>
     </li>
     <li>
-      <a href="02-proyectos.html">Proyectos</a>
+      <a href="02-proyectos.html">Proyectos de RStudio</a>
     </li>
     <li>
       <a href="03-reportes-I.html">Reportes I</a>
     </li>
     <li>
-      <a href="04-lectura-datos.html">Lectura de datos</a>
+      <a href="04-lectura.html">Lectura de datos</a>
     </li>
     <li>
-      <a href="05-dplyr-I.html">Manipulación de datos I</a>
+      <a href="05-dplyr.html">Manipulación de datos I</a>
     </li>
     <li>
       <a href="06-graficos-I.html">Gráficos I</a>
@@ -394,10 +487,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="desafio-1.html">Leer datos</a>
-    </li>
-    <li>
-      <a href="desafio-2.html">Analizar datos</a>
+      <a href="desafio-1.html">Leer y analizar datos</a>
     </li>
     <li>
       <a href="desafio-3.html">Graficar datos</a>
@@ -431,13 +521,227 @@ div.tocify {
 </div>
 
 
+<div id="archivos-csv" class="section level1">
+<h1>Archivos csv</h1>
+<p>Existen muchas funciones distintas para leer datos dependiendo del formato en el que están guardados. Para datos tabulares, la forma más útil es el formato csv, que es un archivo de texto plano con datos separados por coma.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Fecha = col_datetime(format = &quot;&quot;),
+##   Temperatura = col_character()
+## )</code></pre>
+<p>Todo ese texto naranja/rojo es intimidante pero no te preocupes, es sólo un mensaje que nos informa que los datos se leyeron y qué tipo de dato tiene cada columna. ¿Notás algo raro? A pesar de que claramente la temperatura es un número, la columna <code>Temperatura</code> se está leyendo como un caracter. Otra forma de ver esto es usando la a función <code>str()</code> (de <em>structure</em> en inglés):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">str</span>(bariloche)</span></code></pre></div>
+<pre><code>## tibble [3,024 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ Fecha      : POSIXct[1:3024], format: &quot;2011-05-28&quot; &quot;2011-05-29&quot; ...
+##  $ Temperatura: chr [1:3024] NA &quot;4.272223&quot; &quot;-999.99&quot; &quot;3.473611&quot; ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   Fecha = col_datetime(format = &quot;&quot;),
+##   ..   Temperatura = col_character()
+##   .. )</code></pre>
+<p>Donde se ve que la columna <code>Temperatura</code> tiene clase <code>chr</code> (caracter).</p>
+<p>Seguramente lo primero que tratarás en un caso así es simplemente cambiarle el tipo a la columna</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## Warning: replacing previous import &#39;vctrs::data_frame&#39; by &#39;tibble::data_frame&#39;
+## when loading &#39;dplyr&#39;</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura =</span> <span class="kw">as.numeric</span>(Temperatura))</span></code></pre></div>
+<pre><code>## Warning: Problem with `mutate()` input `Temperatura`.
+## x NAs introduced by coercion
+## ℹ Input `Temperatura` is `as.numeric(Temperatura)`.</code></pre>
+<pre><code>## Warning in mask$eval_all_mutate(dots[[i]]): NAs introduced by coercion</code></pre>
+<pre><code>## # A tibble: 3,024 x 2
+##    Fecha               Temperatura
+##    &lt;dttm&gt;                    &lt;dbl&gt;
+##  1 2011-05-28 00:00:00       NA   
+##  2 2011-05-29 00:00:00        4.27
+##  3 2019-06-15 00:00:00    -1000.  
+##  4 2011-05-31 00:00:00        3.47
+##  5 2011-06-01 00:00:00        2.90
+##  6 2011-06-02 00:00:00        6.26
+##  7 2011-06-03 00:00:00        3.45
+##  8 2016-03-22 00:00:00    -1000.  
+##  9 2011-06-05 00:00:00        5.00
+## 10 2011-06-06 00:00:00        5.45
+## # … with 3,014 more rows</code></pre>
+<p>Pero R dice que hay un problema. <code>NAs introduced by coercion</code> significa que algunos valores no se pudieron transformar en numéricos y entonces <code>as.numeric</code> los dejó como valores faltantes. Casi con seguridad no querés eso. Para ver qué está pasando, hay que investigar qué contenidos tienen esas filas. Para eso, podés filtrar las filas de <code>bariloche</code> que no tienen <code>NA</code> en <code>Temperatura</code> pero que se convierten en <code>NA</code> al hacer <code>as.numeric(Temperatura)</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Temperatura) <span class="op">&amp;</span><span class="st"> </span><span class="kw">is.na</span>(<span class="kw">as.numeric</span>(Temperatura)))</span></code></pre></div>
+<pre><code>## Warning in mask$eval_all_filter(dots, env_filter): NAs introduced by coercion</code></pre>
+<pre><code>## # A tibble: 302 x 2
+##    Fecha               Temperatura
+##    &lt;dttm&gt;              &lt;chr&gt;      
+##  1 2018-12-16 00:00:00 N/A        
+##  2 2011-06-02 00:00:00 N/A        
+##  3 2019-07-19 00:00:00 N/A        
+##  4 2020-05-13 00:00:00 N/A        
+##  5 2015-12-08 00:00:00 N/A        
+##  6 2015-05-23 00:00:00 N/A        
+##  7 2015-04-27 00:00:00 N/A        
+##  8 2014-09-10 00:00:00 N/A        
+##  9 2019-12-23 00:00:00 N/A        
+## 10 2019-07-10 00:00:00 N/A        
+## # … with 292 more rows</code></pre>
+<p>Ajá! Se ve que a alguien se le ocurrió usar los caracteres “N/A” para designar algunos datos faltantes. Con esta información, estaría bueno volver a leer los datos, diciéndole a <code>read_csv</code> que este archivo usa dos formas para referirse a datos faltantes.</p>
+<div class="alert alert-info">
+<p><strong>Desafío</strong> andá a la ayuda de <code>read_csv</code> y fijate si hay algún argumento que controle la lectura de datos faltantes. Sabiendo que hay valores faltantes codificados como “N/A”, ¿qué deberías pasarle a ese argumento para leer correctamente los datos?</p>
+</div>
+<p><code>read_csv</code> tiene un argumento <code>na</code> que controla qué valores van a interpretarse como valores faltantes. En este caso, sabés que “N/A” es uno. Entonces debería funcionar buen leer los datos así:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;N/A&quot;</span>)</span></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Fecha = col_datetime(format = &quot;&quot;),
+##   Temperatura = col_character()
+## )</code></pre>
+<p>¡No! Otra vez <code>Temperatura</code> se leyó como caracter. Si usás <code>str</code> podés ver que’pasó:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">str</span>(bariloche)</span></code></pre></div>
+<pre><code>## tibble [3,024 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ Fecha      : POSIXct[1:3024], format: &quot;2011-05-28&quot; &quot;2011-05-29&quot; ...
+##  $ Temperatura: chr [1:3024] &quot;NA&quot; &quot;4.272223&quot; &quot;-999.99&quot; &quot;3.473611&quot; ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   Fecha = col_datetime(format = &quot;&quot;),
+##   ..   Temperatura = col_character()
+##   .. )</code></pre>
+<p>La primera fila, que antes se leía como dato faltante, ahora se lee como “NA”.</p>
+<div class="alert alert-info">
+<p><strong>Desafío</strong> ¿Por qué ahora <code>read_csv</code> está leyendo ese dato incorrectamente? Consejo: volvé a la ayuda de <code>read_csv</code> y fijate el valor por default del argumento <code>na</code>.</p>
+</div>
+<p>Antes, <code>na</code> estaba como el valor por defecto, que es <code>c("", "NA")</code>, lo que significa que tanto valores vacíos como valores <code>"NA"</code> son considerados valores faltantes. Lo que tenés que hacer es agregar también el valor <code>"N/A"</code>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>,  <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;N/A&quot;</span>))</span></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Fecha = col_datetime(format = &quot;&quot;),
+##   Temperatura = col_double()
+## )</code></pre>
+<p>Bien. Ahí la columna <code>Temperatura</code> se leyó como doble. Pero, ¿se leyeron bien? Una forma rápida de chequear los datos es usando la función <code>summary</code>:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">summary</span>(bariloche)</span></code></pre></div>
+<pre><code>##      Fecha                      Temperatura       
+##  Min.   :2011-05-28 00:00:00   Min.   : -999.990  
+##  1st Qu.:2013-06-06 00:00:00   1st Qu.:    4.617  
+##  Median :2016-04-30 12:00:00   Median :    8.620  
+##  Mean   :2016-02-25 15:23:48   Mean   :  -98.634  
+##  3rd Qu.:2018-07-04 06:00:00   3rd Qu.:   13.243  
+##  Max.   :2020-09-12 00:00:00   Max.   :   25.710  
+##                                NA&#39;s   :501</code></pre>
+<p><code>summary</code> devuelve algunas estadísticas simples sobre cada columna. La columna <code>Temperatura</code> tiene 501 valores faltantes, su máximo es 25.70972 y su mínimo es… ¿-999.990? Eso no puede ser. Seguramente a otro alguien se le ocurrió usar “-999.99” para marcar los datos faltantes. Una vez que sabés eso, podés volver a leer otra vez los datos agregando otro marcador más para los datos faltantes.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;N/A&quot;</span>, <span class="st">&quot;-999.99&quot;</span>))</span></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Fecha = col_datetime(format = &quot;&quot;),
+##   Temperatura = col_double()
+## )</code></pre>
+<p>Y ahora <code>summary</code> da:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">summary</span>(bariloche)</span></code></pre></div>
+<pre><code>##      Fecha                      Temperatura    
+##  Min.   :2011-05-28 00:00:00   Min.   :-4.806  
+##  1st Qu.:2013-06-06 00:00:00   1st Qu.: 5.994  
+##  Median :2016-04-30 12:00:00   Median : 9.531  
+##  Mean   :2016-02-25 15:23:48   Mean   : 9.832  
+##  3rd Qu.:2018-07-04 06:00:00   3rd Qu.:13.681  
+##  Max.   :2020-09-12 00:00:00   Max.   :25.710  
+##                                NA&#39;s   :772</code></pre>
+<p>Ahora el rango de temperatura es razonable y podés tener confianza de que los datos están bien leídos.</p>
+</div>
+<div id="archivos-netcdf" class="section level1">
+<h1>Archivos NetCDF</h1>
+<p>Luego de esta epopeya para conseguir leer estos datos correctamente está bueno reflexionar sobre la importancia de los <strong>metadatos</strong>; los datos sobre los datos que, entre otras cosas, podrían indicar cómo están codificados los datos faltantes. Una alternativa es usar formatos de datos “autodescriptivos”. Estos son tipos de archivos que contienen sus propios metadatos.</p>
+<p>Uno de estos tipos de formatos muy utilizado en ciencias para guardar datos atmosféricos grillados es el <a href="https://en.wikipedia.org/wiki/NetCDF">NetCDF</a>. Existen varios paquetes para estos archivos. Uno de ellos es {metR}.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">library</span>(metR)</span></code></pre></div>
+<p>Los datos en archivos NetCDF puede ser bastante grandes y destruir tu sesión de R si tratás de leerlos enteros en memoria. Por eso, siempre es bueno primero fijarse qué tiene un archivo nuevo. Para eso, { metR} tiene la función <code>GlanceNetCDF</code>:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">GlanceNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>)</span></code></pre></div>
+<pre><code>## ----- Variables ----- 
+## air:
+##     mean Daily Air temperature in degK
+##     Dimensions: lon by lat by level by time
+## 
+## 
+## ----- Dimensions ----- 
+##   time: 1 values from 2010-07-09 to 2010-07-09 
+##   level: 17 values from 10 to 1000 millibar
+##   lat: 73 values from -90 to 90 degrees_north
+##   lon: 144 values from 0 to 357.5 degrees_east</code></pre>
+<p>La salida de esta función muestra las variables que tiene el archivo y sus dimensiones.</p>
+<div class="alert alert-info">
+<p><strong>Desafío</strong> ¿Qué información podés deducir sobre el contenido de temperatura.nc a partir de esto?</p>
+</div>
+<p>En este caso, el archivo tiene una sola variable, llamada <code>air</code> que es la temperatura media en Kelvin (un archivo NetCDF puede tener muchas variables y no todas en la misma grilla). De las dimensiones del archivo, se ve que tiene dimensiones de tiempo, nivel, longitud y latitud. La latitud va de -90 a 90 y la longitud de 0 a 357.5, por lo que es un campo global. <code>level</code> es la coordenada vertical, que va de 1000 milibares (básicamente la superficie) a 10 millibares (la estatósfera media).</p>
+<p>Para leer los datos, se usa <code>ReadNetCDF()</code>:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>temperatura &lt;-<span class="st"> </span><span class="kw">ReadNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>, <span class="dt">vars =</span> <span class="st">&quot;air&quot;</span>)</span>
+<span id="cb29-2"><a href="#cb29-2"></a>temperatura</span></code></pre></div>
+<pre><code>##               time level lat   lon    air
+##      1: 2010-07-09  1000  90   0.0 274.87
+##      2: 2010-07-09  1000  90   2.5 274.87
+##      3: 2010-07-09  1000  90   5.0 274.87
+##      4: 2010-07-09  1000  90   7.5 274.87
+##      5: 2010-07-09  1000  90  10.0 274.87
+##     ---                                  
+## 178700: 2010-07-09    10 -90 347.5 188.25
+## 178701: 2010-07-09    10 -90 350.0 188.25
+## 178702: 2010-07-09    10 -90 352.5 188.25
+## 178703: 2010-07-09    10 -90 355.0 188.25
+## 178704: 2010-07-09    10 -90 357.5 188.25</code></pre>
 <div class="alert alert-success">
-<p>Ponerle nombre a las variables es a veces la parte más difícil de escribir código. A R no le viene bien cualquier nombre de variable siempre y cuando no empiece con un número o un &quot;_&quot;. Pero a los seres humanos que lean el código y tengan que interpretarlos les va a resultas más fácil entender qué hace la variable <code>temperatura_cordoba</code> que la variable <code>xxy1</code>.</p>
-<p>El consejo es tratar en lo posible usar nombre descriptivos y consistentes. Por ejemplo, siempre usar minúsculas y separar palabras con &quot;_&quot;.</p>
+<p>Si no le ponés <code>vars = "air"</code>, <code>ReadNetCDF()</code> va a tratar de leer todas las variables presentes en el archivo. Esto a veces puede causar problemas si las grillas de las variables no son compatibles (por ejemplo, si una variable es la temperatura del aire definida en distintas alturas, y otra es la temperatura del suelo). En este caso, como “temperatura.nc” tiene sólo una variable, no haría falta ponerlo.</p>
+</div>
+<p>Es muy posible que quieras datos sólo de una región. Una opción es leer todo el archivo y luego filtrar los datos. Si te interesa la temperatura de superficie de Argentina, podrías hacer algo así</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>temperatura <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="st">  </span><span class="kw">filter</span>(level <span class="op">==</span><span class="st"> </span><span class="dv">1000</span> <span class="op">&amp;</span><span class="st"> </span><span class="kw">between</span>(lat, <span class="dv">-65</span>, <span class="dv">-20</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">between</span>(lon, <span class="dv">280</span>, <span class="dv">310</span>))</span></code></pre></div>
+<pre><code>##            time level lat   lon    air
+##   1: 2010-07-09  1000 -20 280.0 287.62
+##   2: 2010-07-09  1000 -20 282.5 287.70
+##   3: 2010-07-09  1000 -20 285.0 289.72
+##   4: 2010-07-09  1000 -20 287.5 293.25
+##   5: 2010-07-09  1000 -20 290.0 296.32
+##  ---                                  
+## 243: 2010-07-09  1000 -65 300.0 267.92
+## 244: 2010-07-09  1000 -65 302.5 268.15
+## 245: 2010-07-09  1000 -65 305.0 268.67
+## 246: 2010-07-09  1000 -65 307.5 269.47
+## 247: 2010-07-09  1000 -65 310.0 270.35</code></pre>
+<p>Pero es mucho maś eficiente leer sólo los datos que te interesan, especialmente en archivos NetCDF grandes, que incluso no puede ser leídos en memoria enteros. <code>ReadNetCDF()</code> tiene un argumento llamado <code>subset</code> que sirve para especificar qué datos leer:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">ReadNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>, <span class="dt">vars =</span> <span class="st">&quot;air&quot;</span>,</span>
+<span id="cb33-2"><a href="#cb33-2"></a>           <span class="dt">subset =</span> <span class="kw">list</span>(<span class="dt">level =</span> <span class="dv">1000</span>,</span>
+<span id="cb33-3"><a href="#cb33-3"></a>                         <span class="dt">lat =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">65</span>, <span class="dv">-20</span>),</span>
+<span id="cb33-4"><a href="#cb33-4"></a>                         <span class="dt">lon =</span> <span class="kw">c</span>(<span class="dv">280</span>, <span class="dv">310</span>))) </span></code></pre></div>
+<pre><code>##            time level lat   lon    air
+##   1: 2010-07-09  1000 -20 280.0 287.62
+##   2: 2010-07-09  1000 -20 282.5 287.70
+##   3: 2010-07-09  1000 -20 285.0 289.72
+##   4: 2010-07-09  1000 -20 287.5 293.25
+##   5: 2010-07-09  1000 -20 290.0 296.32
+##  ---                                  
+## 243: 2010-07-09  1000 -65 300.0 267.92
+## 244: 2010-07-09  1000 -65 302.5 268.15
+## 245: 2010-07-09  1000 -65 305.0 268.67
+## 246: 2010-07-09  1000 -65 307.5 269.47
+## 247: 2010-07-09  1000 -65 310.0 270.35</code></pre>
+<p>A <code>subset</code> hay que pasarle una lista donde cada elemento tiene el nombre de una dimensión con un vector cuyo rango define el rango de los datos a leer. El código de arriba, entonces, dice que de la dimensión <code>level</code> lea únicamente el valor 1000, de la dimensión <code>lat</code>, lea los valores que van entre -65 y -20, y de la dimensión <code>lon</code>, los valores entre 280 y 310.</p>
+<div class="alert alert-info">
+<p><strong>Desafío</strong> Elegí una región del mundo y completá el código que sigue para que lea la temperatura en superficie de esa región.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>temperatura &lt;-<span class="st"> </span><span class="kw">ReadNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>, <span class="dt">vars =</span> <span class="st">&quot;air&quot;</span>,</span>
+<span id="cb35-2"><a href="#cb35-2"></a>           <span class="dt">subset =</span> <span class="kw">list</span>(<span class="dt">level =</span> <span class="dv">1000</span>,</span>
+<span id="cb35-3"><a href="#cb35-3"></a>                         <span class="dt">lat =</span> <span class="kw">c</span>(___, ___),</span>
+<span id="cb35-4"><a href="#cb35-4"></a>                         <span class="dt">lon =</span> <span class="kw">c</span>(___, ___)))</span></code></pre></div>
+<p>Para revisar si leíste los datos correctos, corré este código (no te preocupes si no lo entendés)</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> air)) <span class="op">+</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> <span class="kw">map_data</span>(<span class="st">&quot;world2&quot;</span>), <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group))</span></code></pre></div>
+</div>
+<div class="alert alert-success">
+<p>Ponerle nombre a las variables es a veces la parte más difícil de escribir código. A R no le viene bien cualquier nombre de variable siempre y cuando no empiece con un número o un "_". Pero a los seres humanos que lean el código y tengan que interpretarlos les va a resultas más fácil entender qué hace la variable <code>temperatura_cordoba</code> que la variable <code>xxy1</code>.</p>
+<p>El consejo es tratar en lo posible usar nombre descriptivos y consistentes. Por ejemplo, siempre usar minúsculas y separar palabras con "_".</p>
 <p><strong>Tip</strong>: Para hacerse la vida más fácil existen “guías de estilo” para programar que explicitan reglas específicas para escribir código. Por ejemplo <a href="https://rpubs.com/FvD/guia-estilo-r" class="alert-link">esta</a> o <a href="https://github.com/eliocamp/tesis/blob/master/docs/gu%C3%ADa_de_estilo.md" class="alert-link">esta otra</a>. Se trata de reglas únicamente para los ojos humanos, y que no afectan en absoluto la eficiencia o correctitud de la programación. En general, no existen guías buenas o malas, la idea es elegir una y ser consistente. De esta manera, vas a poder entender tu código con más facilidad.</p>
 </div>
+<div class="btn-group" role="group" aria-label="Navegación">
+<p><a href= "03-reportes-I.html" class = "btn btn-primary">Anterior</a> <a href= "05-dplyr.html" class = "btn btn-primary">Siguiente</a></p>
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGVjdHVyYSBkZSBkYXRvcyIKb3V0cHV0OiAKICBodG1sX2RvY3VtZW50OgogICAgY29kZV9kb3dubG9hZDogdHJ1ZQogICAgdG9jOiB0cnVlCiAgICB0b2NfZmxvYXQ6IHRydWUKICAgIGhpZ2hsaWdodDogdGFuZ28KLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpgYGAKCjo6OnsuYWxlcnQgLmFsZXJ0LXN1Y2Nlc3N9ClBvbmVybGUgbm9tYnJlIGEgbGFzIHZhcmlhYmxlcyBlcyBhIHZlY2VzIGxhIHBhcnRlIG3DoXMgZGlmw61jaWwgZGUgZXNjcmliaXIgY8OzZGlnby4gQSBSIG5vIGxlIHZpZW5lIGJpZW4gY3VhbHF1aWVyIG5vbWJyZSBkZSB2YXJpYWJsZSBzaWVtcHJlIHkgY3VhbmRvIG5vIGVtcGllY2UgY29uIHVuIG7Dum1lcm8gbyB1biAiXyIuIFBlcm8gYSBsb3Mgc2VyZXMgaHVtYW5vcyBxdWUgbGVhbiBlbCBjw7NkaWdvIHkgdGVuZ2FuIHF1ZSBpbnRlcnByZXRhcmxvcyBsZXMgdmEgYSByZXN1bHRhcyBtw6FzIGbDoWNpbCBlbnRlbmRlciBxdcOpIGhhY2UgbGEgdmFyaWFibGUgYHRlbXBlcmF0dXJhX2NvcmRvYmFgIHF1ZSBsYSB2YXJpYWJsZSBgeHh5MWAuIAoKRWwgY29uc2VqbyBlcyB0cmF0YXIgZW4gbG8gcG9zaWJsZSB1c2FyIG5vbWJyZSBkZXNjcmlwdGl2b3MgeSBjb25zaXN0ZW50ZXMuIFBvciBlamVtcGxvLCBzaWVtcHJlIHVzYXIgbWluw7pzY3VsYXMgeSBzZXBhcmFyIHBhbGFicmFzIGNvbiAiXyIuIAoKKipUaXAqKjogUGFyYSBoYWNlcnNlIGxhIHZpZGEgbcOhcyBmw6FjaWwgZXhpc3RlbiAiZ3XDrWFzIGRlIGVzdGlsbyIgcGFyYSBwcm9ncmFtYXIgcXVlIGV4cGxpY2l0YW4gcmVnbGFzIGVzcGVjw61maWNhcyBwYXJhIGVzY3JpYmlyIGPDs2RpZ28uIFBvciBlamVtcGxvIFtlc3RhXShodHRwczovL3JwdWJzLmNvbS9GdkQvZ3VpYS1lc3RpbG8tcil7LmFsZXJ0LWxpbmt9IG8gW2VzdGEgb3RyYV0oaHR0cHM6Ly9naXRodWIuY29tL2VsaW9jYW1wL3Rlc2lzL2Jsb2IvbWFzdGVyL2RvY3MvZ3UlQzMlQURhX2RlX2VzdGlsby5tZCl7LmFsZXJ0LWxpbmt9LiBTZSB0cmF0YSBkZSByZWdsYXMgw7puaWNhbWVudGUgcGFyYSBsb3Mgb2pvcyBodW1hbm9zLCB5IHF1ZSBubyBhZmVjdGFuIGVuIGFic29sdXRvIGxhIGVmaWNpZW5jaWEgbyBjb3JyZWN0aXR1ZCBkZSBsYSBwcm9ncmFtYWNpw7NuLiBFbiBnZW5lcmFsLCBubyBleGlzdGVuIGd1w61hcyBidWVuYXMgbyBtYWxhcywgbGEgaWRlYSBlcyBlbGVnaXIgdW5hIHkgc2VyIGNvbnNpc3RlbnRlLiBEZSBlc3RhIG1hbmVyYSwgdmFzIGEgcG9kZXIgZW50ZW5kZXIgdHUgY8OzZGlnbyBjb24gbcOhcyBmYWNpbGlkYWQuIAo6Ojo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGVjdHVyYSBkZSBkYXRvcyIKb3V0cHV0OiAKICBodG1sX2RvY3VtZW50OgogICAgY29kZV9kb3dubG9hZDogdHJ1ZQogICAgdG9jOiB0cnVlCiAgICB0b2NfZmxvYXQ6IHRydWUKICAgIGhpZ2hsaWdodDogdGFuZ28KLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpgYGAKCgojIEFyY2hpdm9zIGNzdgoKRXhpc3RlbiBtdWNoYXMgZnVuY2lvbmVzIGRpc3RpbnRhcyBwYXJhIGxlZXIgZGF0b3MgZGVwZW5kaWVuZG8gZGVsIGZvcm1hdG8gZW4gZWwgcXVlIGVzdMOhbiBndWFyZGFkb3MuIFBhcmEgZGF0b3MgdGFidWxhcmVzLCBsYSBmb3JtYSBtw6FzIMO6dGlsIGVzIGVsIGZvcm1hdG8gY3N2LCBxdWUgZXMgdW4gYXJjaGl2byBkZSB0ZXh0byBwbGFubyBjb24gZGF0b3Mgc2VwYXJhZG9zIHBvciBjb21hLiAKCmBgYHtyfQpsaWJyYXJ5KHJlYWRyKQpiYXJpbG9jaGUgPC0gcmVhZF9jc3YoImRhdG9zL2Jhcmlsb2NoZS5jc3YiKQpgYGAKVG9kbyBlc2UgdGV4dG8gbmFyYW5qYS9yb2pvIGVzIGludGltaWRhbnRlIHBlcm8gbm8gdGUgcHJlb2N1cGVzLCBlcyBzw7NsbyB1biBtZW5zYWplIHF1ZSBub3MgaW5mb3JtYSBxdWUgbG9zIGRhdG9zIHNlIGxleWVyb24geSBxdcOpIHRpcG8gZGUgZGF0byB0aWVuZSBjYWRhIGNvbHVtbmEuIMK/Tm90w6FzIGFsZ28gcmFybz8gQSBwZXNhciBkZSBxdWUgY2xhcmFtZW50ZSBsYSB0ZW1wZXJhdHVyYSBlcyB1biBuw7ptZXJvLCBsYSBjb2x1bW5hIGBUZW1wZXJhdHVyYWAgc2UgZXN0w6EgbGV5ZW5kbyBjb21vIHVuIGNhcmFjdGVyLiBPdHJhIGZvcm1hIGRlIHZlciBlc3RvIGVzIHVzYW5kbyBsYSBhIGZ1bmNpw7NuIGBzdHIoKWAgKGRlICpzdHJ1Y3R1cmUqIGVuIGluZ2zDqXMpOgoKCmBgYHtyfQpzdHIoYmFyaWxvY2hlKQpgYGAKCkRvbmRlIHNlIHZlIHF1ZSBsYSBjb2x1bW5hIGBUZW1wZXJhdHVyYWAgdGllbmUgY2xhc2UgYGNocmAgKGNhcmFjdGVyKS4KClNlZ3VyYW1lbnRlIGxvIHByaW1lcm8gcXVlIHRyYXRhcsOhcyBlbiB1biBjYXNvIGFzw60gZXMgc2ltcGxlbWVudGUgY2FtYmlhcmxlIGVsIHRpcG8gYSBsYSBjb2x1bW5hCgpgYGB7ciwgbWVzc2FnZT1GQUxTRX0KbGlicmFyeShkcGx5cikKYmFyaWxvY2hlICU+JSAKICBtdXRhdGUoVGVtcGVyYXR1cmEgPSBhcy5udW1lcmljKFRlbXBlcmF0dXJhKSkKYGBgClBlcm8gUiBkaWNlIHF1ZSBoYXkgdW4gcHJvYmxlbWEuIGBOQXMgaW50cm9kdWNlZCBieSBjb2VyY2lvbmAgc2lnbmlmaWNhIHF1ZSBhbGd1bm9zIHZhbG9yZXMgbm8gc2UgcHVkaWVyb24gdHJhbnNmb3JtYXIgZW4gbnVtw6lyaWNvcyB5IGVudG9uY2VzIGBhcy5udW1lcmljYCBsb3MgZGVqw7MgY29tbyB2YWxvcmVzIGZhbHRhbnRlcy4gQ2FzaSBjb24gc2VndXJpZGFkIG5vIHF1ZXLDqXMgZXNvLiBQYXJhIHZlciBxdcOpIGVzdMOhIHBhc2FuZG8sIGhheSBxdWUgaW52ZXN0aWdhciBxdcOpIGNvbnRlbmlkb3MgdGllbmVuIGVzYXMgZmlsYXMuIFBhcmEgZXNvLCBwb2TDqXMgZmlsdHJhciBsYXMgZmlsYXMgZGUgYGJhcmlsb2NoZWAgcXVlIG5vIHRpZW5lbiBgTkFgIGVuIGBUZW1wZXJhdHVyYWAgcGVybyBxdWUgc2UgY29udmllcnRlbiBlbiBgTkFgIGFsIGhhY2VyIGBhcy5udW1lcmljKFRlbXBlcmF0dXJhKWA6CgpgYGB7cn0KYmFyaWxvY2hlICU+JSAKICBmaWx0ZXIoIWlzLm5hKFRlbXBlcmF0dXJhKSAmIGlzLm5hKGFzLm51bWVyaWMoVGVtcGVyYXR1cmEpKSkKYGBgCgoKQWrDoSEgU2UgdmUgcXVlIGEgYWxndWllbiBzZSBsZSBvY3VycmnDsyB1c2FyIGxvcyBjYXJhY3RlcmVzICJOL0EiIHBhcmEgZGVzaWduYXIgYWxndW5vcyBkYXRvcyBmYWx0YW50ZXMuIENvbiBlc3RhIGluZm9ybWFjacOzbiwgZXN0YXLDrWEgYnVlbm8gdm9sdmVyIGEgbGVlciBsb3MgZGF0b3MsIGRpY2nDqW5kb2xlIGEgYHJlYWRfY3N2YCBxdWUgZXN0ZSBhcmNoaXZvIHVzYSBkb3MgZm9ybWFzIHBhcmEgcmVmZXJpcnNlIGEgZGF0b3MgZmFsdGFudGVzLiAKCjo6OnsuYWxlcnQgLmFsZXJ0LWluZm99IAoqKkRlc2Fmw61vKiogYW5kw6EgYSBsYSBheXVkYSBkZSBgcmVhZF9jc3ZgIHkgZmlqYXRlIHNpIGhheSBhbGfDum4gYXJndW1lbnRvIHF1ZSBjb250cm9sZSBsYSBsZWN0dXJhIGRlIGRhdG9zIGZhbHRhbnRlcy4gU2FiaWVuZG8gcXVlIGhheSB2YWxvcmVzIGZhbHRhbnRlcyBjb2RpZmljYWRvcyBjb21vICJOL0EiLCDCv3F1w6kgZGViZXLDrWFzIHBhc2FybGUgYSBlc2UgYXJndW1lbnRvIHBhcmEgbGVlciBjb3JyZWN0YW1lbnRlIGxvcyBkYXRvcz8KOjo6CgpgcmVhZF9jc3ZgIHRpZW5lIHVuIGFyZ3VtZW50byBgbmFgIHF1ZSBjb250cm9sYSBxdcOpIHZhbG9yZXMgdmFuIGEgaW50ZXJwcmV0YXJzZSBjb21vIHZhbG9yZXMgZmFsdGFudGVzLiBFbiBlc3RlIGNhc28sIHNhYsOpcyBxdWUgIk4vQSIgZXMgdW5vLiBFbnRvbmNlcyBkZWJlcsOtYSBmdW5jaW9uYXIgYnVlbiBsZWVyIGxvcyBkYXRvcyBhc8OtOgoKYGBge3J9CmJhcmlsb2NoZSA8LSByZWFkX2NzdigiZGF0b3MvYmFyaWxvY2hlLmNzdiIsIG5hID0gIk4vQSIpCmBgYArCoU5vISBPdHJhIHZleiBgVGVtcGVyYXR1cmFgIHNlIGxlecOzIGNvbW8gY2FyYWN0ZXIuIFNpIHVzw6FzIGBzdHJgIHBvZMOpcyB2ZXIgcXVlJ3Bhc8OzOgoKYGBge3J9CnN0cihiYXJpbG9jaGUpCmBgYApMYSBwcmltZXJhIGZpbGEsIHF1ZSBhbnRlcyBzZSBsZcOtYSBjb21vIGRhdG8gZmFsdGFudGUsIGFob3JhIHNlIGxlZSBjb21vICJOQSIuICAKCjo6OnsuYWxlcnQgLmFsZXJ0LWluZm99IAoqKkRlc2Fmw61vKiogwr9Qb3IgcXXDqSBhaG9yYSBgcmVhZF9jc3ZgIGVzdMOhIGxleWVuZG8gZXNlIGRhdG8gaW5jb3JyZWN0YW1lbnRlPyBDb25zZWpvOiB2b2x2w6kgYSBsYSBheXVkYSBkZSBgcmVhZF9jc3ZgIHkgZmlqYXRlIGVsIHZhbG9yIHBvciBkZWZhdWx0IGRlbCBhcmd1bWVudG8gYG5hYC4KOjo6CgpBbnRlcywgYG5hYCBlc3RhYmEgY29tbyBlbCB2YWxvciBwb3IgZGVmZWN0bywgcXVlIGVzIGBjKCIiLCAiTkEiKWAsIGxvIHF1ZSBzaWduaWZpY2EgcXVlIHRhbnRvIHZhbG9yZXMgdmFjw61vcyBjb21vIHZhbG9yZXMgYCJOQSJgIHNvbiBjb25zaWRlcmFkb3MgdmFsb3JlcyBmYWx0YW50ZXMuIExvIHF1ZSB0ZW7DqXMgcXVlIGhhY2VyIGVzIGFncmVnYXIgdGFtYmnDqW4gZWwgdmFsb3IgYCJOL0EiYDoKCmBgYHtyfQpiYXJpbG9jaGUgPC0gcmVhZF9jc3YoImRhdG9zL2Jhcmlsb2NoZS5jc3YiLCBuYSA9IGMoIiIsICAiTkEiLCAiTi9BIikpCmBgYAoKQmllbi4gQWjDrSBsYSBjb2x1bW5hIGBUZW1wZXJhdHVyYWAgc2UgbGV5w7MgY29tbyBkb2JsZS4gUGVybywgwr9zZSBsZXllcm9uIGJpZW4/IFVuYSBmb3JtYSByw6FwaWRhIGRlIGNoZXF1ZWFyIGxvcyBkYXRvcyBlcyB1c2FuZG8gbGEgZnVuY2nDs24gYHN1bW1hcnlgOgoKYGBge3J9CnN1bW1hcnkoYmFyaWxvY2hlKQpgYGAKYHN1bW1hcnlgIGRldnVlbHZlIGFsZ3VuYXMgZXN0YWTDrXN0aWNhcyBzaW1wbGVzIHNvYnJlIGNhZGEgY29sdW1uYS4gTGEgY29sdW1uYSBgVGVtcGVyYXR1cmFgIHRpZW5lIDUwMSB2YWxvcmVzIGZhbHRhbnRlcywgc3UgbcOheGltbyBlcyBgciBtYXgoYmFyaWxvY2hlJFRlbXBlcmF0dXJhLCBuYS5ybSA9IFRSVUUpYCB5IHN1IG3DrW5pbW8gZXMuLi4gwr8tOTk5Ljk5MD8gRXNvIG5vIHB1ZWRlIHNlci4gU2VndXJhbWVudGUgYSBvdHJvIGFsZ3VpZW4gc2UgbGUgb2N1cnJpw7MgdXNhciAiLTk5OS45OSIgcGFyYSBtYXJjYXIgbG9zIGRhdG9zIGZhbHRhbnRlcy4gVW5hIHZleiBxdWUgc2Fiw6lzIGVzbywgcG9kw6lzIHZvbHZlciBhIGxlZXIgb3RyYSB2ZXogbG9zIGRhdG9zIGFncmVnYW5kbyBvdHJvIG1hcmNhZG9yIG3DoXMgcGFyYSBsb3MgZGF0b3MgZmFsdGFudGVzLgoKYGBge3J9CmJhcmlsb2NoZSA8LSByZWFkX2NzdigiZGF0b3MvYmFyaWxvY2hlLmNzdiIsIG5hID0gYygiIiwgIk5BIiwgIk4vQSIsICItOTk5Ljk5IikpCmBgYApZIGFob3JhIGBzdW1tYXJ5YCBkYToKCmBgYHtyfQpzdW1tYXJ5KGJhcmlsb2NoZSkKYGBgCgpBaG9yYSBlbCByYW5nbyBkZSB0ZW1wZXJhdHVyYSBlcyByYXpvbmFibGUgeSBwb2TDqXMgdGVuZXIgY29uZmlhbnphIGRlIHF1ZSBsb3MgZGF0b3MgZXN0w6FuIGJpZW4gbGXDrWRvcy4gCgoKCiMgQXJjaGl2b3MgTmV0Q0RGCgpMdWVnbyBkZSBlc3RhIGVwb3BleWEgcGFyYSBjb25zZWd1aXIgbGVlciBlc3RvcyBkYXRvcyBjb3JyZWN0YW1lbnRlIGVzdMOhIGJ1ZW5vIHJlZmxleGlvbmFyIHNvYnJlIGxhIGltcG9ydGFuY2lhIGRlIGxvcyAqKm1ldGFkYXRvcyoqOyBsb3MgZGF0b3Mgc29icmUgbG9zIGRhdG9zIHF1ZSwgZW50cmUgb3RyYXMgY29zYXMsIHBvZHLDrWFuIGluZGljYXIgY8OzbW8gZXN0w6FuIGNvZGlmaWNhZG9zIGxvcyBkYXRvcyBmYWx0YW50ZXMuIFVuYSBhbHRlcm5hdGl2YSBlcyB1c2FyIGZvcm1hdG9zIGRlIGRhdG9zICJhdXRvZGVzY3JpcHRpdm9zIi4gRXN0b3Mgc29uIHRpcG9zIGRlIGFyY2hpdm9zIHF1ZSBjb250aWVuZW4gc3VzIHByb3Bpb3MgbWV0YWRhdG9zLiAKClVubyBkZSBlc3RvcyB0aXBvcyBkZSBmb3JtYXRvcyBtdXkgdXRpbGl6YWRvIGVuIGNpZW5jaWFzIHBhcmEgZ3VhcmRhciBkYXRvcyBhdG1vc2bDqXJpY29zIGdyaWxsYWRvcyBlcyBlbCBbTmV0Q0RGXShodHRwczovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9OZXRDREYpLiBFeGlzdGVuIHZhcmlvcyBwYXF1ZXRlcyBwYXJhIGVzdG9zIGFyY2hpdm9zLiBVbm8gZGUgZWxsb3MgZXMge21ldFJ9LiAKCmBgYHtyfQpsaWJyYXJ5KG1ldFIpCmBgYAoKCkxvcyBkYXRvcyBlbiBhcmNoaXZvcyBOZXRDREYgcHVlZGUgc2VyIGJhc3RhbnRlIGdyYW5kZXMgeSBkZXN0cnVpciB0dSBzZXNpw7NuIGRlIFIgc2kgdHJhdMOhcyBkZSBsZWVybG9zIGVudGVyb3MgZW4gbWVtb3JpYS4gUG9yIGVzbywgc2llbXByZSBlcyBidWVubyBwcmltZXJvIGZpamFyc2UgcXXDqSB0aWVuZSB1biBhcmNoaXZvIG51ZXZvLiBQYXJhIGVzbywgeyBtZXRSfSB0aWVuZSBsYSBmdW5jacOzbiBgR2xhbmNlTmV0Q0RGYDoKCmBgYHtyfQpHbGFuY2VOZXRDREYoImRhdG9zL3RlbXBlcmF0dXJhLm5jIikKYGBgCgpMYSBzYWxpZGEgZGUgZXN0YSBmdW5jacOzbiBtdWVzdHJhIGxhcyB2YXJpYWJsZXMgcXVlIHRpZW5lIGVsIGFyY2hpdm8geSBzdXMgZGltZW5zaW9uZXMuIAoKOjo6ey5hbGVydCAuYWxlcnQtaW5mb30KKipEZXNhZsOtbyoqIMK/UXXDqSBpbmZvcm1hY2nDs24gcG9kw6lzIGRlZHVjaXIgc29icmUgZWwgY29udGVuaWRvIGRlIHRlbXBlcmF0dXJhLm5jIGEgcGFydGlyIGRlIGVzdG8/Cjo6OgoKRW4gZXN0ZSBjYXNvLCBlbCBhcmNoaXZvIHRpZW5lIHVuYSBzb2xhIHZhcmlhYmxlLCBsbGFtYWRhIGBhaXJgIHF1ZSBlcyBsYSB0ZW1wZXJhdHVyYSBtZWRpYSBlbiBLZWx2aW4gKHVuIGFyY2hpdm8gTmV0Q0RGIHB1ZWRlIHRlbmVyIG11Y2hhcyB2YXJpYWJsZXMgeSBubyB0b2RhcyBlbiBsYSBtaXNtYSBncmlsbGEpLiBEZSBsYXMgZGltZW5zaW9uZXMgZGVsIGFyY2hpdm8sIHNlIHZlIHF1ZSB0aWVuZSBkaW1lbnNpb25lcyBkZSB0aWVtcG8sIG5pdmVsLCBsb25naXR1ZCB5IGxhdGl0dWQuIExhIGxhdGl0dWQgdmEgZGUgLTkwIGEgOTAgeSBsYSBsb25naXR1ZCBkZSAwIGEgMzU3LjUsIHBvciBsbyBxdWUgZXMgdW4gY2FtcG8gZ2xvYmFsLiBgbGV2ZWxgIGVzIGxhIGNvb3JkZW5hZGEgdmVydGljYWwsIHF1ZSB2YSBkZSAxMDAwIG1pbGliYXJlcyAoYsOhc2ljYW1lbnRlIGxhIHN1cGVyZmljaWUpIGEgMTAgbWlsbGliYXJlcyAobGEgZXN0YXTDs3NmZXJhIG1lZGlhKS4gCgpQYXJhIGxlZXIgbG9zIGRhdG9zLCBzZSB1c2EgYFJlYWROZXRDREYoKWA6CgpgYGB7cn0KdGVtcGVyYXR1cmEgPC0gUmVhZE5ldENERigiZGF0b3MvdGVtcGVyYXR1cmEubmMiLCB2YXJzID0gImFpciIpCnRlbXBlcmF0dXJhCmBgYAoKOjo6ey5hbGVydCAuYWxlcnQtc3VjY2Vzc30KU2kgbm8gbGUgcG9uw6lzIGB2YXJzID0gImFpciJgLCBgUmVhZE5ldENERigpYCB2YSBhIHRyYXRhciBkZSBsZWVyIHRvZGFzIGxhcyB2YXJpYWJsZXMgcHJlc2VudGVzIGVuIGVsIGFyY2hpdm8uIEVzdG8gYSB2ZWNlcyBwdWVkZSBjYXVzYXIgcHJvYmxlbWFzIHNpIGxhcyBncmlsbGFzIGRlIGxhcyB2YXJpYWJsZXMgbm8gc29uIGNvbXBhdGlibGVzIChwb3IgZWplbXBsbywgc2kgdW5hIHZhcmlhYmxlIGVzIGxhIHRlbXBlcmF0dXJhIGRlbCBhaXJlIGRlZmluaWRhIGVuIGRpc3RpbnRhcyBhbHR1cmFzLCB5IG90cmEgZXMgbGEgdGVtcGVyYXR1cmEgZGVsIHN1ZWxvKS4gRW4gZXN0ZSBjYXNvLCBjb21vICJ0ZW1wZXJhdHVyYS5uYyIgdGllbmUgc8OzbG8gdW5hIHZhcmlhYmxlLCBubyBoYXLDrWEgZmFsdGEgcG9uZXJsby4KOjo6CgpFcyBtdXkgcG9zaWJsZSBxdWUgcXVpZXJhcyBkYXRvcyBzw7NsbyBkZSB1bmEgcmVnacOzbi4gVW5hIG9wY2nDs24gZXMgbGVlciB0b2RvIGVsIGFyY2hpdm8geSBsdWVnbyBmaWx0cmFyIGxvcyBkYXRvcy4gU2kgdGUgaW50ZXJlc2EgbGEgdGVtcGVyYXR1cmEgZGUgc3VwZXJmaWNpZSBkZSBBcmdlbnRpbmEsIHBvZHLDrWFzIGhhY2VyIGFsZ28gYXPDrQoKYGBge3J9CnRlbXBlcmF0dXJhICU+JSAKICBmaWx0ZXIobGV2ZWwgPT0gMTAwMCAmIGJldHdlZW4obGF0LCAtNjUsIC0yMCkgJiBiZXR3ZWVuKGxvbiwgMjgwLCAzMTApKQpgYGAKClBlcm8gZXMgbXVjaG8gbWHFmyBlZmljaWVudGUgbGVlciBzw7NsbyBsb3MgZGF0b3MgcXVlIHRlIGludGVyZXNhbiwgZXNwZWNpYWxtZW50ZSBlbiBhcmNoaXZvcyBOZXRDREYgZ3JhbmRlcywgcXVlIGluY2x1c28gbm8gcHVlZGUgc2VyIGxlw61kb3MgZW4gbWVtb3JpYSBlbnRlcm9zLiBgUmVhZE5ldENERigpYCB0aWVuZSB1biBhcmd1bWVudG8gbGxhbWFkbyBgc3Vic2V0YCBxdWUgc2lydmUgcGFyYSBlc3BlY2lmaWNhciBxdcOpIGRhdG9zIGxlZXI6CgpgYGB7cn0KUmVhZE5ldENERigiZGF0b3MvdGVtcGVyYXR1cmEubmMiLCB2YXJzID0gImFpciIsCiAgICAgICAgICAgc3Vic2V0ID0gbGlzdChsZXZlbCA9IDEwMDAsCiAgICAgICAgICAgICAgICAgICAgICAgICBsYXQgPSBjKC02NSwgLTIwKSwKICAgICAgICAgICAgICAgICAgICAgICAgIGxvbiA9IGMoMjgwLCAzMTApKSkgCmBgYAoKQSBgc3Vic2V0YCBoYXkgcXVlIHBhc2FybGUgdW5hIGxpc3RhIGRvbmRlIGNhZGEgZWxlbWVudG8gdGllbmUgZWwgbm9tYnJlIGRlIHVuYSBkaW1lbnNpw7NuIGNvbiB1biB2ZWN0b3IgY3V5byByYW5nbyBkZWZpbmUgZWwgcmFuZ28gZGUgbG9zIGRhdG9zIGEgbGVlci4gRWwgY8OzZGlnbyBkZSBhcnJpYmEsIGVudG9uY2VzLCBkaWNlIHF1ZSBkZSBsYSBkaW1lbnNpw7NuIGBsZXZlbGAgbGVhIMO6bmljYW1lbnRlIGVsIHZhbG9yIDEwMDAsIGRlIGxhIGRpbWVuc2nDs24gYGxhdGAsIGxlYSBsb3MgdmFsb3JlcyBxdWUgdmFuIGVudHJlIC02NSB5IC0yMCwgeSBkZSBsYSBkaW1lbnNpw7NuIGBsb25gLCBsb3MgdmFsb3JlcyBlbnRyZSAyODAgeSAzMTAuIAoKCjo6OnsuYWxlcnQgLmFsZXJ0LWluZm99CioqRGVzYWbDrW8qKiBFbGVnw60gdW5hIHJlZ2nDs24gZGVsIG11bmRvIHkgY29tcGxldMOhIGVsIGPDs2RpZ28gcXVlIHNpZ3VlIHBhcmEgcXVlIGxlYSBsYSB0ZW1wZXJhdHVyYSBlbiBzdXBlcmZpY2llIGRlIGVzYSByZWdpw7NuLiAKCmBgYHtyLCBldmFsID0gRkFMU0V9CnRlbXBlcmF0dXJhIDwtIFJlYWROZXRDREYoImRhdG9zL3RlbXBlcmF0dXJhLm5jIiwgdmFycyA9ICJhaXIiLAogICAgICAgICAgIHN1YnNldCA9IGxpc3QobGV2ZWwgPSAxMDAwLAogICAgICAgICAgICAgICAgICAgICAgICAgbGF0ID0gYyhfX18sIF9fXyksCiAgICAgICAgICAgICAgICAgICAgICAgICBsb24gPSBjKF9fXywgX19fKSkpCmBgYApQYXJhIHJldmlzYXIgc2kgbGXDrXN0ZSBsb3MgZGF0b3MgY29ycmVjdG9zLCBjb3Jyw6kgZXN0ZSBjw7NkaWdvIChubyB0ZSBwcmVvY3VwZXMgc2kgbm8gbG8gZW50ZW5kw6lzKQoKYGBge3IsIGV2YWwgPSBGQUxTRX0KbGlicmFyeShnZ3Bsb3QyKQpnZ3Bsb3QodGVtcGVyYXR1cmEsIGFlcyhsb24sIGxhdCkpICsKICBnZW9tX3Jhc3RlcihhZXMoZmlsbCA9IGFpcikpICsKICBnZW9tX3BhdGgoZGF0YSA9IG1hcF9kYXRhKCJ3b3JsZDIiKSwgYWVzKGxvbmcsIGxhdCwgZ3JvdXAgPSBncm91cCkpCmBgYAoKOjo6CgoKOjo6ey5hbGVydCAuYWxlcnQtc3VjY2Vzc30KUG9uZXJsZSBub21icmUgYSBsYXMgdmFyaWFibGVzIGVzIGEgdmVjZXMgbGEgcGFydGUgbcOhcyBkaWbDrWNpbCBkZSBlc2NyaWJpciBjw7NkaWdvLiBBIFIgbm8gbGUgdmllbmUgYmllbiBjdWFscXVpZXIgbm9tYnJlIGRlIHZhcmlhYmxlIHNpZW1wcmUgeSBjdWFuZG8gbm8gZW1waWVjZSBjb24gdW4gbsO6bWVybyBvIHVuICJfIi4gUGVybyBhIGxvcyBzZXJlcyBodW1hbm9zIHF1ZSBsZWFuIGVsIGPDs2RpZ28geSB0ZW5nYW4gcXVlIGludGVycHJldGFybG9zIGxlcyB2YSBhIHJlc3VsdGFzIG3DoXMgZsOhY2lsIGVudGVuZGVyIHF1w6kgaGFjZSBsYSB2YXJpYWJsZSBgdGVtcGVyYXR1cmFfY29yZG9iYWAgcXVlIGxhIHZhcmlhYmxlIGB4eHkxYC4gCgpFbCBjb25zZWpvIGVzIHRyYXRhciBlbiBsbyBwb3NpYmxlIHVzYXIgbm9tYnJlIGRlc2NyaXB0aXZvcyB5IGNvbnNpc3RlbnRlcy4gUG9yIGVqZW1wbG8sIHNpZW1wcmUgdXNhciBtaW7DunNjdWxhcyB5IHNlcGFyYXIgcGFsYWJyYXMgY29uICJfIi4gCgoqKlRpcCoqOiBQYXJhIGhhY2Vyc2UgbGEgdmlkYSBtw6FzIGbDoWNpbCBleGlzdGVuICJndcOtYXMgZGUgZXN0aWxvIiBwYXJhIHByb2dyYW1hciBxdWUgZXhwbGljaXRhbiByZWdsYXMgZXNwZWPDrWZpY2FzIHBhcmEgZXNjcmliaXIgY8OzZGlnby4gUG9yIGVqZW1wbG8gW2VzdGFdKGh0dHBzOi8vcnB1YnMuY29tL0Z2RC9ndWlhLWVzdGlsby1yKXsuYWxlcnQtbGlua30gbyBbZXN0YSBvdHJhXShodHRwczovL2dpdGh1Yi5jb20vZWxpb2NhbXAvdGVzaXMvYmxvYi9tYXN0ZXIvZG9jcy9ndSVDMyVBRGFfZGVfZXN0aWxvLm1kKXsuYWxlcnQtbGlua30uIFNlIHRyYXRhIGRlIHJlZ2xhcyDDum5pY2FtZW50ZSBwYXJhIGxvcyBvam9zIGh1bWFub3MsIHkgcXVlIG5vIGFmZWN0YW4gZW4gYWJzb2x1dG8gbGEgZWZpY2llbmNpYSBvIGNvcnJlY3RpdHVkIGRlIGxhIHByb2dyYW1hY2nDs24uIEVuIGdlbmVyYWwsIG5vIGV4aXN0ZW4gZ3XDrWFzIGJ1ZW5hcyBvIG1hbGFzLCBsYSBpZGVhIGVzIGVsZWdpciB1bmEgeSBzZXIgY29uc2lzdGVudGUuIERlIGVzdGEgbWFuZXJhLCB2YXMgYSBwb2RlciBlbnRlbmRlciB0dSBjw7NkaWdvIGNvbiBtw6FzIGZhY2lsaWRhZC4gCjo6OgoKCgo8ZGl2IGNsYXNzPSJidG4tZ3JvdXAiIHJvbGU9Imdyb3VwIiBhcmlhLWxhYmVsPSJOYXZlZ2FjacOzbiI+CiAgPGEgaHJlZj0gIjAzLXJlcG9ydGVzLUkuaHRtbCIgY2xhc3MgPSAiYnRuIGJ0bi1wcmltYXJ5Ij5BbnRlcmlvcjwvYT4KICA8YSBocmVmPSAiMDUtZHBseXIuaHRtbCIgY2xhc3MgPSAiYnRuIGJ0bi1wcmltYXJ5Ij5TaWd1aWVudGU8L2E+CjwvZGl2Pg==</div>
 
 
 </div>

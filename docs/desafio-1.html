@@ -11,7 +11,7 @@
 
 
 
-<title>Cómo instalar R y RStudio</title>
+<title>Desafío 1: Leer una base de datos</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,9 +19,6 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -251,69 +248,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -321,16 +255,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -425,61 +349,37 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Cómo instalar R y RStudio</h1>
+<h1 class="title toc-ignore">Desafío 1: Leer una base de datos</h1>
 
 </div>
 
 
-<div id="instalar-r" class="section level2">
-<h2>Instalar R:</h2>
-<div id="ubuntukubuntuxubuntulubuntu-etc" class="section level3">
-<h3>Ubuntu/Kubuntu/Xubuntu/Lubuntu, etc…</h3>
-<p>Ejecutá (es todo un comando)</p>
-<p><code>sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu $(lsb_release -cs)/" | sudo tee -a /etc/apt/sources.list</code></p>
-<p>Ahora</p>
-<p><code>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9</code></p>
-<p>Finalmente, actualizá las fuentes de los repositorios e instalá R con:</p>
-<p><code>sudo apt update</code> <code>sudo apt install -y r-base r-base-dev</code></p>
-<p>Si todo salió bien, tenés que tener instalado R en tu máquina y podés ejecutarlo con el comando R en la consola.</p>
+<p>El objetivo de este desafío es que armes un proyecto y que leas una archivo de datos para aplicar lo que aprendas en el resto del curso.</p>
+<div id="creá-un-proyecto-de-rstudio" class="section level3">
+<h3>1. Creá un proyecto de RStudio</h3>
+<p>Si te olvidaste cómo se hace, revisa <a href="02-proyectos.html">esta sección</a>. Asegurate de usar un nombre descriptivo, asociado a los datos o el análisis que tenés en mente.</p>
 </div>
-<div id="otras-distribuciones-basadas-en-ubuntu" class="section level3">
-<h3>Otras distribuciones basadas en Ubuntu</h3>
-<p>Primero tenés que saber el nombre de la versión de Ubuntu está basada y luego ejecutar:</p>
-<p><code>sudo echo “deb http://cran.rstudio.com/bin/linux/debian NOMBRE/” | sudo tee -a /etc/apt/sources.list</code></p>
-<p>Reemplazando <code>NOMBRE</code> por el nombre de la versión y siguiendo los pasos 2 y 3.</p>
+<div id="decidí-que-datos-usar" class="section level3">
+<h3>2. Decidí que datos usar</h3>
+<p>Buscá algún set de datos que hayas usado para algo o quieras usar. Puede ser en formato .csv o de Excel. Guardalo en una carpeta llamada “datos” dentro de la carpeta de tu proyecto.</p>
 </div>
-<div id="otras-distribuciones-no-basadas-en-ubuntu" class="section level3">
-<h3>Otras distribuciones no basadas en Ubuntu</h3>
-<p>Si tenés Debian, podés seguir los mismos pasos que antes pero ejecutar</p>
-<p><code>sudo echo “deb http://cran.rstudio.com/bin/linux/debian CODENAME-cran34/” | sudo tee -a /etc/apt/sources.list</code> en el paso 2.</p>
+<div id="lee-los-datos-en-r" class="section level3">
+<h3>3. Lee los datos en R</h3>
+<p>Creá un archivo de RMarkdown (por las dudas, <a href="03-reportes-I.html">esta es la sección asociada</a>). Además de un título informativo, describí los datos con tus palabras. ¿Cuál es la fuente? ¿Qué variables incluyen? Armá un <em>chunk</em> para leer los datos (podés revisar <a href="04-lectura.html">esta sección</a> y mostralos. ¿Cuántas obervaciones tiene? ¿Qué tipo de datos tiene cada columna?</p>
 </div>
-<div id="windows" class="section level3">
-<h3>Windows</h3>
-<p>Entrá a <a href="https://cran.r-project.org/bin/windows/base/">https://cran.r-project.org/bin/windows/base/</a> y bajate el instalador haciendo click en el link grandote que dice “Download R 4.0.0 for Windows”. Una vez que se bajó, hacé doble click en el archivo y seguí las instrucciones del instalador.</p>
+<div id="generá-nuevas-columnas" class="section level3">
+<h3>4. Generá nuevas columnas</h3>
+<p>Es posible que necesites alguna nueva variable, por ejemplo la suma entre otras dos columnas para calcular un total o la diferencia entre otras dos. La clave será usar la función <code>mutate()</code> (como viste en <a href="05-dplyr.html#Creando_nuevas_columnas_con_mutate()">esta sección</a>) y ya que estamos aplicá otro verbo de {dplyr} para seleccionar esas nuevas columnas y mostrarlas (fijate <a href="05-dplyr.html#Seleccionando_columnas_con_select()">acá</a> si necesitás refrescar la memoria).</p>
+<p>Hacé cada operación en un <em>chunk</em> separado explicando en el texto qué hace cada paso, por qué y qué esperás encontrar.</p>
 </div>
-</div>
-<div id="instalar-rstudio" class="section level2">
-<h2>Instalar RStudio</h2>
-<p>Ir a <a href="https://www.rstudio.com/products/rstudio/download/#download">https://www.rstudio.com/products/rstudio/download/#download</a> y abajo de todo está el listado de instaladores para cada plafatorma.</p>
-<div id="ubuntu-o-derivados" class="section level3">
-<h3>Ubuntu o derivados</h3>
-<p>Si tenés instalado una interfaz gráfica para instalar archivos .deb, ejecutando el archivo que descargaste ya vas a poder instalar RStudio. Si no, abrí una terminal en el directorio donde bajaste el archivo y ejecutá</p>
-<p><code>sudo dpkg -i ARCHIVO</code></p>
-<p>Reemplazando <code>ARCHIVO</code> por el nombre del archivo instalador.</p>
-<p>Es posible que salte algún error por falta de alguna dependencia, en ese caso usá</p>
-<p><code>sudo apt-get -f install</code></p>
-<p>Y debería estar arreglado.</p>
-</div>
-<div id="windows-1" class="section level3">
-<h3>Windows</h3>
-<p>Como siempre, doble click en el archivo y seguir los pasos de instalación.</p>
-</div>
+<div id="resumen-de-datos" class="section level3">
+<h3>5. Resumen de datos</h3>
+<p>Ahora calculá un promedio o determiná el valor máximo o mínimo de alguna columna usando <code>summarise()</code>. Si tu base de datos tiene alguna variable con categorías, también probá hacer los mismos cálculos pero agrupando las observaciones (viste esto <a href="05-dplyr.html#Agrupando_y_reduciendo_con_group_by()_%%_summarise()">en esta sección</a>).</p>
+<p>Podés analizar los datos tanto como se te ocurra, la idea es que te familiarices con los verbos de {dplyr} al mismo tiempo que sacas información de la base de datos que estás utilizando.</p>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -512,32 +412,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

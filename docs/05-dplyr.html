@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -25,13 +25,14 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -41,14 +42,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -57,9 +60,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -183,33 +186,33 @@ summary {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 60px;
+  padding-top: 51px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h2 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h3 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h4 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h5 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h6 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .dropdown-submenu {
   position: relative;
@@ -442,16 +445,16 @@ div.tocify {
       <a href="01-introduccion.html">Introducción</a>
     </li>
     <li>
-      <a href="02-proyectos.html">Proyectos</a>
+      <a href="02-proyectos.html">Proyectos de RStudio</a>
     </li>
     <li>
       <a href="03-reportes-I.html">Reportes I</a>
     </li>
     <li>
-      <a href="04-lectura-datos.html">Lectura de datos</a>
+      <a href="04-lectura.html">Lectura de datos</a>
     </li>
     <li>
-      <a href="05-dplyr-I.html">Manipulación de datos I</a>
+      <a href="05-dplyr.html">Manipulación de datos I</a>
     </li>
     <li>
       <a href="06-graficos-I.html">Gráficos I</a>
@@ -484,10 +487,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="desafio-1.html">Leer datos</a>
-    </li>
-    <li>
-      <a href="desafio-2.html">Analizar datos</a>
+      <a href="desafio-1.html">Leer y analizar datos</a>
     </li>
     <li>
       <a href="desafio-3.html">Graficar datos</a>
@@ -542,20 +542,12 @@ div.tocify {
 </ul>
 </div>
 <p>Para usar {dplyr} primero hay que instalarlo con el comando:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&#39;dplyr&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&#39;dplyr&#39;</span>)</span></code></pre></div>
 <p>o junto con todos los paquetes del universo de Tidyverse y luego cargarlo en memoria con</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
 <p>Cargar los datos de la estación de Bariloche (para un recordatorio, podés ir a <a href="04-lectura-datos.html">Lectura de datos ordenados</a>):</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche_enlimpio.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche_enlimpio.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   .default = col_logical(),
@@ -581,7 +573,7 @@ div.tocify {
 <div id="seleccionando-columnas-con-select" class="section level2">
 <h2>Seleccionando columnas con <code>select()</code></h2>
 <p>Para quedarse únicamente con las columnas de Fecha, Temperatura_Abrigo_150cm y Humedad_Media podés usar <code>select()</code>, el primer argumento es siempre el data.frame:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">select</span>(bariloche, Fecha, Temperatura_Abrigo_150cm, Humedad_Media) <span class="co"># Ojo con las mayúsculas!</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">select</span>(bariloche, Fecha, Temperatura_Abrigo_150cm, Humedad_Media) <span class="co"># Ojo con las mayúsculas!</span></span></code></pre></div>
 <pre><code>## # A tibble: 3,024 x 3
 ##    Fecha               Temperatura_Abrigo_150cm Humedad_Media
 ##    &lt;dttm&gt;                                 &lt;dbl&gt;         &lt;dbl&gt;
@@ -597,7 +589,7 @@ div.tocify {
 ## 10 2011-06-06 00:00:00                     5.45            91
 ## # … with 3,014 more rows</code></pre>
 <p>¿Dónde quedó este resultado? Si te fijás en la variable <code>bariloche</code>, ésta está intacta:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">bariloche</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>bariloche</span></code></pre></div>
 <pre><code>## # A tibble: 3,024 x 31
 ##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
 ##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
@@ -626,8 +618,8 @@ div.tocify {
 ## #   Velocidad_Viento_Maxima &lt;lgl&gt;, Presion_Media &lt;lgl&gt;, Radiacion_Global &lt;lgl&gt;,
 ## #   Horas_Frio &lt;dbl&gt;, Unidades_Frio &lt;dbl&gt;, mes &lt;chr&gt;</code></pre>
 <p><code>select()</code> y el resto de las funciones de {dplyr} siempre generan una nueva tabla y nunca modifican la tabla original. Para guardar la tabla con las tres columnas <code>Fecha</code>, <code>Temperatura_Abrigo_150cm</code> y <code>Humedad_Media</code> tenés que asignar el resultado a una nueva variable.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">temp_hum &lt;-<span class="st"> </span><span class="kw">select</span>(bariloche, Fecha, Temperatura_Abrigo_150cm, Humedad_Media)</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">temp_hum</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>temp_hum &lt;-<span class="st"> </span><span class="kw">select</span>(bariloche, Fecha, Temperatura_Abrigo_150cm, Humedad_Media)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>temp_hum</span></code></pre></div>
 <pre><code>## # A tibble: 3,024 x 3
 ##    Fecha               Temperatura_Abrigo_150cm Humedad_Media
 ##    &lt;dttm&gt;                                 &lt;dbl&gt;         &lt;dbl&gt;
@@ -643,14 +635,14 @@ div.tocify {
 ## 10 2011-06-06 00:00:00                     5.45            91
 ## # … with 3,014 more rows</code></pre>
 <div class="figure">
-<img src="img/dplyr-select.png" alt="Cómo funciona select()" />
+<img src="img/dplyr-select.png" alt="" />
 <p class="caption">Cómo funciona <code>select()</code></p>
 </div>
 </div>
 <div id="filtrando-filas-con-filter" class="section level2">
 <h2>Filtrando filas con <code>filter()</code></h2>
 <p>Ahora podés usar <code>filter()</code> para quedarte con sólo unas filas. Por ejemplo, para ver aquellos días con temperatura menor a 0 grados:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">filter</span>(temp_hum, Temperatura_Abrigo_150cm <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">filter</span>(temp_hum, Temperatura_Abrigo_150cm <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 38 x 3
 ##    Fecha               Temperatura_Abrigo_150cm Humedad_Media
 ##    &lt;dttm&gt;                                 &lt;dbl&gt;         &lt;dbl&gt;
@@ -668,9 +660,9 @@ div.tocify {
 <p>La mayoría de los análisis consisten en varios pasos (en el primer desafío usaste 4 pasos para calcular las temperaturas medias de una serie de estaciones). La única tabla que te interesa es la última, por lo que ir asignando variables nuevas en cada paso intermedio es tedioso y poco práctico. Para eso se usa el operador ‘pipe’ (<code>%&gt;%</code>).</p>
 <p>El operador ‘pipe’ (<code>%&gt;%</code>) agarra el resultado de una función y se lo pasa a la siguiente. Esto permite escribir el código como una cadena de funciones que van operando sobre el resultado de la anterior.</p>
 <p>Las dos operaciones anteriores (seleccionar tres columnas y luego filtar las filas correspondientes temperaturas menores a 0°C) se pueden escribir uno después del otro y sin asignar los resultados intermedios a nuevas variables de esta forma:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(Fecha, Temperatura_Abrigo_150cm, Humedad_Media) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(Temperatura_Abrigo_150cm <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw">select</span>(Fecha, Temperatura_Abrigo_150cm, Humedad_Media) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="st">  </span><span class="kw">filter</span>(Temperatura_Abrigo_150cm <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 38 x 3
 ##    Fecha               Temperatura_Abrigo_150cm Humedad_Media
 ##    &lt;dttm&gt;                                 &lt;dbl&gt;         &lt;dbl&gt;
@@ -694,17 +686,17 @@ div.tocify {
 <div class="alert alert-info">
 <p><strong>Desafío:</strong></p>
 <p>Completá esta cadena para producir una tabla que contenga los valores de Fecha, Temperatura del suelo y la Humedad únicamente cuando la Humedad es igual a 100%.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(Humedad_Media <span class="op">==</span><span class="st"> </span>___) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(___, ___, ___)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="st">  </span><span class="kw">filter</span>(Humedad_Media <span class="op">==</span><span class="st"> </span>___) <span class="op">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="st">  </span><span class="kw">select</span>(___, ___, ___)</span></code></pre></div>
 </div>
 </div>
 <div id="agrupando-y-reduciendo-con-group_by-summarise" class="section level2">
 <h2>Agrupando y reduciendo con <code>group_by() %&gt;% summarise()</code></h2>
 <p>Si querés calcular la temperatura media para cada mes, tenés que usar el combo <code>group_by() %&gt;% summarise()</code>. Es decir, primero agrupar la tabla según la columna <code>mes</code> y luego calcular un promedio de <code>Temperatura_Abrigo_150cm</code> para cada grupo.</p>
 <p>Para agrupar la tabla bariloche según el mes usamos el siguiente código:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(mes) </a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) </span></code></pre></div>
 <pre><code>## # A tibble: 3,024 x 31
 ## # Groups:   mes [12]
 ##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
@@ -735,9 +727,9 @@ div.tocify {
 ## #   Horas_Frio &lt;dbl&gt;, Unidades_Frio &lt;dbl&gt;, mes &lt;chr&gt;</code></pre>
 <p>A primera vista parecería que la función no hizo nada, pero fijate que el resultado ahora dice que tiene grupos (“Groups:”), y nos dice qué columna es la que agrupa los datos (“mes”) y cuántos grupos hay (“12”). Las operaciones subsiguientes que le hagamos a esta tabla van a hacerse <em>para cada grupo</em>.</p>
 <p>Para ver esto en acción, usá <code>summarise()</code> para computar el promedio de la temperatura:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Temperatura_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm))</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Temperatura_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm))</span></code></pre></div>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 12 x 2
 ##    mes        Temperatura_media
@@ -756,9 +748,9 @@ div.tocify {
 ## 12 septiembre              NA</code></pre>
 <p>¡Tadá! <code>summarise()</code> devuelve una tabla con una columna para el continente y otra nueva, llamada “Temperatura_media” que contiene el promedio de <code>Temperatura_Abrigo_150cm</code> para cada grupo. Pero… aparecen muchos datos faltantes, cuando en realidad hay muchas observaciones para cada mes.</p>
 <p>Si revisamos la ayuda de la función <code>mean()</code>, vemos que tiene un argumento que por defecto es <code>na.rm = FALSE</code>, esto significa que si al menos una observación es <code>NA</code>, el resultado será <code>NA</code>. Cambiemos estre argumento a <code>TRUE</code> para cambiar el comportamiento de la función.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Temperatura_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Temperatura_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 12 x 2
 ##    mes        Temperatura_media
@@ -779,15 +771,15 @@ div.tocify {
 <div class="alert alert-info">
 <p><strong>Desafío:</strong></p>
 <p>¿Cuál te imaginás que va a ser el resultado del siguiente código? ¿Cuántas filas y columnas va a tener? (Tratá de pensarlo antes de correrlo.)</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Temperatura_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm))</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Temperatura_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm))</span></code></pre></div>
 </div>
 <p>El combo <code>group_by() %&gt;% summarise()</code> se puede resumir en esta figura. Las filas de una tabla se dividen en grupos, y luego cada grupo se “resume” en una fila en función del estadístico usado.</p>
 <p><img src="img/group_by-summarize.png" /></p>
 <p>Al igual que hicimos “cuentas” usando algunas variables numéricas para obtener información nueva, también podemos utilizar variables categóricas. No tiene sentido calcular <code>mean(mes)</code> ya que contienen caracteres, pero tal vez nos interese <em>contar</em> la cantidad de observaciones por mes:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">cantidad =</span> <span class="kw">n</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">cantidad =</span> <span class="kw">n</span>())</span></code></pre></div>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 12 x 2
 ##    mes        cantidad
@@ -806,9 +798,9 @@ div.tocify {
 ## 12 septiembre      252</code></pre>
 <div class="alert alert-success">
 <p>En R se puede resolver un problema de muchas maneras, por ejemplo, el código anterior y el que sigue dan resultados equivalentes:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="st">  </span><span class="kw">count</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="st">  </span><span class="kw">count</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 12 x 2
 ## # Groups:   mes [12]
 ##    mes            n
@@ -832,8 +824,8 @@ div.tocify {
 <h2>Creando nuevas columnas con <code>mutate()</code></h2>
 <p>Todo esto está bien para hacer cálculos con columnas previamente existentes, pero muchas veces tenés que crear nuevas columnas.</p>
 <p>La tabla <code>bariloche</code> tiene información de temperaturas en grados centigrados y puede ser necesario convertirlas a kelvin. <code>mutate()</code> permite agregar una nueva columna llamada “Temperatura_kelvin” con esa información:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_kelvin =</span> Temperatura_Abrigo_150cm <span class="op">+</span><span class="st"> </span><span class="dv">273</span>,<span class="dv">15</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_kelvin =</span> Temperatura_Abrigo_150cm <span class="op">+</span><span class="st"> </span><span class="dv">273</span>,<span class="dv">15</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3,024 x 33
 ##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
 ##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
@@ -864,8 +856,8 @@ div.tocify {
 ## #   `15` &lt;dbl&gt;</code></pre>
 <p>Recordá que las funciones de {dplyr} nunca modifican la tabla original. <code>mutate()</code> devolvió una nueva tabla que es igual a la tabla <code>bariloche</code> pero con la columna “Temperatura_kelvin” agregada. La tabla <code>bariloche</code> sigue intacta.</p>
 <p>Si quiseramos aplicar la misma operación a todas las columnas que tienen temperatura, la función <code>across()</code> brinda un atajo para no tener que aplicar <code>mutate()</code> una y otra vez a cada cada columna.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="st">  </span><span class="kw">summarise</span>(<span class="kw">across</span>(<span class="kw">starts_with</span>(<span class="st">&quot;Temperatura&quot;</span>), <span class="op">~</span>.x <span class="op">+</span><span class="st"> </span><span class="dv">273</span>,<span class="dv">15</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="kw">across</span>(<span class="kw">starts_with</span>(<span class="st">&quot;Temperatura&quot;</span>), <span class="op">~</span>.x <span class="op">+</span><span class="st"> </span><span class="dv">273</span>,<span class="dv">15</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 3,024 x 9
 ##    Temperatura_Abr… Temperatura_Abr… Temperatura_Abr… Temperatura_Int…
 ##               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
@@ -892,16 +884,16 @@ div.tocify {
 <div class="alert alert-info">
 <p><strong>Desafío</strong></p>
 <p>Si quiseras calcular la temperatura media para cada día y guardarla en una nueva variable, ¿cómo completarías el siguiente código?</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">____ =</span> ____)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">____ =</span> ____)</span></code></pre></div>
 </div>
 <p>Ahora imaginemos que necesitamos modificar algunas observaciones, aquellas que cumplen con una condición. Por ejemplo, descubrimos que cuando la humedad es 100%, el sensor de temperatura no funciona correctamente y necesitamos aplicarle una correción de -2° en esas situaciones.</p>
 <p>Podríamos filtrar las observaciones que cumplen con que <code>Humedad_Media == 100</code> y luego modificar la temperatura, pero entonces tendríamos una base de datos para las observaciones con mayor humedad y la temperatura corregida y otra base de datos sin la corrección. Necesitamos poder modifiar <em>solo algunas</em> observaciones y que el resto se mantenga igual.</p>
 <p>Para eso podemos utilizar la función <code>if_else()</code>, que aplica una operación <em>si ocurre algo</em> y otra operación <em>si no</em>. En este caso si <code>Humedad_Media == 100</code> es verdadera, restamos 2 grados a la Temeperatura, si es falsa no la modificamos. Y por supuesto se la aplicamos a la columna con <code>mutate()</code></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_Abrigo_150cm =</span> <span class="kw">if_else</span>(Humedad_Media <span class="op">==</span><span class="st"> </span><span class="dv">100</span>,       <span class="co"># Condición</span></a>
-<a class="sourceLine" id="cb39-3" data-line-number="3">                                            Temperatura_Abrigo_150cm <span class="dv">-2</span>,<span class="co"># Si es verdadera</span></a>
-<a class="sourceLine" id="cb39-4" data-line-number="4">                                            Temperatura_Abrigo_150cm))  <span class="co"># Si es falsa</span></a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_Abrigo_150cm =</span> <span class="kw">if_else</span>(Humedad_Media <span class="op">==</span><span class="st"> </span><span class="dv">100</span>,       <span class="co"># Condición</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a>                                            Temperatura_Abrigo_150cm <span class="dv">-2</span>,<span class="co"># Si es verdadera</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a>                                            Temperatura_Abrigo_150cm))  <span class="co"># Si es falsa</span></span></code></pre></div>
 <pre><code>## # A tibble: 3,024 x 31
 ##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
 ##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
@@ -944,18 +936,18 @@ div.tocify {
 <div class="alert alert-info">
 <p><strong>Desafío:</strong></p>
 <p>¿Cuál de estos dos códigos agrega una columna llamada “Temperatura_max_media” con el la temperatura máxima media para cada mes? ¿Qué hace el otro?</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_max_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
-<a class="sourceLine" id="cb41-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb41-5" data-line-number="5">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb41-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_max_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))  </a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_max_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </span>
+<span id="cb38-4"><a href="#cb38-4"></a></span>
+<span id="cb38-5"><a href="#cb38-5"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_max_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))  </span></code></pre></div>
 </div>
 <p>En otras palabras, los resultados de <code>mutate()</code>, <code>filter()</code>, <code>summarise()</code> y otras funciones cambian según si la tabla está agrupada o no. Como a veces uno se puede olvidar que quedaron grupos, es conveniente usar la función <code>ungroup()</code> una vez que dejás de trabajar con grupos:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_max_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb42-4" data-line-number="4"><span class="st">  </span><span class="kw">ungroup</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_max_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="st">  </span><span class="kw">ungroup</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 3,024 x 32
 ##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
 ##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
