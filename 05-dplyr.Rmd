@@ -1,0 +1,288 @@
+---
+title: "Manipulación de datos ordenados usando {dplyr} - Primera parte"
+output: 
+  html_document:
+    code_download: true
+    toc: true
+    toc_float: true
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+El paquete {dplyr} provee una enorme cantidad de funciones útiles para manipular y analizar datos de manera intuitiva y expresiva. 
+
+El espíritu detrás de {dplyr} es que la enorme mayoría de los análisis, por más complicados que sean, involucran combinar y encadenar una serie relativamente acotada de acciones (o verbos). Vamos a comenzar a trabajar con las cinco más comunes:
+
+  * `select()`: selecciona columnas de una tabla.
+  * `filter()`: selecciona (o filtra) filas de una tabla a partir de una o más condiciones lógicas.
+  * `group_by()`: agrupa una tabla en base al valor de una o más columnas.
+  * `mutate()`: agrega nuevas columnas a una tabla.
+  * `summarise()`: calcula estadísticas para cada grupo de una tabla.
+
+::: {.alert .alert-info}
+**Primer desafío:**
+
+Te dieron una tabla con datos de temperatura mínima y máxima para distintas estaciones meteorológicas de todo el país durante los 365 días de un año. Las columnas son: `id_estacion`, `temperatura_maxima`, `temperatura_minima` y `provincia`. En base a esos datos, te piden que computen la temperatura media anual de cada estación únicamente de las estaciones de La Pampa. 
+
+¿En qué orden ejecutarías estos pasos para obtener el resultado deseado? Todavía sin correr ninguna línea de código.
+
+* usar `summarise()` para calcular la estadística `mean(temperatura_media)` para cada `id_estacion`
+* usar `group_by()` para agrupar por la columna `id_estacion`
+* usar `mutate()` para agregar una columna llamada `temperatura_media` que sea `(temperatura_minima + temperatura_maxima)/2`.
+* usar `filter()` para seleccionar solo las filas donde la columnas `provincia` es igual a "La Pampa"
+:::
+
+Para usar {dplyr} primero hay que instalarlo con el comando:
+
+```{r, eval = FALSE}
+install.packages('dplyr')
+```
+
+o junto con todos los paquetes del universo de Tidyverse y luego cargarlo en memoria con
+
+```{r}
+library(dplyr)
+```
+
+Cargar los datos de la estación de Bariloche (para un recordatorio, podés ir a [Lectura de datos ordenados](04-lectura-datos.html)):
+
+```{r}
+library(readr)
+bariloche <- read_csv("datos/bariloche_enlimpio.csv")
+```
+
+## Seleccionando columnas con `select()`
+
+Para quedarse únicamente con las columnas de Fecha, Temperatura_Abrigo_150cm y Humedad_Media podés usar `select()`, el primer argumento es siempre el data.frame:
+  
+```{r}
+select(bariloche, Fecha, Temperatura_Abrigo_150cm, Humedad_Media) # Ojo con las mayúsculas!
+```
+
+¿Dónde quedó este resultado? Si te fijás en la variable `bariloche`, ésta está intacta:
+
+```{r}
+bariloche
+```
+
+`select()` y el resto de las funciones de {dplyr} siempre generan una nueva tabla y nunca modifican la tabla original. Para guardar la tabla con las tres columnas `Fecha`, `Temperatura_Abrigo_150cm` y `Humedad_Media` tenés que asignar el resultado a una nueva variable.
+
+```{r}
+temp_hum <- select(bariloche, Fecha, Temperatura_Abrigo_150cm, Humedad_Media)
+temp_hum
+```
+
+![Cómo funciona `select()`](img/dplyr-select.png)
+
+## Filtrando filas con `filter()`
+
+Ahora podés usar `filter()` para quedarte con sólo unas filas. Por ejemplo, para ver aquellos días con temperatura menor a 0 grados:
+
+```{r}
+filter(temp_hum, Temperatura_Abrigo_150cm < 0)
+```
+
+La mayoría de los análisis consisten en varios pasos (en el primer desafío usaste 4 pasos para calcular las temperaturas medias de una serie de estaciones). La única tabla que te interesa es la última, por lo que ir asignando variables nuevas en cada paso intermedio es tedioso y poco práctico. Para eso se usa el operador 'pipe' (`%>%`). 
+
+El operador 'pipe' (`%>%`) agarra el resultado de una función y se lo pasa a la siguiente. Esto permite escribir el código como una cadena de funciones que van operando sobre el resultado de la anterior.
+
+Las dos operaciones anteriores (seleccionar tres columnas y luego filtar las filas correspondientes temperaturas menores a 0°C) se pueden escribir uno después del otro y sin asignar los resultados intermedios a nuevas variables de esta forma:
+
+```{r}
+bariloche %>% 
+  select(Fecha, Temperatura_Abrigo_150cm, Humedad_Media) %>% 
+  filter(Temperatura_Abrigo_150cm < 0)
+```
+
+La forma de "leer" esto es "Tomá la variable `bariloche`, **después** aplicale `select(Fecha, Temperatura_Abrigo_150cm, Humedad_Media)`, **después** aplicale `filter(Temperatura_Abrigo_150cm < 0)`". 
+
+Cómo vimos, el primero argumento de todas las funciones de dplyr espera un data.frame y justamente el operador `%>%` toma el data.frame `bariloche` y se lo pasa al primer argumento de `select()`. Luego el data.frame resultante de seleccionar las columnas Fecha, Temperatura_Abrigo_150cm y Humedad_Media *pasa* como el primer argumento de la función `filter()` gracias al `%>%`.
+
+
+::: {.alert .alert-success}
+**Tip:**
+
+En RStudio podés escribir `%>%` usando el atajo de teclado Ctr + Shift + M. ¡Probalo!
+:::
+
+
+::: {.alert .alert-info}
+**Desafío:**
+
+Completá esta cadena para producir una tabla que contenga los valores de Fecha, Temperatura del suelo y la Humedad únicamente cuando la Humedad es igual a 100%. 
+
+```{r, eval = FALSE}
+bariloche %>% 
+  filter(Humedad_Media == ___) %>%
+  select(___, ___, ___)
+```
+
+:::
+
+## Agrupando y reduciendo con `group_by() %>% summarise()`
+
+Si querés calcular la temperatura media para cada mes, tenés que usar el combo `group_by() %>% summarise()`. Es decir, primero agrupar la tabla según la columna `mes` y luego calcular un promedio de `Temperatura_Abrigo_150cm` para cada grupo.
+
+Para agrupar la tabla bariloche según el mes usamos el siguiente código:
+
+```{r}
+bariloche %>% 
+  group_by(mes) 
+```
+
+A primera vista parecería que la función no hizo nada, pero fijate que el resultado ahora dice que tiene grupos ("Groups: "), y nos dice qué columna es la que agrupa los datos ("mes") y cuántos grupos hay ("12"). Las operaciones subsiguientes que le hagamos a esta tabla van a hacerse *para cada grupo*. 
+
+Para ver esto en acción, usá `summarise()` para computar el promedio de la temperatura:
+
+```{r}
+bariloche %>% 
+  group_by(mes) %>% 
+  summarise(Temperatura_media = mean(Temperatura_Abrigo_150cm))
+```
+
+¡Tadá! `summarise()` devuelve una tabla con una columna para el continente y otra nueva, llamada "Temperatura_media" que contiene el promedio de `Temperatura_Abrigo_150cm` para cada grupo. Pero... aparecen muchos datos faltantes, cuando en realidad hay muchas observaciones para cada mes. 
+
+Si revisamos la ayuda de la función `mean()`, vemos que tiene un argumento que por defecto es `na.rm = FALSE`, esto significa que si al menos una observación es `NA`, el resultado será `NA`. Cambiemos estre argumento a `TRUE` para cambiar el comportamiento de la función.
+
+```{r}
+bariloche %>% 
+  group_by(mes) %>% 
+  summarise(Temperatura_media = mean(Temperatura_Abrigo_150cm, na.rm = TRUE))
+```
+
+Ahora si, tenemos la temperatura media para cada mes. `group_by()` permite agrupar en base a múltiples columnas y `summarise()` permite generar múltiples columnas de resumen. El resultado va a siempre ser una tabla con la misma cantidad de filas que grupos y una cantidad de columnas igual a la cantidad de columnas usadas para agrupar y los estadísticos computados. 
+
+::: {.alert .alert-info}
+**Desafío:**
+
+¿Cuál te imaginás que va a ser el resultado del siguiente código? ¿Cuántas filas y columnas va a tener? (Tratá de pensarlo antes de correrlo.)
+
+```{r, eval = FALSE}
+bariloche %>% 
+  summarise(Temperatura_media = mean(Temperatura_Abrigo_150cm))
+```
+:::
+
+El combo `group_by() %>% summarise()` se puede resumir en esta figura. Las filas de una tabla se dividen en grupos, y luego cada grupo se "resume" en una fila en función del estadístico usado. 
+
+![](img/group_by-summarize.png)
+
+Al igual que hicimos "cuentas" usando algunas variables numéricas para obtener información nueva, también podemos utilizar variables categóricas. No tiene sentido calcular `mean(mes)` ya que contienen caracteres, pero tal vez nos interese *contar* la cantidad de observaciones por mes:
+
+```{r}
+bariloche %>% 
+  group_by(mes) %>% 
+  summarise(cantidad = n())
+```
+
+:::{.alert .alert-success}
+
+En R se puede resolver un problema de muchas maneras, por ejemplo, el código anterior y el que sigue dan resultados equivalentes:
+```{r}
+bariloche %>% 
+  group_by(mes) %>% 
+  count()
+```
+
+En este caso `count()` es análogo a `summarise(cantidad = n())`.
+:::
+
+## Creando nuevas columnas con `mutate()`
+
+Todo esto está bien para hacer cálculos con columnas previamente existentes, pero muchas veces tenés que crear nuevas columnas. 
+
+La tabla `bariloche` tiene información de temperaturas en grados centigrados y puede ser necesario convertirlas a kelvin. `mutate()` permite agregar una nueva columna llamada "Temperatura_kelvin" con esa información:
+
+```{r}
+bariloche %>% 
+  mutate(Temperatura_kelvin = Temperatura_Abrigo_150cm + 273,15)
+```
+
+Recordá que las funciones de {dplyr} nunca modifican la tabla original. `mutate()` devolvió una nueva tabla que es igual a la tabla `bariloche` pero con la columna "Temperatura_kelvin" agregada. La tabla `bariloche` sigue intacta.
+
+Si quiseramos aplicar la misma operación a todas las columnas que tienen temperatura, la función `across()` brinda un atajo para no tener que aplicar `mutate()` una y otra vez a cada cada columna.
+
+```{r}
+bariloche %>% 
+  summarise(across(starts_with("Temperatura"), ~.x + 273,15))
+```
+
+Varias cosas pasaron acá:
+
+- El resultado *solo* incluye las columnas asociadas a la temperatura.
+- No fue necesario escribir el nombre de cada columna, la función `start_with()` automáticamente busca las columnas que *comienzan con* la palabra que indicamos, en este caso "Temperatura".
+- Usamos la notación *funcional* de R, que arranca con `~` y luego le indicamos que a .x (cada columna) le sume 273,15. 
+
+:::{.alert .alert-info}
+
+**Desafío**
+
+Si quiseras calcular la temperatura media para cada día y guardarla en una nueva variable, ¿cómo completarías el siguiente código?
+
+```{r eval=FALSE}
+bariloche %>% 
+  mutate(____ = ____)
+```
+:::
+
+Ahora imaginemos que necesitamos modificar algunas observaciones, aquellas que cumplen con una condición. Por ejemplo, descubrimos que cuando la humedad es 100%, el sensor de temperatura no funciona correctamente y necesitamos aplicarle una correción de -2° en esas situaciones. 
+
+Podríamos filtrar las observaciones que cumplen con que `Humedad_Media == 100` y luego modificar la temperatura, pero entonces tendríamos una base de datos para las observaciones con mayor humedad y la temperatura corregida y otra base de datos sin la corrección. Necesitamos poder modifiar *solo algunas* observaciones y que el resto se mantenga igual.
+
+Para eso podemos utilizar la función `if_else()`, que aplica una operación *si ocurre algo* y otra operación *si no*. En este caso si `Humedad_Media == 100` es verdadera, restamos 2 grados a la Temeperatura, si es falsa no la modificamos. Y por supuesto se la aplicamos a la columna con `mutate()`
+
+```{r}
+bariloche %>% 
+  mutate(Temperatura_Abrigo_150cm = if_else(Humedad_Media == 100,       # Condición
+                                            Temperatura_Abrigo_150cm -2,# Si es verdadera
+                                            Temperatura_Abrigo_150cm))  # Si es falsa
+```
+
+:::{.alert .alert-success}
+
+La mayoría de las funciones de R pueden trabajar sobre vectores (y las columnas de un data.frame son como vectores ordenados!) y lo hacen **elemento a elemento**. 
+
+En este caso `if_else()` recorre la columa con la información de humedad y *elemento a elemento* revisa si el valor es igual a 100. Luego decide si debe modificar o no cada elemento, en el orden en el que aparecen.
+:::
+
+:::{.alert .alert-info}
+
+**Desafío**
+
+Ahora es tu turno, "arreglá" las variables `Temperatura_Abrigo_150cm_Maxima` y `Temperatura_Abrigo_150cm_Minima` para aplicar la misma corrección de 2 grados. 
+:::
+
+## Desagrupando con `ungroup()`
+
+En general, la mayoría de las funciones de {dplyr} "entienden" cuando una tabla está agrupada y realizan las operaciones para cada grupo. 
+
+::: {.alert .alert-info}
+**Desafío:**
+
+¿Cuál de estos dos códigos agrega una columna llamada "Temperatura_max_media" con el la temperatura máxima media para cada mes? ¿Qué hace el otro?
+
+```{r, eval = FALSE}
+bariloche %>% 
+  group_by(mes) %>% 
+  mutate(Temperatura_max_media = mean(Temperatura_Abrigo_150cm_Maxima, na.rm = TRUE)) 
+
+bariloche %>% 
+  mutate(Temperatura_max_media = mean(Temperatura_Abrigo_150cm_Maxima, na.rm = TRUE))  
+```
+:::
+
+En otras palabras, los resultados de `mutate()`, `filter()`, `summarise()` y otras funciones cambian según si la tabla está agrupada o no. Como a veces uno se puede olvidar que quedaron grupos, es conveniente usar la función `ungroup()` una vez que dejás de trabajar con grupos:
+
+```{r}
+bariloche %>% 
+  group_by(mes) %>% 
+  mutate(Temperatura_max_media = mean(Temperatura_Abrigo_150cm_Maxima, na.rm = TRUE)) %>%  
+  ungroup()
+```
+
+
+
