@@ -204,3 +204,15 @@ Usando el archivo con el que venís trabajando insertá un nuevo chunk y:
 3. Mostrá ese valor.
 4. Volvé a *knitear* el archivo para ver el resultado
 :::
+
+### Texto en línea
+
+Finalmente es posible que te encuentres mencionando resultados en el texto, por ejemplo algo así como "la media de temperatura mínima para el mes de marzo fue de 18 grados". Y también es posible que ese valor cambie si utilizas una base de datos distinta o si luego generas un informe pero para un mes siguiente. Las chances de de que te olvides de actualizar ese "18" son super altas, por eso RMarkdown también tiene la posibilidad de incorporar texto en línea. 
+
+Imaginemos que tenés una variables `temperatura` a la cual le asignamos el valor "18":
+
+```{r}
+temperatura <- 18
+```
+
+Para mencionarla en el texto entonces tenemos que poner el nombre de esa variable entre dos acentos graves y avisar que se trata de código de R des esta manera `` ``r "r"` temperatura` ``. Entonces si en algún momento cambia el valor de la variable, la próxima vez que *knites* el documento se actualizará en el texto. 
