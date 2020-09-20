@@ -12,6 +12,163 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+# Archivos csv
+
+Existen muchas funciones distintas para leer datos dependiendo del formato en el que están guardados. Para datos tabulares, la forma más útil es el formato csv, que es un archivo de texto plano con datos separados por coma. 
+
+```{r}
+library(readr)
+bariloche <- read_csv("datos/bariloche.csv")
+```
+Todo ese texto naranja/rojo es intimidante pero no te preocupes, es sólo un mensaje que nos informa que los datos se leyeron y qué tipo de dato tiene cada columna. ¿Notás algo raro? A pesar de que claramente la temperatura es un número, la columna `Temperatura` se está leyendo como un caracter. Otra forma de ver esto es usando la a función `str()` (de *structure* en inglés):
+
+
+```{r}
+str(bariloche)
+```
+
+Donde se ve que la columna `Temperatura` tiene clase `chr` (caracter).
+
+Seguramente lo primero que tratarás en un caso así es simplemente cambiarle el tipo a la columna
+
+```{r, message=FALSE}
+library(dplyr)
+bariloche %>% 
+  mutate(Temperatura = as.numeric(Temperatura))
+```
+Pero R dice que hay un problema. `NAs introduced by coercion` significa que algunos valores no se pudieron transformar en numéricos y entonces `as.numeric` los dejó como valores faltantes. Casi con seguridad no querés eso. Para ver qué está pasando, hay que investigar qué contenidos tienen esas filas. Para eso, podés filtrar las filas de `bariloche` que no tienen `NA` en `Temperatura` pero que se convierten en `NA` al hacer `as.numeric(Temperatura)`:
+
+```{r}
+bariloche %>% 
+  filter(!is.na(Temperatura) & is.na(as.numeric(Temperatura)))
+```
+
+
+Ajá! Se ve que a alguien se le ocurrió usar los caracteres "N/A" para designar algunos datos faltantes. Con esta información, estaría bueno volver a leer los datos, diciéndole a `read_csv` que este archivo usa dos formas para referirse a datos faltantes. 
+
+:::{.alert .alert-info} 
+**Desafío** andá a la ayuda de `read_csv` y fijate si hay algún argumento que controle la lectura de datos faltantes. Sabiendo que hay valores faltantes codificados como "N/A", ¿qué deberías pasarle a ese argumento para leer correctamente los datos?
+:::
+
+`read_csv` tiene un argumento `na` que controla qué valores van a interpretarse como valores faltantes. En este caso, sabés que "N/A" es uno. Entonces debería funcionar buen leer los datos así:
+
+```{r}
+bariloche <- read_csv("datos/bariloche.csv", na = "N/A")
+```
+¡No! Otra vez `Temperatura` se leyó como caracter. Si usás `str` podés ver que'pasó:
+
+```{r}
+str(bariloche)
+```
+La primera fila, que antes se leía como dato faltante, ahora se lee como "NA".  
+
+:::{.alert .alert-info} 
+**Desafío** ¿Por qué ahora `read_csv` está leyendo ese dato incorrectamente? Consejo: volvé a la ayuda de `read_csv` y fijate el valor por default del argumento `na`.
+:::
+
+Antes, `na` estaba como el valor por defecto, que es `c("", "NA")`, lo que significa que tanto valores vacíos como valores `"NA"` son considerados valores faltantes. Lo que tenés que hacer es agregar también el valor `"N/A"`:
+
+```{r}
+bariloche <- read_csv("datos/bariloche.csv", na = c("",  "NA", "N/A"))
+```
+
+Bien. Ahí la columna `Temperatura` se leyó como doble. Pero, ¿se leyeron bien? Una forma rápida de chequear los datos es usando la función `summary`:
+
+```{r}
+summary(bariloche)
+```
+`summary` devuelve algunas estadísticas simples sobre cada columna. La columna `Temperatura` tiene 501 valores faltantes, su máximo es `r max(bariloche$Temperatura, na.rm = TRUE)` y su mínimo es... ¿-999.990? Eso no puede ser. Seguramente a otro alguien se le ocurrió usar "-999.99" para marcar los datos faltantes. Una vez que sabés eso, podés volver a leer otra vez los datos agregando otro marcador más para los datos faltantes.
+
+```{r}
+bariloche <- read_csv("datos/bariloche.csv", na = c("", "NA", "N/A", "-999.99"))
+```
+Y ahora `summary` da:
+
+```{r}
+summary(bariloche)
+```
+
+Ahora el rango de temperatura es razonable y podés tener confianza de que los datos están bien leídos. 
+
+
+
+# Archivos NetCDF
+
+Luego de esta epopeya para conseguir leer estos datos correctamente está bueno reflexionar sobre la importancia de los **metadatos**; los datos sobre los datos que, entre otras cosas, podrían indicar cómo están codificados los datos faltantes. Una alternativa es usar formatos de datos "autodescriptivos". Estos son tipos de archivos que contienen sus propios metadatos. 
+
+Uno de estos tipos de formatos muy utilizado en ciencias para guardar datos atmosféricos grillados es el [NetCDF](https://en.wikipedia.org/wiki/NetCDF). Existen varios paquetes para estos archivos. Uno de ellos es {metR}. 
+
+```{r}
+library(metR)
+```
+
+
+Los datos en archivos NetCDF puede ser bastante grandes y destruir tu sesión de R si tratás de leerlos enteros en memoria. Por eso, siempre es bueno primero fijarse qué tiene un archivo nuevo. Para eso, { metR} tiene la función `GlanceNetCDF`:
+
+```{r}
+GlanceNetCDF("datos/temperatura.nc")
+```
+
+La salida de esta función muestra las variables que tiene el archivo y sus dimensiones. 
+
+:::{.alert .alert-info}
+**Desafío** ¿Qué información podés deducir sobre el contenido de temperatura.nc a partir de esto?
+:::
+
+En este caso, el archivo tiene una sola variable, llamada `air` que es la temperatura media en Kelvin (un archivo NetCDF puede tener muchas variables y no todas en la misma grilla). De las dimensiones del archivo, se ve que tiene dimensiones de tiempo, nivel, longitud y latitud. La latitud va de -90 a 90 y la longitud de 0 a 357.5, por lo que es un campo global. `level` es la coordenada vertical, que va de 1000 milibares (básicamente la superficie) a 10 millibares (la estatósfera media). 
+
+Para leer los datos, se usa `ReadNetCDF()`:
+
+```{r}
+temperatura <- ReadNetCDF("datos/temperatura.nc", vars = "air")
+temperatura
+```
+
+:::{.alert .alert-success}
+Si no le ponés `vars = "air"`, `ReadNetCDF()` va a tratar de leer todas las variables presentes en el archivo. Esto a veces puede causar problemas si las grillas de las variables no son compatibles (por ejemplo, si una variable es la temperatura del aire definida en distintas alturas, y otra es la temperatura del suelo). En este caso, como "temperatura.nc" tiene sólo una variable, no haría falta ponerlo.
+:::
+
+Es muy posible que quieras datos sólo de una región. Una opción es leer todo el archivo y luego filtrar los datos. Si te interesa la temperatura de superficie de Argentina, podrías hacer algo así
+
+```{r}
+temperatura %>% 
+  filter(level == 1000 & between(lat, -65, -20) & between(lon, 280, 310))
+```
+
+Pero es mucho maś eficiente leer sólo los datos que te interesan, especialmente en archivos NetCDF grandes, que incluso no puede ser leídos en memoria enteros. `ReadNetCDF()` tiene un argumento llamado `subset` que sirve para especificar qué datos leer:
+
+```{r}
+ReadNetCDF("datos/temperatura.nc", vars = "air",
+           subset = list(level = 1000,
+                         lat = c(-65, -20),
+                         lon = c(280, 310))) 
+```
+
+A `subset` hay que pasarle una lista donde cada elemento tiene el nombre de una dimensión con un vector cuyo rango define el rango de los datos a leer. El código de arriba, entonces, dice que de la dimensión `level` lea únicamente el valor 1000, de la dimensión `lat`, lea los valores que van entre -65 y -20, y de la dimensión `lon`, los valores entre 280 y 310. 
+
+
+:::{.alert .alert-info}
+**Desafío** Elegí una región del mundo y completá el código que sigue para que lea la temperatura en superficie de esa región. 
+
+```{r, eval = FALSE}
+temperatura <- ReadNetCDF("datos/temperatura.nc", vars = "air",
+           subset = list(level = 1000,
+                         lat = c(___, ___),
+                         lon = c(___, ___)))
+```
+Para revisar si leíste los datos correctos, corré este código (no te preocupes si no lo entendés)
+
+```{r, eval = FALSE}
+library(ggplot2)
+ggplot(temperatura, aes(lon, lat)) +
+  geom_raster(aes(fill = air)) +
+  geom_path(data = map_data("world2"), aes(long, lat, group = group))
+```
+
+:::
+
+
 :::{.alert .alert-success}
 Ponerle nombre a las variables es a veces la parte más difícil de escribir código. A R no le viene bien cualquier nombre de variable siempre y cuando no empiece con un número o un "_". Pero a los seres humanos que lean el código y tengan que interpretarlos les va a resultas más fácil entender qué hace la variable `temperatura_cordoba` que la variable `xxy1`. 
 
@@ -19,3 +176,10 @@ El consejo es tratar en lo posible usar nombre descriptivos y consistentes. Por 
 
 **Tip**: Para hacerse la vida más fácil existen "guías de estilo" para programar que explicitan reglas específicas para escribir código. Por ejemplo [esta](https://rpubs.com/FvD/guia-estilo-r){.alert-link} o [esta otra](https://github.com/eliocamp/tesis/blob/master/docs/gu%C3%ADa_de_estilo.md){.alert-link}. Se trata de reglas únicamente para los ojos humanos, y que no afectan en absoluto la eficiencia o correctitud de la programación. En general, no existen guías buenas o malas, la idea es elegir una y ser consistente. De esta manera, vas a poder entender tu código con más facilidad. 
 :::
+
+
+
+<div class="btn-group" role="group" aria-label="Navegación">
+  <a href= "03-reportes-I.html" class = "btn btn-primary">Anterior</a>
+  <a href= "05-dplyr.html" class = "btn btn-primary">Siguiente</a>
+</div>
