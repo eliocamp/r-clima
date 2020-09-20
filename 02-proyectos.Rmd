@@ -77,3 +77,7 @@ Esto puede pasar si por ejemplo leemos una base de datos en memoria pero no guar
 3. Hacé click en “Aplicar” (“Apply”).
 :::
 
+<div class="btn-group" role="group" aria-label="Navegación">
+  <a href= "01-introduccion.html" class = "btn btn-primary">Anterior</a>
+  <a href= "03-reportes-I.html" class = "btn btn-primary">Siguiente</a>
+</div>

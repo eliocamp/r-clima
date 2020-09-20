@@ -114,3 +114,7 @@ Abrí y leé la ayuda de la función `sd()`. Puede que haya cosas que aún no en
 :::
 
 
+<div class="btn-group" role="group" aria-label="Navegación">
+  <a class = "btn disabled">Anterior</a>
+  <a href= "02-proyectos.html" class = "btn btn-primary">Siguiente</a>
+</div>

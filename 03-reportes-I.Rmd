@@ -204,3 +204,10 @@ Usando el archivo con el que venís trabajando insertá un nuevo chunk y:
 3. Mostrá ese valor.
 4. Volvé a *knitear* el archivo para ver el resultado
 :::
+
+
+
+<div class="btn-group" role="group" aria-label="Navegación">
+  <a href= "02-proyectos.html" class = "btn btn-primary">Anterior</a>
+  <a href= "04-lectura.html" class = "btn btn-primary">Siguiente</a>
+</div>
