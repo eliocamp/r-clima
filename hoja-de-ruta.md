@@ -8,37 +8,33 @@ output:
 
 La organización de los contenidos asume que se darán en 3 encuentros de 3 horas, pero podría ser disinto. Hay cierta interrelación entre los temas y asumimos que si vas directo a Visualización de datos, ya sabés como manipularlos en R.
 
-Si en realidad estás buscando aprender R desde cero, te sugerimos revisar [este otro curso](https://paocorrales.github.io/deExcelaR/), en particular los primeros 3 temas. Luego si te interesa trabajar con datos asociados a clima e información geográfica, te esperamos de vuelta.
+Si en realidad estás buscando aprender R desde cero, te sugerimos revisar [este otro curso](https://paocorrales.github.io/deExcelaR/), en particular los primeros 3 temas que con mucho más detalle introducen a R. Luego si te interesa trabajar con datos asociados a clima e información geográfica, te esperamos de vuelta.
 
-### Primer encuentro {readr} + {dplyr} + {tidyr}
+### Primer encuentro
 
 #### Contenidos
 
-- [¿Por qué R?](01-introducion.html)
+- [¿Por qué R?](01-introduccion.html)
   - Mapa para navegar RStudio. 
 - [Uso de proyectos de R](02-proyectos.html)
 - [Introducción a {RMarkdown}](03-reportes-I.html)
   - Sintaxis básica de Markdown.
   - Unificar código, gráficos y prosa.
-- Lectura de archivos .csv y .nc
+- [Lectura de archivos .csv y .nc](04-lectura.html)
   - Tipos de datos en R.
   - Identificar datos ordenados.
   - Diferenciar tablas “anchas” y “largas”
-- [Manipulación de datos ordenados usando {dplyr}](05-dplyr-I.html)
+- [Manipulación de datos ordenados usando {dplyr}](05-dplyr.html)
   - Agregar y quitar filas y columnas.
   - Crear nuevas columnas incluyendo cálculos y comparación de datos.
   - Operador pipe %>%
   - Calcular medidas de resumen sobre los datos
-  - Manejo de datos faltantes
 
 
-
-
-*Desafío: [leer correctamente una base de datos](desafio-1.html) y [generar nuevas columnas a partir de información de otras columnas y generar resúmenes a partir de los datos.](desafio-2html)*
+*Desafío: [leer correctamente una base de datos y generar nuevas columnas a partir de información de otras columnas y generar resúmenes a partir de los datos.](desafio-1html)*
 
 
 ### Segundo encuentro {lubridate} + {ggplot2} + {metR}
-
 
 #### Contenidos
 
@@ -65,7 +61,7 @@ Si en realidad estás buscando aprender R desde cero, te sugerimos revisar [este
   - Densidad e histogramas.
 
 
-*Desafío: [generar gráficos a partir de la base de datos usada.](desafio-3.html)*
+*Desafío: [generar gráficos a partir de la base de datos usada.](desafio-2.html)*
 
 ### Tercer encuentro
 
@@ -82,5 +78,5 @@ Si en realidad estás buscando aprender R desde cero, te sugerimos revisar [este
 - Publicación de reportes usando RMarkdown y Netlify. 
 - Proyectos con estructura de archivos y {here}.
 
-*Desafío: [generar un informe que incluya gráficos, texto y un análisis descriptivo.](desafío-4.html)*
+*Desafío: [generar un informe que incluya gráficos, texto y un análisis descriptivo.](desafío-3.html)*
 
