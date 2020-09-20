@@ -14,8 +14,7 @@ Si en realidad estás buscando aprender R desde cero, te sugerimos revisar [este
 
 #### Contenidos
 
-- [¿Por qué R?](01-introducion.html)
-  - Mapa para navegar RStudio. 
+- [¿Mapa para navegar RStudio?](01-introduccion.html)
 - [Uso de proyectos de R](02-proyectos.html)
 - [Introducción a {RMarkdown}](03-reportes-I.html)
   - Sintaxis básica de Markdown.
