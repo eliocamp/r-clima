@@ -208,6 +208,6 @@ Usando el archivo con el que venís trabajando insertá un nuevo chunk y:
 
 
 <div class="btn-group" role="group" aria-label="Navegación">
-  <a href= "02-proyectos.html" class = "btn btn-primary">Anterior</a>
+  <a href= "01-introduccion.html" class = "btn btn-primary">Anterior</a>
   <a href= "04-lectura.html" class = "btn btn-primary">Siguiente</a>
 </div>
