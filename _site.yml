@@ -42,4 +42,4 @@ navbar:
 output_dir: docs
 output:
   html_document:
-    theme: flatly
+    theme: united
