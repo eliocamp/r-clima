@@ -284,5 +284,8 @@ bariloche %>%
   ungroup()
 ```
 
-
+<div class="btn-group" role="group" aria-label="Navegación">
+  <a href= "04-lectura.html" class = "btn btn-primary">Anterior</a>
+  <a href= "06-dplyr-tidyr-II.html" class = "btn btn-primary">Siguiente</a>
+</div>
 
