@@ -1,0 +1,254 @@
+---
+title: "Apariencia de gráficos"
+output: 
+  html_document:
+    code_download: true
+    toc: true
+    toc_float: true
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE)
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(metR)
+```
+
+## Escalas
+
+[Previamente](06-graficos-I.html) comentamos que el *mapeo* de una variable en un elemento geométrico, por ejemplo cuando le asignamos distintos colores a los puntos que representan cada continente, usa una **escala** para definir, en este caso, que color le corresponde a cada elemento. 
+
+También cambiamos la apariencia del relleno (o `fill`) de barras y la forma de los puntos (o `shape`). Para esto, {ggplot2} siempre usa una escala que podemos modificar de acuerdo a nuestro gusto y teniendo en cuenta cómo queremos comunicar nuestros resultados. 
+
+Por supuesto, modificar una escala implica sumar una nueva capa al gráfico sumando una nueva función. Todas las funciones de escala comienzan con `scale` (de escala en inglés), el típo de apariencia que queremos modificar (`color`, `fill`, `shape`, etc) y en muchos casos un nombre o una característica de esa escala. 
+
+Para mostrar como funciona, vamos a descargar datos de las estaciones meteorológicas del Servicio Meteorológico Nacional para el mes de agosto de 2020 y con suerte al final de este documento tendremos un gráfico listo para publicar.
+
+Pero por supuesto, primero tenemos que manipular los datos para poder utilizarlos. En particular necesitaremos información de las estaciones, sus metadatos, que se encuentran en un archivo distinto. Y de paso calculamos la variable que nos interesa: la temperatura máxima media para agosto.
+
+```{r}
+estaciones <- read_csv("datos/estaciones_smn.csv") # Metadatos
+
+fechas <- seq.Date(lubridate::ymd(20200801), lubridate::ymd(20200831), by = "1 day")
+
+observaciones <- GetSMNData(fechas, type = "daily") %>% 
+  group_by(station) %>% 
+  summarise(tmax_media = mean(tmax, na.rm = TRUE),
+            tmax_var = sd(tmax, na.rm = TRUE))
+
+observaciones <- left_join(observaciones, estaciones, by = c("station" = "nombre")) 
+```
+
+
+```{r}
+observaciones %>% 
+  filter(region != "ANTARTIDA") %>% 
+  ggplot(aes(lon, lat)) +
+  geom_point() 
+```
+
+Por ahora este gráfico no nos dice nada, necesitamos agregarle una capa con el mapa tal cual hicimos previamente. 
+
+```{r}
+mapa <- rnaturalearth::ne_states(country = c("argentina"), returnclass = "sf")
+
+observaciones %>% 
+  filter(region != "ANTARTIDA") %>% 
+  ggplot(aes(lon, lat)) +
+  geom_point() +
+  geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) 
+```
+
+
+### Escala de colores y otras características
+
+Si bien ahora podemos identificar donde están las estaciones, no tenemos información de la temperatura máxima media. Podríamos cambiar el color de los puntos para que representen el valor que toma esa variable en cada estación.
+
+```{r}
+observaciones %>% 
+  filter(region != "ANTARTIDA") %>% 
+  ggplot(aes(lon, lat)) +
+  geom_point(aes(color = tmax_media)) +
+  geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) 
+```
+
+Pero esta escala de colores que usa {ggplot2} por defecto no es de las mejores, es difícil diferenciar entre los valores. Existen infinitas paletas de colores que se pueden usar en ggplot, algunas por ejemplo buscan poder distinguirse si imprimimos el gráfico en blanco y negro, otras están diseñadas para que personas con daltonismo puedan distinguir los colores. Una escala o paleta de colores muy usada es [**viridis**](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) que fue creada justamente para resolver este y otros problemas. También existe otra gran familia de paletas de colores llamada [**ColorBrewer**](https://colorbrewer2.org/).
+
+Vamos a probar la paleta "YlOrRd" , esta paleta es *secuencial* y es justo lo que necesitamos para visualizar una variable continua como la temperatura. Cómo estamos modificando el *color*, la función a usar será `scale_color_distiller()`, la hermana *continua* de `scale_color_brewer()`:
+
+```{r}
+observaciones %>% 
+  filter(region != "ANTARTIDA") %>% 
+  ggplot(aes(lon, lat)) +
+  geom_point(aes(color = tmax_media)) +
+  geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
+  scale_color_distiller(palette = "YlOrRd", direction = 1)
+```
+
+En este caso también agregamos el argumento `direction = 1` para que la paleta de colores los muestre de más oscuros a más claros. Esta desición es estética y muchas veces depende de las variables a graficar. 
+
+
+::: {.alert .alert-info}
+**Desafío**
+
+A modo de prueba, cambia la paleta de colores actual por la de Viridis. Para eso tenés que usar `scale_color_viridis_c()`. La "c" del final viene de *continuous* y se usa para variables continuas, mientras que si los datos son discretos o categorías, se usa "d" al final.
+:::
+
+Nuestro gráfico va quedando mejor y podemos aprovechar la capacidad de {ggplot2} de *mapear* variables a los elementos del gráfico y visualizar la variabilidad de la temperatura máxima modificando el tamaño de los puntos de acuerdo al desvío estandar.
+
+```{r}
+observaciones %>% 
+  filter(region != "ANTARTIDA") %>% 
+  ggplot(aes(lon, lat)) +
+  geom_point(aes(color = tmax_media, size = tmax_var)) +
+  geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
+  scale_color_distiller(palette = "YlOrRd", direction = 1)
+```
+
+Es interesante ver como las temperaturas máximas medias mayores también tienen mayor variabilidad. Pero ahora algunos puntos se superponen y es posible que no estemos viendo algunas estaciones. Vamos a arreglar eso agregando transparencia y de paso modificar el tamaño de los puntos con la escala correspondiente `scale_size_area()` y sacar la legenda con `guide = NULL`.
+
+```{r}
+observaciones %>% 
+  filter(region != "ANTARTIDA") %>% 
+  ggplot(aes(lon, lat)) +
+  geom_point(aes(color = tmax_media, size = tmax_var), alpha = 0.7) +
+  geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
+  scale_color_distiller(palette = "YlOrRd", direction = 1) +
+  scale_size_area(max_size = 4, guide = NULL)
+```
+
+### Escalas de ejes
+
+Ahora que la información del gráfico se ve bien, pasemos a los ejes. Al igual que para el color, el tamaño y otros elementos del gráfico, para los ejes también existen funciones "scale". En este caso las escalas que modifican los ejes justamente comienzan con `scala_x_` o `scale_y_` según sea el caso y hay una gran variedad de opciones dependiendo del tipo de dato que estamos graficando en cada eje. 
+
+Si en el eje y graficamos una variable discreta entonces podremos modificar su especto con `scale_y_discrete()`. En este caso la función `geom_sf()` automáticamente modifica la apariencia de los ejes y no requieren de mucho trabajo. 
+
+Pero queremos que nuestro gráfico quede listo para publicar y la "W" de west (oeste en inglés) puede no ser muy amigable. Modifiquemos entonces el eje x con la función `scale_x_continuous()`. En este caso queremos modificar las etiquetas o `labels` y para eso usaremos la función `LonLabel()` del paquete {metR}. Esta función recibe una función anónima que toma cada longitud y el cambia el "°W° por "°O".
+
+
+```{r}
+observaciones %>% 
+  filter(region != "ANTARTIDA") %>% 
+  ggplot(aes(lon, lat)) +
+  geom_point(aes(color = tmax_media, size = tmax_var), alpha = 0.7) +
+  geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
+  scale_color_distiller(palette = "YlOrRd", direction = 1) +
+  scale_size_area(max_size = 4, guide = NULL) +
+  scale_x_continuous(labels = function(x) LonLabel(x, west = "°O"))
+```
+
+
+## Elementos de texto
+
+Ya sumamos 3 escalas y el gráfico ya se ve muy bien. ¿Cómo hacemos si queremos identificar estaciones individuales? Por ahora es difícil, pero podríamos agregar etiquetas de texto con el nombre de cada estación al lado de cada punto usando `geom_text()`, y en este caso la apariencia está dada por `label` o etiqueta:
+
+```{r}
+observaciones %>% 
+  filter(region != "ANTARTIDA") %>% 
+  ggplot(aes(lon, lat)) +
+  geom_point(aes(color = tmax_media, size = tmax_var), alpha = 0.7) +
+  geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
+  scale_color_distiller(palette = "YlOrRd", direction = 1) +
+  scale_size_area(max_size = 4, guide = NULL) +
+  scale_x_continuous(labels = function(x) LonLabel(x, west = "°O")) +
+  geom_text(aes(label = station)) 
+```
+
+Pero nos olvidamos que tenemos más de 100 estaciones, es imposible agregarle etiquetas a todos. Pero podríamos querer resaltar algunos, tal vez los de una región en particular o los que cumplen con la condición de tener las mayores temperaturas máximas medias. Para eso vamos a generarnos una nueva tabla con las estaciones que queremos resaltar y de paso usarla dentro de `geom_text()`.
+
+```{r}
+extremos_temperatura <- observaciones %>% 
+  filter(region != "ANTARTIDA") %>% 
+  filter(tmax_media == max(tmax_media, na.rm = TRUE) |
+           tmax_media == min(tmax_media, na.rm = TRUE)) # Estaciones con extremos!
+
+observaciones %>% 
+  filter(region != "ANTARTIDA") %>% 
+  ggplot(aes(lon, lat)) +
+  geom_point(aes(color = tmax_media, size = tmax_var), alpha = 0.7) +
+  geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
+  scale_color_distiller(palette = "YlOrRd", direction = 1) +
+  scale_size_area(max_size = 4, guide = NULL) +
+  scale_x_continuous(labels = function(x) LonLabel(x, west = "°O")) +
+  geom_text(aes(label = station),
+            data = extremos_temperatura, # Esta capa usa la tabla extremos_temperatura!
+            size = 2.5) 
+```
+
+::: {.alert .alert-success}
+
+Del código anterior surge algo muy importante: es posible generar capas en un gráfico usando una data.frame *distinto* al que usamos para graficar las capas anteriores. Esto es útil principalmente para definir etiquetas o resaltar determinadas observaciones. 
+
+Y el truco está en que ambos data.frames tienen las variables `lon` y `lat` y entonces {ggplot2} puede identificar en que parte del gráfico (en que valores de x y en que valores de y) colocar cada elemento.
+:::
+
+Veamos ahora una (de varias) maneras agregar o modificar elementos de texto en el gráfico. Vamos a usar una nueva función (y una nueva capa!), `labs()`:
+
+```{r}
+observaciones %>% 
+  filter(region != "ANTARTIDA") %>% 
+  ggplot(aes(lon, lat)) +
+  geom_point(aes(color = tmax_media, size = tmax_var), alpha = 0.7) +
+  geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
+  scale_color_distiller(palette = "YlOrRd", direction = 1) +
+  scale_size_area(max_size = 4, guide = NULL) +
+  scale_x_continuous(labels = function(x) LonLabel(x, west = "°O")) +
+  geom_text(aes(label = station),
+            data = extremos_temperatura, # Esta capa usa la tabla extremos_temperatura!
+            size = 2.5) +
+  labs(title = "Temperatura máxima media",
+       subtitle = "Agosto",
+       caption = "El tamaño de cada circulo representa la variabilidad",
+       x = "Longitud",
+       y = "Latitud",
+       color = "")
+```
+
+Agregamos un título, un subtítulo, el epígrafe de la figura (*caption*) para las aclaraciones y cambiamos el nombre de los ejes para que se vean mejor. Pero ademas eliminamos el nombre de la leyenda porque era un poco redundante (ya está en el título). 
+
+## Temas
+
+Nos queda una última cosa por hacer, cambiar la apariencia global del gráfico. {ggplot2} tiene muchos *temas* disponibles y para todos los gustos. Pero además hay otros paquetes que extienden las posibilidades, por ejemplo [{ggthemes}](https://github.com/jrnold/ggthemes).
+
+Por defecto {ggplot2} usa `theme_grey()`, probemos `theme_light()`:
+
+```{r}
+observaciones %>% 
+  filter(region != "ANTARTIDA") %>% 
+  ggplot(aes(lon, lat)) +
+  geom_point(aes(color = tmax_media, size = tmax_var), alpha = 0.7) +
+  geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
+  scale_color_distiller(palette = "YlOrRd", direction = 1) +
+  scale_size_area(max_size = 4, guide = NULL) +
+  scale_x_continuous(labels = function(x) LonLabel(x, west = "°O")) +
+  geom_text(aes(label = station),
+            data = extremos_temperatura, # Esta capa usa la tabla extremos_temperatura!
+            size = 2.5) +
+  labs(title = "Temperatura máxima media",
+       subtitle = "Agosto",
+       caption = "El tamaño de cada circulo representa la variabilidad",
+       x = "Longitud",
+       y = "Latitud",
+       color = "") +
+  theme_light()
+```
+
+::: {.alert .alert-info}
+**Desafío**
+
+Ahora es tu turno. Elegí un [tema que te guste](https://es.r4ds.hadley.nz/images/visualization-themes.png){.alert-link} y probalo. Además, si se te ocurre algún título mejor modificalo! 
+:::
+
+::: {.alert .alert-success}
+
+Junto con las funciones `theme_...()`, hay una función llamada `theme()` que permite cambiar la apariencia de cualquier elemento del gráfico. Tiene casi infinitas opciones y si algún momento te desvelas intentando cambiar esa línea o ese borde, seguro que `theme()` tiene alguna opción par ahacer eso.
+
+:::
+
+<div class="btn-group" role="group" aria-label="Navegación">
+  <a href= "09-ggplot-II.html" class = "btn btn-primary">Anterior</a>
+  <a href= "11-reportes-II.html" class = "btn btn-primary">Siguiente</a>
+</div>
