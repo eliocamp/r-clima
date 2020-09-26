@@ -25,13 +25,14 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -41,14 +42,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -57,9 +60,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -487,10 +490,10 @@ div.tocify {
       <a href="desafio-1.html">Leer y analizar datos</a>
     </li>
     <li>
-      <a href="desafio-3.html">Graficar datos</a>
+      <a href="desafio-2.html">Graficar datos</a>
     </li>
     <li>
-      <a href="desafio-4.html">Generar un informe</a>
+      <a href="desafio-3.html">Generar un informe</a>
     </li>
   </ul>
 </li>
@@ -525,47 +528,47 @@ div.tocify {
 <p>Por supuesto, modificar una escala implica sumar una nueva capa al gráfico sumando una nueva función. Todas las funciones de escala comienzan con <code>scale</code> (de escala en inglés), el típo de apariencia que queremos modificar (<code>color</code>, <code>fill</code>, <code>shape</code>, etc) y en muchos casos un nombre o una característica de esa escala.</p>
 <p>Para mostrar como funciona, vamos a descargar datos de las estaciones meteorológicas del Servicio Meteorológico Nacional para el mes de agosto de 2020 y con suerte al final de este documento tendremos un gráfico listo para publicar.</p>
 <p>Pero por supuesto, primero tenemos que manipular los datos para poder utilizarlos. En particular necesitaremos información de las estaciones, sus metadatos, que se encuentran en un archivo distinto. Y de paso calculamos la variable que nos interesa: la temperatura máxima media para agosto.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">estaciones &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/estaciones_smn.csv&quot;</span>) <span class="co"># Metadatos</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">fechas &lt;-<span class="st"> </span><span class="kw">seq.Date</span>(lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="dv">20200801</span>), lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="dv">20200831</span>), <span class="dt">by =</span> <span class="st">&quot;1 day&quot;</span>)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">observaciones &lt;-<span class="st"> </span><span class="kw">GetSMNData</span>(fechas, <span class="dt">type =</span> <span class="st">&quot;daily&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="st">  </span><span class="kw">group_by</span>(station) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tmax_media =</span> <span class="kw">mean</span>(tmax, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">            <span class="dt">tmax_var =</span> <span class="kw">sd</span>(tmax, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">observaciones &lt;-<span class="st"> </span><span class="kw">left_join</span>(observaciones, estaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>)) </a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() </a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>estaciones &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/estaciones_smn.csv&quot;</span>) <span class="co"># Metadatos</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>fechas &lt;-<span class="st"> </span><span class="kw">seq.Date</span>(lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="dv">20200801</span>), lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="dv">20200831</span>), <span class="dt">by =</span> <span class="st">&quot;1 day&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>observaciones &lt;-<span class="st"> </span><span class="kw">GetSMNData</span>(fechas, <span class="dt">type =</span> <span class="st">&quot;daily&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="st">  </span><span class="kw">group_by</span>(station) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tmax_media =</span> <span class="kw">mean</span>(tmax, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1-8"><a href="#cb1-8"></a>            <span class="dt">tmax_var =</span> <span class="kw">sd</span>(tmax, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a>observaciones &lt;-<span class="st"> </span><span class="kw">left_join</span>(observaciones, estaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="st">  </span><span class="kw">geom_point</span>() </span></code></pre></div>
 <p><img src="10-ggplot-III_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Por ahora este gráfico no nos dice nada, necesitamos agregarle una capa con el mapa tal cual hicimos previamente.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">mapa &lt;-<span class="st"> </span>rnaturalearth<span class="op">::</span><span class="kw">ne_states</span>(<span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&quot;argentina&quot;</span>), <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>mapa &lt;-<span class="st"> </span>rnaturalearth<span class="op">::</span><span class="kw">ne_states</span>(<span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&quot;argentina&quot;</span>), <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) </span></code></pre></div>
 <p><img src="10-ggplot-III_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <div id="escala-de-colores-y-otras-características" class="section level3">
 <h3>Escala de colores y otras características</h3>
 <p>Si bien ahora podemos identificar donde están las estaciones, no tenemos información de la temperatura máxima media. Podríamos cambiar el color de los puntos para que representen el valor que toma esa variable en cada estación.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media)) <span class="op">+</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) </span></code></pre></div>
 <p><img src="10-ggplot-III_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Pero esta escala de colores que usa {ggplot2} por defecto no es de las mejores, es difícil diferenciar entre los valores. Existen infinitas paletas de colores que se pueden usar en ggplot, algunas por ejemplo buscan poder distinguirse si imprimimos el gráfico en blanco y negro, otras están diseñadas para que personas con daltonismo puedan distinguir los colores. Una escala o paleta de colores muy usada es <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html"><strong>viridis</strong></a> que fue creada justamente para resolver este y otros problemas. También existe otra gran familia de paletas de colores llamada <a href="https://colorbrewer2.org/"><strong>ColorBrewer</strong></a>.</p>
 <p>Vamos a probar la paleta “YlOrRd” , esta paleta es <em>secuencial</em> y es justo lo que necesitamos para visualizar una variable continua como la temperatura. Cómo estamos modificando el <em>color</em>, la función a usar será <code>scale_color_distiller()</code>, la hermana <em>continua</em> de <code>scale_color_brewer()</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media)) <span class="op">+</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="10-ggplot-III_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>En este caso también agregamos el argumento <code>direction = 1</code> para que la paleta de colores los muestre de más oscuros a más claros. Esta desición es estética y muchas veces depende de las variables a graficar.</p>
 <div class="alert alert-info">
@@ -573,22 +576,22 @@ div.tocify {
 <p>A modo de prueba, cambia la paleta de colores actual por la de Viridis. Para eso tenés que usar <code>scale_color_viridis_c()</code>. La “c” del final viene de <em>continuous</em> y se usa para variables continuas, mientras que si los datos son discretos o categorías, se usa “d” al final.</p>
 </div>
 <p>Nuestro gráfico va quedando mejor y podemos aprovechar la capacidad de {ggplot2} de <em>mapear</em> variables a los elementos del gráfico y visualizar la variabilidad de la temperatura máxima modificando el tamaño de los puntos de acuerdo al desvío estandar.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var)) <span class="op">+</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="10-ggplot-III_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Es interesante ver como las temperaturas máximas medias mayores también tienen mayor variabilidad. Pero ahora algunos puntos se superponen y es posible que no estemos viendo algunas estaciones. Vamos a arreglar eso agregando transparencia y de paso modificar el tamaño de los puntos con la escala correspondiente <code>scale_size_area()</code> y sacar la legenda con <code>guide = NULL</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>)</span></code></pre></div>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="10-ggplot-III_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
@@ -596,15 +599,15 @@ div.tocify {
 <h3>Escalas de ejes</h3>
 <p>Ahora que la información del gráfico se ve bien, pasemos a los ejes. Al igual que para el color, el tamaño y otros elementos del gráfico, para los ejes también existen funciones “scale”. En este caso las escalas que modifican los ejes justamente comienzan con <code>scala_x_</code> o <code>scale_y_</code> según sea el caso y hay una gran variedad de opciones dependiendo del tipo de dato que estamos graficando en cada eje.</p>
 <p>Si en el eje y graficamos una variable discreta entonces podremos modificar su especto con <code>scale_y_discrete()</code>. En este caso la función <code>geom_sf()</code> automáticamente modifica la apariencia de los ejes y no requieren de mucho trabajo.</p>
-<p>Pero queremos que nuestro gráfico quede listo para publicar y la “W” de west (oeste en inglés) puede no ser muy amigable. Modifiquemos entonces el eje x con la función <code>scale_x_continuous()</code>. En este caso queremos modificar las etiquetas o <code>labels</code> y para eso usaremos la función <code>LonLabel()</code> del paquete {metR}. Esta función recibe una función anónima que toma cada longitud y el cambia el “°W° por”°O&quot;.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>))</a></code></pre></div>
+<p>Pero queremos que nuestro gráfico quede listo para publicar y la “W” de west (oeste en inglés) puede no ser muy amigable. Modifiquemos entonces el eje x con la función <code>scale_x_continuous()</code>. En este caso queremos modificar las etiquetas o <code>labels</code> y para eso usaremos la función <code>LonLabel()</code> del paquete {metR}. Esta función recibe una función anónima que toma cada longitud y el cambia el “°W° por”°O".</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>))</span></code></pre></div>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="10-ggplot-III_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
@@ -612,34 +615,34 @@ div.tocify {
 <div id="elementos-de-texto" class="section level2">
 <h2>Elementos de texto</h2>
 <p>Ya sumamos 3 escalas y el gráfico ya se ve muy bien. ¿Cómo hacemos si queremos identificar estaciones individuales? Por ahora es difícil, pero podríamos agregar etiquetas de texto con el nombre de cada estación al lado de cada punto usando <code>geom_text()</code>, y en este caso la apariencia está dada por <code>label</code> o etiqueta:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> station)) </a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>)) <span class="op">+</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> station)) </span></code></pre></div>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="10-ggplot-III_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Pero nos olvidamos que tenemos más de 100 estaciones, es imposible agregarle etiquetas a todos. Pero podríamos querer resaltar algunos, tal vez los de una región en particular o los que cumplen con la condición de tener las mayores temperaturas máximas medias. Para eso vamos a generarnos una nueva tabla con las estaciones que queremos resaltar y de paso usarla dentro de <code>geom_text()</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">extremos_temperatura &lt;-<span class="st"> </span>observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(tmax_media <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(tmax_media, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">|</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">           </span>tmax_media <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(tmax_media, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="co"># Estaciones con extremos!</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> station),</a>
-<a class="sourceLine" id="cb14-15" data-line-number="15">            <span class="dt">data =</span> extremos_temperatura, <span class="co"># Esta capa usa la tabla extremos_temperatura!</span></a>
-<a class="sourceLine" id="cb14-16" data-line-number="16">            <span class="dt">size =</span> <span class="fl">2.5</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>extremos_temperatura &lt;-<span class="st"> </span>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="st">  </span><span class="kw">filter</span>(tmax_media <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(tmax_media, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">|</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="st">           </span>tmax_media <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(tmax_media, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="co"># Estaciones con extremos!</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a></span>
+<span id="cb14-6"><a href="#cb14-6"></a>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb14-11"><a href="#cb14-11"></a><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb14-12"><a href="#cb14-12"></a><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb14-13"><a href="#cb14-13"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>)) <span class="op">+</span></span>
+<span id="cb14-14"><a href="#cb14-14"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> station),</span>
+<span id="cb14-15"><a href="#cb14-15"></a>            <span class="dt">data =</span> extremos_temperatura, <span class="co"># Esta capa usa la tabla extremos_temperatura!</span></span>
+<span id="cb14-16"><a href="#cb14-16"></a>            <span class="dt">size =</span> <span class="fl">2.5</span>) </span></code></pre></div>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="10-ggplot-III_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <div class="alert alert-success">
@@ -647,23 +650,23 @@ div.tocify {
 <p>Y el truco está en que ambos data.frames tienen las variables <code>lon</code> y <code>lat</code> y entonces {ggplot2} puede identificar en que parte del gráfico (en que valores de x y en que valores de y) colocar cada elemento.</p>
 </div>
 <p>Veamos ahora una (de varias) maneras agregar o modificar elementos de texto en el gráfico. Vamos a usar una nueva función (y una nueva capa!), <code>labs()</code>:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> station),</a>
-<a class="sourceLine" id="cb16-10" data-line-number="10">            <span class="dt">data =</span> extremos_temperatura, <span class="co"># Esta capa usa la tabla extremos_temperatura!</span></a>
-<a class="sourceLine" id="cb16-11" data-line-number="11">            <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Temperatura máxima media&quot;</span>,</a>
-<a class="sourceLine" id="cb16-13" data-line-number="13">       <span class="dt">subtitle =</span> <span class="st">&quot;Agosto&quot;</span>,</a>
-<a class="sourceLine" id="cb16-14" data-line-number="14">       <span class="dt">caption =</span> <span class="st">&quot;El tamaño de cada circulo representa la variabilidad&quot;</span>,</a>
-<a class="sourceLine" id="cb16-15" data-line-number="15">       <span class="dt">x =</span> <span class="st">&quot;Longitud&quot;</span>,</a>
-<a class="sourceLine" id="cb16-16" data-line-number="16">       <span class="dt">y =</span> <span class="st">&quot;Latitud&quot;</span>,</a>
-<a class="sourceLine" id="cb16-17" data-line-number="17">       <span class="dt">color =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>)) <span class="op">+</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> station),</span>
+<span id="cb16-10"><a href="#cb16-10"></a>            <span class="dt">data =</span> extremos_temperatura, <span class="co"># Esta capa usa la tabla extremos_temperatura!</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a>            <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span></span>
+<span id="cb16-12"><a href="#cb16-12"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Temperatura máxima media&quot;</span>,</span>
+<span id="cb16-13"><a href="#cb16-13"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Agosto&quot;</span>,</span>
+<span id="cb16-14"><a href="#cb16-14"></a>       <span class="dt">caption =</span> <span class="st">&quot;El tamaño de cada circulo representa la variabilidad&quot;</span>,</span>
+<span id="cb16-15"><a href="#cb16-15"></a>       <span class="dt">x =</span> <span class="st">&quot;Longitud&quot;</span>,</span>
+<span id="cb16-16"><a href="#cb16-16"></a>       <span class="dt">y =</span> <span class="st">&quot;Latitud&quot;</span>,</span>
+<span id="cb16-17"><a href="#cb16-17"></a>       <span class="dt">color =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="10-ggplot-III_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Agregamos un título, un subtítulo, el epígrafe de la figura (<em>caption</em>) para las aclaraciones y cambiamos el nombre de los ejes para que se vean mejor. Pero ademas eliminamos el nombre de la leyenda porque era un poco redundante (ya está en el título).</p>
@@ -672,24 +675,24 @@ div.tocify {
 <h2>Temas</h2>
 <p>Nos queda una última cosa por hacer, cambiar la apariencia global del gráfico. {ggplot2} tiene muchos <em>temas</em> disponibles y para todos los gustos. Pero además hay otros paquetes que extienden las posibilidades, por ejemplo <a href="https://github.com/jrnold/ggthemes">{ggthemes}</a>.</p>
 <p>Por defecto {ggplot2} usa <code>theme_grey()</code>, probemos <code>theme_light()</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> station),</a>
-<a class="sourceLine" id="cb18-10" data-line-number="10">            <span class="dt">data =</span> extremos_temperatura, <span class="co"># Esta capa usa la tabla extremos_temperatura!</span></a>
-<a class="sourceLine" id="cb18-11" data-line-number="11">            <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Temperatura máxima media&quot;</span>,</a>
-<a class="sourceLine" id="cb18-13" data-line-number="13">       <span class="dt">subtitle =</span> <span class="st">&quot;Agosto&quot;</span>,</a>
-<a class="sourceLine" id="cb18-14" data-line-number="14">       <span class="dt">caption =</span> <span class="st">&quot;El tamaño de cada circulo representa la variabilidad&quot;</span>,</a>
-<a class="sourceLine" id="cb18-15" data-line-number="15">       <span class="dt">x =</span> <span class="st">&quot;Longitud&quot;</span>,</a>
-<a class="sourceLine" id="cb18-16" data-line-number="16">       <span class="dt">y =</span> <span class="st">&quot;Latitud&quot;</span>,</a>
-<a class="sourceLine" id="cb18-17" data-line-number="17">       <span class="dt">color =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="st">  </span><span class="kw">theme_light</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb18-7"><a href="#cb18-7"></a><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>)) <span class="op">+</span></span>
+<span id="cb18-9"><a href="#cb18-9"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> station),</span>
+<span id="cb18-10"><a href="#cb18-10"></a>            <span class="dt">data =</span> extremos_temperatura, <span class="co"># Esta capa usa la tabla extremos_temperatura!</span></span>
+<span id="cb18-11"><a href="#cb18-11"></a>            <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span></span>
+<span id="cb18-12"><a href="#cb18-12"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Temperatura máxima media&quot;</span>,</span>
+<span id="cb18-13"><a href="#cb18-13"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Agosto&quot;</span>,</span>
+<span id="cb18-14"><a href="#cb18-14"></a>       <span class="dt">caption =</span> <span class="st">&quot;El tamaño de cada circulo representa la variabilidad&quot;</span>,</span>
+<span id="cb18-15"><a href="#cb18-15"></a>       <span class="dt">x =</span> <span class="st">&quot;Longitud&quot;</span>,</span>
+<span id="cb18-16"><a href="#cb18-16"></a>       <span class="dt">y =</span> <span class="st">&quot;Latitud&quot;</span>,</span>
+<span id="cb18-17"><a href="#cb18-17"></a>       <span class="dt">color =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
+<span id="cb18-18"><a href="#cb18-18"></a><span class="st">  </span><span class="kw">theme_light</span>()</span></code></pre></div>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="10-ggplot-III_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <div class="alert alert-info">
