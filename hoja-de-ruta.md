@@ -75,5 +75,5 @@ Si en realidad estás buscando aprender R desde cero, te sugerimos revisar [este
     - Apariencia y temas
 - [Publicación de reportes usando RMarkdown y Netlify](12-publicar.html) 
 
-*Desafío: [generar un informe que incluya gráficos, texto y un análisis descriptivo y publicarlo.](desafío-3.html)*
+*Desafío: [generar un informe que incluya gráficos, texto y un análisis descriptivo y publicarlo.](desafio-3.html)*
 
