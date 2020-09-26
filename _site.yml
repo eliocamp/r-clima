@@ -23,12 +23,12 @@ navbar:
         href: 08-dplyr-tidyr-II.html
       - text: Funciones
         href: 09-funciones.html
-      - text: Reportes II
-        href: 10-reportes-II.html
-      - text: Estilo de tablas
-        href: 11-tablas.html
       - text: Gráficos para publicar
-        href: 12-ggplot-III.html
+        href: 10-ggplot-III.html
+      - text: Reportes II
+        href: 11-reportes-II.html
+      - text: Publicar reportes
+        href: 12-publicar.html
   - text: Desafíos
     menu:
       - text: Leer y analizar datos
