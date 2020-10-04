@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Manipulando fechas</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R para Clima</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="hoja-de-ruta.html">Hoja de ruta</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Temas
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01-introduccion.html">Introducción</a>
+    </li>
+    <li>
+      <a href="02-proyectos.html">Proyectos de RStudio</a>
+    </li>
+    <li>
+      <a href="03-reportes-I.html">Reportes I</a>
+    </li>
+    <li>
+      <a href="04-lectura.html">Lectura de datos</a>
+    </li>
+    <li>
+      <a href="05-dplyr.html">Manipulación de datos I</a>
+    </li>
+    <li>
+      <a href="06-dplyr-tidyr-II.html">Manipulación de datos II</a>
+    </li>
+    <li>
+      <a href="07-graficos-I.html">Gráficos I</a>
+    </li>
+    <li>
+      <a href="08-lubridate.html">Manipulación fechas</a>
+    </li>
+    <li>
+      <a href="09-graficos-II.html">Gráficos II</a>
+    </li>
+    <li>
+      <a href="10-graficos-III.html">Gráficos para publicar</a>
+    </li>
+    <li>
+      <a href="11-reportes-II.html">Reportes II</a>
+    </li>
+    <li>
+      <a href="12-publicar.html">Publicar reportes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Desafíos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="desafio-1.html">Leer y analizar datos</a>
+    </li>
+    <li>
+      <a href="desafio-2.html">Graficar datos</a>
+    </li>
+    <li>
+      <a href="desafio-3.html">Generar un informe</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Manipulando fechas</h1>
+
+</div>
+
+
+<p>El paquete por excelencia para trabajar con fechas y horas es {lubridate} que forma parte del mundo de tidyverse como (casi) todos los paquetes que usamos hasta ahora. Si normalmente usas <code>library(tidyverse)</code> para cargar los paquetes, tené en cuenta que {lubridate} no se carga automáticamente. Así que arranquemos por lo primero.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(lubridate)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(readr)</a></code></pre></div>
+<div id="creando-fechas-y-horas" class="section level2">
+<h2>Creando fechas y horas</h2>
+<p>R maneja fechas y fechas y horas y para esto tiene los tipos de datos <code>&lt;date&gt;</code> y <code>&lt;dttm&gt;</code> y si bien internamente esos datos se almacenan como números enteros (por ejemplo cantidad de segundos desde el 1 de enero de 1970) con lubridate casi no tenemos que preocuparnos de eso y podemos trabajar con fechas como seres humanos.</p>
+<p>Es posible que al leer bases de datos algunas columnas con este tipo de información sea leída como cadadena de caracteres, por ejemplo “25-Oct-1990”. Esto se puede solucionar tanto en la lectura de los datos como luego usando lubridate. Veamos lo segundo.</p>
+<p>Vamos a trabajar con una base de datos de reportes de eventos severos reportados por personas durante la campaña <a href="https://www.bbc.com/mundo/noticias-46133330">RELAMPAGO</a> que se llevó a cabo en Argentina entre octubre y diciembre de 2018.</p>
+<p>Los reportes se recolectaron a traves de un formulario de google que entre otros datos pedía: el tipo de evento o eventos observados, el lugar y horario de ocurrencia del evento.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">reportes &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/paocorrales/r4ds-notas/master/examen/eventos_severos_RELAMPAGO.csv&quot;</span>)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   fecha = col_character(),
+##   lat = col_double(),
+##   lon = col_double(),
+##   evento = col_character()
+## )</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">glimpse</span>(reportes) <span class="co"># ¿qué pinta tiene?</span></a></code></pre></div>
+<pre><code>## Rows: 1,431
+## Columns: 4
+## $ fecha  &lt;chr&gt; &quot;10/29/2018 22:05:00&quot;, &quot;10/30/2018 13:00:00&quot;, &quot;12/16/2017 22:3…
+## $ lat    &lt;dbl&gt; -33.11956, -32.95214, -30.96597, -30.97084, -32.85000, -33.278…
+## $ lon    &lt;dbl&gt; -64.32797, -60.76837, -64.09806, -64.08492, -61.25000, -65.614…
+## $ evento &lt;chr&gt; &quot;Ráfagas y/o vientos intensos&quot;, &quot;Rayos y/o truenos&quot;, &quot;Rayos y/…</code></pre>
+<div class="alert alert-success">
+<p><strong>Tip:</strong> las funciones <code>read_*()</code> puede leer bases de datos desde urls! en este caso es un archivo guardado en un repositorio de GitHub.</p>
+</div>
+<p>La base de datos tiene 4 variables, la fecha (que R no reconoció como tal), la ubicación en latitud y longitud y el tipo de evento.</p>
+<p>Arreglemos la variable fecha. Para eso usaremos una familia de funciones de lubridate que convierten una cadena de caracteres o números en fechas y fechas y horas.</p>
+<p>En este caso el formato de la fecha en la base de datos es “mes / día / año hora : minutos : segundos” y conociendo el orden de las componentes podemos elegir la función necesaria. En este caso será <code>mdy_hms()</code> que viene justamente de <strong>m</strong>onth, <strong>d</strong>ay, <strong>y</strong>ear, <strong>h</strong>our, <strong>m</strong>inute y <strong>s</strong>econd, las componentes en inglés.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">reportes &lt;-<span class="st"> </span>reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fecha_convertida =</span> <span class="kw">mdy_hms</span>(fecha)) </a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw">pull</span>(fecha_convertida) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Necesitamos extraer el vector para ver la zona horaria.</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span>.[<span class="dv">1</span>]                       <span class="co"># Extraemos el primer elemento </span></a></code></pre></div>
+<pre><code>## [1] &quot;2018-10-29 22:05:00 UTC&quot;</code></pre>
+<p>Por defecto cualquiera de las funciones de la familia <code>ymd_hms()</code> le asigna la zona horaria UTC a la variable de salida. Nos vamos a ocupar de esto más adelante pero es importante conocer los metadatos de esta base de datos, ¿las horas estarán en hora local o en UTC?</p>
+<div class="alert alert-info">
+<p><strong>Desafío:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Revisá la documentación de la familia de funciones <code>ymd_hms()</code> y las funciones <code>ymd()</code> par ver que combinaciones posibles existen.</li>
+<li>¿Cual de todas las funciones usarías si tenés que convertir a fecha y hora los siguientes elementos:</li>
+</ol>
+<ul>
+<li>“2018-11-22 12:00:00”</li>
+<li>15092020</li>
+<li>“10/31/1998”</li>
+<li>20181122150000</li>
+</ul>
+</div>
+<p>Si en vez de tener la información de la fecha u fecha y hora en una sola columna, la tenemos en distintas columnas (el mes por un lado, el día por el otro, ect.), existen un par de funciones que permiten armar la variable: <code>make_date()</code> y <code>make_datetime()</code>. Si quisieramos armar la fecha 25 de octubre de 1990 tendríamos que usar la siguiente línea de código:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">make_date</span>(<span class="dt">year =</span> <span class="dv">1990</span>, <span class="dt">month =</span> <span class="dv">10</span>, <span class="dt">day =</span> <span class="dv">25</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;1990-10-25&quot;</code></pre>
+<p>O una fecha y hora, por ejemplo el 14 de agosto de 1988 a las 13 horas (por ahora UTC, ya nos meteremos en ese berenjenal al final de este episodio).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">make_datetime</span>(<span class="dt">year =</span> <span class="dv">1988</span>, <span class="dt">month =</span> <span class="dv">8</span>, <span class="dt">day =</span> <span class="dv">14</span>, <span class="dt">hour =</span> <span class="dv">13</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;1988-08-14 13:00:00 UTC&quot;</code></pre>
+<p>Por supuesto podríamos guardar esas fechas en variables o usar las funciones dentro de <code>mutate()</code> pra generar columnas nuevas en un data frame.</p>
+</div>
+<div id="sus-componentes" class="section level2">
+<h2>Sus componentes</h2>
+<p>Ahora que sabemos como armar fechas, es posible que te estés preguntando como desarmarlas o como extraer sus componentes. Algo de esto ya hicimos al graficar temperaturas medías mensuales pero vamos a revisarlo.</p>
+<p>{lubridate} tiene toda una familia de funciones que permiten extraer las componentes de una variable fecha u fecha y hora. Acá la clave es recordar los nombres en inglés (no nos queda otra!), por ejemplo si queremos el mes, la función será <code>month()</code>.</p>
+<p>Veamos como funciona.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mes =</span> <span class="kw">month</span>(fecha_convertida),</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">         <span class="dt">dia =</span> <span class="kw">day</span>(fecha_convertida)) </a></code></pre></div>
+<pre><code>## # A tibble: 1,431 x 7
+##    fecha            lat   lon evento             fecha_convertida      mes   dia
+##    &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              &lt;dttm&gt;              &lt;dbl&gt; &lt;int&gt;
+##  1 10/29/2018 22… -33.1 -64.3 Ráfagas y/o vient… 2018-10-29 22:05:00    10    29
+##  2 10/30/2018 13… -33.0 -60.8 Rayos y/o truenos  2018-10-30 13:00:00    10    30
+##  3 12/16/2017 22… -31.0 -64.1 Rayos y/o truenos  2017-12-16 22:30:00    12    16
+##  4 2/14/2016 2:3… -31.0 -64.1 Lluvias intensas   2016-02-14 02:30:00     2    14
+##  5 10/30/2018 10… -32.8 -61.2 Granizo            2018-10-30 10:00:00    10    30
+##  6 10/29/2018 19… -33.3 -65.6 Granizo            2018-10-29 19:00:00    10    29
+##  7 10/30/2018 12… -31.4 -64.3 Granizo            2018-10-30 12:50:00    10    30
+##  8 11/3/2018 10:… -31.8 -65.0 Rayos y/o truenos  2018-11-03 10:35:00    11     3
+##  9 10/29/2018 22… -33.1 -64.3 Ráfagas y/o vient… 2018-10-29 22:00:00    10    29
+## 10 11/3/2018 13:… -31.4 -64.6 Lluvias intensas   2018-11-03 13:45:00    11     3
+## # … with 1,421 more rows</code></pre>
+<p>En particular la componente día tiene toda una subfamilia de funciones para extraer el día del año, el día del mes o el día de la semana!</p>
+<div class="alert alert-info">
+<p><strong>Desafío</strong></p>
+<ol style="list-style-type: decimal">
+<li>Extraé el día de la semana generando una nueva columna en la base de datos <code>reportes</code> que se llame <code>dia_semana</code>. (Psss! la función se llama <code>wday()</code>).</li>
+<li>Ahora intentalo de nuevo pero cambiando el argumento label a <code>TRUE</code>. ¿Qué ocurre? ¿Cambia el tipo de datos?</li>
+</ol>
+</div>
+</div>
+<div id="zonas-horarias" class="section level2">
+<h2>Zonas horarias</h2>
+<p>Cuando trabajamos con datos temporales y específicamente aquellos que tienen fecha y hora una de las consideraciones que tenemos que tener en cuenta es la zona horaria. Por defecto {lubridate} y la ciencia en general trabaja en <em>hora UTC</em> (o Coordinated Universal Time) pero es posible que nuestros datos estén almacenados en una zona horaria totalmente distinta.</p>
+<p>En este caso, los reportes tienen la hora a la que ocurrió el evento en Argentina. Por esto podemos inferir que la zona horaria es <em>-3</em>. Esto significa <em>3 horas menos respecto de la hora UTC</em>. ¿Cómo le avisamos a R?</p>
+<p>Todas las funciones de la familia <code>ymd_hms()</code> tiene un argumento <code>tz</code> que permite cambiar la zona horaria. El truco está en saber la nomenclatura de zonas horarias.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">OlsonNames</span>()) <span class="co"># Lista de las nás de 600 zonas horarias disponibles</span></a></code></pre></div>
+<pre><code>## [1] &quot;Africa/Abidjan&quot;     &quot;Africa/Accra&quot;       &quot;Africa/Addis_Ababa&quot;
+## [4] &quot;Africa/Algiers&quot;     &quot;Africa/Asmara&quot;      &quot;Africa/Asmera&quot;</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">Sys.timezone</span>()     <span class="co"># ¿En qué zona horaria está mi computadora?</span></a></code></pre></div>
+<pre><code>## [1] &quot;America/Argentina/Buenos_Aires&quot;</code></pre>
+<p>Podemos usar esa información en el argumento <code>tz</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">reportes &lt;-<span class="st"> </span>reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fecha_convertida_tz =</span> <span class="kw">mdy_hms</span>(fecha, <span class="dt">tz =</span> <span class="st">&quot;America/Argentina/Buenos_Aires&quot;</span>)) </a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4">reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="st">   </span><span class="kw">pull</span>(fecha_convertida_tz) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Necesitamos extraer el vector para ver la zona horaria.</span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span>.[<span class="dv">1</span>]</a></code></pre></div>
+<pre><code>## [1] &quot;2018-10-29 22:05:00 -03&quot;</code></pre>
+<div id="tranformando-zonas-horarias" class="section level3">
+<h3>Tranformando zonas horarias</h3>
+<p>Ahora si, R interpresa estas fechas y horas en la zona horaria correcta. Sin embargo, en meteorología estamos acostumbrados a comunicar nuestros resultados en hora <em>UTC</em> (u <em>hora Z</em>, que es lo mismo), ¿cómo convertimos las fechas y horas a otra zona horaria?</p>
+<p>{lubridate} tiene dos funciones específicas para trabajar con zonas horarias.</p>
+<ul>
+<li><code>force_tz()</code> mantiene constante la hora que vemos en el reloj pero cambia la zona horaria.</li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">reportes &lt;-<span class="st"> </span>reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fecha_force_tz =</span> <span class="kw">force_tz</span>(fecha_convertida_tz, <span class="dt">tzone =</span> <span class="st">&quot;UTC&quot;</span>)) </a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="st">   </span><span class="kw">pull</span>(fecha_force_tz) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Necesitamos extraer el vector para ver la zona horaria.</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="st">  </span>.[<span class="dv">1</span>]</a></code></pre></div>
+<pre><code>## [1] &quot;2018-10-29 22:05:00 UTC&quot;</code></pre>
+<p>Esto no resuelve nuestro problema, si queremos expresar “2018-10-30 12:50:00 -3” en hora UTC hay que <em>sumarle</em> 3 horas.</p>
+<ul>
+<li><code>with_tz()</code> nos permite cambiar de zona horaria manteniendo el mismo instante en el tiempo. En otras palabras, podemos responder ¿Qué hora es en Australia? Esto es justamente lo que necesitamos.</li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">reportes &lt;-<span class="st"> </span>reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fecha_with_tz =</span> <span class="kw">with_tz</span>(fecha_convertida_tz, <span class="dt">tzone =</span> <span class="st">&quot;UTC&quot;</span>)) </a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="st">   </span><span class="kw">pull</span>(fecha_with_tz) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Necesitamos extraer el vector para ver la zona horaria.</span></a>
+<a class="sourceLine" id="cb22-6" data-line-number="6"><span class="st">  </span>.[<span class="dv">1</span>]</a></code></pre></div>
+<pre><code>## [1] &quot;2018-10-30 01:05:00 UTC&quot;</code></pre>
+<div class="alert alert-info">
+<p><strong>Desafío</strong></p>
+<p>Estás trabajando con una base de datos temperatura que contiene una variable con información fechas y horas. Al revisar la clase de la variable tiempo observás que aparece como caracter. Además te gustaría poder mostrar estos datos en hora local (-3) para que el público general pueda entender fácilmente tus resultados. Ordená las siguientes líneas de código para corregir la variable. Agregá %&gt;% cuando lo consideres.</p>
+<pre><code>mutate(tiempo = ymd_hms(tiempo, tz = “UTC”))
+temperatura 
+mutate(tiempo_local = with_tz(tiempo, tzone = “America/Argentina/Buenos_Aires”))
+temperatura_corregido</code></pre>
+</div>
+<div class="alert alert-info">
+<p><strong>Extra</strong></p>
+<p>En el “ambiente” de R tenés una variable <code>mi_fecha</code> que guarda una fecha.</p>
+<pre><code>&gt; mi_fecha
+[1] &quot;2018-11-22 21:00:00 -03&quot;
+&gt; class(mi_fecha)
+[1] &quot;POSIXct&quot; &quot;POSIXt&quot;</code></pre>
+<p>Si corrieras la siguiente línea de código, cuál será el resultado? (pensá cual será el resultado sin correr el código en R).</p>
+<pre><code>&gt; with_tz(mi_fecha, tzone = &quot;UTC&quot;)</code></pre>
+<ul>
+<li>“2018-11-22 21:00:00 UTC” es decir, manteniendo la misma hora en el reloj y cambiando la zona horaria.</li>
+<li>“2018-11-23 00:00:00 UTC” es decir, el mismo instante en el tiempo expresado en una zona horaria distinta.</li>
+<li>“2018-11-22 18:00:00 UTC” es decir, el mismo instante en el tiempo expresado en una zona horaria distinta.</li>
+<li>“2018-11-22 00:00:00 UTC” es decir, el mismo instante en el tiempo expresado en una zona horaria distinta.</li>
+</ul>
+</div>
+<div class="btn-group" role="group" aria-label="Navegación">
+<p><a href= "07-ggplot-I.html" class = "btn btn-primary">Anterior</a> <a href= "09-ggplot-II.html" class = "btn btn-primary">Siguiente</a></p>
+</div>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTWFuaXB1bGFuZG8gZmVjaGFzIgpvdXRwdXQ6IAogIGh0bWxfZG9jdW1lbnQ6CiAgICBjb2RlX2Rvd25sb2FkOiB0cnVlCiAgICB0b2M6IHRydWUKICAgIHRvY19mbG9hdDogdHJ1ZQogICAgaGlnaGxpZ2h0OiB0YW5nbyAKLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpgYGAKCkVsIHBhcXVldGUgcG9yIGV4Y2VsZW5jaWEgcGFyYSB0cmFiYWphciBjb24gZmVjaGFzIHkgaG9yYXMgZXMge2x1YnJpZGF0ZX0gcXVlIGZvcm1hIHBhcnRlIGRlbCBtdW5kbyBkZSB0aWR5dmVyc2UgY29tbyAoY2FzaSkgdG9kb3MgbG9zIHBhcXVldGVzIHF1ZSB1c2Ftb3MgaGFzdGEgYWhvcmEuIFNpIG5vcm1hbG1lbnRlIHVzYXMgYGxpYnJhcnkodGlkeXZlcnNlKWAgcGFyYSBjYXJnYXIgbG9zIHBhcXVldGVzLCB0ZW7DqSBlbiBjdWVudGEgcXVlIHtsdWJyaWRhdGV9IG5vIHNlIGNhcmdhIGF1dG9tw6F0aWNhbWVudGUuIEFzw60gcXVlIGFycmFucXVlbW9zIHBvciBsbyBwcmltZXJvLgoKYGBge3IgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRX0KbGlicmFyeShsdWJyaWRhdGUpCmxpYnJhcnkoZHBseXIpCmxpYnJhcnkocmVhZHIpCmBgYAoKCiMjIENyZWFuZG8gZmVjaGFzIHkgaG9yYXMKClIgbWFuZWphIGZlY2hhcyB5IGZlY2hhcyB5IGhvcmFzIHkgcGFyYSBlc3RvIHRpZW5lIGxvcyB0aXBvcyBkZSBkYXRvcyBgPGRhdGU+YCB5IGA8ZHR0bT5gIHkgc2kgYmllbiBpbnRlcm5hbWVudGUgZXNvcyBkYXRvcyBzZSBhbG1hY2VuYW4gY29tbyBuw7ptZXJvcyBlbnRlcm9zIChwb3IgZWplbXBsbyBjYW50aWRhZCBkZSBzZWd1bmRvcyBkZXNkZSBlbCAxIGRlIGVuZXJvIGRlIDE5NzApIGNvbiBsdWJyaWRhdGUgY2FzaSBubyB0ZW5lbW9zIHF1ZSBwcmVvY3VwYXJub3MgZGUgZXNvIHkgcG9kZW1vcyB0cmFiYWphciBjb24gZmVjaGFzIGNvbW8gc2VyZXMgaHVtYW5vcy4gCgpFcyBwb3NpYmxlIHF1ZSBhbCBsZWVyIGJhc2VzIGRlIGRhdG9zIGFsZ3VuYXMgY29sdW1uYXMgY29uIGVzdGUgdGlwbyBkZSBpbmZvcm1hY2nDs24gc2VhIGxlw61kYSBjb21vIGNhZGFkZW5hIGRlIGNhcmFjdGVyZXMsIHBvciBlamVtcGxvICIyNS1PY3QtMTk5MCIuIEVzdG8gc2UgcHVlZGUgc29sdWNpb25hciB0YW50byBlbiBsYSBsZWN0dXJhIGRlIGxvcyBkYXRvcyBjb21vIGx1ZWdvIHVzYW5kbyBsdWJyaWRhdGUuIFZlYW1vcyBsbyBzZWd1bmRvLgoKClZhbW9zIGEgdHJhYmFqYXIgY29uIHVuYSBiYXNlIGRlIGRhdG9zIGRlIHJlcG9ydGVzIGRlIGV2ZW50b3Mgc2V2ZXJvcyByZXBvcnRhZG9zIHBvciBwZXJzb25hcyBkdXJhbnRlIGxhICBjYW1wYcOxYSBbUkVMQU1QQUdPXShodHRwczovL3d3dy5iYmMuY29tL211bmRvL25vdGljaWFzLTQ2MTMzMzMwKSBxdWUgc2UgbGxldsOzIGEgY2FibyBlbiBBcmdlbnRpbmEgZW50cmUgb2N0dWJyZSB5IGRpY2llbWJyZSBkZSAyMDE4LiAKCkxvcyByZXBvcnRlcyBzZSByZWNvbGVjdGFyb24gYSB0cmF2ZXMgZGUgdW4gZm9ybXVsYXJpbyBkZSBnb29nbGUgcXVlIGVudHJlIG90cm9zIGRhdG9zIHBlZMOtYTogZWwgdGlwbyBkZSBldmVudG8gbyBldmVudG9zIG9ic2VydmFkb3MsIGVsIGx1Z2FyIHkgaG9yYXJpbyBkZSBvY3VycmVuY2lhIGRlbCBldmVudG8uIAoKYGBge3IgZGF0b3N9CnJlcG9ydGVzIDwtIHJlYWRfY3N2KCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vcGFvY29ycmFsZXMvcjRkcy1ub3Rhcy9tYXN0ZXIvZXhhbWVuL2V2ZW50b3Nfc2V2ZXJvc19SRUxBTVBBR08uY3N2IikKCmdsaW1wc2UocmVwb3J0ZXMpICMgwr9xdcOpIHBpbnRhIHRpZW5lPwpgYGAKCjo6OnsuYWxlcnQgLmFsZXJ0LXN1Y2Nlc3N9CgoqKlRpcDoqKiBsYXMgZnVuY2lvbmVzIGByZWFkXyooKWAgcHVlZGUgbGVlciBiYXNlcyBkZSBkYXRvcyBkZXNkZSB1cmxzISBlbiBlc3RlIGNhc28gZXMgdW4gYXJjaGl2byBndWFyZGFkbyBlbiB1biByZXBvc2l0b3JpbyBkZSBHaXRIdWIuCjo6OgoKTGEgYmFzZSBkZSBkYXRvcyB0aWVuZSA0IHZhcmlhYmxlcywgbGEgZmVjaGEgKHF1ZSBSIG5vIHJlY29ub2Npw7MgY29tbyB0YWwpLCBsYSB1YmljYWNpw7NuIGVuIGxhdGl0dWQgeSBsb25naXR1ZCB5IGVsIHRpcG8gZGUgZXZlbnRvLiAKCkFycmVnbGVtb3MgbGEgdmFyaWFibGUgZmVjaGEuIFBhcmEgZXNvIHVzYXJlbW9zIHVuYSBmYW1pbGlhIGRlIGZ1bmNpb25lcyBkZSBsdWJyaWRhdGUgcXVlIGNvbnZpZXJ0ZW4gdW5hIGNhZGVuYSBkZSBjYXJhY3RlcmVzIG8gbsO6bWVyb3MgZW4gZmVjaGFzIHkgZmVjaGFzIHkgaG9yYXMuIAoKRW4gZXN0ZSBjYXNvIGVsIGZvcm1hdG8gZGUgbGEgZmVjaGEgZW4gbGEgYmFzZSBkZSBkYXRvcyBlcyAibWVzIC8gZMOtYSAvIGHDsW8gaG9yYSA6IG1pbnV0b3MgOiBzZWd1bmRvcyIgeSAgY29ub2NpZW5kbyBlbCBvcmRlbiBkZSBsYXMgY29tcG9uZW50ZXMgcG9kZW1vcyBlbGVnaXIgbGEgZnVuY2nDs24gbmVjZXNhcmlhLiBFbiBlc3RlIGNhc28gc2Vyw6EgYG1keV9obXMoKWAgcXVlIHZpZW5lIGp1c3RhbWVudGUgZGUgKiptKipvbnRoLCAqKmQqKmF5LCAqKnkqKmVhciwgKipoKipvdXIsICoqbSoqaW51dGUgeSAqKnMqKmVjb25kLCBsYXMgY29tcG9uZW50ZXMgZW4gaW5nbMOpcy4gCgpgYGB7ciBwYXJzZV9mZWNoYX0KcmVwb3J0ZXMgPC0gcmVwb3J0ZXMgJT4lIAogIG11dGF0ZShmZWNoYV9jb252ZXJ0aWRhID0gbWR5X2htcyhmZWNoYSkpIAoKcmVwb3J0ZXMgJT4lIAogIHB1bGwoZmVjaGFfY29udmVydGlkYSkgJT4lICMgTmVjZXNpdGFtb3MgZXh0cmFlciBlbCB2ZWN0b3IgcGFyYSB2ZXIgbGEgem9uYSBob3JhcmlhLgogIC5bMV0gICAgICAgICAgICAgICAgICAgICAgICMgRXh0cmFlbW9zIGVsIHByaW1lciBlbGVtZW50byAKYGBgCgpQb3IgZGVmZWN0byBjdWFscXVpZXJhIGRlIGxhcyBmdW5jaW9uZXMgZGUgbGEgZmFtaWxpYSBgeW1kX2htcygpYCBsZSBhc2lnbmEgbGEgem9uYSBob3JhcmlhIFVUQyBhIGxhIHZhcmlhYmxlIGRlIHNhbGlkYS4gTm9zIHZhbW9zIGEgb2N1cGFyIGRlIGVzdG8gbcOhcyBhZGVsYW50ZSBwZXJvIGVzIGltcG9ydGFudGUgY29ub2NlciBsb3MgbWV0YWRhdG9zIGRlIGVzdGEgYmFzZSBkZSBkYXRvcywgwr9sYXMgaG9yYXMgZXN0YXLDoW4gZW4gaG9yYSBsb2NhbCBvIGVuIFVUQz8KCjo6OnsuYWxlcnQgLmFsZXJ0LWluZm99CgoqKkRlc2Fmw61vOioqCgoxLiBSZXZpc8OhIGxhIGRvY3VtZW50YWNpw7NuIGRlIGxhIGZhbWlsaWEgZGUgZnVuY2lvbmVzIGB5bWRfaG1zKClgIHkgbGFzIGZ1bmNpb25lcyBgeW1kKClgIHBhciB2ZXIgcXVlIGNvbWJpbmFjaW9uZXMgcG9zaWJsZXMgZXhpc3Rlbi4KMi4gwr9DdWFsIGRlIHRvZGFzIGxhcyBmdW5jaW9uZXMgdXNhcsOtYXMgc2kgdGVuw6lzIHF1ZSBjb252ZXJ0aXIgYSBmZWNoYSB5IGhvcmEgbG9zIHNpZ3VpZW50ZXMgZWxlbWVudG9zOgogIC0gIjIwMTgtMTEtMjIgMTI6MDA6MDAiCiAgLSAxNTA5MjAyMAogIC0gIjEwLzMxLzE5OTgiCiAgLSAyMDE4MTEyMjE1MDAwMAo6OjoKCgpTaSBlbiB2ZXogZGUgdGVuZXIgbGEgaW5mb3JtYWNpw7NuIGRlIGxhIGZlY2hhIHUgZmVjaGEgeSBob3JhIGVuIHVuYSBzb2xhIGNvbHVtbmEsIGxhIHRlbmVtb3MgZW4gZGlzdGludGFzIGNvbHVtbmFzIChlbCBtZXMgcG9yIHVuIGxhZG8sIGVsIGTDrWEgcG9yIGVsIG90cm8sIGVjdC4pLCBleGlzdGVuIHVuIHBhciBkZSBmdW5jaW9uZXMgcXVlIHBlcm1pdGVuIGFybWFyIGxhIHZhcmlhYmxlOiBgbWFrZV9kYXRlKClgIHkgYG1ha2VfZGF0ZXRpbWUoKWAuIFNpIHF1aXNpZXJhbW9zIGFybWFyIGxhIGZlY2hhIDI1IGRlIG9jdHVicmUgZGUgMTk5MCB0ZW5kcsOtYW1vcyBxdWUgdXNhciBsYSBzaWd1aWVudGUgbMOtbmVhIGRlIGPDs2RpZ286CgpgYGB7cn0KbWFrZV9kYXRlKHllYXIgPSAxOTkwLCBtb250aCA9IDEwLCBkYXkgPSAyNSkKYGBgCgpPIHVuYSBmZWNoYSB5IGhvcmEsIHBvciBlamVtcGxvIGVsIDE0IGRlIGFnb3N0byBkZSAxOTg4IGEgbGFzIDEzIGhvcmFzIChwb3IgYWhvcmEgVVRDLCB5YSBub3MgbWV0ZXJlbW9zIGVuIGVzZSBiZXJlbmplbmFsIGFsIGZpbmFsIGRlIGVzdGUgZXBpc29kaW8pLgoKYGBge3J9Cm1ha2VfZGF0ZXRpbWUoeWVhciA9IDE5ODgsIG1vbnRoID0gOCwgZGF5ID0gMTQsIGhvdXIgPSAxMykKYGBgCgoKUG9yIHN1cHVlc3RvIHBvZHLDrWFtb3MgZ3VhcmRhciBlc2FzIGZlY2hhcyBlbiB2YXJpYWJsZXMgbyB1c2FyIGxhcyBmdW5jaW9uZXMgZGVudHJvIGRlIGBtdXRhdGUoKWAgcHJhIGdlbmVyYXIgY29sdW1uYXMgbnVldmFzIGVuIHVuIGRhdGEgZnJhbWUuCgojIyBTdXMgY29tcG9uZW50ZXMKCkFob3JhIHF1ZSBzYWJlbW9zIGNvbW8gYXJtYXIgZmVjaGFzLCBlcyBwb3NpYmxlIHF1ZSB0ZSBlc3TDqXMgcHJlZ3VudGFuZG8gY29tbyBkZXNhcm1hcmxhcyBvIGNvbW8gZXh0cmFlciBzdXMgY29tcG9uZW50ZXMuIEFsZ28gZGUgZXN0byB5YSBoaWNpbW9zIGFsIGdyYWZpY2FyIHRlbXBlcmF0dXJhcyBtZWTDrWFzIG1lbnN1YWxlcyBwZXJvIHZhbW9zIGEgcmV2aXNhcmxvLgoKe2x1YnJpZGF0ZX0gdGllbmUgdG9kYSB1bmEgZmFtaWxpYSBkZSBmdW5jaW9uZXMgcXVlIHBlcm1pdGVuIGV4dHJhZXIgbGFzIGNvbXBvbmVudGVzIGRlIHVuYSB2YXJpYWJsZSBmZWNoYSB1IGZlY2hhIHkgaG9yYS4gQWPDoSBsYSBjbGF2ZSBlcyByZWNvcmRhciBsb3Mgbm9tYnJlcyBlbiBpbmdsw6lzIChubyBub3MgcXVlZGEgb3RyYSEpLCBwb3IgZWplbXBsbyBzaSBxdWVyZW1vcyBlbCBtZXMsIGxhIGZ1bmNpw7NuIHNlcsOhIGBtb250aCgpYC4KClZlYW1vcyBjb21vIGZ1bmNpb25hLgoKYGBge3J9CnJlcG9ydGVzICU+JSAKICBtdXRhdGUobWVzID0gbW9udGgoZmVjaGFfY29udmVydGlkYSksCiAgICAgICAgIGRpYSA9IGRheShmZWNoYV9jb252ZXJ0aWRhKSkgCmBgYAoKRW4gcGFydGljdWxhciBsYSBjb21wb25lbnRlIGTDrWEgdGllbmUgdG9kYSB1bmEgc3ViZmFtaWxpYSBkZSBmdW5jaW9uZXMgcGFyYSBleHRyYWVyIGVsIGTDrWEgZGVsIGHDsW8sIGVsIGTDrWEgZGVsIG1lcyBvIGVsIGTDrWEgZGUgbGEgc2VtYW5hIQoKOjo6ey5hbGVydCAuYWxlcnQtaW5mb30KCioqRGVzYWbDrW8qKgoKMS4gRXh0cmHDqSBlbCBkw61hIGRlIGxhIHNlbWFuYSBnZW5lcmFuZG8gdW5hIG51ZXZhIGNvbHVtbmEgZW4gbGEgYmFzZSBkZSBkYXRvcyBgcmVwb3J0ZXNgIHF1ZSBzZSBsbGFtZSBgZGlhX3NlbWFuYWAuIChQc3NzISBsYSBmdW5jacOzbiBzZSBsbGFtYSBgd2RheSgpYCkuCjIuIEFob3JhIGludGVudGFsbyBkZSBudWV2byBwZXJvIGNhbWJpYW5kbyBlbCBhcmd1bWVudG8gbGFiZWwgYSBgVFJVRWAuIMK/UXXDqSBvY3VycmU/IMK/Q2FtYmlhIGVsIHRpcG8gZGUgZGF0b3M/IAo6OjoKCiMjIFpvbmFzIGhvcmFyaWFzCgpDdWFuZG8gdHJhYmFqYW1vcyBjb24gZGF0b3MgdGVtcG9yYWxlcyB5IGVzcGVjw61maWNhbWVudGUgYXF1ZWxsb3MgcXVlIHRpZW5lbiBmZWNoYSB5IGhvcmEgdW5hIGRlIGxhcyBjb25zaWRlcmFjaW9uZXMgcXVlIHRlbmVtb3MgcXVlIHRlbmVyIGVuIGN1ZW50YSBlcyBsYSB6b25hIGhvcmFyaWEuIFBvciBkZWZlY3RvIHtsdWJyaWRhdGV9IHkgbGEgY2llbmNpYSBlbiBnZW5lcmFsIHRyYWJhamEgZW4gKmhvcmEgVVRDKiAobyBDb29yZGluYXRlZCBVbml2ZXJzYWwgVGltZSkgcGVybyBlcyBwb3NpYmxlIHF1ZSBudWVzdHJvcyBkYXRvcyBlc3TDqW4gYWxtYWNlbmFkb3MgZW4gdW5hIHpvbmEgaG9yYXJpYSB0b3RhbG1lbnRlIGRpc3RpbnRhLgoKRW4gZXN0ZSBjYXNvLCBsb3MgcmVwb3J0ZXMgdGllbmVuIGxhIGhvcmEgYSBsYSBxdWUgb2N1cnJpw7MgZWwgZXZlbnRvIGVuIEFyZ2VudGluYS4gUG9yIGVzdG8gcG9kZW1vcyBpbmZlcmlyIHF1ZSBsYSB6b25hIGhvcmFyaWEgZXMgKi0zKi4gRXN0byBzaWduaWZpY2EgKjMgaG9yYXMgbWVub3MgcmVzcGVjdG8gZGUgbGEgaG9yYSBVVEMqLiAgwr9Dw7NtbyBsZSBhdmlzYW1vcyBhIFI/CgpUb2RhcyBsYXMgZnVuY2lvbmVzIGRlIGxhIGZhbWlsaWEgYHltZF9obXMoKWAgdGllbmUgdW4gYXJndW1lbnRvIGB0emAgcXVlIHBlcm1pdGUgY2FtYmlhciBsYSB6b25hIGhvcmFyaWEuIEVsIHRydWNvIGVzdMOhIGVuIHNhYmVyIGxhIG5vbWVuY2xhdHVyYSBkZSB6b25hcyBob3Jhcmlhcy4KCmBgYHtyfQpoZWFkKE9sc29uTmFtZXMoKSkgIyBMaXN0YSBkZSBsYXMgbsOhcyBkZSA2MDAgem9uYXMgaG9yYXJpYXMgZGlzcG9uaWJsZXMKU3lzLnRpbWV6b25lKCkgICAgICMgwr9FbiBxdcOpIHpvbmEgaG9yYXJpYSBlc3TDoSBtaSBjb21wdXRhZG9yYT8KYGBgCgpQb2RlbW9zIHVzYXIgZXNhIGluZm9ybWFjacOzbiBlbiBlbCBhcmd1bWVudG8gYHR6YC4KCmBgYHtyfQpyZXBvcnRlcyA8LSByZXBvcnRlcyAlPiUgCiAgbXV0YXRlKGZlY2hhX2NvbnZlcnRpZGFfdHogPSBtZHlfaG1zKGZlY2hhLCB0eiA9ICJBbWVyaWNhL0FyZ2VudGluYS9CdWVub3NfQWlyZXMiKSkgCgpyZXBvcnRlcyAlPiUgCiAgIHB1bGwoZmVjaGFfY29udmVydGlkYV90eikgJT4lICMgTmVjZXNpdGFtb3MgZXh0cmFlciBlbCB2ZWN0b3IgcGFyYSB2ZXIgbGEgem9uYSBob3JhcmlhLgogIC5bMV0KYGBgCgojIyMgVHJhbmZvcm1hbmRvIHpvbmFzIGhvcmFyaWFzCgpBaG9yYSBzaSwgUiBpbnRlcnByZXNhIGVzdGFzIGZlY2hhcyB5IGhvcmFzIGVuIGxhIHpvbmEgaG9yYXJpYSBjb3JyZWN0YS4gU2luIGVtYmFyZ28sIGVuIG1ldGVvcm9sb2fDrWEgZXN0YW1vcyBhY29zdHVtYnJhZG9zIGEgY29tdW5pY2FyIG51ZXN0cm9zIHJlc3VsdGFkb3MgZW4gaG9yYSAqVVRDKiAodSAqaG9yYSBaKiwgcXVlIGVzIGxvIG1pc21vKSwgwr9jw7NtbyBjb252ZXJ0aW1vcyBsYXMgZmVjaGFzIHkgaG9yYXMgYSBvdHJhIHpvbmEgaG9yYXJpYT8KIAp7bHVicmlkYXRlfSB0aWVuZSBkb3MgZnVuY2lvbmVzIGVzcGVjw61maWNhcyBwYXJhIHRyYWJhamFyIGNvbiB6b25hcyBob3Jhcmlhcy4gCiAKKiBgZm9yY2VfdHooKWAgbWFudGllbmUgY29uc3RhbnRlIGxhIGhvcmEgcXVlIHZlbW9zIGVuIGVsIHJlbG9qIHBlcm8gY2FtYmlhIGxhIHpvbmEgaG9yYXJpYS4gIAogCmBgYHtyfQpyZXBvcnRlcyA8LSByZXBvcnRlcyAlPiUgCiAgbXV0YXRlKGZlY2hhX2ZvcmNlX3R6ID0gZm9yY2VfdHooZmVjaGFfY29udmVydGlkYV90eiwgdHpvbmUgPSAiVVRDIikpIAoKcmVwb3J0ZXMgJT4lIAogICBwdWxsKGZlY2hhX2ZvcmNlX3R6KSAlPiUgIyBOZWNlc2l0YW1vcyBleHRyYWVyIGVsIHZlY3RvciBwYXJhIHZlciBsYSB6b25hIGhvcmFyaWEuCiAgLlsxXQpgYGAKCkVzdG8gbm8gcmVzdWVsdmUgbnVlc3RybyBwcm9ibGVtYSwgc2kgcXVlcmVtb3MgZXhwcmVzYXIgIjIwMTgtMTAtMzAgMTI6NTA6MDAgLTMiIGVuIGhvcmEgVVRDIGhheSBxdWUgKnN1bWFybGUqIDMgaG9yYXMuCiAKKiBgd2l0aF90eigpYCBub3MgcGVybWl0ZSBjYW1iaWFyIGRlIHpvbmEgaG9yYXJpYSBtYW50ZW5pZW5kbyBlbCBtaXNtbyBpbnN0YW50ZSBlbiBlbCB0aWVtcG8uIEVuIG90cmFzIHBhbGFicmFzLCBwb2RlbW9zIHJlc3BvbmRlciDCv1F1w6kgaG9yYSBlcyBlbiBBdXN0cmFsaWE/IEVzdG8gZXMganVzdGFtZW50ZSBsbyBxdWUgbmVjZXNpdGFtb3MuCiAKYGBge3J9CnJlcG9ydGVzIDwtIHJlcG9ydGVzICU+JSAKICBtdXRhdGUoZmVjaGFfd2l0aF90eiA9IHdpdGhfdHooZmVjaGFfY29udmVydGlkYV90eiwgdHpvbmUgPSAiVVRDIikpIAoKcmVwb3J0ZXMgJT4lIAogICBwdWxsKGZlY2hhX3dpdGhfdHopICU+JSAjIE5lY2VzaXRhbW9zIGV4dHJhZXIgZWwgdmVjdG9yIHBhcmEgdmVyIGxhIHpvbmEgaG9yYXJpYS4KICAuWzFdCmBgYAogCgoKOjo6ey5hbGVydCAuYWxlcnQtaW5mb30KCioqRGVzYWbDrW8qKgoKRXN0w6FzIHRyYWJhamFuZG8gY29uIHVuYSBiYXNlIGRlIGRhdG9zIHRlbXBlcmF0dXJhIHF1ZSBjb250aWVuZSB1bmEgdmFyaWFibGUgY29uIGluZm9ybWFjacOzbiBmZWNoYXMgeSBob3Jhcy4gQWwgcmV2aXNhciBsYSBjbGFzZSBkZSBsYSB2YXJpYWJsZSB0aWVtcG8gb2JzZXJ2w6FzIHF1ZSBhcGFyZWNlIGNvbW8gY2FyYWN0ZXIuIEFkZW3DoXMgdGUgZ3VzdGFyw61hIHBvZGVyIG1vc3RyYXIgZXN0b3MgZGF0b3MgZW4gaG9yYSBsb2NhbCAoLTMpIHBhcmEgcXVlIGVsIHDDumJsaWNvIGdlbmVyYWwgcHVlZGEgZW50ZW5kZXIgZsOhY2lsbWVudGUgdHVzIHJlc3VsdGFkb3MuIE9yZGVuw6EgbGFzIHNpZ3VpZW50ZXMgbMOtbmVhcyBkZSBjw7NkaWdvIHBhcmEgY29ycmVnaXIgbGEgdmFyaWFibGUuIEFncmVnw6EgJT4lIGN1YW5kbyBsbyBjb25zaWRlcmVzLgoKYGBgCm11dGF0ZSh0aWVtcG8gPSB5bWRfaG1zKHRpZW1wbywgdHogPSDigJxVVEPigJ0pKQp0ZW1wZXJhdHVyYSAKbXV0YXRlKHRpZW1wb19sb2NhbCA9IHdpdGhfdHoodGllbXBvLCB0em9uZSA9IOKAnEFtZXJpY2EvQXJnZW50aW5hL0J1ZW5vc19BaXJlc+KAnSkpCnRlbXBlcmF0dXJhX2NvcnJlZ2lkbwpgYGAKOjo6Cgo6Ojp7LmFsZXJ0IC5hbGVydC1pbmZvfQoqKkV4dHJhKioKCkVuIGVsIOKAnGFtYmllbnRl4oCdIGRlIFIgdGVuw6lzIHVuYSB2YXJpYWJsZSBgbWlfZmVjaGFgIHF1ZSBndWFyZGEgdW5hIGZlY2hhLgoKYGBgCj4gbWlfZmVjaGEKWzFdICIyMDE4LTExLTIyIDIxOjAwOjAwIC0wMyIKPiBjbGFzcyhtaV9mZWNoYSkKWzFdICJQT1NJWGN0IiAiUE9TSVh0IgpgYGAKClNpIGNvcnJpZXJhcyBsYSBzaWd1aWVudGUgbMOtbmVhIGRlIGPDs2RpZ28sIGN1w6FsIHNlcsOhIGVsIHJlc3VsdGFkbz8gKHBlbnPDoSBjdWFsIHNlcsOhIGVsIHJlc3VsdGFkbyBzaW4gY29ycmVyIGVsIGPDs2RpZ28gZW4gUikuCgpgYGAKPiB3aXRoX3R6KG1pX2ZlY2hhLCB0em9uZSA9ICJVVEMiKQpgYGAKCi0gIjIwMTgtMTEtMjIgMjE6MDA6MDAgVVRDIiBlcyBkZWNpciwgbWFudGVuaWVuZG8gbGEgbWlzbWEgaG9yYSBlbiBlbCByZWxvaiB5IGNhbWJpYW5kbyBsYSB6b25hIGhvcmFyaWEuCi0gIjIwMTgtMTEtMjMgMDA6MDA6MDAgVVRDIiBlcyBkZWNpciwgZWwgbWlzbW8gaW5zdGFudGUgZW4gZWwgdGllbXBvIGV4cHJlc2FkbyBlbiB1bmEgem9uYSBob3JhcmlhIGRpc3RpbnRhLiAKLSAiMjAxOC0xMS0yMiAxODowMDowMCBVVEMiIGVzIGRlY2lyLCBlbCBtaXNtbyBpbnN0YW50ZSBlbiBlbCB0aWVtcG8gZXhwcmVzYWRvIGVuIHVuYSB6b25hIGhvcmFyaWEgZGlzdGludGEuIAotICIyMDE4LTExLTIyIDAwOjAwOjAwIFVUQyIgZXMgZGVjaXIsIGVsIG1pc21vIGluc3RhbnRlIGVuIGVsIHRpZW1wbyBleHByZXNhZG8gZW4gdW5hIHpvbmEgaG9yYXJpYSBkaXN0aW50YS4gCgo6OjoKCjxkaXYgY2xhc3M9ImJ0bi1ncm91cCIgcm9sZT0iZ3JvdXAiIGFyaWEtbGFiZWw9Ik5hdmVnYWNpw7NuIj4KICA8YSBocmVmPSAiMDctZ2dwbG90LUkuaHRtbCIgY2xhc3MgPSAiYnRuIGJ0bi1wcmltYXJ5Ij5BbnRlcmlvcjwvYT4KICA8YSBocmVmPSAiMDktZ2dwbG90LUlJLmh0bWwiIGNsYXNzID0gImJ0biBidG4tcHJpbWFyeSI+U2lndWllbnRlPC9hPgo8L2Rpdj4=</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("08-lubridate.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

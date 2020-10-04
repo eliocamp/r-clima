@@ -36,27 +36,24 @@ Si en realidad estás buscando aprender R desde cero, te sugerimos revisar [este
 
 #### Contenidos
 
-- [Manipulación y combinación de tablas](08-dplyr-tidyr-II.html)
+- [Manipulación y combinación de tablas](06-dplyr-tidyr-II.html)
     - “Alargar” y “ensanchar” tablas.	
     - Organizar columnas y sus nombres
     - Combinar tablas de datos a partir de variables llave
-- Graficar en el tiempo
-  - Gráfico de líneas.
-  - Gráfico de columnas.
-  - Escalas de tiempo.
-  - Paneles.
-- Manejo de fechas
-  - Parseo de datos de fecha
+- [Graficar en el tiempo](07-graficos-I.html)
+  - Graficos de puntos
+  - Gráfico de líneas
+  - Suavizado
+  - Paneles
+- [Manipulando fechas](08-lubridate.html)
+  - Generación de fechas y horas
   - Manipulación de componentes
   - Transformación de zonas horarias
-- Graficar en el espacio
+- [Graficar en el espacio](09-graficos-II.html)
   - Graficar grillas regulares
   - Graficar datos puntuales
   - Interpolación
   - Mapas y coordenadas
-- Transformaciones estadísticas automáticas 
-  - Suavizado.
-  - Densidad e histogramas.
 
 *Desafío: [generar gráficos a partir de la base de datos usada.](desafio-2.html)*
 

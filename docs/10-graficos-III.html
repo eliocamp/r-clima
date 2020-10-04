@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Apariencia de gráficos</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R para Clima</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="hoja-de-ruta.html">Hoja de ruta</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Temas
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01-introduccion.html">Introducción</a>
+    </li>
+    <li>
+      <a href="02-proyectos.html">Proyectos de RStudio</a>
+    </li>
+    <li>
+      <a href="03-reportes-I.html">Reportes I</a>
+    </li>
+    <li>
+      <a href="04-lectura.html">Lectura de datos</a>
+    </li>
+    <li>
+      <a href="05-dplyr.html">Manipulación de datos I</a>
+    </li>
+    <li>
+      <a href="06-dplyr-tidyr-II.html">Manipulación de datos II</a>
+    </li>
+    <li>
+      <a href="07-graficos-I.html">Gráficos I</a>
+    </li>
+    <li>
+      <a href="08-lubridate.html">Manipulación fechas</a>
+    </li>
+    <li>
+      <a href="09-graficos-II.html">Gráficos II</a>
+    </li>
+    <li>
+      <a href="10-graficos-III.html">Gráficos para publicar</a>
+    </li>
+    <li>
+      <a href="11-reportes-II.html">Reportes II</a>
+    </li>
+    <li>
+      <a href="12-publicar.html">Publicar reportes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Desafíos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="desafio-1.html">Leer y analizar datos</a>
+    </li>
+    <li>
+      <a href="desafio-2.html">Graficar datos</a>
+    </li>
+    <li>
+      <a href="desafio-3.html">Generar un informe</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Apariencia de gráficos</h1>
+
+</div>
+
+
+<div id="escalas" class="section level2">
+<h2>Escalas</h2>
+<p><a href="06-graficos-I.html">Previamente</a> comentamos que el <em>mapeo</em> de una variable en un elemento geométrico, por ejemplo cuando le asignamos distintos colores a los puntos que representan cada tipo de temperatura, usa una <strong>escala</strong> para definir, en este caso, que color le corresponde a cada elemento.</p>
+<p>También cambiamos la apariencia del relleno (o <code>fill</code>) de los contornos y la forma de los puntos (o <code>shape</code>). Para esto, {ggplot2} siempre usa una escala que podemos modificar de acuerdo a nuestro gusto y teniendo en cuenta cómo queremos comunicar nuestros resultados.</p>
+<p>Por supuesto, modificar una escala implica sumar una nueva capa al gráfico sumando una nueva función. Todas las funciones de escala comienzan con <code>scale</code> (de escala en inglés), el típo de apariencia que queremos modificar (<code>color</code>, <code>fill</code>, <code>shape</code>, etc) y en muchos casos un nombre o una característica de esa escala.</p>
+<p>Para mostrar como funciona, vamos a descargar datos de las estaciones meteorológicas del Servicio Meteorológico Nacional para el mes de agosto de 2020 y con suerte al final de este documento tendremos un gráfico listo para publicar.</p>
+<p>Pero por supuesto, primero tenemos que manipular los datos para poder utilizarlos. En particular necesitaremos información de las estaciones, sus metadatos, que se encuentran en un archivo distinto. Y de paso calculamos la variable que nos interesa: la temperatura máxima media para agosto.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">estaciones &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/estaciones_smn.csv&quot;</span>) <span class="co"># Metadatos</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">fechas &lt;-<span class="st"> </span><span class="kw">seq.Date</span>(lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="dv">20200801</span>), lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="dv">20200831</span>), <span class="dt">by =</span> <span class="st">&quot;1 day&quot;</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">observaciones &lt;-<span class="st"> </span><span class="kw">GetSMNData</span>(fechas, <span class="dt">type =</span> <span class="st">&quot;daily&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="st">  </span><span class="kw">group_by</span>(station) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tmax_media =</span> <span class="kw">mean</span>(tmax, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">            <span class="dt">tmax_var =</span> <span class="kw">sd</span>(tmax, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">observaciones &lt;-<span class="st"> </span><span class="kw">left_join</span>(observaciones, estaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>)) </a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() </a></code></pre></div>
+<p><img src="10-graficos-III_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Por ahora este gráfico no nos dice nada, necesitamos agregarle una capa con el mapa tal cual hicimos previamente.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">mapa &lt;-<span class="st"> </span>rnaturalearth<span class="op">::</span><span class="kw">ne_states</span>(<span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&quot;argentina&quot;</span>), <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) </a></code></pre></div>
+<p><img src="10-graficos-III_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div id="escala-de-colores-y-otras-características" class="section level3">
+<h3>Escala de colores y otras características</h3>
+<p>Si bien ahora podemos identificar donde están las estaciones, no tenemos información de la temperatura máxima media. Podríamos cambiar el color de los puntos para que representen el valor que toma esa variable en cada estación.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) </a></code></pre></div>
+<p><img src="10-graficos-III_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Pero esta escala de colores que usa {ggplot2} por defecto no es de las mejores, es difícil diferenciar entre los valores. Existen infinitas paletas de colores que se pueden usar en ggplot, algunas por ejemplo buscan poder distinguirse si imprimimos el gráfico en blanco y negro, otras están diseñadas para que personas con daltonismo puedan distinguir los colores. Una escala o paleta de colores muy usada es <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html"><strong>viridis</strong></a> que fue creada justamente para resolver este y otros problemas. También existe otra gran familia de paletas de colores llamada <a href="https://colorbrewer2.org/"><strong>ColorBrewer</strong></a>.</p>
+<p>Vamos a probar la paleta “YlOrRd” , esta paleta es <em>secuencial</em> y es justo lo que necesitamos para visualizar una variable continua como la temperatura. Cómo estamos modificando el <em>color</em>, la función a usar será <code>scale_color_distiller()</code>, la hermana <em>continua</em> de <code>scale_color_brewer()</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p><img src="10-graficos-III_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>En este caso también agregamos el argumento <code>direction = 1</code> para que la paleta de colores los muestre de más oscuros a más claros. Esta desición es estética y muchas veces depende de las variables a graficar.</p>
+<div class="alert alert-info">
+<p><strong>Desafío</strong></p>
+<p>A modo de prueba, cambia la paleta de colores actual por la de Viridis. Para eso tenés que usar <code>scale_color_viridis_c()</code>. La “c” del final viene de <em>continuous</em> y se usa para variables continuas, mientras que si los datos son discretos o categorías, se usa “d” al final.</p>
+</div>
+<p>Nuestro gráfico va quedando mejor y podemos aprovechar la capacidad de {ggplot2} de <em>mapear</em> variables a los elementos del gráfico y visualizar la variabilidad de la temperatura máxima modificando el tamaño de los puntos de acuerdo al desvío estandar.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="10-graficos-III_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Es interesante ver como las temperaturas máximas medias mayores también tienen mayor variabilidad. Pero ahora algunos puntos se superponen y es posible que no estemos viendo algunas estaciones. Vamos a arreglar eso agregando transparencia y de paso modificar el tamaño de los puntos con la escala correspondiente <code>scale_size_area()</code> y sacar la legenda con <code>guide = NULL</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="10-graficos-III_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="escalas-de-ejes" class="section level3">
+<h3>Escalas de ejes</h3>
+<p>Ahora que la información del gráfico se ve bien, pasemos a los ejes. Al igual que para el color, el tamaño y otros elementos del gráfico, para los ejes también existen funciones “scale”. En este caso las escalas que modifican los ejes justamente comienzan con <code>scala_x_</code> o <code>scale_y_</code> según sea el caso y hay una gran variedad de opciones dependiendo del tipo de dato que estamos graficando en cada eje.</p>
+<p>Si en el eje y graficamos una variable discreta entonces podremos modificar su especto con <code>scale_y_discrete()</code>. En este caso la función <code>geom_sf()</code> automáticamente modifica la apariencia de los ejes y no requieren de mucho trabajo.</p>
+<p>Pero queremos que nuestro gráfico quede listo para publicar y la “W” de west (oeste en inglés) puede no ser muy amigable. Modifiquemos entonces el eje x con la función <code>scale_x_continuous()</code>. En este caso queremos modificar las etiquetas o <code>labels</code> y para eso usaremos la función <code>LonLabel()</code> del paquete {metR}. Esta función recibe una función anónima que toma cada longitud y el cambia el “°W° por”°O&quot;.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>))</a></code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="10-graficos-III_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+</div>
+<div id="elementos-de-texto" class="section level2">
+<h2>Elementos de texto</h2>
+<p>Ya sumamos 3 escalas y el gráfico ya se ve muy bien. ¿Cómo hacemos si queremos identificar estaciones individuales? Por ahora es difícil, pero podríamos agregar etiquetas de texto con el nombre de cada estación al lado de cada punto usando <code>geom_text()</code>, y en este caso la apariencia está dada por <code>label</code> o etiqueta:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> station)) </a></code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="10-graficos-III_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Pero nos olvidamos que tenemos más de 100 estaciones, es imposible agregarle etiquetas a todos. Pero podríamos querer resaltar algunos, tal vez los de una región en particular o los que cumplen con la condición de tener las mayores temperaturas máximas medias. Para eso vamos a generarnos una nueva tabla con las estaciones que queremos resaltar y de paso usarla dentro de <code>geom_text()</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">extremos_temperatura &lt;-<span class="st"> </span>observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(tmax_media <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(tmax_media, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">|</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">           </span>tmax_media <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(tmax_media, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="co"># Estaciones con extremos!</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> station),</a>
+<a class="sourceLine" id="cb14-15" data-line-number="15">            <span class="dt">data =</span> extremos_temperatura, <span class="co"># Esta capa usa la tabla extremos_temperatura!</span></a>
+<a class="sourceLine" id="cb14-16" data-line-number="16">            <span class="dt">size =</span> <span class="fl">2.5</span>) </a></code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="10-graficos-III_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="alert alert-success">
+<p>Del código anterior surge algo muy importante: es posible generar capas en un gráfico usando una data.frame <em>distinto</em> al que usamos para graficar las capas anteriores. Esto es útil principalmente para definir etiquetas o resaltar determinadas observaciones.</p>
+<p>Y el truco está en que ambos data.frames tienen las variables <code>lon</code> y <code>lat</code> y entonces {ggplot2} puede identificar en que parte del gráfico (en que valores de x y en que valores de y) colocar cada elemento.</p>
+</div>
+<p>Veamos ahora una (de varias) maneras agregar o modificar elementos de texto en el gráfico. Vamos a usar una nueva función (y una nueva capa!), <code>labs()</code>:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> station),</a>
+<a class="sourceLine" id="cb16-10" data-line-number="10">            <span class="dt">data =</span> extremos_temperatura, <span class="co"># Esta capa usa la tabla extremos_temperatura!</span></a>
+<a class="sourceLine" id="cb16-11" data-line-number="11">            <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Temperatura máxima media&quot;</span>,</a>
+<a class="sourceLine" id="cb16-13" data-line-number="13">       <span class="dt">subtitle =</span> <span class="st">&quot;Agosto&quot;</span>,</a>
+<a class="sourceLine" id="cb16-14" data-line-number="14">       <span class="dt">caption =</span> <span class="st">&quot;El tamaño de cada circulo representa la variabilidad&quot;</span>,</a>
+<a class="sourceLine" id="cb16-15" data-line-number="15">       <span class="dt">x =</span> <span class="st">&quot;Longitud&quot;</span>,</a>
+<a class="sourceLine" id="cb16-16" data-line-number="16">       <span class="dt">y =</span> <span class="st">&quot;Latitud&quot;</span>,</a>
+<a class="sourceLine" id="cb16-17" data-line-number="17">       <span class="dt">color =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="10-graficos-III_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Agregamos un título, un subtítulo, el epígrafe de la figura (<em>caption</em>) para las aclaraciones y cambiamos el nombre de los ejes para que se vean mejor. Pero ademas eliminamos el nombre de la leyenda porque era un poco redundante (ya está en el título).</p>
+</div>
+<div id="temas" class="section level2">
+<h2>Temas</h2>
+<p>Nos queda una última cosa por hacer, cambiar la apariencia global del gráfico. {ggplot2} tiene muchos <em>temas</em> disponibles y para todos los gustos. Pero además hay otros paquetes que extienden las posibilidades, por ejemplo <a href="https://github.com/jrnold/ggthemes">{ggthemes}</a>.</p>
+<p>Por defecto {ggplot2} usa <code>theme_grey()</code>, probemos <code>theme_light()</code>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">observaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media, <span class="dt">size =</span> tmax_var), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_size_area</span>(<span class="dt">max_size =</span> <span class="dv">4</span>, <span class="dt">guide =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">LonLabel</span>(x, <span class="dt">west =</span> <span class="st">&quot;°O&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> station),</a>
+<a class="sourceLine" id="cb18-10" data-line-number="10">            <span class="dt">data =</span> extremos_temperatura, <span class="co"># Esta capa usa la tabla extremos_temperatura!</span></a>
+<a class="sourceLine" id="cb18-11" data-line-number="11">            <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Temperatura máxima media&quot;</span>,</a>
+<a class="sourceLine" id="cb18-13" data-line-number="13">       <span class="dt">subtitle =</span> <span class="st">&quot;Agosto&quot;</span>,</a>
+<a class="sourceLine" id="cb18-14" data-line-number="14">       <span class="dt">caption =</span> <span class="st">&quot;El tamaño de cada circulo representa la variabilidad&quot;</span>,</a>
+<a class="sourceLine" id="cb18-15" data-line-number="15">       <span class="dt">x =</span> <span class="st">&quot;Longitud&quot;</span>,</a>
+<a class="sourceLine" id="cb18-16" data-line-number="16">       <span class="dt">y =</span> <span class="st">&quot;Latitud&quot;</span>,</a>
+<a class="sourceLine" id="cb18-17" data-line-number="17">       <span class="dt">color =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="st">  </span><span class="kw">theme_light</span>()</a></code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="10-graficos-III_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="alert alert-info">
+<p><strong>Desafío</strong></p>
+<p>Ahora es tu turno. Elegí un <a href="https://es.r4ds.hadley.nz/images/visualization-themes.png" class="alert-link">tema que te guste</a> y probalo. Además, si se te ocurre algún título mejor modificalo!</p>
+</div>
+<div class="alert alert-success">
+<p>Junto con las funciones <code>theme_...()</code>, hay una función llamada <code>theme()</code> que permite cambiar la apariencia de cualquier elemento del gráfico. Tiene casi infinitas opciones y si algún momento te desvelas intentando cambiar esa línea o ese borde, seguro que <code>theme()</code> tiene alguna opción par ahacer eso.</p>
+</div>
+<div class="btn-group" role="group" aria-label="Navegación">
+<p><a href= "09-ggplot-II.html" class = "btn btn-primary">Anterior</a> <a href= "11-reportes-II.html" class = "btn btn-primary">Siguiente</a></p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQXBhcmllbmNpYSBkZSBncsOhZmljb3MiCm91dHB1dDogCiAgaHRtbF9kb2N1bWVudDoKICAgIGNvZGVfZG93bmxvYWQ6IHRydWUKICAgIHRvYzogdHJ1ZQogICAgdG9jX2Zsb2F0OiB0cnVlCiAgICBoaWdobGlnaHQ6IHRhbmdvCi0tLQoKYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSwKICAgICAgICAgICAgICAgICAgICAgIG1lc3NhZ2UgPSBGQUxTRSkKbGlicmFyeShnZ3Bsb3QyKQpsaWJyYXJ5KGRwbHlyKQpsaWJyYXJ5KHJlYWRyKQpsaWJyYXJ5KG1ldFIpCmBgYAoKIyMgRXNjYWxhcwoKW1ByZXZpYW1lbnRlXSgwNi1ncmFmaWNvcy1JLmh0bWwpIGNvbWVudGFtb3MgcXVlIGVsICptYXBlbyogZGUgdW5hIHZhcmlhYmxlIGVuIHVuIGVsZW1lbnRvIGdlb23DqXRyaWNvLCBwb3IgZWplbXBsbyBjdWFuZG8gbGUgYXNpZ25hbW9zIGRpc3RpbnRvcyBjb2xvcmVzIGEgbG9zIHB1bnRvcyBxdWUgcmVwcmVzZW50YW4gY2FkYSB0aXBvIGRlIHRlbXBlcmF0dXJhLCB1c2EgdW5hICoqZXNjYWxhKiogcGFyYSBkZWZpbmlyLCBlbiBlc3RlIGNhc28sIHF1ZSBjb2xvciBsZSBjb3JyZXNwb25kZSBhIGNhZGEgZWxlbWVudG8uIAoKVGFtYmnDqW4gY2FtYmlhbW9zIGxhIGFwYXJpZW5jaWEgZGVsIHJlbGxlbm8gKG8gYGZpbGxgKSBkZSBsb3MgY29udG9ybm9zIHkgbGEgZm9ybWEgZGUgbG9zIHB1bnRvcyAobyBgc2hhcGVgKS4gUGFyYSBlc3RvLCB7Z2dwbG90Mn0gc2llbXByZSB1c2EgdW5hIGVzY2FsYSBxdWUgcG9kZW1vcyBtb2RpZmljYXIgZGUgYWN1ZXJkbyBhIG51ZXN0cm8gZ3VzdG8geSB0ZW5pZW5kbyBlbiBjdWVudGEgY8OzbW8gcXVlcmVtb3MgY29tdW5pY2FyIG51ZXN0cm9zIHJlc3VsdGFkb3MuIAoKUG9yIHN1cHVlc3RvLCBtb2RpZmljYXIgdW5hIGVzY2FsYSBpbXBsaWNhIHN1bWFyIHVuYSBudWV2YSBjYXBhIGFsIGdyw6FmaWNvIHN1bWFuZG8gdW5hIG51ZXZhIGZ1bmNpw7NuLiBUb2RhcyBsYXMgZnVuY2lvbmVzIGRlIGVzY2FsYSBjb21pZW56YW4gY29uIGBzY2FsZWAgKGRlIGVzY2FsYSBlbiBpbmdsw6lzKSwgZWwgdMOtcG8gZGUgYXBhcmllbmNpYSBxdWUgcXVlcmVtb3MgbW9kaWZpY2FyIChgY29sb3JgLCBgZmlsbGAsIGBzaGFwZWAsIGV0YykgeSBlbiBtdWNob3MgY2Fzb3MgdW4gbm9tYnJlIG8gdW5hIGNhcmFjdGVyw61zdGljYSBkZSBlc2EgZXNjYWxhLiAKClBhcmEgbW9zdHJhciBjb21vIGZ1bmNpb25hLCB2YW1vcyBhIGRlc2NhcmdhciBkYXRvcyBkZSBsYXMgZXN0YWNpb25lcyBtZXRlb3JvbMOzZ2ljYXMgZGVsIFNlcnZpY2lvIE1ldGVvcm9sw7NnaWNvIE5hY2lvbmFsIHBhcmEgZWwgbWVzIGRlIGFnb3N0byBkZSAyMDIwIHkgY29uIHN1ZXJ0ZSBhbCBmaW5hbCBkZSBlc3RlIGRvY3VtZW50byB0ZW5kcmVtb3MgdW4gZ3LDoWZpY28gbGlzdG8gcGFyYSBwdWJsaWNhci4KClBlcm8gcG9yIHN1cHVlc3RvLCBwcmltZXJvIHRlbmVtb3MgcXVlIG1hbmlwdWxhciBsb3MgZGF0b3MgcGFyYSBwb2RlciB1dGlsaXphcmxvcy4gRW4gcGFydGljdWxhciBuZWNlc2l0YXJlbW9zIGluZm9ybWFjacOzbiBkZSBsYXMgZXN0YWNpb25lcywgc3VzIG1ldGFkYXRvcywgcXVlIHNlIGVuY3VlbnRyYW4gZW4gdW4gYXJjaGl2byBkaXN0aW50by4gWSBkZSBwYXNvIGNhbGN1bGFtb3MgbGEgdmFyaWFibGUgcXVlIG5vcyBpbnRlcmVzYTogbGEgdGVtcGVyYXR1cmEgbcOheGltYSBtZWRpYSBwYXJhIGFnb3N0by4KCmBgYHtyfQplc3RhY2lvbmVzIDwtIHJlYWRfY3N2KCJkYXRvcy9lc3RhY2lvbmVzX3Ntbi5jc3YiKSAjIE1ldGFkYXRvcwoKZmVjaGFzIDwtIHNlcS5EYXRlKGx1YnJpZGF0ZTo6eW1kKDIwMjAwODAxKSwgbHVicmlkYXRlOjp5bWQoMjAyMDA4MzEpLCBieSA9ICIxIGRheSIpCgpvYnNlcnZhY2lvbmVzIDwtIEdldFNNTkRhdGEoZmVjaGFzLCB0eXBlID0gImRhaWx5IikgJT4lIAogIGdyb3VwX2J5KHN0YXRpb24pICU+JSAKICBzdW1tYXJpc2UodG1heF9tZWRpYSA9IG1lYW4odG1heCwgbmEucm0gPSBUUlVFKSwKICAgICAgICAgICAgdG1heF92YXIgPSBzZCh0bWF4LCBuYS5ybSA9IFRSVUUpKQoKb2JzZXJ2YWNpb25lcyA8LSBsZWZ0X2pvaW4ob2JzZXJ2YWNpb25lcywgZXN0YWNpb25lcywgYnkgPSBjKCJzdGF0aW9uIiA9ICJub21icmUiKSkgCmBgYAoKCmBgYHtyfQpvYnNlcnZhY2lvbmVzICU+JSAKICBmaWx0ZXIocmVnaW9uICE9ICJBTlRBUlRJREEiKSAlPiUgCiAgZ2dwbG90KGFlcyhsb24sIGxhdCkpICsKICBnZW9tX3BvaW50KCkgCmBgYAoKUG9yIGFob3JhIGVzdGUgZ3LDoWZpY28gbm8gbm9zIGRpY2UgbmFkYSwgbmVjZXNpdGFtb3MgYWdyZWdhcmxlIHVuYSBjYXBhIGNvbiBlbCBtYXBhIHRhbCBjdWFsIGhpY2ltb3MgcHJldmlhbWVudGUuIAoKYGBge3J9Cm1hcGEgPC0gcm5hdHVyYWxlYXJ0aDo6bmVfc3RhdGVzKGNvdW50cnkgPSBjKCJhcmdlbnRpbmEiKSwgcmV0dXJuY2xhc3MgPSAic2YiKQoKb2JzZXJ2YWNpb25lcyAlPiUgCiAgZmlsdGVyKHJlZ2lvbiAhPSAiQU5UQVJUSURBIikgJT4lIAogIGdncGxvdChhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9wb2ludCgpICsKICBnZW9tX3NmKGRhdGEgPSBtYXBhLCBmaWxsID0gTkEsIGNvbG9yID0gImJsYWNrIiwgc2l6ZSA9IDAuMiwgaW5oZXJpdC5hZXMgPSBGQUxTRSkgCmBgYAoKCiMjIyBFc2NhbGEgZGUgY29sb3JlcyB5IG90cmFzIGNhcmFjdGVyw61zdGljYXMKClNpIGJpZW4gYWhvcmEgcG9kZW1vcyBpZGVudGlmaWNhciBkb25kZSBlc3TDoW4gbGFzIGVzdGFjaW9uZXMsIG5vIHRlbmVtb3MgaW5mb3JtYWNpw7NuIGRlIGxhIHRlbXBlcmF0dXJhIG3DoXhpbWEgbWVkaWEuIFBvZHLDrWFtb3MgY2FtYmlhciBlbCBjb2xvciBkZSBsb3MgcHVudG9zIHBhcmEgcXVlIHJlcHJlc2VudGVuIGVsIHZhbG9yIHF1ZSB0b21hIGVzYSB2YXJpYWJsZSBlbiBjYWRhIGVzdGFjacOzbi4KCmBgYHtyfQpvYnNlcnZhY2lvbmVzICU+JSAKICBmaWx0ZXIocmVnaW9uICE9ICJBTlRBUlRJREEiKSAlPiUgCiAgZ2dwbG90KGFlcyhsb24sIGxhdCkpICsKICBnZW9tX3BvaW50KGFlcyhjb2xvciA9IHRtYXhfbWVkaWEpKSArCiAgZ2VvbV9zZihkYXRhID0gbWFwYSwgZmlsbCA9IE5BLCBjb2xvciA9ICJibGFjayIsIHNpemUgPSAwLjIsIGluaGVyaXQuYWVzID0gRkFMU0UpIApgYGAKClBlcm8gZXN0YSBlc2NhbGEgZGUgY29sb3JlcyBxdWUgdXNhIHtnZ3Bsb3QyfSBwb3IgZGVmZWN0byBubyBlcyBkZSBsYXMgbWVqb3JlcywgZXMgZGlmw61jaWwgZGlmZXJlbmNpYXIgZW50cmUgbG9zIHZhbG9yZXMuIEV4aXN0ZW4gaW5maW5pdGFzIHBhbGV0YXMgZGUgY29sb3JlcyBxdWUgc2UgcHVlZGVuIHVzYXIgZW4gZ2dwbG90LCBhbGd1bmFzIHBvciBlamVtcGxvIGJ1c2NhbiBwb2RlciBkaXN0aW5ndWlyc2Ugc2kgaW1wcmltaW1vcyBlbCBncsOhZmljbyBlbiBibGFuY28geSBuZWdybywgb3RyYXMgZXN0w6FuIGRpc2XDsWFkYXMgcGFyYSBxdWUgcGVyc29uYXMgY29uIGRhbHRvbmlzbW8gcHVlZGFuIGRpc3Rpbmd1aXIgbG9zIGNvbG9yZXMuIFVuYSBlc2NhbGEgbyBwYWxldGEgZGUgY29sb3JlcyBtdXkgdXNhZGEgZXMgWyoqdmlyaWRpcyoqXShodHRwczovL2NyYW4uci1wcm9qZWN0Lm9yZy93ZWIvcGFja2FnZXMvdmlyaWRpcy92aWduZXR0ZXMvaW50cm8tdG8tdmlyaWRpcy5odG1sKSBxdWUgZnVlIGNyZWFkYSBqdXN0YW1lbnRlIHBhcmEgcmVzb2x2ZXIgZXN0ZSB5IG90cm9zIHByb2JsZW1hcy4gVGFtYmnDqW4gZXhpc3RlIG90cmEgZ3JhbiBmYW1pbGlhIGRlIHBhbGV0YXMgZGUgY29sb3JlcyBsbGFtYWRhIFsqKkNvbG9yQnJld2VyKipdKGh0dHBzOi8vY29sb3JicmV3ZXIyLm9yZy8pLgoKVmFtb3MgYSBwcm9iYXIgbGEgcGFsZXRhICJZbE9yUmQiICwgZXN0YSBwYWxldGEgZXMgKnNlY3VlbmNpYWwqIHkgZXMganVzdG8gbG8gcXVlIG5lY2VzaXRhbW9zIHBhcmEgdmlzdWFsaXphciB1bmEgdmFyaWFibGUgY29udGludWEgY29tbyBsYSB0ZW1wZXJhdHVyYS4gQ8OzbW8gZXN0YW1vcyBtb2RpZmljYW5kbyBlbCAqY29sb3IqLCBsYSBmdW5jacOzbiBhIHVzYXIgc2Vyw6EgYHNjYWxlX2NvbG9yX2Rpc3RpbGxlcigpYCwgbGEgaGVybWFuYSAqY29udGludWEqIGRlIGBzY2FsZV9jb2xvcl9icmV3ZXIoKWA6CgpgYGB7cn0Kb2JzZXJ2YWNpb25lcyAlPiUgCiAgZmlsdGVyKHJlZ2lvbiAhPSAiQU5UQVJUSURBIikgJT4lIAogIGdncGxvdChhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9wb2ludChhZXMoY29sb3IgPSB0bWF4X21lZGlhKSkgKwogIGdlb21fc2YoZGF0YSA9IG1hcGEsIGZpbGwgPSBOQSwgY29sb3IgPSAiYmxhY2siLCBzaXplID0gMC4yLCBpbmhlcml0LmFlcyA9IEZBTFNFKSArCiAgc2NhbGVfY29sb3JfZGlzdGlsbGVyKHBhbGV0dGUgPSAiWWxPclJkIiwgZGlyZWN0aW9uID0gMSkKYGBgCgpFbiBlc3RlIGNhc28gdGFtYmnDqW4gYWdyZWdhbW9zIGVsIGFyZ3VtZW50byBgZGlyZWN0aW9uID0gMWAgcGFyYSBxdWUgbGEgcGFsZXRhIGRlIGNvbG9yZXMgbG9zIG11ZXN0cmUgZGUgbcOhcyBvc2N1cm9zIGEgbcOhcyBjbGFyb3MuIEVzdGEgZGVzaWNpw7NuIGVzIGVzdMOpdGljYSB5IG11Y2hhcyB2ZWNlcyBkZXBlbmRlIGRlIGxhcyB2YXJpYWJsZXMgYSBncmFmaWNhci4gCgoKOjo6IHsuYWxlcnQgLmFsZXJ0LWluZm99CioqRGVzYWbDrW8qKgoKQSBtb2RvIGRlIHBydWViYSwgY2FtYmlhIGxhIHBhbGV0YSBkZSBjb2xvcmVzIGFjdHVhbCBwb3IgbGEgZGUgVmlyaWRpcy4gUGFyYSBlc28gdGVuw6lzIHF1ZSB1c2FyIGBzY2FsZV9jb2xvcl92aXJpZGlzX2MoKWAuIExhICJjIiBkZWwgZmluYWwgdmllbmUgZGUgKmNvbnRpbnVvdXMqIHkgc2UgdXNhIHBhcmEgdmFyaWFibGVzIGNvbnRpbnVhcywgbWllbnRyYXMgcXVlIHNpIGxvcyBkYXRvcyBzb24gZGlzY3JldG9zIG8gY2F0ZWdvcsOtYXMsIHNlIHVzYSAiZCIgYWwgZmluYWwuCjo6OgoKTnVlc3RybyBncsOhZmljbyB2YSBxdWVkYW5kbyBtZWpvciB5IHBvZGVtb3MgYXByb3ZlY2hhciBsYSBjYXBhY2lkYWQgZGUge2dncGxvdDJ9IGRlICptYXBlYXIqIHZhcmlhYmxlcyBhIGxvcyBlbGVtZW50b3MgZGVsIGdyw6FmaWNvIHkgdmlzdWFsaXphciBsYSB2YXJpYWJpbGlkYWQgZGUgbGEgdGVtcGVyYXR1cmEgbcOheGltYSBtb2RpZmljYW5kbyBlbCB0YW1hw7FvIGRlIGxvcyBwdW50b3MgZGUgYWN1ZXJkbyBhbCBkZXN2w61vIGVzdGFuZGFyLgoKYGBge3J9Cm9ic2VydmFjaW9uZXMgJT4lIAogIGZpbHRlcihyZWdpb24gIT0gIkFOVEFSVElEQSIpICU+JSAKICBnZ3Bsb3QoYWVzKGxvbiwgbGF0KSkgKwogIGdlb21fcG9pbnQoYWVzKGNvbG9yID0gdG1heF9tZWRpYSwgc2l6ZSA9IHRtYXhfdmFyKSkgKwogIGdlb21fc2YoZGF0YSA9IG1hcGEsIGZpbGwgPSBOQSwgY29sb3IgPSAiYmxhY2siLCBzaXplID0gMC4yLCBpbmhlcml0LmFlcyA9IEZBTFNFKSArCiAgc2NhbGVfY29sb3JfZGlzdGlsbGVyKHBhbGV0dGUgPSAiWWxPclJkIiwgZGlyZWN0aW9uID0gMSkKYGBgCgpFcyBpbnRlcmVzYW50ZSB2ZXIgY29tbyBsYXMgdGVtcGVyYXR1cmFzIG3DoXhpbWFzIG1lZGlhcyBtYXlvcmVzIHRhbWJpw6luIHRpZW5lbiBtYXlvciB2YXJpYWJpbGlkYWQuIFBlcm8gYWhvcmEgYWxndW5vcyBwdW50b3Mgc2Ugc3VwZXJwb25lbiB5IGVzIHBvc2libGUgcXVlIG5vIGVzdGVtb3MgdmllbmRvIGFsZ3VuYXMgZXN0YWNpb25lcy4gVmFtb3MgYSBhcnJlZ2xhciBlc28gYWdyZWdhbmRvIHRyYW5zcGFyZW5jaWEgeSBkZSBwYXNvIG1vZGlmaWNhciBlbCB0YW1hw7FvIGRlIGxvcyBwdW50b3MgY29uIGxhIGVzY2FsYSBjb3JyZXNwb25kaWVudGUgYHNjYWxlX3NpemVfYXJlYSgpYCB5IHNhY2FyIGxhIGxlZ2VuZGEgY29uIGBndWlkZSA9IE5VTExgLgoKYGBge3J9Cm9ic2VydmFjaW9uZXMgJT4lIAogIGZpbHRlcihyZWdpb24gIT0gIkFOVEFSVElEQSIpICU+JSAKICBnZ3Bsb3QoYWVzKGxvbiwgbGF0KSkgKwogIGdlb21fcG9pbnQoYWVzKGNvbG9yID0gdG1heF9tZWRpYSwgc2l6ZSA9IHRtYXhfdmFyKSwgYWxwaGEgPSAwLjcpICsKICBnZW9tX3NmKGRhdGEgPSBtYXBhLCBmaWxsID0gTkEsIGNvbG9yID0gImJsYWNrIiwgc2l6ZSA9IDAuMiwgaW5oZXJpdC5hZXMgPSBGQUxTRSkgKwogIHNjYWxlX2NvbG9yX2Rpc3RpbGxlcihwYWxldHRlID0gIllsT3JSZCIsIGRpcmVjdGlvbiA9IDEpICsKICBzY2FsZV9zaXplX2FyZWEobWF4X3NpemUgPSA0LCBndWlkZSA9IE5VTEwpCmBgYAoKIyMjIEVzY2FsYXMgZGUgZWplcwoKQWhvcmEgcXVlIGxhIGluZm9ybWFjacOzbiBkZWwgZ3LDoWZpY28gc2UgdmUgYmllbiwgcGFzZW1vcyBhIGxvcyBlamVzLiBBbCBpZ3VhbCBxdWUgcGFyYSBlbCBjb2xvciwgZWwgdGFtYcOxbyB5IG90cm9zIGVsZW1lbnRvcyBkZWwgZ3LDoWZpY28sIHBhcmEgbG9zIGVqZXMgdGFtYmnDqW4gZXhpc3RlbiBmdW5jaW9uZXMgInNjYWxlIi4gRW4gZXN0ZSBjYXNvIGxhcyBlc2NhbGFzIHF1ZSBtb2RpZmljYW4gbG9zIGVqZXMganVzdGFtZW50ZSBjb21pZW56YW4gY29uIGBzY2FsYV94X2AgbyBgc2NhbGVfeV9gIHNlZ8O6biBzZWEgZWwgY2FzbyB5IGhheSB1bmEgZ3JhbiB2YXJpZWRhZCBkZSBvcGNpb25lcyBkZXBlbmRpZW5kbyBkZWwgdGlwbyBkZSBkYXRvIHF1ZSBlc3RhbW9zIGdyYWZpY2FuZG8gZW4gY2FkYSBlamUuIAoKU2kgZW4gZWwgZWplIHkgZ3JhZmljYW1vcyB1bmEgdmFyaWFibGUgZGlzY3JldGEgZW50b25jZXMgcG9kcmVtb3MgbW9kaWZpY2FyIHN1IGVzcGVjdG8gY29uIGBzY2FsZV95X2Rpc2NyZXRlKClgLiBFbiBlc3RlIGNhc28gbGEgZnVuY2nDs24gYGdlb21fc2YoKWAgYXV0b23DoXRpY2FtZW50ZSBtb2RpZmljYSBsYSBhcGFyaWVuY2lhIGRlIGxvcyBlamVzIHkgbm8gcmVxdWllcmVuIGRlIG11Y2hvIHRyYWJham8uIAoKUGVybyBxdWVyZW1vcyBxdWUgbnVlc3RybyBncsOhZmljbyBxdWVkZSBsaXN0byBwYXJhIHB1YmxpY2FyIHkgbGEgIlciIGRlIHdlc3QgKG9lc3RlIGVuIGluZ2zDqXMpIHB1ZWRlIG5vIHNlciBtdXkgYW1pZ2FibGUuIE1vZGlmaXF1ZW1vcyBlbnRvbmNlcyBlbCBlamUgeCBjb24gbGEgZnVuY2nDs24gYHNjYWxlX3hfY29udGludW91cygpYC4gRW4gZXN0ZSBjYXNvIHF1ZXJlbW9zIG1vZGlmaWNhciBsYXMgZXRpcXVldGFzIG8gYGxhYmVsc2AgeSBwYXJhIGVzbyB1c2FyZW1vcyBsYSBmdW5jacOzbiBgTG9uTGFiZWwoKWAgZGVsIHBhcXVldGUge21ldFJ9LiBFc3RhIGZ1bmNpw7NuIHJlY2liZSB1bmEgZnVuY2nDs24gYW7Ds25pbWEgcXVlIHRvbWEgY2FkYSBsb25naXR1ZCB5IGVsIGNhbWJpYSBlbCAiwrBXwrAgcG9yICLCsE8iLgoKCmBgYHtyfQpvYnNlcnZhY2lvbmVzICU+JSAKICBmaWx0ZXIocmVnaW9uICE9ICJBTlRBUlRJREEiKSAlPiUgCiAgZ2dwbG90KGFlcyhsb24sIGxhdCkpICsKICBnZW9tX3BvaW50KGFlcyhjb2xvciA9IHRtYXhfbWVkaWEsIHNpemUgPSB0bWF4X3ZhciksIGFscGhhID0gMC43KSArCiAgZ2VvbV9zZihkYXRhID0gbWFwYSwgZmlsbCA9IE5BLCBjb2xvciA9ICJibGFjayIsIHNpemUgPSAwLjIsIGluaGVyaXQuYWVzID0gRkFMU0UpICsKICBzY2FsZV9jb2xvcl9kaXN0aWxsZXIocGFsZXR0ZSA9ICJZbE9yUmQiLCBkaXJlY3Rpb24gPSAxKSArCiAgc2NhbGVfc2l6ZV9hcmVhKG1heF9zaXplID0gNCwgZ3VpZGUgPSBOVUxMKSArCiAgc2NhbGVfeF9jb250aW51b3VzKGxhYmVscyA9IGZ1bmN0aW9uKHgpIExvbkxhYmVsKHgsIHdlc3QgPSAiwrBPIikpCmBgYAoKCiMjIEVsZW1lbnRvcyBkZSB0ZXh0bwoKWWEgc3VtYW1vcyAzIGVzY2FsYXMgeSBlbCBncsOhZmljbyB5YSBzZSB2ZSBtdXkgYmllbi4gwr9Dw7NtbyBoYWNlbW9zIHNpIHF1ZXJlbW9zIGlkZW50aWZpY2FyIGVzdGFjaW9uZXMgaW5kaXZpZHVhbGVzPyBQb3IgYWhvcmEgZXMgZGlmw61jaWwsIHBlcm8gcG9kcsOtYW1vcyBhZ3JlZ2FyIGV0aXF1ZXRhcyBkZSB0ZXh0byBjb24gZWwgbm9tYnJlIGRlIGNhZGEgZXN0YWNpw7NuIGFsIGxhZG8gZGUgY2FkYSBwdW50byB1c2FuZG8gYGdlb21fdGV4dCgpYCwgeSBlbiBlc3RlIGNhc28gbGEgYXBhcmllbmNpYSBlc3TDoSBkYWRhIHBvciBgbGFiZWxgIG8gZXRpcXVldGE6CgpgYGB7cn0Kb2JzZXJ2YWNpb25lcyAlPiUgCiAgZmlsdGVyKHJlZ2lvbiAhPSAiQU5UQVJUSURBIikgJT4lIAogIGdncGxvdChhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9wb2ludChhZXMoY29sb3IgPSB0bWF4X21lZGlhLCBzaXplID0gdG1heF92YXIpLCBhbHBoYSA9IDAuNykgKwogIGdlb21fc2YoZGF0YSA9IG1hcGEsIGZpbGwgPSBOQSwgY29sb3IgPSAiYmxhY2siLCBzaXplID0gMC4yLCBpbmhlcml0LmFlcyA9IEZBTFNFKSArCiAgc2NhbGVfY29sb3JfZGlzdGlsbGVyKHBhbGV0dGUgPSAiWWxPclJkIiwgZGlyZWN0aW9uID0gMSkgKwogIHNjYWxlX3NpemVfYXJlYShtYXhfc2l6ZSA9IDQsIGd1aWRlID0gTlVMTCkgKwogIHNjYWxlX3hfY29udGludW91cyhsYWJlbHMgPSBmdW5jdGlvbih4KSBMb25MYWJlbCh4LCB3ZXN0ID0gIsKwTyIpKSArCiAgZ2VvbV90ZXh0KGFlcyhsYWJlbCA9IHN0YXRpb24pKSAKYGBgCgpQZXJvIG5vcyBvbHZpZGFtb3MgcXVlIHRlbmVtb3MgbcOhcyBkZSAxMDAgZXN0YWNpb25lcywgZXMgaW1wb3NpYmxlIGFncmVnYXJsZSBldGlxdWV0YXMgYSB0b2Rvcy4gUGVybyBwb2Ryw61hbW9zIHF1ZXJlciByZXNhbHRhciBhbGd1bm9zLCB0YWwgdmV6IGxvcyBkZSB1bmEgcmVnacOzbiBlbiBwYXJ0aWN1bGFyIG8gbG9zIHF1ZSBjdW1wbGVuIGNvbiBsYSBjb25kaWNpw7NuIGRlIHRlbmVyIGxhcyBtYXlvcmVzIHRlbXBlcmF0dXJhcyBtw6F4aW1hcyBtZWRpYXMuIFBhcmEgZXNvIHZhbW9zIGEgZ2VuZXJhcm5vcyB1bmEgbnVldmEgdGFibGEgY29uIGxhcyBlc3RhY2lvbmVzIHF1ZSBxdWVyZW1vcyByZXNhbHRhciB5IGRlIHBhc28gdXNhcmxhIGRlbnRybyBkZSBgZ2VvbV90ZXh0KClgLgoKYGBge3J9CmV4dHJlbW9zX3RlbXBlcmF0dXJhIDwtIG9ic2VydmFjaW9uZXMgJT4lIAogIGZpbHRlcihyZWdpb24gIT0gIkFOVEFSVElEQSIpICU+JSAKICBmaWx0ZXIodG1heF9tZWRpYSA9PSBtYXgodG1heF9tZWRpYSwgbmEucm0gPSBUUlVFKSB8CiAgICAgICAgICAgdG1heF9tZWRpYSA9PSBtaW4odG1heF9tZWRpYSwgbmEucm0gPSBUUlVFKSkgIyBFc3RhY2lvbmVzIGNvbiBleHRyZW1vcyEKCm9ic2VydmFjaW9uZXMgJT4lIAogIGZpbHRlcihyZWdpb24gIT0gIkFOVEFSVElEQSIpICU+JSAKICBnZ3Bsb3QoYWVzKGxvbiwgbGF0KSkgKwogIGdlb21fcG9pbnQoYWVzKGNvbG9yID0gdG1heF9tZWRpYSwgc2l6ZSA9IHRtYXhfdmFyKSwgYWxwaGEgPSAwLjcpICsKICBnZW9tX3NmKGRhdGEgPSBtYXBhLCBmaWxsID0gTkEsIGNvbG9yID0gImJsYWNrIiwgc2l6ZSA9IDAuMiwgaW5oZXJpdC5hZXMgPSBGQUxTRSkgKwogIHNjYWxlX2NvbG9yX2Rpc3RpbGxlcihwYWxldHRlID0gIllsT3JSZCIsIGRpcmVjdGlvbiA9IDEpICsKICBzY2FsZV9zaXplX2FyZWEobWF4X3NpemUgPSA0LCBndWlkZSA9IE5VTEwpICsKICBzY2FsZV94X2NvbnRpbnVvdXMobGFiZWxzID0gZnVuY3Rpb24oeCkgTG9uTGFiZWwoeCwgd2VzdCA9ICLCsE8iKSkgKwogIGdlb21fdGV4dChhZXMobGFiZWwgPSBzdGF0aW9uKSwKICAgICAgICAgICAgZGF0YSA9IGV4dHJlbW9zX3RlbXBlcmF0dXJhLCAjIEVzdGEgY2FwYSB1c2EgbGEgdGFibGEgZXh0cmVtb3NfdGVtcGVyYXR1cmEhCiAgICAgICAgICAgIHNpemUgPSAyLjUpIApgYGAKCjo6OiB7LmFsZXJ0IC5hbGVydC1zdWNjZXNzfQoKRGVsIGPDs2RpZ28gYW50ZXJpb3Igc3VyZ2UgYWxnbyBtdXkgaW1wb3J0YW50ZTogZXMgcG9zaWJsZSBnZW5lcmFyIGNhcGFzIGVuIHVuIGdyw6FmaWNvIHVzYW5kbyB1bmEgZGF0YS5mcmFtZSAqZGlzdGludG8qIGFsIHF1ZSB1c2Ftb3MgcGFyYSBncmFmaWNhciBsYXMgY2FwYXMgYW50ZXJpb3Jlcy4gRXN0byBlcyDDunRpbCBwcmluY2lwYWxtZW50ZSBwYXJhIGRlZmluaXIgZXRpcXVldGFzIG8gcmVzYWx0YXIgZGV0ZXJtaW5hZGFzIG9ic2VydmFjaW9uZXMuIAoKWSBlbCB0cnVjbyBlc3TDoSBlbiBxdWUgYW1ib3MgZGF0YS5mcmFtZXMgdGllbmVuIGxhcyB2YXJpYWJsZXMgYGxvbmAgeSBgbGF0YCB5IGVudG9uY2VzIHtnZ3Bsb3QyfSBwdWVkZSBpZGVudGlmaWNhciBlbiBxdWUgcGFydGUgZGVsIGdyw6FmaWNvIChlbiBxdWUgdmFsb3JlcyBkZSB4IHkgZW4gcXVlIHZhbG9yZXMgZGUgeSkgY29sb2NhciBjYWRhIGVsZW1lbnRvLgo6OjoKClZlYW1vcyBhaG9yYSB1bmEgKGRlIHZhcmlhcykgbWFuZXJhcyBhZ3JlZ2FyIG8gbW9kaWZpY2FyIGVsZW1lbnRvcyBkZSB0ZXh0byBlbiBlbCBncsOhZmljby4gVmFtb3MgYSB1c2FyIHVuYSBudWV2YSBmdW5jacOzbiAoeSB1bmEgbnVldmEgY2FwYSEpLCBgbGFicygpYDoKCmBgYHtyfQpvYnNlcnZhY2lvbmVzICU+JSAKICBmaWx0ZXIocmVnaW9uICE9ICJBTlRBUlRJREEiKSAlPiUgCiAgZ2dwbG90KGFlcyhsb24sIGxhdCkpICsKICBnZW9tX3BvaW50KGFlcyhjb2xvciA9IHRtYXhfbWVkaWEsIHNpemUgPSB0bWF4X3ZhciksIGFscGhhID0gMC43KSArCiAgZ2VvbV9zZihkYXRhID0gbWFwYSwgZmlsbCA9IE5BLCBjb2xvciA9ICJibGFjayIsIHNpemUgPSAwLjIsIGluaGVyaXQuYWVzID0gRkFMU0UpICsKICBzY2FsZV9jb2xvcl9kaXN0aWxsZXIocGFsZXR0ZSA9ICJZbE9yUmQiLCBkaXJlY3Rpb24gPSAxKSArCiAgc2NhbGVfc2l6ZV9hcmVhKG1heF9zaXplID0gNCwgZ3VpZGUgPSBOVUxMKSArCiAgc2NhbGVfeF9jb250aW51b3VzKGxhYmVscyA9IGZ1bmN0aW9uKHgpIExvbkxhYmVsKHgsIHdlc3QgPSAiwrBPIikpICsKICBnZW9tX3RleHQoYWVzKGxhYmVsID0gc3RhdGlvbiksCiAgICAgICAgICAgIGRhdGEgPSBleHRyZW1vc190ZW1wZXJhdHVyYSwgIyBFc3RhIGNhcGEgdXNhIGxhIHRhYmxhIGV4dHJlbW9zX3RlbXBlcmF0dXJhIQogICAgICAgICAgICBzaXplID0gMi41KSArCiAgbGFicyh0aXRsZSA9ICJUZW1wZXJhdHVyYSBtw6F4aW1hIG1lZGlhIiwKICAgICAgIHN1YnRpdGxlID0gIkFnb3N0byIsCiAgICAgICBjYXB0aW9uID0gIkVsIHRhbWHDsW8gZGUgY2FkYSBjaXJjdWxvIHJlcHJlc2VudGEgbGEgdmFyaWFiaWxpZGFkIiwKICAgICAgIHggPSAiTG9uZ2l0dWQiLAogICAgICAgeSA9ICJMYXRpdHVkIiwKICAgICAgIGNvbG9yID0gIiIpCmBgYAoKQWdyZWdhbW9zIHVuIHTDrXR1bG8sIHVuIHN1YnTDrXR1bG8sIGVsIGVww61ncmFmZSBkZSBsYSBmaWd1cmEgKCpjYXB0aW9uKikgcGFyYSBsYXMgYWNsYXJhY2lvbmVzIHkgY2FtYmlhbW9zIGVsIG5vbWJyZSBkZSBsb3MgZWplcyBwYXJhIHF1ZSBzZSB2ZWFuIG1lam9yLiBQZXJvIGFkZW1hcyBlbGltaW5hbW9zIGVsIG5vbWJyZSBkZSBsYSBsZXllbmRhIHBvcnF1ZSBlcmEgdW4gcG9jbyByZWR1bmRhbnRlICh5YSBlc3TDoSBlbiBlbCB0w610dWxvKS4gCgojIyBUZW1hcwoKTm9zIHF1ZWRhIHVuYSDDumx0aW1hIGNvc2EgcG9yIGhhY2VyLCBjYW1iaWFyIGxhIGFwYXJpZW5jaWEgZ2xvYmFsIGRlbCBncsOhZmljby4ge2dncGxvdDJ9IHRpZW5lIG11Y2hvcyAqdGVtYXMqIGRpc3BvbmlibGVzIHkgcGFyYSB0b2RvcyBsb3MgZ3VzdG9zLiBQZXJvIGFkZW3DoXMgaGF5IG90cm9zIHBhcXVldGVzIHF1ZSBleHRpZW5kZW4gbGFzIHBvc2liaWxpZGFkZXMsIHBvciBlamVtcGxvIFt7Z2d0aGVtZXN9XShodHRwczovL2dpdGh1Yi5jb20vanJub2xkL2dndGhlbWVzKS4KClBvciBkZWZlY3RvIHtnZ3Bsb3QyfSB1c2EgYHRoZW1lX2dyZXkoKWAsIHByb2JlbW9zIGB0aGVtZV9saWdodCgpYDoKCmBgYHtyfQpvYnNlcnZhY2lvbmVzICU+JSAKICBmaWx0ZXIocmVnaW9uICE9ICJBTlRBUlRJREEiKSAlPiUgCiAgZ2dwbG90KGFlcyhsb24sIGxhdCkpICsKICBnZW9tX3BvaW50KGFlcyhjb2xvciA9IHRtYXhfbWVkaWEsIHNpemUgPSB0bWF4X3ZhciksIGFscGhhID0gMC43KSArCiAgZ2VvbV9zZihkYXRhID0gbWFwYSwgZmlsbCA9IE5BLCBjb2xvciA9ICJibGFjayIsIHNpemUgPSAwLjIsIGluaGVyaXQuYWVzID0gRkFMU0UpICsKICBzY2FsZV9jb2xvcl9kaXN0aWxsZXIocGFsZXR0ZSA9ICJZbE9yUmQiLCBkaXJlY3Rpb24gPSAxKSArCiAgc2NhbGVfc2l6ZV9hcmVhKG1heF9zaXplID0gNCwgZ3VpZGUgPSBOVUxMKSArCiAgc2NhbGVfeF9jb250aW51b3VzKGxhYmVscyA9IGZ1bmN0aW9uKHgpIExvbkxhYmVsKHgsIHdlc3QgPSAiwrBPIikpICsKICBnZW9tX3RleHQoYWVzKGxhYmVsID0gc3RhdGlvbiksCiAgICAgICAgICAgIGRhdGEgPSBleHRyZW1vc190ZW1wZXJhdHVyYSwgIyBFc3RhIGNhcGEgdXNhIGxhIHRhYmxhIGV4dHJlbW9zX3RlbXBlcmF0dXJhIQogICAgICAgICAgICBzaXplID0gMi41KSArCiAgbGFicyh0aXRsZSA9ICJUZW1wZXJhdHVyYSBtw6F4aW1hIG1lZGlhIiwKICAgICAgIHN1YnRpdGxlID0gIkFnb3N0byIsCiAgICAgICBjYXB0aW9uID0gIkVsIHRhbWHDsW8gZGUgY2FkYSBjaXJjdWxvIHJlcHJlc2VudGEgbGEgdmFyaWFiaWxpZGFkIiwKICAgICAgIHggPSAiTG9uZ2l0dWQiLAogICAgICAgeSA9ICJMYXRpdHVkIiwKICAgICAgIGNvbG9yID0gIiIpICsKICB0aGVtZV9saWdodCgpCmBgYAoKOjo6IHsuYWxlcnQgLmFsZXJ0LWluZm99CioqRGVzYWbDrW8qKgoKQWhvcmEgZXMgdHUgdHVybm8uIEVsZWfDrSB1biBbdGVtYSBxdWUgdGUgZ3VzdGVdKGh0dHBzOi8vZXMucjRkcy5oYWRsZXkubnovaW1hZ2VzL3Zpc3VhbGl6YXRpb24tdGhlbWVzLnBuZyl7LmFsZXJ0LWxpbmt9IHkgcHJvYmFsby4gQWRlbcOhcywgc2kgc2UgdGUgb2N1cnJlIGFsZ8O6biB0w610dWxvIG1lam9yIG1vZGlmaWNhbG8hIAo6OjoKCjo6OiB7LmFsZXJ0IC5hbGVydC1zdWNjZXNzfQoKSnVudG8gY29uIGxhcyBmdW5jaW9uZXMgYHRoZW1lXy4uLigpYCwgaGF5IHVuYSBmdW5jacOzbiBsbGFtYWRhIGB0aGVtZSgpYCBxdWUgcGVybWl0ZSBjYW1iaWFyIGxhIGFwYXJpZW5jaWEgZGUgY3VhbHF1aWVyIGVsZW1lbnRvIGRlbCBncsOhZmljby4gVGllbmUgY2FzaSBpbmZpbml0YXMgb3BjaW9uZXMgeSBzaSBhbGfDum4gbW9tZW50byB0ZSBkZXN2ZWxhcyBpbnRlbnRhbmRvIGNhbWJpYXIgZXNhIGzDrW5lYSBvIGVzZSBib3JkZSwgc2VndXJvIHF1ZSBgdGhlbWUoKWAgdGllbmUgYWxndW5hIG9wY2nDs24gcGFyIGFoYWNlciBlc28uCgo6OjoKCjxkaXYgY2xhc3M9ImJ0bi1ncm91cCIgcm9sZT0iZ3JvdXAiIGFyaWEtbGFiZWw9Ik5hdmVnYWNpw7NuIj4KICA8YSBocmVmPSAiMDktZ2dwbG90LUlJLmh0bWwiIGNsYXNzID0gImJ0biBidG4tcHJpbWFyeSI+QW50ZXJpb3I8L2E+CiAgPGEgaHJlZj0gIjExLXJlcG9ydGVzLUlJLmh0bWwiIGNsYXNzID0gImJ0biBidG4tcHJpbWFyeSI+U2lndWllbnRlPC9hPgo8L2Rpdj4K</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("10-graficos-III.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

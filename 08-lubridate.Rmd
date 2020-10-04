@@ -1,0 +1,213 @@
+---
+title: "Manipulando fechas"
+output: 
+  html_document:
+    code_download: true
+    toc: true
+    toc_float: true
+    highlight: tango 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+El paquete por excelencia para trabajar con fechas y horas es {lubridate} que forma parte del mundo de tidyverse como (casi) todos los paquetes que usamos hasta ahora. Si normalmente usas `library(tidyverse)` para cargar los paquetes, tené en cuenta que {lubridate} no se carga automáticamente. Así que arranquemos por lo primero.
+
+```{r message=FALSE, warning=FALSE}
+library(lubridate)
+library(dplyr)
+library(readr)
+```
+
+
+## Creando fechas y horas
+
+R maneja fechas y fechas y horas y para esto tiene los tipos de datos `<date>` y `<dttm>` y si bien internamente esos datos se almacenan como números enteros (por ejemplo cantidad de segundos desde el 1 de enero de 1970) con lubridate casi no tenemos que preocuparnos de eso y podemos trabajar con fechas como seres humanos. 
+
+Es posible que al leer bases de datos algunas columnas con este tipo de información sea leída como cadadena de caracteres, por ejemplo "25-Oct-1990". Esto se puede solucionar tanto en la lectura de los datos como luego usando lubridate. Veamos lo segundo.
+
+
+Vamos a trabajar con una base de datos de reportes de eventos severos reportados por personas durante la  campaña [RELAMPAGO](https://www.bbc.com/mundo/noticias-46133330) que se llevó a cabo en Argentina entre octubre y diciembre de 2018. 
+
+Los reportes se recolectaron a traves de un formulario de google que entre otros datos pedía: el tipo de evento o eventos observados, el lugar y horario de ocurrencia del evento. 
+
+```{r datos}
+reportes <- read_csv("https://raw.githubusercontent.com/paocorrales/r4ds-notas/master/examen/eventos_severos_RELAMPAGO.csv")
+
+glimpse(reportes) # ¿qué pinta tiene?
+```
+
+:::{.alert .alert-success}
+
+**Tip:** las funciones `read_*()` puede leer bases de datos desde urls! en este caso es un archivo guardado en un repositorio de GitHub.
+:::
+
+La base de datos tiene 4 variables, la fecha (que R no reconoció como tal), la ubicación en latitud y longitud y el tipo de evento. 
+
+Arreglemos la variable fecha. Para eso usaremos una familia de funciones de lubridate que convierten una cadena de caracteres o números en fechas y fechas y horas. 
+
+En este caso el formato de la fecha en la base de datos es "mes / día / año hora : minutos : segundos" y  conociendo el orden de las componentes podemos elegir la función necesaria. En este caso será `mdy_hms()` que viene justamente de **m**onth, **d**ay, **y**ear, **h**our, **m**inute y **s**econd, las componentes en inglés. 
+
+```{r parse_fecha}
+reportes <- reportes %>% 
+  mutate(fecha_convertida = mdy_hms(fecha)) 
+
+reportes %>% 
+  pull(fecha_convertida) %>% # Necesitamos extraer el vector para ver la zona horaria.
+  .[1]                       # Extraemos el primer elemento 
+```
+
+Por defecto cualquiera de las funciones de la familia `ymd_hms()` le asigna la zona horaria UTC a la variable de salida. Nos vamos a ocupar de esto más adelante pero es importante conocer los metadatos de esta base de datos, ¿las horas estarán en hora local o en UTC?
+
+:::{.alert .alert-info}
+
+**Desafío:**
+
+1. Revisá la documentación de la familia de funciones `ymd_hms()` y las funciones `ymd()` par ver que combinaciones posibles existen.
+2. ¿Cual de todas las funciones usarías si tenés que convertir a fecha y hora los siguientes elementos:
+  - "2018-11-22 12:00:00"
+  - 15092020
+  - "10/31/1998"
+  - 20181122150000
+:::
+
+
+Si en vez de tener la información de la fecha u fecha y hora en una sola columna, la tenemos en distintas columnas (el mes por un lado, el día por el otro, ect.), existen un par de funciones que permiten armar la variable: `make_date()` y `make_datetime()`. Si quisieramos armar la fecha 25 de octubre de 1990 tendríamos que usar la siguiente línea de código:
+
+```{r}
+make_date(year = 1990, month = 10, day = 25)
+```
+
+O una fecha y hora, por ejemplo el 14 de agosto de 1988 a las 13 horas (por ahora UTC, ya nos meteremos en ese berenjenal al final de este episodio).
+
+```{r}
+make_datetime(year = 1988, month = 8, day = 14, hour = 13)
+```
+
+
+Por supuesto podríamos guardar esas fechas en variables o usar las funciones dentro de `mutate()` pra generar columnas nuevas en un data frame.
+
+## Sus componentes
+
+Ahora que sabemos como armar fechas, es posible que te estés preguntando como desarmarlas o como extraer sus componentes. Algo de esto ya hicimos al graficar temperaturas medías mensuales pero vamos a revisarlo.
+
+{lubridate} tiene toda una familia de funciones que permiten extraer las componentes de una variable fecha u fecha y hora. Acá la clave es recordar los nombres en inglés (no nos queda otra!), por ejemplo si queremos el mes, la función será `month()`.
+
+Veamos como funciona.
+
+```{r}
+reportes %>% 
+  mutate(mes = month(fecha_convertida),
+         dia = day(fecha_convertida)) 
+```
+
+En particular la componente día tiene toda una subfamilia de funciones para extraer el día del año, el día del mes o el día de la semana!
+
+:::{.alert .alert-info}
+
+**Desafío**
+
+1. Extraé el día de la semana generando una nueva columna en la base de datos `reportes` que se llame `dia_semana`. (Psss! la función se llama `wday()`).
+2. Ahora intentalo de nuevo pero cambiando el argumento label a `TRUE`. ¿Qué ocurre? ¿Cambia el tipo de datos? 
+:::
+
+## Zonas horarias
+
+Cuando trabajamos con datos temporales y específicamente aquellos que tienen fecha y hora una de las consideraciones que tenemos que tener en cuenta es la zona horaria. Por defecto {lubridate} y la ciencia en general trabaja en *hora UTC* (o Coordinated Universal Time) pero es posible que nuestros datos estén almacenados en una zona horaria totalmente distinta.
+
+En este caso, los reportes tienen la hora a la que ocurrió el evento en Argentina. Por esto podemos inferir que la zona horaria es *-3*. Esto significa *3 horas menos respecto de la hora UTC*.  ¿Cómo le avisamos a R?
+
+Todas las funciones de la familia `ymd_hms()` tiene un argumento `tz` que permite cambiar la zona horaria. El truco está en saber la nomenclatura de zonas horarias.
+
+```{r}
+head(OlsonNames()) # Lista de las nás de 600 zonas horarias disponibles
+Sys.timezone()     # ¿En qué zona horaria está mi computadora?
+```
+
+Podemos usar esa información en el argumento `tz`.
+
+```{r}
+reportes <- reportes %>% 
+  mutate(fecha_convertida_tz = mdy_hms(fecha, tz = "America/Argentina/Buenos_Aires")) 
+
+reportes %>% 
+   pull(fecha_convertida_tz) %>% # Necesitamos extraer el vector para ver la zona horaria.
+  .[1]
+```
+
+### Tranformando zonas horarias
+
+Ahora si, R interpresa estas fechas y horas en la zona horaria correcta. Sin embargo, en meteorología estamos acostumbrados a comunicar nuestros resultados en hora *UTC* (u *hora Z*, que es lo mismo), ¿cómo convertimos las fechas y horas a otra zona horaria?
+ 
+{lubridate} tiene dos funciones específicas para trabajar con zonas horarias. 
+ 
+* `force_tz()` mantiene constante la hora que vemos en el reloj pero cambia la zona horaria.  
+ 
+```{r}
+reportes <- reportes %>% 
+  mutate(fecha_force_tz = force_tz(fecha_convertida_tz, tzone = "UTC")) 
+
+reportes %>% 
+   pull(fecha_force_tz) %>% # Necesitamos extraer el vector para ver la zona horaria.
+  .[1]
+```
+
+Esto no resuelve nuestro problema, si queremos expresar "2018-10-30 12:50:00 -3" en hora UTC hay que *sumarle* 3 horas.
+ 
+* `with_tz()` nos permite cambiar de zona horaria manteniendo el mismo instante en el tiempo. En otras palabras, podemos responder ¿Qué hora es en Australia? Esto es justamente lo que necesitamos.
+ 
+```{r}
+reportes <- reportes %>% 
+  mutate(fecha_with_tz = with_tz(fecha_convertida_tz, tzone = "UTC")) 
+
+reportes %>% 
+   pull(fecha_with_tz) %>% # Necesitamos extraer el vector para ver la zona horaria.
+  .[1]
+```
+ 
+
+
+:::{.alert .alert-info}
+
+**Desafío**
+
+Estás trabajando con una base de datos temperatura que contiene una variable con información fechas y horas. Al revisar la clase de la variable tiempo observás que aparece como caracter. Además te gustaría poder mostrar estos datos en hora local (-3) para que el público general pueda entender fácilmente tus resultados. Ordená las siguientes líneas de código para corregir la variable. Agregá %>% cuando lo consideres.
+
+```
+mutate(tiempo = ymd_hms(tiempo, tz = “UTC”))
+temperatura 
+mutate(tiempo_local = with_tz(tiempo, tzone = “America/Argentina/Buenos_Aires”))
+temperatura_corregido
+```
+:::
+
+:::{.alert .alert-info}
+**Extra**
+
+En el “ambiente” de R tenés una variable `mi_fecha` que guarda una fecha.
+
+```
+> mi_fecha
+[1] "2018-11-22 21:00:00 -03"
+> class(mi_fecha)
+[1] "POSIXct" "POSIXt"
+```
+
+Si corrieras la siguiente línea de código, cuál será el resultado? (pensá cual será el resultado sin correr el código en R).
+
+```
+> with_tz(mi_fecha, tzone = "UTC")
+```
+
+- "2018-11-22 21:00:00 UTC" es decir, manteniendo la misma hora en el reloj y cambiando la zona horaria.
+- "2018-11-23 00:00:00 UTC" es decir, el mismo instante en el tiempo expresado en una zona horaria distinta. 
+- "2018-11-22 18:00:00 UTC" es decir, el mismo instante en el tiempo expresado en una zona horaria distinta. 
+- "2018-11-22 00:00:00 UTC" es decir, el mismo instante en el tiempo expresado en una zona horaria distinta. 
+
+:::
+
+<div class="btn-group" role="group" aria-label="Navegación">
+  <a href= "07-ggplot-I.html" class = "btn btn-primary">Anterior</a>
+  <a href= "09-ggplot-II.html" class = "btn btn-primary">Siguiente</a>
+</div>

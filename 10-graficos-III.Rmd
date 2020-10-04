@@ -19,9 +19,9 @@ library(metR)
 
 ## Escalas
 
-[Previamente](06-graficos-I.html) comentamos que el *mapeo* de una variable en un elemento geométrico, por ejemplo cuando le asignamos distintos colores a los puntos que representan cada continente, usa una **escala** para definir, en este caso, que color le corresponde a cada elemento. 
+[Previamente](06-graficos-I.html) comentamos que el *mapeo* de una variable en un elemento geométrico, por ejemplo cuando le asignamos distintos colores a los puntos que representan cada tipo de temperatura, usa una **escala** para definir, en este caso, que color le corresponde a cada elemento. 
 
-También cambiamos la apariencia del relleno (o `fill`) de barras y la forma de los puntos (o `shape`). Para esto, {ggplot2} siempre usa una escala que podemos modificar de acuerdo a nuestro gusto y teniendo en cuenta cómo queremos comunicar nuestros resultados. 
+También cambiamos la apariencia del relleno (o `fill`) de los contornos y la forma de los puntos (o `shape`). Para esto, {ggplot2} siempre usa una escala que podemos modificar de acuerdo a nuestro gusto y teniendo en cuenta cómo queremos comunicar nuestros resultados. 
 
 Por supuesto, modificar una escala implica sumar una nueva capa al gráfico sumando una nueva función. Todas las funciones de escala comienzan con `scale` (de escala en inglés), el típo de apariencia que queremos modificar (`color`, `fill`, `shape`, etc) y en muchos casos un nombre o una característica de esa escala. 
 

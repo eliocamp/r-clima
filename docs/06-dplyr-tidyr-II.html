@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Manipulación de datos ordenados usando {dplyr} y {tidyr} II</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R para Clima</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="hoja-de-ruta.html">Hoja de ruta</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Temas
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01-introduccion.html">Introducción</a>
+    </li>
+    <li>
+      <a href="02-proyectos.html">Proyectos de RStudio</a>
+    </li>
+    <li>
+      <a href="03-reportes-I.html">Reportes I</a>
+    </li>
+    <li>
+      <a href="04-lectura.html">Lectura de datos</a>
+    </li>
+    <li>
+      <a href="05-dplyr.html">Manipulación de datos I</a>
+    </li>
+    <li>
+      <a href="06-dplyr-tidyr-II.html">Manipulación de datos II</a>
+    </li>
+    <li>
+      <a href="07-graficos-I.html">Gráficos I</a>
+    </li>
+    <li>
+      <a href="08-lubridate.html">Manipulación fechas</a>
+    </li>
+    <li>
+      <a href="09-graficos-II.html">Gráficos II</a>
+    </li>
+    <li>
+      <a href="10-graficos-III.html">Gráficos para publicar</a>
+    </li>
+    <li>
+      <a href="11-reportes-II.html">Reportes II</a>
+    </li>
+    <li>
+      <a href="12-publicar.html">Publicar reportes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Desafíos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="desafio-1.html">Leer y analizar datos</a>
+    </li>
+    <li>
+      <a href="desafio-2.html">Graficar datos</a>
+    </li>
+    <li>
+      <a href="desafio-3.html">Generar un informe</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Manipulación de datos ordenados usando {dplyr} y {tidyr} II</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#de-ancho-a-largo-con-pivot_longer">De ancho a largo con <code>pivot_longer()</code></a></li>
+<li><a href="#de-largo-a-ancho-con-pivot_wider">De largo a ancho con <code>pivot_wider()</code></a></li>
+<li><a href="#uniendo-tablas">Uniendo tablas</a></li>
+</ul>
+</div>
+
+<p>Un mismo conjunto de datos puede estar en un formato “ancho” o “largo”. Los datos en formato “largo” o “tidy”, son aquellos en los cuales:</p>
+<ul>
+<li>cada fila es una observación</li>
+<li>cada columna es una variable</li>
+</ul>
+<p>En el formato “ancho” es un poco más complejo de definirlo pero la idea general es que:</p>
+<ul>
+<li>cada fila es un “item”</li>
+<li>cada columna es una variable</li>
+</ul>
+<p><img src="img/largo-ancho.png" /></p>
+<p>Una tabla en formato largo va a tener una cierta cantidad de columnas que cumplen el rol de identificadores y cuya combinación identifican una única observación y una única columna con el valor de la observación. En el ejemplo de arriba, <code>pais</code> y <code>anio</code> son las columnas identificadoras y <code>casos</code> es la columna que contiene el valor de las observaciones.</p>
+<p>En una tabla ancha, cada observación única se identifica a partir de la intersección de filas y columnas. En el ejemplo, los países están en las filas y los años en las columnas.</p>
+<p>En general, el formato ancho es más compacto y legible por humanos mientras que el largo es más fácil de manejar con la computadora. Si te fijás en las tablas de arriba, es más fácil comparar los valores entre países y entre años en la tabla ancha. Pero el nombre de las columnas (“1999”, “2000”) en realidad ¡son datos! Además este formato se empieza a complicar en cuanto hay más de dos identificadores.</p>
+<p>Un mismo set de datos puede ser representado de forma completamente “larga”, completamente “ancha” o –lo que es más común– en un formato intermedio pero no existe una forma “correcta” de organizar los datos; cada una tiene sus ventajas y desventajas. Por esto es que es muy normal que durante un análisis los datos vayan y vuelvan entre distintos formatos dependiendo de los métodos estadísticos que se le aplican. Entonces, aprender a transformar datos anchos en largos y viceversa es un habilidad muy útil.</p>
+<div class="alert alert-info">
+<p><strong>Desafío</strong></p>
+<p>En las tablas de ejemplo cada país tiene el un valor observado de “casos” para cada año. ¿Cómo agregarías una nueva variable con información sobre “precios”? Dibujá un esquema en papel y lápiz en formato ancho y uno en formato largo. ¿En qué formato es más “natural” esa extensión?</p>
+</div>
+<p>En esta sección vas a usar el paquete {tidyr} para manipular datos. Si no lo tenés instalado, instalalo con el comando:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;tidyr&quot;</span>)</a></code></pre></div>
+<p>Y luego cargá {tidyr} y {dplyr} (que usaste en <a href="05-dplyr.html">una sección anterior</a>) con:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(tidyr)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a></code></pre></div>
+<div id="de-ancho-a-largo-con-pivot_longer" class="section level2">
+<h2>De ancho a largo con <code>pivot_longer()</code></h2>
+<p>En secciones anteriores usaste datos de una estación meteorológica en Bariloche:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">bariloche &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche_enlimpio.csv&quot;</span>)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   .default = col_logical(),
+##   Fecha = col_datetime(format = &quot;&quot;),
+##   Temperatura_Abrigo_150cm = col_double(),
+##   Temperatura_Abrigo_150cm_Maxima = col_double(),
+##   Temperatura_Abrigo_150cm_Minima = col_double(),
+##   Temperatura_Suelo_10cm_Media = col_double(),
+##   Precipitacion_Pluviometrica = col_double(),
+##   Precipitacion_Cronologica = col_double(),
+##   Precipitacion_Maxima_30minutos = col_double(),
+##   Tesion_Vapor_Media = col_double(),
+##   Humedad_Media = col_double(),
+##   Humedad_Media_8_14_20 = col_double(),
+##   Rocio_Medio = col_double(),
+##   Direccion_Viento_200cm = col_character(),
+##   Direccion_Viento_1000cm = col_character(),
+##   Horas_Frio = col_double(),
+##   Unidades_Frio = col_double(),
+##   mes = col_character()
+## )</code></pre>
+<pre><code>## See spec(...) for full column specifications.</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">bariloche</a></code></pre></div>
+<pre><code>## # A tibble: 3,024 x 31
+##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
+##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 2011-05-28 00:00:00            NA                NA               NA  
+##  2 2011-05-29 00:00:00             4.27             12.8             -1.2
+##  3 2011-05-30 00:00:00             1.69              9.2             -2.8
+##  4 2011-05-31 00:00:00             3.47              9.6              0.5
+##  5 2011-06-01 00:00:00             2.90              9.6             -1.5
+##  6 2011-06-02 00:00:00             6.26             13.3              2.9
+##  7 2011-06-03 00:00:00             3.45             12.6             -1.8
+##  8 2011-06-04 00:00:00             6.09             10.2              3.9
+##  9 2011-06-05 00:00:00             5.00              7.1              3.4
+## 10 2011-06-06 00:00:00             5.45              9.5              3.2
+## # … with 3,014 more rows, and 27 more variables:
+## #   Temperatura_Intemperie_5cm_Minima &lt;lgl&gt;,
+## #   Temperatura_Intemperie_50cm_Minima &lt;lgl&gt;,
+## #   Temperatura_Suelo_5cm_Media &lt;lgl&gt;, Temperatura_Suelo_10cm_Media &lt;dbl&gt;,
+## #   Temperatura_Inte_5cm &lt;lgl&gt;, Temperatura_Intemperie_150cm_Minima &lt;lgl&gt;,
+## #   Humedad_Suelo &lt;lgl&gt;, Precipitacion_Pluviometrica &lt;dbl&gt;,
+## #   Precipitacion_Cronologica &lt;dbl&gt;, Precipitacion_Maxima_30minutos &lt;dbl&gt;,
+## #   Heliofania_Efectiva &lt;lgl&gt;, Heliofania_Relativa &lt;lgl&gt;,
+## #   Tesion_Vapor_Media &lt;dbl&gt;, Humedad_Media &lt;dbl&gt;, Humedad_Media_8_14_20 &lt;dbl&gt;,
+## #   Rocio_Medio &lt;dbl&gt;, Duracion_Follaje_Mojado &lt;lgl&gt;,
+## #   Velocidad_Viento_200cm_Media &lt;lgl&gt;, Direccion_Viento_200cm &lt;chr&gt;,
+## #   Velocidad_Viento_1000cm_Media &lt;lgl&gt;, Direccion_Viento_1000cm &lt;chr&gt;,
+## #   Velocidad_Viento_Maxima &lt;lgl&gt;, Presion_Media &lt;lgl&gt;, Radiacion_Global &lt;lgl&gt;,
+## #   Horas_Frio &lt;dbl&gt;, Unidades_Frio &lt;dbl&gt;, mes &lt;chr&gt;</code></pre>
+<div class="alert alert-success">
+<p>¿Notaste que en el código anterior no usaste <code>library(readr)</code> para cargar el paquete y luego leer? Con la notación <code>paquete::funcion()</code> podés acceder a las funciones de un paquete sin tener que cargarlo. Es una buena forma de no tener que cargar un montón de paquetes innecesarios si vas a correr una única función de un paquete pocas veces.</p>
+</div>
+<p>¿Cómo harías para calcular el valor medio mensual de cada variable relacionada con la temperatura? En el formato en el que están ahora los datos, tendrías que hacer algo como esto</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Temperatura_abrigo_150cm =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">            <span class="dt">Temperatura_Abrigo_150cm_Maxima =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), </a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">            <span class="dt">Temperatura_Abrigo_150cm_Minima =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Minima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 12 x 4
+##    mes      Temperatura_abrigo_… Temperatura_Abrigo_150… Temperatura_Abrigo_150…
+##    &lt;chr&gt;                   &lt;dbl&gt;                   &lt;dbl&gt;                   &lt;dbl&gt;
+##  1 abril                   10.5                    17.4                    5.16 
+##  2 agosto                   4.83                   10.0                    0.937
+##  3 diciemb…                14.0                    20.6                    7.90 
+##  4 enero                   16.6                    23.8                    9.74 
+##  5 febrero                 16.0                    23.6                    9.13 
+##  6 julio                    3.69                    8.29                   0.220
+##  7 junio                    5.18                    9.17                   1.99 
+##  8 marzo                   13.8                    21.8                    6.77 
+##  9 mayo                     7.34                   12.5                    3.35 
+## 10 noviemb…                11.6                    18.0                    5.85 
+## 11 octubre                  8.59                   15.1                    3.19 
+## 12 septiem…                 6.43                   12.6                    1.66</code></pre>
+<div class="alert alert-info">
+<p><strong>Desafío</strong></p>
+<p>Extendé el código de arriba para calcular el promedio de todas las 30 variables incluidas en la tabla <code>bariloche</code>.</p>
+<p>¡No! Sería un ejercicio altamente tedioso.</p>
+</div>
+<p>Para no tener que escribir 30 líneas todas iguales, sería mejor poder hacer un promedio para cada mes <strong>y para cada variable</strong>. Algo como esto:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(mes, variable) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">promedio =</span> <span class="kw">mean</span>(valor, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<p>Para poder hacer eso hay que tener los datos en un formato más largo. Para convertirlo en una tabla más larga, se usa <code>pivot_longer()</code> (“longer” es “más largo” en inglés):</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">bariloche_largo &lt;-<span class="st"> </span>bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(Fecha, <span class="kw">starts_with</span>(<span class="st">&quot;Temperatura&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="op">-</span>Fecha,</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">               <span class="dt">names_to =</span> <span class="st">&quot;variable_lugar_altura_tipo&quot;</span>,</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">               <span class="dt">values_to =</span> <span class="st">&quot;valor&quot;</span>)</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">bariloche_largo</a></code></pre></div>
+<pre><code>## # A tibble: 27,216 x 3
+##    Fecha               variable_lugar_altura_tipo          valor
+##    &lt;dttm&gt;              &lt;chr&gt;                               &lt;dbl&gt;
+##  1 2011-05-28 00:00:00 Temperatura_Abrigo_150cm            NA   
+##  2 2011-05-28 00:00:00 Temperatura_Abrigo_150cm_Maxima     NA   
+##  3 2011-05-28 00:00:00 Temperatura_Abrigo_150cm_Minima     NA   
+##  4 2011-05-28 00:00:00 Temperatura_Intemperie_5cm_Minima   NA   
+##  5 2011-05-28 00:00:00 Temperatura_Intemperie_50cm_Minima  NA   
+##  6 2011-05-28 00:00:00 Temperatura_Suelo_5cm_Media         NA   
+##  7 2011-05-28 00:00:00 Temperatura_Suelo_10cm_Media        NA   
+##  8 2011-05-28 00:00:00 Temperatura_Inte_5cm                NA   
+##  9 2011-05-28 00:00:00 Temperatura_Intemperie_150cm_Minima NA   
+## 10 2011-05-29 00:00:00 Temperatura_Abrigo_150cm             4.27
+## # … with 27,206 more rows</code></pre>
+<p>Lo primero que hace este código es seleccionar sólo las columnas de interés: la Fecha y las columnas de temperatura. Para no tener que escribir los nombres enteros de las columnas de temperatura (¡que son muy largos!) usa la función <code>starts_with()</code> que, como su nombre (en inglés) lo indica, selecciona todas las columnas que empiezan con “Temperatura”.</p>
+<div class="alert alert-success">
+<p>Existen otras funciones accesorias para seleccionar muchas funciones encapsuladas en el paquete “tidyselect”. Si querés leer más detalles de las distintas formas que podés seleccionar variables leé la documentación usando <code>?tidyselect::language</code>.</p>
+</div>
+<p>Luego, el código usa <code>pivot_longer()</code> para “alargar” la tabla es la tabla que va a modificar: <code>bariloche</code>. El segundo argumento se llama <code>cols</code> y es un vector con las columnas que tienen los valores a “alargar”. Podría ser un vector escrito a mano (algo como <code>c(&quot;Temperatura_Abrigo_150cm&quot;, &quot;Temperatura_Abrigo_150cm_Maxima&quot;...)</code>) pero con más de 30 columnas, escribir todo eso sería tedioso y probablemente estaría lleno de errores. El código de arriba usa la sintaxis de “-columna” para indicar que son todas las columnas menos la columnas “Fecha”.</p>
+<p>El tercer y cuarto argumento son los nombres de las columnas de “nombre” y de “valor” que va a tener la nueva tabla. Como la nueva columna de identificación tiene los datos de la variable, el lugar donde se mide, la altura y el tipo de variable (mínima, máxima) , “variable_lugar_altura_tipo” es un buen nombre. Y la columna de valor va a tener… bueno, el valor.</p>
+<p>Tomate un momento para visualizar lo que acaba de pasar. La tabla ancha tenía un montón de columnas con distintos datos. Ahora estos datos están uno arriba de otro en la columna “valor”, pero para identificar el nombre de la columna de la cual vinieron, se agrega la columna “variable”.</p>
+<div class="figure">
+<img src="img/ancho-a-largo.png" alt="Proceso de largo a ancho" />
+<p class="caption">Proceso de largo a ancho</p>
+</div>
+<p>La columna <code>variable_lugar_altura_tipo</code> todavía no es muy útil porque contiene 4 datos, la variable (temperatura), el lugar, la altura y el tipo de observación. Sería mejor separar esta información en dos columnas llamadas “variable”, “lugar”, “altura” y “tipo”. Para eso está la función <code>separate()</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">bariloche_largo &lt;-<span class="st"> </span><span class="kw">separate</span>(bariloche_largo, </a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">                            <span class="dt">col =</span> variable_lugar_altura_tipo, </a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">                            <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;lugar&quot;</span>, <span class="st">&quot;altura&quot;</span>, <span class="st">&quot;tipo&quot;</span>), </a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">                            <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a></code></pre></div>
+<pre><code>## Warning: Expected 4 pieces. Missing pieces filled with `NA` in 6048 rows [1, 8,
+## 10, 17, 19, 26, 28, 35, 37, 44, 46, 53, 55, 62, 64, 71, 73, 80, 82, 89, ...].</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">bariloche_largo</a></code></pre></div>
+<pre><code>## # A tibble: 27,216 x 6
+##    Fecha               variable    lugar      altura tipo   valor
+##    &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;
+##  1 2011-05-28 00:00:00 Temperatura Abrigo     150cm  &lt;NA&gt;   NA   
+##  2 2011-05-28 00:00:00 Temperatura Abrigo     150cm  Maxima NA   
+##  3 2011-05-28 00:00:00 Temperatura Abrigo     150cm  Minima NA   
+##  4 2011-05-28 00:00:00 Temperatura Intemperie 5cm    Minima NA   
+##  5 2011-05-28 00:00:00 Temperatura Intemperie 50cm   Minima NA   
+##  6 2011-05-28 00:00:00 Temperatura Suelo      5cm    Media  NA   
+##  7 2011-05-28 00:00:00 Temperatura Suelo      10cm   Media  NA   
+##  8 2011-05-28 00:00:00 Temperatura Inte       5cm    &lt;NA&gt;   NA   
+##  9 2011-05-28 00:00:00 Temperatura Intemperie 150cm  Minima NA   
+## 10 2011-05-29 00:00:00 Temperatura Abrigo     150cm  &lt;NA&gt;    4.27
+## # … with 27,206 more rows</code></pre>
+<p>El primer argumento, como siempre, es la tabla a procesar. El segundo, <code>col</code>, es la columna a separar en dos (o más) columnas nuevas. El tercero, <code>into</code> es el nombre de las nuevas columnas que <code>separate()</code> va a crear. El último argumento es <code>sep</code> que define cómo realizar la separación. Por defecto, <code>sep</code> es una <a href="https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular">expresión regular</a> que captura cualquier caracter no alfanumérico.</p>
+<p>Habrás notado un problema. Para “Temperatura_Abrigo_150cm” y para “Temperatura_Inte_5cm”, la columna “tipo” es NA. Esto es porque el texto no tiene 4 “pedazos”. Sería conveniente agregarle algo. Asumiendo que es una temperatura media, se puede modificar con un <code>if_else()</code>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">bariloche_largo &lt;-<span class="st"> </span>bariloche_largo <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tipo =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(tipo), <span class="st">&quot;Media&quot;</span>, tipo))</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">bariloche_largo</a></code></pre></div>
+<pre><code>## # A tibble: 27,216 x 6
+##    Fecha               variable    lugar      altura tipo   valor
+##    &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;
+##  1 2011-05-28 00:00:00 Temperatura Abrigo     150cm  Media  NA   
+##  2 2011-05-28 00:00:00 Temperatura Abrigo     150cm  Maxima NA   
+##  3 2011-05-28 00:00:00 Temperatura Abrigo     150cm  Minima NA   
+##  4 2011-05-28 00:00:00 Temperatura Intemperie 5cm    Minima NA   
+##  5 2011-05-28 00:00:00 Temperatura Intemperie 50cm   Minima NA   
+##  6 2011-05-28 00:00:00 Temperatura Suelo      5cm    Media  NA   
+##  7 2011-05-28 00:00:00 Temperatura Suelo      10cm   Media  NA   
+##  8 2011-05-28 00:00:00 Temperatura Inte       5cm    Media  NA   
+##  9 2011-05-28 00:00:00 Temperatura Intemperie 150cm  Minima NA   
+## 10 2011-05-29 00:00:00 Temperatura Abrigo     150cm  Media   4.27
+## # … with 27,206 more rows</code></pre>
+<div class="alert alert-info">
+<p><strong>Desafío</strong></p>
+<p>Juntá todos los pasos anteriores en una sola cadena de operaciones usando <code>%&gt;%</code>.</p>
+</div>
+<div class="alert alert-info">
+<p><strong>Desafío</strong></p>
+<p>Esta tabla sólo tiene datos de temperatura. ¿Se podría incluir cualquier otra variable? ¿Humedad, dirección del viento, estado del tiempo? ¿Cómo lo harías?</p>
+</div>
+</div>
+<div id="de-largo-a-ancho-con-pivot_wider" class="section level2">
+<h2>De largo a ancho con <code>pivot_wider()</code></h2>
+<p>Ahora la variable <code>bariloche_largo</code> está en el formato más largo posible. Tiene 6 columnas, de las cuales sólo una es la columnas con valores. Pero con los datos así no podrías hacer un gráfico de puntos que muestre, por ejemplo, la relación entre la tempertura mínima y la tempoeratura máxima. En este caso todos los valores en la columna <code>valor</code> tienen las mismas unidades, pero podría tener otras variables, como humedad o presión. En ese caso, no tendrían las mismas unidaes, por lo que operar con ese vector podría dar resultados sin sentido. Muchas veces es conveniente y natural tener los datos en un formato intermedio en donde hay múltiples columnas con los valores de distintas variables observadas.</p>
+<p>Pasa “ensanchar” una tabla está la función <code>pivot_wider()</code> (“wider” es “más ancha” en inglés) y el código para conseguir este formato intermedio es:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">bariloche_medio &lt;-<span class="st"> </span><span class="kw">pivot_wider</span>(bariloche_largo, <span class="dt">names_from =</span> tipo, <span class="dt">values_from =</span> valor)</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">bariloche_medio</a></code></pre></div>
+<pre><code>## # A tibble: 21,168 x 7
+##    Fecha               variable    lugar      altura Media Maxima Minima
+##    &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 2011-05-28 00:00:00 Temperatura Abrigo     150cm  NA      NA     NA  
+##  2 2011-05-28 00:00:00 Temperatura Intemperie 5cm    NA      NA     NA  
+##  3 2011-05-28 00:00:00 Temperatura Intemperie 50cm   NA      NA     NA  
+##  4 2011-05-28 00:00:00 Temperatura Suelo      5cm    NA      NA     NA  
+##  5 2011-05-28 00:00:00 Temperatura Suelo      10cm   NA      NA     NA  
+##  6 2011-05-28 00:00:00 Temperatura Inte       5cm    NA      NA     NA  
+##  7 2011-05-28 00:00:00 Temperatura Intemperie 150cm  NA      NA     NA  
+##  8 2011-05-29 00:00:00 Temperatura Abrigo     150cm   4.27   12.8   -1.2
+##  9 2011-05-29 00:00:00 Temperatura Intemperie 5cm    NA      NA     NA  
+## 10 2011-05-29 00:00:00 Temperatura Intemperie 50cm   NA      NA     NA  
+## # … with 21,158 more rows</code></pre>
+<p>Nuevamente el primer argumento es la tabla original. El segundo, <code>names_from</code> es la columna cuyos valores únicos van a convertirse en nuevas columnas. La columna <code>tipo</code> tiene los valores <code>&quot;Media&quot;</code>, <code>&quot;Maxima&quot;</code> y <code>&quot;Minima&quot;</code> y entonces la tabla nueva tendrá tres columnas con esos nombres. El tercer argumento, <code>values_from</code>, es la columna de la cual sacar los valores.</p>
+<p>Para volver al formato más ancho, basta con agregar más columnas en el argumento <code>names_from</code>:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">pivot_wider</span>(bariloche_largo, </a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">            <span class="dt">names_from =</span> <span class="kw">c</span>(variable, lugar, altura, tipo), </a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">            <span class="dt">names_sep =</span> <span class="st">&quot;_&quot;</span>,</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">            <span class="dt">values_from =</span> valor)</a></code></pre></div>
+<pre><code>## # A tibble: 3,024 x 10
+##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
+##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 2011-05-28 00:00:00            NA                NA               NA  
+##  2 2011-05-29 00:00:00             4.27             12.8             -1.2
+##  3 2011-05-30 00:00:00             1.69              9.2             -2.8
+##  4 2011-05-31 00:00:00             3.47              9.6              0.5
+##  5 2011-06-01 00:00:00             2.90              9.6             -1.5
+##  6 2011-06-02 00:00:00             6.26             13.3              2.9
+##  7 2011-06-03 00:00:00             3.45             12.6             -1.8
+##  8 2011-06-04 00:00:00             6.09             10.2              3.9
+##  9 2011-06-05 00:00:00             5.00              7.1              3.4
+## 10 2011-06-06 00:00:00             5.45              9.5              3.2
+## # … with 3,014 more rows, and 6 more variables:
+## #   Temperatura_Intemperie_5cm_Minima &lt;dbl&gt;,
+## #   Temperatura_Intemperie_50cm_Minima &lt;dbl&gt;,
+## #   Temperatura_Suelo_5cm_Media &lt;dbl&gt;, Temperatura_Suelo_10cm_Media &lt;dbl&gt;,
+## #   Temperatura_Inte_5cm_Media &lt;dbl&gt;, Temperatura_Intemperie_150cm_Minima &lt;dbl&gt;</code></pre>
+<p>En esta llamada también está el argumento <code>names_sep</code>, que determina el caracter que se usa para crear el nombre de las nuevas columnas.</p>
+<div class="alert alert-info">
+<p><strong>Desafío</strong></p>
+<ul>
+<li>Creá una nueva tabla, llamada <code>bariloche_superduper_ancho</code> que sea la tabla más ancha posible que podés generar con estos datos. ¿Cómo es la tabla más ancha posible que podés generar con estos datos? ¿Cuántas filas y columnas tiene?</li>
+</ul>
+</div>
+</div>
+<div id="uniendo-tablas" class="section level2">
+<h2>Uniendo tablas</h2>
+<p>Hasta ahora todo lo que usaste de {dplyr} involucra trabajar y modificar con una sola tabla a la vez, pero es muy común tener dos o más tablas con datos relacionados. En ese caso, tenemos que unir estas tablas. a partir de una o más variables en común o keys. En Excel u otro programa de hojas de cálculo, esto se resuelve con la función “VLOOKUP” o “BUSCARV”, en R y en particular dentro del mundo de {dplyr} hay que usar la familia de funciones <code>*_join()</code>. Hay una función cada tipo de unión que queramos hacer.</p>
+<p>Asumiendo que querés unir dos data.frames o tablas <code>x</code> e <code>y</code> que tienen en común una variable <code>A</code>:</p>
+<p><img src="img/join.png" /></p>
+<ul>
+<li><p><code>full_join()</code>: devuelve todas las filas y todas las columnas de ambas tablas <code>x</code> e <code>y</code>. Cuando no coinciden los elementos en <code>x1</code>, devuelve <code>NA</code> (dato faltante). Esto significa que no se pierden filas de ninguna de las dos tablas aún cuando no hay coincidencia. Está es la manera más segura de unir tablas.</p></li>
+<li><p><code>left_join()</code>: devuelve todas las filas de <code>x</code> y todas las columnas de <code>x</code> e <code>y</code>. Las filas en <code>x</code> que no tengan coincidencia con <code>y</code> tendrán <code>NA</code> en las nuevas columnas. Si hay múltiples coincidencias entre <code>x</code>e <code>y</code>, devuelve todas las coincidencias posibles.</p></li>
+<li><p><code>right_join()</code>: es igual que <code>left_join()</code> pero intercambiando el orden de <code>x</code> e <code>y</code>. En otras palabras, <code>right_join(x, y)</code> es idéntico a <code>left_join(y, x)</code>.</p></li>
+<li><p><code>inner_join()</code>: devuelve todas las filas de <code>x</code> donde hay coincidencias con <code>y</code> y todas las columnas de <code>x</code> e <code>y</code>. Si hay múltiples coincidencias entre <code>x</code> e <code>y</code>, entonces devuelve todas las coincidencias. Esto significa que eliminará las filas (observaciones) que no coincidan en ambas tablas, lo que puede ser peligroso.</p></li>
+</ul>
+<p><img src="img/join_family.png" /></p>
+<p>En el archivo “estaciones_smn.csv” hay metadatos de las estaciones meteorológicas del Servicio Meteorológico Nacional (nombre, provincia, ubicación, etc…):</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">estaciones &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;datos/estaciones_smn.csv&quot;</span>) </a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">estaciones</a></code></pre></div>
+<pre><code>## # A tibble: 123 x 8
+##    nombre              provincia     lon   lat altura numero numeroOACI region  
+##    &lt;chr&gt;               &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   
+##  1 BASE BELGRANO II    ANTARTIDA   -34.3 -77.5    256  89034 SAYB       ANTARTI…
+##  2 BASE CARLINI (EX J… ANTARTIDA   -58.4 -62.1     11  89053 SAYJ       ANTARTI…
+##  3 BASE ESPERANZA      ANTARTIDA   -56.6 -63.2     24  88963 SAYE       ANTARTI…
+##  4 BASE MARAMBIO       ANTARTIDA   -56.4 -64.1    198  89055 SAWB       ANTARTI…
+##  5 BASE ORCADAS        ANTARTIDA   -44.4 -60.4     12  88968 SAYO       ANTARTI…
+##  6 BASE SAN MARTIN     ANTARTIDA   -67.8 -68.8      7  89066 SAYS       ANTARTI…
+##  7 AZUL AERO           BUENOS AIR… -59.5 -36.5    147  87641 SAZA       CENTRO  
+##  8 BAHIA BLANCA AERO   BUENOS AIR… -62.1 -38.4     83  87750 SAZB       CENTRO  
+##  9 BENITO JUAREZ AERO  BUENOS AIR… -59.5 -37.4    207  87649 SAZJ       CENTRO  
+## 10 BOLIVAR AERO        BUENOS AIR… -61.4 -36.1     94  87640 SAZI       CENTRO  
+## # … with 113 more rows</code></pre>
+<p>Por otra parte, en el archivo “observaciones_smn.csv” hay datos diarios de temperatura mínima y máxima observados en cada una cada una y distintas fechas:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">observaciones &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;datos/observaciones_smn.csv&quot;</span>)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   tmax = col_double(),
+##   tmin = col_double(),
+##   station = col_character(),
+##   date = col_date(format = &quot;&quot;)
+## )</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">observaciones</a></code></pre></div>
+<pre><code>## # A tibble: 3,812 x 4
+##     tmax  tmin station                  date      
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                    &lt;date&gt;    
+##  1  16.1   9.4 AEROPARQUE AERO          2020-08-01
+##  2  17.6  -1.6 AZUL AERO                2020-08-01
+##  3  18.6   2.4 BAHIA BLANCA AERO        2020-08-01
+##  4   9     1.6 BARILOCHE AERO           2020-08-01
+##  5  NA   -33.5 BASE BELGRANO II         2020-08-01
+##  6   2.1  -3.3 BASE CARLINI (EX JUBANY) 2020-08-01
+##  7  -0.4  -2.6 BASE ESPERANZA           2020-08-01
+##  8  -2.2  -7.4 BASE MARAMBIO            2020-08-01
+##  9  -0.5  -7.8 BASE ORCADAS             2020-08-01
+## 10   1.4  -7.6 BASE SAN MARTIN          2020-08-01
+## # … with 3,802 more rows</code></pre>
+<p>Sería muy útil unir ambas tablas de manera de tener la información de la temperatura en cada ubicación.</p>
+<p>Para unir las dos tablas, cualquier función join requiere cierta información:</p>
+<ul>
+<li>las tablas a unir: son los dos primeros argumentos.</li>
+<li>qué variable o variables (se puede usar más de una!) usar para identificar coincidencias: el argumento <code>by</code>.</li>
+</ul>
+<p>Unamos <code>observaciones</code> y <code>estaciones</code> primero con <code>full_join()</code>:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">estaciones_obs &lt;-<span class="st"> </span><span class="kw">full_join</span>(observaciones, estaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>))</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">estaciones_obs</a></code></pre></div>
+<pre><code>## # A tibble: 3,813 x 11
+##     tmax  tmin station date       provincia   lon   lat altura numero numeroOACI
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     
+##  1  16.1   9.4 AEROPA… 2020-08-01 CAPITAL … -58.2 -34.3      6  87582 SABE      
+##  2  17.6  -1.6 AZUL A… 2020-08-01 BUENOS A… -59.5 -36.5    147  87641 SAZA      
+##  3  18.6   2.4 BAHIA … 2020-08-01 BUENOS A… -62.1 -38.4     83  87750 SAZB      
+##  4   9     1.6 BARILO… 2020-08-01 RIO NEGRO -71.1 -41.9    835  87765 SAZS      
+##  5  NA   -33.5 BASE B… 2020-08-01 ANTARTIDA -34.3 -77.5    256  89034 SAYB      
+##  6   2.1  -3.3 BASE C… 2020-08-01 ANTARTIDA -58.4 -62.1     11  89053 SAYJ      
+##  7  -0.4  -2.6 BASE E… 2020-08-01 ANTARTIDA -56.6 -63.2     24  88963 SAYE      
+##  8  -2.2  -7.4 BASE M… 2020-08-01 ANTARTIDA -56.4 -64.1    198  89055 SAWB      
+##  9  -0.5  -7.8 BASE O… 2020-08-01 ANTARTIDA -44.4 -60.4     12  88968 SAYO      
+## 10   1.4  -7.6 BASE S… 2020-08-01 ANTARTIDA -67.8 -68.8      7  89066 SAYS      
+## # … with 3,803 more rows, and 1 more variable: region &lt;chr&gt;</code></pre>
+<p>Como el nombre de la estación en la tabla <code>observaciones</code> está en una columna llamada “station”, mientras que en la tabla <code>estaciones</code>, está en una columna llamada “nombre”. Cuando pasa eso, en el argumento <code>by</code> hay que poner un vector con nombres.</p>
+<p>Si mirás de cerca la tabla unida vas a ver un par de cosas:</p>
+<ul>
+<li>Todas las columnas de <code>observaciones</code> y de <code>estaciones</code> están presentes.</li>
+<li>Todas las observaciones están presentes, aún los estaciones que están presentes en <code>estaciones</code> pero no en <code>observaciones</code> y viceversa.</li>
+</ul>
+<p>¿Existe alguna estación que no esté en ambas tablas? Si comparás la cantidad de filas de <code>observaciones</code> y de <code>estaciones_obs</code>, vas a ver que la primera tiene 3812 filas y la segunda, 3813. Esto ya da una pista de que probablemente haya una estación en <code>estaciones</code> que no está en <code>observaciones</code> que es la fila extra.</p>
+<p>Para buscar sistemáticamente estas estaciones errantes hay que usar <code>anti_join</code>, que devuelve las filas de la tabla de la izquierda que no está en la derecha. Entonces, usando exactamente el mismo código de arriba pero cambiando <code>full_join</code> por <code>anti_join</code>, queda:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">anti_join</span>(observaciones, estaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>))</a></code></pre></div>
+<pre><code>## # A tibble: 31 x 4
+##     tmax  tmin station                           date      
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                             &lt;date&gt;    
+##  1  33.6  13.5 PRESIDENCIA ROQUE SAENZ PE�A AERO 2020-08-01
+##  2  34    17.3 PRESIDENCIA ROQUE SAENZ PE�A AERO 2020-08-02
+##  3  34.1  17.3 PRESIDENCIA ROQUE SAENZ PE�A AERO 2020-08-03
+##  4  34.2  16   PRESIDENCIA ROQUE SAENZ PE�A AERO 2020-08-04
+##  5  35.1  18   PRESIDENCIA ROQUE SAENZ PE�A AERO 2020-08-05
+##  6  34.5  16.3 PRESIDENCIA ROQUE SAENZ PE�A AERO 2020-08-06
+##  7  24    11.5 PRESIDENCIA ROQUE SAENZ PE�A AERO 2020-08-07
+##  8  32.7  10.1 PRESIDENCIA ROQUE SAENZ PE�A AERO 2020-08-08
+##  9  35    11.7 PRESIDENCIA ROQUE SAENZ PE�A AERO 2020-08-09
+## 10  36.2  15   PRESIDENCIA ROQUE SAENZ PE�A AERO 2020-08-10
+## # … with 21 more rows</code></pre>
+<p>En la tabla <code>observaciones</code>, la estación “PRESIDENCIA ROQUE SAENZ PEÑA AERO” existe, tiene un problema de codificación! ¿Qué pasa si intercambás el órden de las variables (y el orden de los nombres en el vector que le pasamos a <code>by</code>)?</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">anti_join</span>(estaciones, observaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;nombre&quot;</span> =<span class="st"> &quot;station&quot;</span>))</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 8
+##   nombre                   provincia   lon   lat altura numero numeroOACI region
+##   &lt;chr&gt;                    &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt; 
+## 1 PRESIDENCIA ROQUE SAENZ… CHACO     -60.2 -26.4     93  87148 SARS       LITOR…</code></pre>
+<p>Esto nos dice que la estación “PRESIDENCIA ROQUE SAENZ PEÑA AERO”, está en la tabla <code>estaciones</code> con la codificación correcta. <code>anti_join</code> es muy útil para encontrar problemas como estos.</p>
+<p><code>full_join</code> es la opción más segura si no sabés si todas las observaciones de una tabla están presente en a otra. Si sólo te interesa conservar las filas de la tabla de la izquierda (en este caso <code>estaciones</code> entonces:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">obs_estaciones &lt;-<span class="st"> </span><span class="kw">left_join</span>(observaciones, estaciones,  <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>))</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">obs_estaciones</a></code></pre></div>
+<pre><code>## # A tibble: 3,812 x 11
+##     tmax  tmin station date       provincia   lon   lat altura numero numeroOACI
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     
+##  1  16.1   9.4 AEROPA… 2020-08-01 CAPITAL … -58.2 -34.3      6  87582 SABE      
+##  2  17.6  -1.6 AZUL A… 2020-08-01 BUENOS A… -59.5 -36.5    147  87641 SAZA      
+##  3  18.6   2.4 BAHIA … 2020-08-01 BUENOS A… -62.1 -38.4     83  87750 SAZB      
+##  4   9     1.6 BARILO… 2020-08-01 RIO NEGRO -71.1 -41.9    835  87765 SAZS      
+##  5  NA   -33.5 BASE B… 2020-08-01 ANTARTIDA -34.3 -77.5    256  89034 SAYB      
+##  6   2.1  -3.3 BASE C… 2020-08-01 ANTARTIDA -58.4 -62.1     11  89053 SAYJ      
+##  7  -0.4  -2.6 BASE E… 2020-08-01 ANTARTIDA -56.6 -63.2     24  88963 SAYE      
+##  8  -2.2  -7.4 BASE M… 2020-08-01 ANTARTIDA -56.4 -64.1    198  89055 SAWB      
+##  9  -0.5  -7.8 BASE O… 2020-08-01 ANTARTIDA -44.4 -60.4     12  88968 SAYO      
+## 10   1.4  -7.6 BASE S… 2020-08-01 ANTARTIDA -67.8 -68.8      7  89066 SAYS      
+## # … with 3,802 more rows, and 1 more variable: region &lt;chr&gt;</code></pre>
+<p>Esta tabla tiene la misma cantidad de filas que <code>observaciones</code>. ¿Qué pasó con la estación que está mal codificada? Filtrando los datos:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">obs_estaciones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">startsWith</span>(station, <span class="st">&quot;PRESIDENCIA ROQUE&quot;</span>))</a></code></pre></div>
+<pre><code>## # A tibble: 31 x 11
+##     tmax  tmin station date       provincia   lon   lat altura numero numeroOACI
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     
+##  1  33.6  13.5 PRESID… 2020-08-01 &lt;NA&gt;         NA    NA     NA     NA &lt;NA&gt;      
+##  2  34    17.3 PRESID… 2020-08-02 &lt;NA&gt;         NA    NA     NA     NA &lt;NA&gt;      
+##  3  34.1  17.3 PRESID… 2020-08-03 &lt;NA&gt;         NA    NA     NA     NA &lt;NA&gt;      
+##  4  34.2  16   PRESID… 2020-08-04 &lt;NA&gt;         NA    NA     NA     NA &lt;NA&gt;      
+##  5  35.1  18   PRESID… 2020-08-05 &lt;NA&gt;         NA    NA     NA     NA &lt;NA&gt;      
+##  6  34.5  16.3 PRESID… 2020-08-06 &lt;NA&gt;         NA    NA     NA     NA &lt;NA&gt;      
+##  7  24    11.5 PRESID… 2020-08-07 &lt;NA&gt;         NA    NA     NA     NA &lt;NA&gt;      
+##  8  32.7  10.1 PRESID… 2020-08-08 &lt;NA&gt;         NA    NA     NA     NA &lt;NA&gt;      
+##  9  35    11.7 PRESID… 2020-08-09 &lt;NA&gt;         NA    NA     NA     NA &lt;NA&gt;      
+## 10  36.2  15   PRESID… 2020-08-10 &lt;NA&gt;         NA    NA     NA     NA &lt;NA&gt;      
+## # … with 21 more rows, and 1 more variable: region &lt;chr&gt;</code></pre>
+<p><code>left_join</code> le puso <code>NA</code> en las filas de <code>observaciones</code> que no tienen coincidencia con <code>estaciones</code>.</p>
+<p>Finalmente, si quisieras quedarte sólo con las observaciones que están presentes en ambas tablas usamos <code>inner_join()</code>.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">obs_estaciones &lt;-<span class="st"> </span><span class="kw">inner_join</span>(observaciones, estaciones,  <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>))</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2">obs_estaciones</a></code></pre></div>
+<pre><code>## # A tibble: 3,781 x 11
+##     tmax  tmin station date       provincia   lon   lat altura numero numeroOACI
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     
+##  1  16.1   9.4 AEROPA… 2020-08-01 CAPITAL … -58.2 -34.3      6  87582 SABE      
+##  2  17.6  -1.6 AZUL A… 2020-08-01 BUENOS A… -59.5 -36.5    147  87641 SAZA      
+##  3  18.6   2.4 BAHIA … 2020-08-01 BUENOS A… -62.1 -38.4     83  87750 SAZB      
+##  4   9     1.6 BARILO… 2020-08-01 RIO NEGRO -71.1 -41.9    835  87765 SAZS      
+##  5  NA   -33.5 BASE B… 2020-08-01 ANTARTIDA -34.3 -77.5    256  89034 SAYB      
+##  6   2.1  -3.3 BASE C… 2020-08-01 ANTARTIDA -58.4 -62.1     11  89053 SAYJ      
+##  7  -0.4  -2.6 BASE E… 2020-08-01 ANTARTIDA -56.6 -63.2     24  88963 SAYE      
+##  8  -2.2  -7.4 BASE M… 2020-08-01 ANTARTIDA -56.4 -64.1    198  89055 SAWB      
+##  9  -0.5  -7.8 BASE O… 2020-08-01 ANTARTIDA -44.4 -60.4     12  88968 SAYO      
+## 10   1.4  -7.6 BASE S… 2020-08-01 ANTARTIDA -67.8 -68.8      7  89066 SAYS      
+## # … with 3,771 more rows, and 1 more variable: region &lt;chr&gt;</code></pre>
+<p>En este caso, perdemos las filas de <code>observaciones</code> que no encontraron coincidencia en <code>estaciones</code> y viceversa.</p>
+<div class="alert alert-info">
+<p><strong>Desafío</strong></p>
+<p>En el archivo “radiacion_smn.csv” hay datos de radiación media diaria medidos en dos estaciones del Servicio Meteorológico Nacional. El objetivo es que unas <code>observaciones</code> con esos datos teniendo en cuenta tanto la estación como la fecha.</p>
+<ol style="list-style-type: decimal">
+<li>Lee la base de datos <code>radiacion_smn.csv</code> en una nueva variable que se llame <code>radiacion</code>.</li>
+<li>Revisá el nombre de las variables en esta base de datos, ¿se llaman igual que las variables en <code>observaciones</code>?</li>
+<li>Si te interesa saber la relación entre la temperatura y la radiación medida, ¿qué tipo de join creés que te conviene usar? (Ayuda: ¿Te sirve de algo tener datos de estaciones y fechas donde se midió temperatura pero no radiación o donde se midió radiación pero no temperatura?)</li>
+<li>Uní las tabla usando la función join que elegiste. Tené en cuenta que ahora usamos dos variables llave <code>station</code> y <code>date</code>. Buscá en la documentación cómo indicarle eso a la función.</li>
+</ol>
+</div>
+<div class="btn-group" role="group" aria-label="Navegación">
+<p><a href= "05-dplyr.html" class = "btn btn-primary">Anterior</a> <a href= "07-graficos-I.html" class = "btn btn-primary">Siguiente</a></p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTWFuaXB1bGFjacOzbiBkZSBkYXRvcyBvcmRlbmFkb3MgdXNhbmRvIHtkcGx5cn0geSB7dGlkeXJ9IElJIgpvdXRwdXQ6IAogIGh0bWxfZG9jdW1lbnQ6CiAgICBjb2RlX2Rvd25sb2FkOiB0cnVlCiAgICB0b2M6IHRydWUKICAgIHRvY19mbG9hdDogZmFsc2UKICAgIGhpZ2hsaWdodDogdGFuZ28KLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpgYGAKClVuIG1pc21vIGNvbmp1bnRvIGRlIGRhdG9zIHB1ZWRlIGVzdGFyIGVuIHVuIGZvcm1hdG8gImFuY2hvIiBvICJsYXJnbyIuIExvcyBkYXRvcyBlbiBmb3JtYXRvICJsYXJnbyIgbyAidGlkeSIsIHNvbiBhcXVlbGxvcyBlbiBsb3MgY3VhbGVzOgoKLSAgIGNhZGEgZmlsYSBlcyB1bmEgb2JzZXJ2YWNpw7NuCi0gICBjYWRhIGNvbHVtbmEgZXMgdW5hIHZhcmlhYmxlCgpFbiBlbCBmb3JtYXRvICJhbmNobyIgZXMgdW4gcG9jbyBtw6FzIGNvbXBsZWpvIGRlIGRlZmluaXJsbyBwZXJvIGxhIGlkZWEgZ2VuZXJhbCBlcyBxdWU6CgotICAgY2FkYSBmaWxhIGVzIHVuICJpdGVtIgotICAgY2FkYSBjb2x1bW5hIGVzIHVuYSB2YXJpYWJsZQoKIVtdKGltZy9sYXJnby1hbmNoby5wbmcpCgpVbmEgdGFibGEgZW4gZm9ybWF0byBsYXJnbyB2YSBhIHRlbmVyIHVuYSBjaWVydGEgY2FudGlkYWQgZGUgY29sdW1uYXMgcXVlIGN1bXBsZW4gZWwgcm9sIGRlIGlkZW50aWZpY2Fkb3JlcyB5IGN1eWEgY29tYmluYWNpw7NuIGlkZW50aWZpY2FuIHVuYSDDum5pY2Egb2JzZXJ2YWNpw7NuIHkgdW5hIMO6bmljYSBjb2x1bW5hIGNvbiBlbCB2YWxvciBkZSBsYSBvYnNlcnZhY2nDs24uIEVuIGVsIGVqZW1wbG8gZGUgYXJyaWJhLCBgcGFpc2AgeSBgYW5pb2Agc29uIGxhcyBjb2x1bW5hcyBpZGVudGlmaWNhZG9yYXMgeSBgY2Fzb3NgIGVzIGxhIGNvbHVtbmEgcXVlIGNvbnRpZW5lIGVsIHZhbG9yIGRlIGxhcyBvYnNlcnZhY2lvbmVzLgoKRW4gdW5hIHRhYmxhIGFuY2hhLCBjYWRhIG9ic2VydmFjacOzbiDDum5pY2Egc2UgaWRlbnRpZmljYSBhIHBhcnRpciBkZSBsYSBpbnRlcnNlY2Npw7NuIGRlIGZpbGFzIHkgY29sdW1uYXMuIEVuIGVsIGVqZW1wbG8sIGxvcyBwYcOtc2VzIGVzdMOhbiBlbiBsYXMgZmlsYXMgeSBsb3MgYcOxb3MgZW4gbGFzIGNvbHVtbmFzLgoKRW4gZ2VuZXJhbCwgZWwgZm9ybWF0byBhbmNobyBlcyBtw6FzIGNvbXBhY3RvIHkgbGVnaWJsZSBwb3IgaHVtYW5vcyBtaWVudHJhcyBxdWUgZWwgbGFyZ28gZXMgbcOhcyBmw6FjaWwgZGUgbWFuZWphciBjb24gbGEgY29tcHV0YWRvcmEuIFNpIHRlIGZpasOhcyBlbiBsYXMgdGFibGFzIGRlIGFycmliYSwgZXMgbcOhcyBmw6FjaWwgY29tcGFyYXIgbG9zIHZhbG9yZXMgZW50cmUgcGHDrXNlcyB5IGVudHJlIGHDsW9zIGVuIGxhIHRhYmxhIGFuY2hhLiBQZXJvIGVsIG5vbWJyZSBkZSBsYXMgY29sdW1uYXMgKCIxOTk5IiwgIjIwMDAiKSBlbiByZWFsaWRhZCDCoXNvbiBkYXRvcyEgQWRlbcOhcyBlc3RlIGZvcm1hdG8gc2UgZW1waWV6YSBhIGNvbXBsaWNhciBlbiBjdWFudG8gaGF5IG3DoXMgZGUgZG9zIGlkZW50aWZpY2Fkb3Jlcy4KClVuIG1pc21vIHNldCBkZSBkYXRvcyBwdWVkZSBzZXIgcmVwcmVzZW50YWRvIGRlIGZvcm1hIGNvbXBsZXRhbWVudGUgImxhcmdhIiwgY29tcGxldGFtZW50ZSAiYW5jaGEiIG8gLS1sbyBxdWUgZXMgbcOhcyBjb23Dum4tLSBlbiB1biBmb3JtYXRvIGludGVybWVkaW8gcGVybyBubyBleGlzdGUgdW5hIGZvcm1hICJjb3JyZWN0YSIgZGUgb3JnYW5pemFyIGxvcyBkYXRvczsgY2FkYSB1bmEgdGllbmUgc3VzIHZlbnRhamFzIHkgZGVzdmVudGFqYXMuIFBvciBlc3RvIGVzIHF1ZSBlcyBtdXkgbm9ybWFsIHF1ZSBkdXJhbnRlIHVuIGFuw6FsaXNpcyBsb3MgZGF0b3MgdmF5YW4geSB2dWVsdmFuIGVudHJlIGRpc3RpbnRvcyBmb3JtYXRvcyBkZXBlbmRpZW5kbyBkZSBsb3MgbcOpdG9kb3MgZXN0YWTDrXN0aWNvcyBxdWUgc2UgbGUgYXBsaWNhbi4gRW50b25jZXMsIGFwcmVuZGVyIGEgdHJhbnNmb3JtYXIgZGF0b3MgYW5jaG9zIGVuIGxhcmdvcyB5IHZpY2V2ZXJzYSBlcyB1biBoYWJpbGlkYWQgbXV5IMO6dGlsLgoKOjo6IHsuYWxlcnQgLmFsZXJ0LWluZm99CioqRGVzYWbDrW8qKgoKRW4gbGFzIHRhYmxhcyBkZSBlamVtcGxvIGNhZGEgcGHDrXMgdGllbmUgZWwgdW4gdmFsb3Igb2JzZXJ2YWRvIGRlICJjYXNvcyIgcGFyYSBjYWRhIGHDsW8uIMK/Q8OzbW8gYWdyZWdhcsOtYXMgdW5hIG51ZXZhIHZhcmlhYmxlIGNvbiBpbmZvcm1hY2nDs24gc29icmUgInByZWNpb3MiPyBEaWJ1asOhIHVuIGVzcXVlbWEgZW4gcGFwZWwgeSBsw6FwaXogZW4gZm9ybWF0byBhbmNobyB5IHVubyBlbiBmb3JtYXRvIGxhcmdvLiDCv0VuIHF1w6kgZm9ybWF0byBlcyBtw6FzICJuYXR1cmFsIiBlc2EgZXh0ZW5zacOzbj8KOjo6CgpFbiBlc3RhIHNlY2Npw7NuIHZhcyBhIHVzYXIgZWwgcGFxdWV0ZSB7dGlkeXJ9IHBhcmEgbWFuaXB1bGFyIGRhdG9zLiBTaSBubyBsbyB0ZW7DqXMgaW5zdGFsYWRvLCBpbnN0YWxhbG8gY29uIGVsIGNvbWFuZG86CgpgYGB7ciBldmFsID0gRkFMU0V9Cmluc3RhbGwucGFja2FnZXMoInRpZHlyIikKYGBgCgpZIGx1ZWdvIGNhcmfDoSB7dGlkeXJ9IHkge2RwbHlyfSAocXVlIHVzYXN0ZSBlbiBbdW5hIHNlY2Npw7NuIGFudGVyaW9yXSgwNS1kcGx5ci5odG1sKSkgY29uOgoKYGBge3J9CmxpYnJhcnkodGlkeXIpCmxpYnJhcnkoZHBseXIpCmBgYAoKIyMgRGUgYW5jaG8gYSBsYXJnbyBjb24gYHBpdm90X2xvbmdlcigpYAoKRW4gc2VjY2lvbmVzIGFudGVyaW9yZXMgdXNhc3RlIGRhdG9zIGRlIHVuYSBlc3RhY2nDs24gbWV0ZW9yb2zDs2dpY2EgZW4gQmFyaWxvY2hlOgoKYGBge3J9CmJhcmlsb2NoZSA8LSByZWFkcjo6cmVhZF9jc3YoImRhdG9zL2Jhcmlsb2NoZV9lbmxpbXBpby5jc3YiKQpiYXJpbG9jaGUKYGBgCgo6Ojogey5hbGVydCAuYWxlcnQtc3VjY2Vzc30Kwr9Ob3Rhc3RlIHF1ZSBlbiBlbCBjw7NkaWdvIGFudGVyaW9yIG5vIHVzYXN0ZSBgbGlicmFyeShyZWFkcilgIHBhcmEgY2FyZ2FyIGVsIHBhcXVldGUgeSBsdWVnbyBsZWVyPyBDb24gbGEgbm90YWNpw7NuIGBwYXF1ZXRlOjpmdW5jaW9uKClgIHBvZMOpcyBhY2NlZGVyIGEgbGFzIGZ1bmNpb25lcyBkZSB1biBwYXF1ZXRlIHNpbiB0ZW5lciBxdWUgY2FyZ2FybG8uIEVzIHVuYSBidWVuYSBmb3JtYSBkZSBubyB0ZW5lciBxdWUgY2FyZ2FyIHVuIG1vbnTDs24gZGUgcGFxdWV0ZXMgaW5uZWNlc2FyaW9zIHNpIHZhcyBhIGNvcnJlciB1bmEgw7puaWNhIGZ1bmNpw7NuIGRlIHVuIHBhcXVldGUgcG9jYXMgdmVjZXMuCjo6OgoKwr9Dw7NtbyBoYXLDrWFzIHBhcmEgY2FsY3VsYXIgZWwgdmFsb3IgbWVkaW8gbWVuc3VhbCBkZSBjYWRhIHZhcmlhYmxlIHJlbGFjaW9uYWRhIGNvbiBsYSB0ZW1wZXJhdHVyYT8gRW4gZWwgZm9ybWF0byBlbiBlbCBxdWUgZXN0w6FuIGFob3JhIGxvcyBkYXRvcywgdGVuZHLDrWFzIHF1ZSBoYWNlciBhbGdvIGNvbW8gZXN0bwoKYGBge3J9CmJhcmlsb2NoZSAlPiUgCiAgZ3JvdXBfYnkobWVzKSAlPiUgCiAgc3VtbWFyaXNlKFRlbXBlcmF0dXJhX2Ficmlnb18xNTBjbSA9IG1lYW4oVGVtcGVyYXR1cmFfQWJyaWdvXzE1MGNtLCBuYS5ybSA9IFRSVUUpLAogICAgICAgICAgICBUZW1wZXJhdHVyYV9BYnJpZ29fMTUwY21fTWF4aW1hID0gbWVhbihUZW1wZXJhdHVyYV9BYnJpZ29fMTUwY21fTWF4aW1hLCBuYS5ybSA9IFRSVUUpLCAKICAgICAgICAgICAgVGVtcGVyYXR1cmFfQWJyaWdvXzE1MGNtX01pbmltYSA9IG1lYW4oVGVtcGVyYXR1cmFfQWJyaWdvXzE1MGNtX01pbmltYSwgbmEucm0gPSBUUlVFKSkKYGBgCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30KKipEZXNhZsOtbyoqCgpFeHRlbmTDqSBlbCBjw7NkaWdvIGRlIGFycmliYSBwYXJhIGNhbGN1bGFyIGVsIHByb21lZGlvIGRlIHRvZGFzIGxhcyAzMCB2YXJpYWJsZXMgaW5jbHVpZGFzIGVuIGxhIHRhYmxhIGBiYXJpbG9jaGVgLgoKwqFObyEgU2Vyw61hIHVuIGVqZXJjaWNpbyBhbHRhbWVudGUgdGVkaW9zby4KOjo6CgpQYXJhIG5vIHRlbmVyIHF1ZSBlc2NyaWJpciAzMCBsw61uZWFzIHRvZGFzIGlndWFsZXMsIHNlcsOtYSBtZWpvciBwb2RlciBoYWNlciB1biBwcm9tZWRpbyBwYXJhIGNhZGEgbWVzICoqeSBwYXJhIGNhZGEgdmFyaWFibGUqKi4gQWxnbyBjb21vIGVzdG86CgpgYGB7ciwgZXZhbCA9IEZBTFNFfQpiYXJpbG9jaGUgJT4lIAogIGdyb3VwX2J5KG1lcywgdmFyaWFibGUpICU+JSAKICBzdW1tYXJpc2UocHJvbWVkaW8gPSBtZWFuKHZhbG9yLCBuYS5ybSA9IFRSVUUpKQpgYGAKClBhcmEgcG9kZXIgaGFjZXIgZXNvIGhheSBxdWUgdGVuZXIgbG9zIGRhdG9zIGVuIHVuIGZvcm1hdG8gbcOhcyBsYXJnby4gUGFyYSBjb252ZXJ0aXJsbyBlbiB1bmEgdGFibGEgbcOhcyBsYXJnYSwgc2UgdXNhIGBwaXZvdF9sb25nZXIoKWAgKCJsb25nZXIiIGVzICJtw6FzIGxhcmdvIiBlbiBpbmdsw6lzKToKCmBgYHtyfQpiYXJpbG9jaGVfbGFyZ28gPC0gYmFyaWxvY2hlICU+JSAKICBzZWxlY3QoRmVjaGEsIHN0YXJ0c193aXRoKCJUZW1wZXJhdHVyYSIpKSAlPiUgCiAgcGl2b3RfbG9uZ2VyKGNvbHMgPSAtRmVjaGEsCiAgICAgICAgICAgICAgIG5hbWVzX3RvID0gInZhcmlhYmxlX2x1Z2FyX2FsdHVyYV90aXBvIiwKICAgICAgICAgICAgICAgdmFsdWVzX3RvID0gInZhbG9yIikKCmJhcmlsb2NoZV9sYXJnbwpgYGAKCkxvIHByaW1lcm8gcXVlIGhhY2UgZXN0ZSBjw7NkaWdvIGVzIHNlbGVjY2lvbmFyIHPDs2xvIGxhcyBjb2x1bW5hcyBkZSBpbnRlcsOpczogbGEgRmVjaGEgeSBsYXMgY29sdW1uYXMgZGUgdGVtcGVyYXR1cmEuIFBhcmEgbm8gdGVuZXIgcXVlIGVzY3JpYmlyIGxvcyBub21icmVzIGVudGVyb3MgZGUgbGFzIGNvbHVtbmFzIGRlIHRlbXBlcmF0dXJhICjCoXF1ZSBzb24gbXV5IGxhcmdvcyEpIHVzYSBsYSBmdW5jacOzbiBgc3RhcnRzX3dpdGgoKWAgcXVlLCBjb21vIHN1IG5vbWJyZSAoZW4gaW5nbMOpcykgbG8gaW5kaWNhLCBzZWxlY2Npb25hIHRvZGFzIGxhcyBjb2x1bW5hcyBxdWUgZW1waWV6YW4gY29uICJUZW1wZXJhdHVyYSIuCgo6Ojogey5hbGVydCAuYWxlcnQtc3VjY2Vzc30KRXhpc3RlbiBvdHJhcyBmdW5jaW9uZXMgYWNjZXNvcmlhcyBwYXJhIHNlbGVjY2lvbmFyIG11Y2hhcyBmdW5jaW9uZXMgZW5jYXBzdWxhZGFzIGVuIGVsIHBhcXVldGUgInRpZHlzZWxlY3QiLiBTaSBxdWVyw6lzIGxlZXIgbcOhcyBkZXRhbGxlcyBkZSBsYXMgZGlzdGludGFzIGZvcm1hcyBxdWUgcG9kw6lzIHNlbGVjY2lvbmFyIHZhcmlhYmxlcyBsZcOpIGxhIGRvY3VtZW50YWNpw7NuIHVzYW5kbyBgP3RpZHlzZWxlY3Q6Omxhbmd1YWdlYC4KOjo6CgpMdWVnbywgZWwgY8OzZGlnbyB1c2EgYHBpdm90X2xvbmdlcigpYCBwYXJhICJhbGFyZ2FyIiBsYSB0YWJsYSBlcyBsYSB0YWJsYSBxdWUgdmEgYSBtb2RpZmljYXI6IGBiYXJpbG9jaGVgLiBFbCBzZWd1bmRvIGFyZ3VtZW50byBzZSBsbGFtYSBgY29sc2AgeSBlcyB1biB2ZWN0b3IgY29uIGxhcyBjb2x1bW5hcyBxdWUgdGllbmVuIGxvcyB2YWxvcmVzIGEgImFsYXJnYXIiLiBQb2Ryw61hIHNlciB1biB2ZWN0b3IgZXNjcml0byBhIG1hbm8gKGFsZ28gY29tbyBgYygiVGVtcGVyYXR1cmFfQWJyaWdvXzE1MGNtIiwgIlRlbXBlcmF0dXJhX0Ficmlnb18xNTBjbV9NYXhpbWEiLi4uKWApIHBlcm8gY29uIG3DoXMgZGUgMzAgY29sdW1uYXMsIGVzY3JpYmlyIHRvZG8gZXNvIHNlcsOtYSB0ZWRpb3NvIHkgcHJvYmFibGVtZW50ZSBlc3RhcsOtYSBsbGVubyBkZSBlcnJvcmVzLiBFbCBjw7NkaWdvIGRlIGFycmliYSB1c2EgbGEgc2ludGF4aXMgZGUgIi1jb2x1bW5hIiBwYXJhIGluZGljYXIgcXVlIHNvbiB0b2RhcyBsYXMgY29sdW1uYXMgbWVub3MgbGEgY29sdW1uYXMgIkZlY2hhIi4KCkVsIHRlcmNlciB5IGN1YXJ0byBhcmd1bWVudG8gc29uIGxvcyBub21icmVzIGRlIGxhcyBjb2x1bW5hcyBkZSAibm9tYnJlIiB5IGRlICJ2YWxvciIgcXVlIHZhIGEgdGVuZXIgbGEgbnVldmEgdGFibGEuIENvbW8gbGEgbnVldmEgY29sdW1uYSBkZSBpZGVudGlmaWNhY2nDs24gdGllbmUgbG9zIGRhdG9zIGRlIGxhIHZhcmlhYmxlLCBlbCBsdWdhciBkb25kZSBzZSBtaWRlLCBsYSBhbHR1cmEgeSBlbCB0aXBvIGRlIHZhcmlhYmxlIChtw61uaW1hLCBtw6F4aW1hKSAsICJ2YXJpYWJsZVxfbHVnYXJcX2FsdHVyYVxfdGlwbyIgZXMgdW4gYnVlbiBub21icmUuIFkgbGEgY29sdW1uYSBkZSB2YWxvciB2YSBhIHRlbmVyLi4uIGJ1ZW5vLCBlbCB2YWxvci4KClRvbWF0ZSB1biBtb21lbnRvIHBhcmEgdmlzdWFsaXphciBsbyBxdWUgYWNhYmEgZGUgcGFzYXIuIExhIHRhYmxhIGFuY2hhIHRlbsOtYSB1biBtb250w7NuIGRlIGNvbHVtbmFzIGNvbiBkaXN0aW50b3MgZGF0b3MuIEFob3JhIGVzdG9zIGRhdG9zIGVzdMOhbiB1bm8gYXJyaWJhIGRlIG90cm8gZW4gbGEgY29sdW1uYSAidmFsb3IiLCBwZXJvIHBhcmEgaWRlbnRpZmljYXIgZWwgbm9tYnJlIGRlIGxhIGNvbHVtbmEgZGUgbGEgY3VhbCB2aW5pZXJvbiwgc2UgYWdyZWdhIGxhIGNvbHVtbmEgInZhcmlhYmxlIi4KCiFbUHJvY2VzbyBkZSBsYXJnbyBhIGFuY2hvXShpbWcvYW5jaG8tYS1sYXJnby5wbmcpCgpMYSBjb2x1bW5hIGB2YXJpYWJsZV9sdWdhcl9hbHR1cmFfdGlwb2AgdG9kYXbDrWEgbm8gZXMgbXV5IMO6dGlsIHBvcnF1ZSBjb250aWVuZSA0IGRhdG9zLCBsYSB2YXJpYWJsZSAodGVtcGVyYXR1cmEpLCBlbCBsdWdhciwgbGEgYWx0dXJhIHkgZWwgdGlwbyBkZSBvYnNlcnZhY2nDs24uIFNlcsOtYSBtZWpvciBzZXBhcmFyIGVzdGEgaW5mb3JtYWNpw7NuIGVuIGRvcyBjb2x1bW5hcyBsbGFtYWRhcyAidmFyaWFibGUiLCAibHVnYXIiLCAiYWx0dXJhIiB5ICJ0aXBvIi4gUGFyYSBlc28gZXN0w6EgbGEgZnVuY2nDs24gYHNlcGFyYXRlKClgLgoKYGBge3J9CmJhcmlsb2NoZV9sYXJnbyA8LSBzZXBhcmF0ZShiYXJpbG9jaGVfbGFyZ28sIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sID0gdmFyaWFibGVfbHVnYXJfYWx0dXJhX3RpcG8sIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgaW50byA9IGMoInZhcmlhYmxlIiwgImx1Z2FyIiwgImFsdHVyYSIsICJ0aXBvIiksIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VwID0gIl8iKQpiYXJpbG9jaGVfbGFyZ28KYGBgCgpFbCBwcmltZXIgYXJndW1lbnRvLCBjb21vIHNpZW1wcmUsIGVzIGxhIHRhYmxhIGEgcHJvY2VzYXIuIEVsIHNlZ3VuZG8sIGBjb2xgLCBlcyBsYSBjb2x1bW5hIGEgc2VwYXJhciBlbiBkb3MgKG8gbcOhcykgY29sdW1uYXMgbnVldmFzLiBFbCB0ZXJjZXJvLCBgaW50b2AgZXMgZWwgbm9tYnJlIGRlIGxhcyBudWV2YXMgY29sdW1uYXMgcXVlIGBzZXBhcmF0ZSgpYCB2YSBhIGNyZWFyLiBFbCDDumx0aW1vIGFyZ3VtZW50byBlcyBgc2VwYCBxdWUgZGVmaW5lIGPDs21vIHJlYWxpemFyIGxhIHNlcGFyYWNpw7NuLiBQb3IgZGVmZWN0bywgYHNlcGAgZXMgdW5hIFtleHByZXNpw7NuIHJlZ3VsYXJdKGh0dHBzOi8vZXMud2lraXBlZGlhLm9yZy93aWtpL0V4cHJlc2klQzMlQjNuX3JlZ3VsYXIpIHF1ZSBjYXB0dXJhIGN1YWxxdWllciBjYXJhY3RlciBubyBhbGZhbnVtw6lyaWNvLgoKSGFicsOhcyBub3RhZG8gdW4gcHJvYmxlbWEuIFBhcmEgIlRlbXBlcmF0dXJhXF9BYnJpZ29cXzE1MGNtIiB5IHBhcmEgIlRlbXBlcmF0dXJhXF9JbnRlXF81Y20iLCBsYSBjb2x1bW5hICJ0aXBvIiBlcyBOQS4gRXN0byBlcyBwb3JxdWUgZWwgdGV4dG8gbm8gdGllbmUgNCAicGVkYXpvcyIuIFNlcsOtYSBjb252ZW5pZW50ZSBhZ3JlZ2FybGUgYWxnby4gQXN1bWllbmRvIHF1ZSBlcyB1bmEgdGVtcGVyYXR1cmEgbWVkaWEsIHNlIHB1ZWRlIG1vZGlmaWNhciBjb24gdW4gYGlmX2Vsc2UoKWA6CgpgYGB7cn0KYmFyaWxvY2hlX2xhcmdvIDwtIGJhcmlsb2NoZV9sYXJnbyAlPiUKICBtdXRhdGUodGlwbyA9IGlmX2Vsc2UoaXMubmEodGlwbyksICJNZWRpYSIsIHRpcG8pKQpiYXJpbG9jaGVfbGFyZ28KYGBgCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30KKipEZXNhZsOtbyoqCgpKdW50w6EgdG9kb3MgbG9zIHBhc29zIGFudGVyaW9yZXMgZW4gdW5hIHNvbGEgY2FkZW5hIGRlIG9wZXJhY2lvbmVzIHVzYW5kbyBgJT4lYC4KOjo6Cgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30gCioqRGVzYWbDrW8qKiAKCkVzdGEgdGFibGEgc8OzbG8gdGllbmUgZGF0b3MgZGUgdGVtcGVyYXR1cmEuIMK/U2UgcG9kcsOtYSBpbmNsdWlyIGN1YWxxdWllciBvdHJhIHZhcmlhYmxlPyDCv0h1bWVkYWQsIGRpcmVjY2nDs24gZGVsIHZpZW50bywgZXN0YWRvIGRlbCB0aWVtcG8/IMK/Q8OzbW8gbG8gaGFyw61hcz8KOjo6CgojIyBEZSBsYXJnbyBhIGFuY2hvIGNvbiBgcGl2b3Rfd2lkZXIoKWAKCkFob3JhIGxhIHZhcmlhYmxlIGBiYXJpbG9jaGVfbGFyZ29gIGVzdMOhIGVuIGVsIGZvcm1hdG8gbcOhcyBsYXJnbyBwb3NpYmxlLiBUaWVuZSA2IGNvbHVtbmFzLCBkZSBsYXMgY3VhbGVzIHPDs2xvIHVuYSBlcyBsYSBjb2x1bW5hcyBjb24gdmFsb3Jlcy4gUGVybyBjb24gbG9zIGRhdG9zIGFzw60gbm8gcG9kcsOtYXMgaGFjZXIgdW4gZ3LDoWZpY28gZGUgcHVudG9zIHF1ZSBtdWVzdHJlLCBwb3IgZWplbXBsbywgbGEgcmVsYWNpw7NuIGVudHJlIGxhIHRlbXBlcnR1cmEgbcOtbmltYSB5IGxhIHRlbXBvZXJhdHVyYSBtw6F4aW1hLiBFbiBlc3RlIGNhc28gdG9kb3MgbG9zIHZhbG9yZXMgZW4gbGEgY29sdW1uYSBgdmFsb3JgIHRpZW5lbiBsYXMgbWlzbWFzIHVuaWRhZGVzLCBwZXJvIHBvZHLDrWEgdGVuZXIgb3RyYXMgdmFyaWFibGVzLCBjb21vIGh1bWVkYWQgbyBwcmVzacOzbi4gRW4gZXNlIGNhc28sIG5vIHRlbmRyw61hbiBsYXMgbWlzbWFzIHVuaWRhZXMsIHBvciBsbyBxdWUgb3BlcmFyIGNvbiBlc2UgdmVjdG9yIHBvZHLDrWEgZGFyIHJlc3VsdGFkb3Mgc2luIHNlbnRpZG8uIE11Y2hhcyB2ZWNlcyBlcyBjb252ZW5pZW50ZSB5IG5hdHVyYWwgdGVuZXIgbG9zIGRhdG9zIGVuIHVuIGZvcm1hdG8gaW50ZXJtZWRpbyBlbiBkb25kZSBoYXkgbcO6bHRpcGxlcyBjb2x1bW5hcyBjb24gbG9zIHZhbG9yZXMgZGUgZGlzdGludGFzIHZhcmlhYmxlcyBvYnNlcnZhZGFzLgoKUGFzYSAiZW5zYW5jaGFyIiB1bmEgdGFibGEgZXN0w6EgbGEgZnVuY2nDs24gYHBpdm90X3dpZGVyKClgICgid2lkZXIiIGVzICJtw6FzIGFuY2hhIiBlbiBpbmdsw6lzKSB5IGVsIGPDs2RpZ28gcGFyYSBjb25zZWd1aXIgZXN0ZSBmb3JtYXRvIGludGVybWVkaW8gZXM6CgpgYGB7cn0KYmFyaWxvY2hlX21lZGlvIDwtIHBpdm90X3dpZGVyKGJhcmlsb2NoZV9sYXJnbywgbmFtZXNfZnJvbSA9IHRpcG8sIHZhbHVlc19mcm9tID0gdmFsb3IpCmJhcmlsb2NoZV9tZWRpbwpgYGAKCk51ZXZhbWVudGUgZWwgcHJpbWVyIGFyZ3VtZW50byBlcyBsYSB0YWJsYSBvcmlnaW5hbC4gRWwgc2VndW5kbywgYG5hbWVzX2Zyb21gIGVzIGxhIGNvbHVtbmEgY3V5b3MgdmFsb3JlcyDDum5pY29zIHZhbiBhIGNvbnZlcnRpcnNlIGVuIG51ZXZhcyBjb2x1bW5hcy4gTGEgY29sdW1uYSBgdGlwb2AgdGllbmUgbG9zIHZhbG9yZXMgYCJNZWRpYSJgLCBgIk1heGltYSJgIHkgYCJNaW5pbWEiYCB5IGVudG9uY2VzIGxhIHRhYmxhIG51ZXZhIHRlbmRyw6EgdHJlcyBjb2x1bW5hcyBjb24gZXNvcyBub21icmVzLiBFbCB0ZXJjZXIgYXJndW1lbnRvLCBgdmFsdWVzX2Zyb21gLCBlcyBsYSBjb2x1bW5hIGRlIGxhIGN1YWwgc2FjYXIgbG9zIHZhbG9yZXMuCgpQYXJhIHZvbHZlciBhbCBmb3JtYXRvIG3DoXMgYW5jaG8sIGJhc3RhIGNvbiBhZ3JlZ2FyIG3DoXMgY29sdW1uYXMgZW4gZWwgYXJndW1lbnRvIGBuYW1lc19mcm9tYDoKCmBgYHtyfQpwaXZvdF93aWRlcihiYXJpbG9jaGVfbGFyZ28sIAogICAgICAgICAgICBuYW1lc19mcm9tID0gYyh2YXJpYWJsZSwgbHVnYXIsIGFsdHVyYSwgdGlwbyksIAogICAgICAgICAgICBuYW1lc19zZXAgPSAiXyIsCiAgICAgICAgICAgIHZhbHVlc19mcm9tID0gdmFsb3IpCmBgYAoKRW4gZXN0YSBsbGFtYWRhIHRhbWJpw6luIGVzdMOhIGVsIGFyZ3VtZW50byBgbmFtZXNfc2VwYCwgcXVlIGRldGVybWluYSBlbCBjYXJhY3RlciBxdWUgc2UgdXNhIHBhcmEgY3JlYXIgZWwgbm9tYnJlIGRlIGxhcyBudWV2YXMgY29sdW1uYXMuCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30KKipEZXNhZsOtbyoqCgotIENyZcOhIHVuYSBudWV2YSB0YWJsYSwgbGxhbWFkYSBgYmFyaWxvY2hlX3N1cGVyZHVwZXJfYW5jaG9gIHF1ZSBzZWEgbGEgdGFibGEgbcOhcyBhbmNoYSBwb3NpYmxlIHF1ZSBwb2TDqXMgZ2VuZXJhciBjb24gZXN0b3MgZGF0b3MuIMK/Q8OzbW8gZXMgbGEgdGFibGEgbcOhcyBhbmNoYSBwb3NpYmxlIHF1ZSBwb2TDqXMgZ2VuZXJhciBjb24gZXN0b3MgZGF0b3M/IMK/Q3XDoW50YXMgZmlsYXMgeSBjb2x1bW5hcyB0aWVuZT8KCjo6OgoKIyMgVW5pZW5kbyB0YWJsYXMKCgpIYXN0YSBhaG9yYSB0b2RvIGxvIHF1ZSB1c2FzdGUgZGUge2RwbHlyfSBpbnZvbHVjcmEgdHJhYmFqYXIgeSBtb2RpZmljYXIgY29uIHVuYSBzb2xhIHRhYmxhIGEgbGEgdmV6LCBwZXJvIGVzIG11eSBjb23Dum4gdGVuZXIgZG9zIG8gbcOhcyB0YWJsYXMgY29uIGRhdG9zIHJlbGFjaW9uYWRvcy4gRW4gZXNlIGNhc28sIHRlbmVtb3MgcXVlIHVuaXIgZXN0YXMgdGFibGFzLiBhIHBhcnRpciBkZSB1bmEgbyBtw6FzIHZhcmlhYmxlcyBlbiBjb23Dum4gbyBrZXlzLiBFbiBFeGNlbCB1IG90cm8gcHJvZ3JhbWEgZGUgaG9qYXMgZGUgY8OhbGN1bG8sIGVzdG8gc2UgcmVzdWVsdmUgY29uIGxhIGZ1bmNpw7NuICJWTE9PS1VQIiBvICJCVVNDQVJWIiwgZW4gUiB5IGVuIHBhcnRpY3VsYXIgZGVudHJvIGRlbCBtdW5kbyBkZSB7ZHBseXJ9IGhheSBxdWUgdXNhciBsYSBmYW1pbGlhIGRlIGZ1bmNpb25lcyBgKl9qb2luKClgLiBIYXkgdW5hIGZ1bmNpw7NuIGNhZGEgdGlwbyBkZSB1bmnDs24gcXVlIHF1ZXJhbW9zIGhhY2VyLgoKQXN1bWllbmRvIHF1ZSBxdWVyw6lzIHVuaXIgZG9zIGRhdGEuZnJhbWVzIG8gdGFibGFzIGB4YCBlIGB5YCBxdWUgdGllbmVuIGVuIGNvbcO6biB1bmEgdmFyaWFibGUgYEFgOgoKIVtdKGltZy9qb2luLnBuZykKCi0gICBgZnVsbF9qb2luKClgOiBkZXZ1ZWx2ZSB0b2RhcyBsYXMgZmlsYXMgeSB0b2RhcyBsYXMgY29sdW1uYXMgZGUgYW1iYXMgdGFibGFzIGB4YCBlIGB5YC4gQ3VhbmRvIG5vIGNvaW5jaWRlbiBsb3MgZWxlbWVudG9zIGVuIGB4MWAsIGRldnVlbHZlIGBOQWAgKGRhdG8gZmFsdGFudGUpLiBFc3RvIHNpZ25pZmljYSBxdWUgbm8gc2UgcGllcmRlbiBmaWxhcyBkZSBuaW5ndW5hIGRlIGxhcyBkb3MgdGFibGFzIGHDum4gY3VhbmRvIG5vIGhheSBjb2luY2lkZW5jaWEuIEVzdMOhIGVzIGxhIG1hbmVyYSBtw6FzIHNlZ3VyYSBkZSB1bmlyIHRhYmxhcy4KCi0gICBgbGVmdF9qb2luKClgOiBkZXZ1ZWx2ZSB0b2RhcyBsYXMgZmlsYXMgZGUgYHhgIHkgdG9kYXMgbGFzIGNvbHVtbmFzIGRlIGB4YCBlIGB5YC4gTGFzIGZpbGFzIGVuIGB4YCBxdWUgbm8gdGVuZ2FuIGNvaW5jaWRlbmNpYSBjb24gYHlgIHRlbmRyw6FuIGBOQWAgZW4gbGFzIG51ZXZhcyBjb2x1bW5hcy4gU2kgaGF5IG3Dumx0aXBsZXMgY29pbmNpZGVuY2lhcyBlbnRyZSBgeGBlIGB5YCwgZGV2dWVsdmUgdG9kYXMgbGFzIGNvaW5jaWRlbmNpYXMgcG9zaWJsZXMuCgotICAgYHJpZ2h0X2pvaW4oKWA6IGVzIGlndWFsIHF1ZSBgbGVmdF9qb2luKClgIHBlcm8gaW50ZXJjYW1iaWFuZG8gZWwgb3JkZW4gZGUgYHhgIGUgYHlgLiBFbiBvdHJhcyBwYWxhYnJhcywgYHJpZ2h0X2pvaW4oeCwgeSlgIGVzIGlkw6ludGljbyBhIGBsZWZ0X2pvaW4oeSwgeClgLgoKLSAgIGBpbm5lcl9qb2luKClgOiBkZXZ1ZWx2ZSB0b2RhcyBsYXMgZmlsYXMgZGUgYHhgIGRvbmRlIGhheSBjb2luY2lkZW5jaWFzIGNvbiBgeWAgeSB0b2RhcyBsYXMgY29sdW1uYXMgZGUgYHhgIGUgYHlgLiBTaSBoYXkgbcO6bHRpcGxlcyBjb2luY2lkZW5jaWFzIGVudHJlIGB4YCBlIGB5YCwgZW50b25jZXMgZGV2dWVsdmUgdG9kYXMgbGFzIGNvaW5jaWRlbmNpYXMuIEVzdG8gc2lnbmlmaWNhIHF1ZSBlbGltaW5hcsOhIGxhcyBmaWxhcyAob2JzZXJ2YWNpb25lcykgcXVlIG5vIGNvaW5jaWRhbiBlbiBhbWJhcyB0YWJsYXMsIGxvIHF1ZSBwdWVkZSBzZXIgcGVsaWdyb3NvLgoKIVtdKGltZy9qb2luX2ZhbWlseS5wbmcpCgpFbiBlbCBhcmNoaXZvICJlc3RhY2lvbmVzX3Ntbi5jc3YiIGhheSBtZXRhZGF0b3MgZGUgbGFzIGVzdGFjaW9uZXMgbWV0ZW9yb2zDs2dpY2FzIGRlbCBTZXJ2aWNpbyBNZXRlb3JvbMOzZ2ljbyBOYWNpb25hbCAobm9tYnJlLCBwcm92aW5jaWEsIHViaWNhY2nDs24sIGV0Yy4uLik6CgpgYGB7ciwgbWVzc2FnZT1GQUxTRX0KZXN0YWNpb25lcyA8LSByZWFkcjo6cmVhZF9jc3YoImRhdG9zL2VzdGFjaW9uZXNfc21uLmNzdiIpIAplc3RhY2lvbmVzCmBgYAoKUG9yIG90cmEgcGFydGUsIGVuIGVsIGFyY2hpdm8gIm9ic2VydmFjaW9uZXNfc21uLmNzdiIgaGF5IGRhdG9zIGRpYXJpb3MgZGUgdGVtcGVyYXR1cmEgbcOtbmltYSB5IG3DoXhpbWEgb2JzZXJ2YWRvcyBlbiBjYWRhIHVuYSBjYWRhIHVuYSB5IGRpc3RpbnRhcyBmZWNoYXM6CgpgYGB7cn0Kb2JzZXJ2YWNpb25lcyA8LSByZWFkcjo6cmVhZF9jc3YoImRhdG9zL29ic2VydmFjaW9uZXNfc21uLmNzdiIpCm9ic2VydmFjaW9uZXMKYGBgCgpTZXLDrWEgbXV5IMO6dGlsIHVuaXIgYW1iYXMgdGFibGFzIGRlIG1hbmVyYSBkZSB0ZW5lciBsYSBpbmZvcm1hY2nDs24gZGUgbGEgdGVtcGVyYXR1cmEgZW4gY2FkYSB1YmljYWNpw7NuLiAKClBhcmEgdW5pciBsYXMgZG9zIHRhYmxhcywgY3VhbHF1aWVyIGZ1bmNpw7NuIGpvaW4gcmVxdWllcmUgY2llcnRhIGluZm9ybWFjacOzbjoKCi0gICBsYXMgdGFibGFzIGEgdW5pcjogc29uIGxvcyBkb3MgcHJpbWVyb3MgYXJndW1lbnRvcy4KLSAgIHF1w6kgdmFyaWFibGUgbyB2YXJpYWJsZXMgKHNlIHB1ZWRlIHVzYXIgbcOhcyBkZSB1bmEhKSB1c2FyIHBhcmEgaWRlbnRpZmljYXIgY29pbmNpZGVuY2lhczogZWwgYXJndW1lbnRvIGBieWAuCgpVbmFtb3MgYG9ic2VydmFjaW9uZXNgIHkgYGVzdGFjaW9uZXNgIHByaW1lcm8gY29uIGBmdWxsX2pvaW4oKWA6CgpgYGB7cn0KZXN0YWNpb25lc19vYnMgPC0gZnVsbF9qb2luKG9ic2VydmFjaW9uZXMsIGVzdGFjaW9uZXMsIGJ5ID0gYygic3RhdGlvbiIgPSAibm9tYnJlIikpCmVzdGFjaW9uZXNfb2JzCmBgYAoKQ29tbyBlbCBub21icmUgZGUgbGEgZXN0YWNpw7NuIGVuIGxhIHRhYmxhIGBvYnNlcnZhY2lvbmVzYCBlc3TDoSBlbiB1bmEgY29sdW1uYSBsbGFtYWRhICJzdGF0aW9uIiwgbWllbnRyYXMgcXVlIGVuIGxhIHRhYmxhIGBlc3RhY2lvbmVzYCwgZXN0w6EgZW4gdW5hIGNvbHVtbmEgbGxhbWFkYSAibm9tYnJlIi4gQ3VhbmRvIHBhc2EgZXNvLCBlbiBlbCBhcmd1bWVudG8gYGJ5YCBoYXkgcXVlIHBvbmVyIHVuIHZlY3RvciBjb24gbm9tYnJlcy4KClNpIG1pcsOhcyBkZSBjZXJjYSBsYSB0YWJsYSB1bmlkYSB2YXMgYSB2ZXIgdW4gcGFyIGRlIGNvc2FzOgoKLSAgIFRvZGFzIGxhcyBjb2x1bW5hcyBkZSBgb2JzZXJ2YWNpb25lc2AgeSBkZSBgZXN0YWNpb25lc2AgZXN0w6FuIHByZXNlbnRlcy4KLSAgIFRvZGFzIGxhcyBvYnNlcnZhY2lvbmVzIGVzdMOhbiBwcmVzZW50ZXMsIGHDum4gbG9zIGVzdGFjaW9uZXMgcXVlIGVzdMOhbiBwcmVzZW50ZXMgZW4gYGVzdGFjaW9uZXNgIHBlcm8gbm8gZW4gYG9ic2VydmFjaW9uZXNgIHkgdmljZXZlcnNhLiAKCsK/RXhpc3RlIGFsZ3VuYSBlc3RhY2nDs24gcXVlIG5vIGVzdMOpIGVuIGFtYmFzIHRhYmxhcz8gU2kgY29tcGFyw6FzIGxhIGNhbnRpZGFkIGRlIGZpbGFzIGRlIGBvYnNlcnZhY2lvbmVzYCB5IGRlIGBlc3RhY2lvbmVzX29ic2AsIHZhcyBhIHZlciBxdWUgbGEgcHJpbWVyYSB0aWVuZSBgciBucm93KG9ic2VydmFjaW9uZXMpYCBmaWxhcyB5IGxhIHNlZ3VuZGEsIGByIG5yb3coZXN0YWNpb25lc19vYnMpYC4gRXN0byB5YSBkYSB1bmEgcGlzdGEgZGUgcXVlIHByb2JhYmxlbWVudGUgaGF5YSB1bmEgZXN0YWNpw7NuIGVuIGBlc3RhY2lvbmVzYCBxdWUgbm8gZXN0w6EgZW4gYG9ic2VydmFjaW9uZXNgIHF1ZSBlcyBsYSBmaWxhIGV4dHJhLgoKUGFyYSBidXNjYXIgc2lzdGVtw6F0aWNhbWVudGUgZXN0YXMgZXN0YWNpb25lcyBlcnJhbnRlcyBoYXkgcXVlIHVzYXIgYGFudGlfam9pbmAsIHF1ZSBkZXZ1ZWx2ZSBsYXMgZmlsYXMgZGUgbGEgdGFibGEgZGUgbGEgaXpxdWllcmRhIHF1ZSBubyBlc3TDoSBlbiBsYSBkZXJlY2hhLiBFbnRvbmNlcywgdXNhbmRvIGV4YWN0YW1lbnRlIGVsIG1pc21vIGPDs2RpZ28gZGUgYXJyaWJhIHBlcm8gY2FtYmlhbmRvIGBmdWxsX2pvaW5gIHBvciBgYW50aV9qb2luYCwgcXVlZGE6CgpgYGB7cn0KYW50aV9qb2luKG9ic2VydmFjaW9uZXMsIGVzdGFjaW9uZXMsIGJ5ID0gYygic3RhdGlvbiIgPSAibm9tYnJlIikpCmBgYAoKRW4gbGEgdGFibGEgYG9ic2VydmFjaW9uZXNgLCBsYSBlc3RhY2nDs24gIlBSRVNJREVOQ0lBIFJPUVVFIFNBRU5aIFBFw5FBIEFFUk8iIGV4aXN0ZSwgdGllbmUgdW4gcHJvYmxlbWEgZGUgY29kaWZpY2FjacOzbiEgwr9RdcOpIHBhc2Egc2kgaW50ZXJjYW1iw6FzIGVsIMOzcmRlbiBkZSBsYXMgdmFyaWFibGVzICh5IGVsIG9yZGVuIGRlIGxvcyBub21icmVzIGVuIGVsIHZlY3RvciBxdWUgbGUgcGFzYW1vcyBhIGBieWApPwoKCmBgYHtyfQphbnRpX2pvaW4oZXN0YWNpb25lcywgb2JzZXJ2YWNpb25lcywgYnkgPSBjKCJub21icmUiID0gInN0YXRpb24iKSkKYGBgCkVzdG8gbm9zIGRpY2UgcXVlIGxhIGVzdGFjacOzbiAiUFJFU0lERU5DSUEgUk9RVUUgU0FFTlogUEXDkUEgQUVSTyIsIGVzdMOhIGVuIGxhIHRhYmxhIGBlc3RhY2lvbmVzYCBjb24gbGEgY29kaWZpY2FjacOzbiBjb3JyZWN0YS4gYGFudGlfam9pbmAgZXMgbXV5IMO6dGlsIHBhcmEgZW5jb250cmFyIHByb2JsZW1hcyBjb21vIGVzdG9zLiAKCmBmdWxsX2pvaW5gIGVzIGxhIG9wY2nDs24gbcOhcyBzZWd1cmEgc2kgbm8gc2Fiw6lzIHNpIHRvZGFzIGxhcyBvYnNlcnZhY2lvbmVzIGRlIHVuYSB0YWJsYSBlc3TDoW4gcHJlc2VudGUgZW4gYSBvdHJhLiBTaSBzw7NsbyB0ZSBpbnRlcmVzYSBjb25zZXJ2YXIgbGFzIGZpbGFzIGRlIGxhIHRhYmxhIGRlIGxhIGl6cXVpZXJkYSAoZW4gZXN0ZSBjYXNvIGBlc3RhY2lvbmVzYCBlbnRvbmNlczoKCmBgYHtyfQpvYnNfZXN0YWNpb25lcyA8LSBsZWZ0X2pvaW4ob2JzZXJ2YWNpb25lcywgZXN0YWNpb25lcywgIGJ5ID0gYygic3RhdGlvbiIgPSAibm9tYnJlIikpCm9ic19lc3RhY2lvbmVzCmBgYAoKRXN0YSB0YWJsYSB0aWVuZSBsYSBtaXNtYSBjYW50aWRhZCBkZSBmaWxhcyBxdWUgYG9ic2VydmFjaW9uZXNgLiDCv1F1w6kgcGFzw7MgY29uIGxhIGVzdGFjacOzbiBxdWUgZXN0w6EgbWFsIGNvZGlmaWNhZGE/IEZpbHRyYW5kbyBsb3MgZGF0b3M6CgpgYGB7cn0Kb2JzX2VzdGFjaW9uZXMgJT4lIAogIGZpbHRlcihzdGFydHNXaXRoKHN0YXRpb24sICJQUkVTSURFTkNJQSBST1FVRSIpKQpgYGAKCmBsZWZ0X2pvaW5gIGxlIHB1c28gYE5BYCBlbiBsYXMgZmlsYXMgZGUgYG9ic2VydmFjaW9uZXNgIHF1ZSBubyB0aWVuZW4gY29pbmNpZGVuY2lhIGNvbiBgZXN0YWNpb25lc2AuCgpGaW5hbG1lbnRlLCBzaSBxdWlzaWVyYXMgcXVlZGFydGUgc8OzbG8gY29uIGxhcyBvYnNlcnZhY2lvbmVzIHF1ZSBlc3TDoW4gcHJlc2VudGVzIGVuIGFtYmFzIHRhYmxhcyB1c2Ftb3MgYGlubmVyX2pvaW4oKWAuCgpgYGB7cn0Kb2JzX2VzdGFjaW9uZXMgPC0gaW5uZXJfam9pbihvYnNlcnZhY2lvbmVzLCBlc3RhY2lvbmVzLCAgYnkgPSBjKCJzdGF0aW9uIiA9ICJub21icmUiKSkKb2JzX2VzdGFjaW9uZXMKYGBgCgpFbiBlc3RlIGNhc28sIHBlcmRlbW9zIGxhcyBmaWxhcyBkZSBgb2JzZXJ2YWNpb25lc2AgcXVlIG5vIGVuY29udHJhcm9uIGNvaW5jaWRlbmNpYSBlbiBgZXN0YWNpb25lc2AgeSB2aWNldmVyc2EuCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30KKipEZXNhZsOtbyoqCgpFbiBlbCBhcmNoaXZvICJyYWRpYWNpb25fc21uLmNzdiIgaGF5IGRhdG9zIGRlIHJhZGlhY2nDs24gbWVkaWEgZGlhcmlhIG1lZGlkb3MgZW4gZG9zIGVzdGFjaW9uZXMgZGVsIFNlcnZpY2lvIE1ldGVvcm9sw7NnaWNvIE5hY2lvbmFsLiBFbCBvYmpldGl2byBlcyBxdWUgdW5hcyBgb2JzZXJ2YWNpb25lc2AgY29uIGVzb3MgZGF0b3MgdGVuaWVuZG8gZW4gY3VlbnRhIHRhbnRvIGxhIGVzdGFjacOzbiBjb21vIGxhIGZlY2hhLgoKMS4gIExlZSBsYSBiYXNlIGRlIGRhdG9zIGByYWRpYWNpb25fc21uLmNzdmAgZW4gdW5hIG51ZXZhIHZhcmlhYmxlIHF1ZSBzZSBsbGFtZSBgcmFkaWFjaW9uYC4KMi4gIFJldmlzw6EgZWwgbm9tYnJlIGRlIGxhcyB2YXJpYWJsZXMgZW4gZXN0YSBiYXNlIGRlIGRhdG9zLCDCv3NlIGxsYW1hbiBpZ3VhbCBxdWUgbGFzIHZhcmlhYmxlcyBlbiBgb2JzZXJ2YWNpb25lc2A/CjMuIFNpIHRlIGludGVyZXNhIHNhYmVyIGxhIHJlbGFjacOzbiBlbnRyZSBsYSB0ZW1wZXJhdHVyYSB5IGxhIHJhZGlhY2nDs24gbWVkaWRhLCDCv3F1w6kgdGlwbyBkZSBqb2luIGNyZcOpcyBxdWUgdGUgY29udmllbmUgdXNhcj8gKEF5dWRhOiDCv1RlIHNpcnZlIGRlIGFsZ28gdGVuZXIgZGF0b3MgZGUgZXN0YWNpb25lcyB5IGZlY2hhcyBkb25kZSBzZSBtaWRpw7MgdGVtcGVyYXR1cmEgcGVybyBubyByYWRpYWNpw7NuIG8gZG9uZGUgc2UgbWlkacOzIHJhZGlhY2nDs24gcGVybyBubyB0ZW1wZXJhdHVyYT8pCjQuIFVuw60gbGFzIHRhYmxhIHVzYW5kbyBsYSBmdW5jacOzbiBqb2luIHF1ZSBlbGVnaXN0ZS4gVGVuw6kgZW4gY3VlbnRhIHF1ZSBhaG9yYSB1c2Ftb3MgZG9zIHZhcmlhYmxlcyBsbGF2ZSBgc3RhdGlvbmAgeSBgZGF0ZWAuIEJ1c2PDoSBlbiBsYSBkb2N1bWVudGFjacOzbiBjw7NtbyBpbmRpY2FybGUgZXNvIGEgbGEgZnVuY2nDs24uCjo6OgoKOjo6IHsuYnRuLWdyb3VwIHJvbGU9Imdyb3VwIiBhcmlhLWxhYmVsPSJOYXZlZ2FjacOzbiJ9CjxhIGhyZWY9ICIwNS1kcGx5ci5odG1sIiBjbGFzcyA9ICJidG4gYnRuLXByaW1hcnkiPkFudGVyaW9yPC9hPiAKPGEgaHJlZj0gIjA3LWdyYWZpY29zLUkuaHRtbCIgY2xhc3MgPSAiYnRuIGJ0bi1wcmltYXJ5Ij5TaWd1aWVudGU8L2E+Cjo6OgoKCg==</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("06-dplyr-tidyr-II.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
