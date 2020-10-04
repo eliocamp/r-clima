@@ -128,7 +128,7 @@ bariloche_largo
 
 El primer argumento, como siempre, es la tabla a procesar. El segundo, `col`, es la columna a separar en dos (o más) columnas nuevas. El tercero, `into` es el nombre de las nuevas columnas que `separate()` va a crear. El último argumento es `sep` que define cómo realizar la separación. Por defecto, `sep` es una [expresión regular](https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular) que captura cualquier caracter no alfanumérico.
 
-Habrás notado un problema. Hay para "Temperatura\_Abrigo\_150cm" y para "Temperatura\_Inte\_5cm", la columna "tipo" es NA. Esto es porque el texto no tiene 4 "pedazos". Sería conveniente agregarle algo. Asumiendo que es una temperatura media, se puede modificar con un `if_else()` :
+Habrás notado un problema. Para "Temperatura\_Abrigo\_150cm" y para "Temperatura\_Inte\_5cm", la columna "tipo" es NA. Esto es porque el texto no tiene 4 "pedazos". Sería conveniente agregarle algo. Asumiendo que es una temperatura media, se puede modificar con un `if_else()`:
 
 ```{r}
 bariloche_largo <- bariloche_largo %>%
@@ -145,7 +145,7 @@ Juntá todos los pasos anteriores en una sola cadena de operaciones usando `%>%`
 ::: {.alert .alert-info} 
 **Desafío** 
 
-Esta tabla sólo tiene datos de temperatura. ¿Se podría incluir cualquier otra variable? ¿Humedad, dirección del viento, estado del tiempo?
+Esta tabla sólo tiene datos de temperatura. ¿Se podría incluir cualquier otra variable? ¿Humedad, dirección del viento, estado del tiempo? ¿Cómo lo harías?
 :::
 
 ## De largo a ancho con `pivot_wider()`
@@ -252,14 +252,14 @@ Esto nos dice que la estación "PRESIDENCIA ROQUE SAENZ PEÑA AERO", está en la
 `full_join` es la opción más segura si no sabés si todas las observaciones de una tabla están presente en a otra. Si sólo te interesa conservar las filas de la tabla de la izquierda (en este caso `estaciones` entonces:
 
 ```{r}
-estaciones_obs <- left_join(observaciones, estaciones,  by = c("station" = "nombre"))
-estaciones_obs
+obs_estaciones <- left_join(observaciones, estaciones,  by = c("station" = "nombre"))
+obs_estaciones
 ```
 
 Esta tabla tiene la misma cantidad de filas que `observaciones`. ¿Qué pasó con la estación que está mal codificada? Filtrando los datos:
 
 ```{r}
-estaciones_obs %>% 
+obs_estaciones %>% 
   filter(startsWith(station, "PRESIDENCIA ROQUE"))
 ```
 
@@ -268,8 +268,8 @@ estaciones_obs %>%
 Finalmente, si quisieras quedarte sólo con las observaciones que están presentes en ambas tablas usamos `inner_join()`.
 
 ```{r}
-estaciones_obs <- inner_join(observaciones, estaciones,  by = c("station" = "nombre"))
-estaciones_obs
+obs_estaciones <- inner_join(observaciones, estaciones,  by = c("station" = "nombre"))
+obs_estaciones
 ```
 
 En este caso, perdemos las filas de `observaciones` que no encontraron coincidencia en `estaciones` y viceversa.
@@ -287,7 +287,7 @@ En el archivo "radiacion_smn.csv" hay datos de radiación media diaria medidos e
 
 ::: {.btn-group role="group" aria-label="Navegación"}
 <a href= "05-dplyr.html" class = "btn btn-primary">Anterior</a> 
-<a href= "07-ggplot-I.html" class = "btn btn-primary">Siguiente</a>
+<a href= "07-graficos-I.html" class = "btn btn-primary">Siguiente</a>
 :::
 
 

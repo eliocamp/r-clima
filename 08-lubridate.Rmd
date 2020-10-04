@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 El paquete por excelencia para trabajar con fechas y horas es {lubridate} que forma parte del mundo de tidyverse como (casi) todos los paquetes que usamos hasta ahora. Si normalmente usas `library(tidyverse)` para cargar los paquetes, tené en cuenta que {lubridate} no se carga automáticamente. Así que arranquemos por lo primero.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(lubridate)
 library(dplyr)
 library(readr)
