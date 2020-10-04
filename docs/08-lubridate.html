@@ -25,13 +25,85 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      code.sourceCode > span { display: inline-block; line-height: 1.25; }
+  code.sourceCode > span { color: inherit; text-decoration: inherit; }
+  code.sourceCode > span:empty { height: 1.2em; }
+  .sourceCode { overflow: visible; }
+  code.sourceCode { white-space: pre; position: relative; }
+  div.sourceCode { margin: 1em 0; }
+  pre.sourceCode { margin: 0; }
+  @media screen {
+  div.sourceCode { overflow: auto; }
+  }
+  @media print {
+  code.sourceCode { white-space: pre-wrap; }
+  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+  }
+  pre.numberSource code
+    { counter-reset: source-line 0; }
+  pre.numberSource code > span
+    { position: relative; left: -4em; counter-increment: source-line; }
+  pre.numberSource code > span > a:first-child::before
+    { content: counter(source-line);
+      position: relative; left: -1em; text-align: right; vertical-align: baseline;
+      border: none; display: inline-block;
+      -webkit-touch-callout: none; -webkit-user-select: none;
+      -khtml-user-select: none; -moz-user-select: none;
+      -ms-user-select: none; user-select: none;
+      padding: 0 4px; width: 4em;
+      color: #aaaaaa;
+    }
+  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+  div.sourceCode
+    {  background-color: #f8f8f8; }
+  @media screen {
+  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+  }
+  code span.al { color: #ef2929; } /* Alert */
+  code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+  code span.at { color: #c4a000; } /* Attribute */
+  code span.bn { color: #0000cf; } /* BaseN */
+  code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+  code span.ch { color: #4e9a06; } /* Char */
+  code span.cn { color: #000000; } /* Constant */
+  code span.co { color: #8f5902; font-style: italic; } /* Comment */
+  code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+  code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+  code span.dt { color: #204a87; } /* DataType */
+  code span.dv { color: #0000cf; } /* DecVal */
+  code span.er { color: #a40000; font-weight: bold; } /* Error */
+  code span.ex { } /* Extension */
+  code span.fl { color: #0000cf; } /* Float */
+  code span.fu { color: #000000; } /* Function */
+  code span.im { } /* Import */
+  code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+  code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+  code span.ot { color: #8f5902; } /* Other */
+  code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+  code span.sc { color: #000000; } /* SpecialChar */
+  code span.ss { color: #4e9a06; } /* SpecialString */
+  code span.st { color: #4e9a06; } /* String */
+  code span.va { color: #000000; } /* Variable */
+  code span.vs { color: #4e9a06; } /* VerbatimString */
+  code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -41,14 +113,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -57,9 +131,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -519,16 +593,16 @@ div.tocify {
 
 
 <p>El paquete por excelencia para trabajar con fechas y horas es {lubridate} que forma parte del mundo de tidyverse como (casi) todos los paquetes que usamos hasta ahora. Si normalmente usas <code>library(tidyverse)</code> para cargar los paquetes, tené en cuenta que {lubridate} no se carga automáticamente. Así que arranquemos por lo primero.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(lubridate)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(readr)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(lubridate)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(readr)</span></code></pre></div>
 <div id="creando-fechas-y-horas" class="section level2">
 <h2>Creando fechas y horas</h2>
 <p>R maneja fechas y fechas y horas y para esto tiene los tipos de datos <code>&lt;date&gt;</code> y <code>&lt;dttm&gt;</code> y si bien internamente esos datos se almacenan como números enteros (por ejemplo cantidad de segundos desde el 1 de enero de 1970) con lubridate casi no tenemos que preocuparnos de eso y podemos trabajar con fechas como seres humanos.</p>
 <p>Es posible que al leer bases de datos algunas columnas con este tipo de información sea leída como cadadena de caracteres, por ejemplo “25-Oct-1990”. Esto se puede solucionar tanto en la lectura de los datos como luego usando lubridate. Veamos lo segundo.</p>
 <p>Vamos a trabajar con una base de datos de reportes de eventos severos reportados por personas durante la campaña <a href="https://www.bbc.com/mundo/noticias-46133330">RELAMPAGO</a> que se llevó a cabo en Argentina entre octubre y diciembre de 2018.</p>
 <p>Los reportes se recolectaron a traves de un formulario de google que entre otros datos pedía: el tipo de evento o eventos observados, el lugar y horario de ocurrencia del evento.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">reportes &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/paocorrales/r4ds-notas/master/examen/eventos_severos_RELAMPAGO.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>reportes &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/paocorrales/r4ds-notas/master/examen/eventos_severos_RELAMPAGO.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   fecha = col_character(),
@@ -536,7 +610,7 @@ div.tocify {
 ##   lon = col_double(),
 ##   evento = col_character()
 ## )</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">glimpse</span>(reportes) <span class="co"># ¿qué pinta tiene?</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">glimpse</span>(reportes) <span class="co"># ¿qué pinta tiene?</span></span></code></pre></div>
 <pre><code>## Rows: 1,431
 ## Columns: 4
 ## $ fecha  &lt;chr&gt; &quot;10/29/2018 22:05:00&quot;, &quot;10/30/2018 13:00:00&quot;, &quot;12/16/2017 22:3…
@@ -549,12 +623,12 @@ div.tocify {
 <p>La base de datos tiene 4 variables, la fecha (que R no reconoció como tal), la ubicación en latitud y longitud y el tipo de evento.</p>
 <p>Arreglemos la variable fecha. Para eso usaremos una familia de funciones de lubridate que convierten una cadena de caracteres o números en fechas y fechas y horas.</p>
 <p>En este caso el formato de la fecha en la base de datos es “mes / día / año hora : minutos : segundos” y conociendo el orden de las componentes podemos elegir la función necesaria. En este caso será <code>mdy_hms()</code> que viene justamente de <strong>m</strong>onth, <strong>d</strong>ay, <strong>y</strong>ear, <strong>h</strong>our, <strong>m</strong>inute y <strong>s</strong>econd, las componentes en inglés.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">reportes &lt;-<span class="st"> </span>reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fecha_convertida =</span> <span class="kw">mdy_hms</span>(fecha)) </a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw">pull</span>(fecha_convertida) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Necesitamos extraer el vector para ver la zona horaria.</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span>.[<span class="dv">1</span>]                       <span class="co"># Extraemos el primer elemento </span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>reportes &lt;-<span class="st"> </span>reportes <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fecha_convertida =</span> <span class="kw">mdy_hms</span>(fecha)) </span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a>reportes <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw">pull</span>(fecha_convertida) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Necesitamos extraer el vector para ver la zona horaria.</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span>.[<span class="dv">1</span>]                       <span class="co"># Extraemos el primer elemento </span></span></code></pre></div>
 <pre><code>## [1] &quot;2018-10-29 22:05:00 UTC&quot;</code></pre>
 <p>Por defecto cualquiera de las funciones de la familia <code>ymd_hms()</code> le asigna la zona horaria UTC a la variable de salida. Nos vamos a ocupar de esto más adelante pero es importante conocer los metadatos de esta base de datos, ¿las horas estarán en hora local o en UTC?</p>
 <div class="alert alert-info">
@@ -571,10 +645,10 @@ div.tocify {
 </ul>
 </div>
 <p>Si en vez de tener la información de la fecha u fecha y hora en una sola columna, la tenemos en distintas columnas (el mes por un lado, el día por el otro, ect.), existen un par de funciones que permiten armar la variable: <code>make_date()</code> y <code>make_datetime()</code>. Si quisieramos armar la fecha 25 de octubre de 1990 tendríamos que usar la siguiente línea de código:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">make_date</span>(<span class="dt">year =</span> <span class="dv">1990</span>, <span class="dt">month =</span> <span class="dv">10</span>, <span class="dt">day =</span> <span class="dv">25</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">make_date</span>(<span class="dt">year =</span> <span class="dv">1990</span>, <span class="dt">month =</span> <span class="dv">10</span>, <span class="dt">day =</span> <span class="dv">25</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;1990-10-25&quot;</code></pre>
 <p>O una fecha y hora, por ejemplo el 14 de agosto de 1988 a las 13 horas (por ahora UTC, ya nos meteremos en ese berenjenal al final de este episodio).</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">make_datetime</span>(<span class="dt">year =</span> <span class="dv">1988</span>, <span class="dt">month =</span> <span class="dv">8</span>, <span class="dt">day =</span> <span class="dv">14</span>, <span class="dt">hour =</span> <span class="dv">13</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">make_datetime</span>(<span class="dt">year =</span> <span class="dv">1988</span>, <span class="dt">month =</span> <span class="dv">8</span>, <span class="dt">day =</span> <span class="dv">14</span>, <span class="dt">hour =</span> <span class="dv">13</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;1988-08-14 13:00:00 UTC&quot;</code></pre>
 <p>Por supuesto podríamos guardar esas fechas en variables o usar las funciones dentro de <code>mutate()</code> pra generar columnas nuevas en un data frame.</p>
 </div>
@@ -583,9 +657,9 @@ div.tocify {
 <p>Ahora que sabemos como armar fechas, es posible que te estés preguntando como desarmarlas o como extraer sus componentes. Algo de esto ya hicimos al graficar temperaturas medías mensuales pero vamos a revisarlo.</p>
 <p>{lubridate} tiene toda una familia de funciones que permiten extraer las componentes de una variable fecha u fecha y hora. Acá la clave es recordar los nombres en inglés (no nos queda otra!), por ejemplo si queremos el mes, la función será <code>month()</code>.</p>
 <p>Veamos como funciona.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mes =</span> <span class="kw">month</span>(fecha_convertida),</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">         <span class="dt">dia =</span> <span class="kw">day</span>(fecha_convertida)) </a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>reportes <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mes =</span> <span class="kw">month</span>(fecha_convertida),</span>
+<span id="cb12-3"><a href="#cb12-3"></a>         <span class="dt">dia =</span> <span class="kw">day</span>(fecha_convertida)) </span></code></pre></div>
 <pre><code>## # A tibble: 1,431 x 7
 ##    fecha            lat   lon evento             fecha_convertida      mes   dia
 ##    &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              &lt;dttm&gt;              &lt;dbl&gt; &lt;int&gt;
@@ -614,18 +688,18 @@ div.tocify {
 <p>Cuando trabajamos con datos temporales y específicamente aquellos que tienen fecha y hora una de las consideraciones que tenemos que tener en cuenta es la zona horaria. Por defecto {lubridate} y la ciencia en general trabaja en <em>hora UTC</em> (o Coordinated Universal Time) pero es posible que nuestros datos estén almacenados en una zona horaria totalmente distinta.</p>
 <p>En este caso, los reportes tienen la hora a la que ocurrió el evento en Argentina. Por esto podemos inferir que la zona horaria es <em>-3</em>. Esto significa <em>3 horas menos respecto de la hora UTC</em>. ¿Cómo le avisamos a R?</p>
 <p>Todas las funciones de la familia <code>ymd_hms()</code> tiene un argumento <code>tz</code> que permite cambiar la zona horaria. El truco está en saber la nomenclatura de zonas horarias.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">OlsonNames</span>()) <span class="co"># Lista de las nás de 600 zonas horarias disponibles</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">head</span>(<span class="kw">OlsonNames</span>()) <span class="co"># Lista de las nás de 600 zonas horarias disponibles</span></span></code></pre></div>
 <pre><code>## [1] &quot;Africa/Abidjan&quot;     &quot;Africa/Accra&quot;       &quot;Africa/Addis_Ababa&quot;
 ## [4] &quot;Africa/Algiers&quot;     &quot;Africa/Asmara&quot;      &quot;Africa/Asmera&quot;</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">Sys.timezone</span>()     <span class="co"># ¿En qué zona horaria está mi computadora?</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">Sys.timezone</span>()     <span class="co"># ¿En qué zona horaria está mi computadora?</span></span></code></pre></div>
 <pre><code>## [1] &quot;America/Argentina/Buenos_Aires&quot;</code></pre>
 <p>Podemos usar esa información en el argumento <code>tz</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">reportes &lt;-<span class="st"> </span>reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fecha_convertida_tz =</span> <span class="kw">mdy_hms</span>(fecha, <span class="dt">tz =</span> <span class="st">&quot;America/Argentina/Buenos_Aires&quot;</span>)) </a>
-<a class="sourceLine" id="cb18-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb18-4" data-line-number="4">reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="st">   </span><span class="kw">pull</span>(fecha_convertida_tz) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Necesitamos extraer el vector para ver la zona horaria.</span></a>
-<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span>.[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>reportes &lt;-<span class="st"> </span>reportes <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fecha_convertida_tz =</span> <span class="kw">mdy_hms</span>(fecha, <span class="dt">tz =</span> <span class="st">&quot;America/Argentina/Buenos_Aires&quot;</span>)) </span>
+<span id="cb18-3"><a href="#cb18-3"></a></span>
+<span id="cb18-4"><a href="#cb18-4"></a>reportes <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="st">   </span><span class="kw">pull</span>(fecha_convertida_tz) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Necesitamos extraer el vector para ver la zona horaria.</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="st">  </span>.[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;2018-10-29 22:05:00 -03&quot;</code></pre>
 <div id="tranformando-zonas-horarias" class="section level3">
 <h3>Tranformando zonas horarias</h3>
@@ -634,23 +708,23 @@ div.tocify {
 <ul>
 <li><code>force_tz()</code> mantiene constante la hora que vemos en el reloj pero cambia la zona horaria.</li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">reportes &lt;-<span class="st"> </span>reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fecha_force_tz =</span> <span class="kw">force_tz</span>(fecha_convertida_tz, <span class="dt">tzone =</span> <span class="st">&quot;UTC&quot;</span>)) </a>
-<a class="sourceLine" id="cb20-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb20-4" data-line-number="4">reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="st">   </span><span class="kw">pull</span>(fecha_force_tz) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Necesitamos extraer el vector para ver la zona horaria.</span></a>
-<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="st">  </span>.[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>reportes &lt;-<span class="st"> </span>reportes <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fecha_force_tz =</span> <span class="kw">force_tz</span>(fecha_convertida_tz, <span class="dt">tzone =</span> <span class="st">&quot;UTC&quot;</span>)) </span>
+<span id="cb20-3"><a href="#cb20-3"></a></span>
+<span id="cb20-4"><a href="#cb20-4"></a>reportes <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="st">   </span><span class="kw">pull</span>(fecha_force_tz) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Necesitamos extraer el vector para ver la zona horaria.</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="st">  </span>.[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;2018-10-29 22:05:00 UTC&quot;</code></pre>
 <p>Esto no resuelve nuestro problema, si queremos expresar “2018-10-30 12:50:00 -3” en hora UTC hay que <em>sumarle</em> 3 horas.</p>
 <ul>
 <li><code>with_tz()</code> nos permite cambiar de zona horaria manteniendo el mismo instante en el tiempo. En otras palabras, podemos responder ¿Qué hora es en Australia? Esto es justamente lo que necesitamos.</li>
 </ul>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">reportes &lt;-<span class="st"> </span>reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fecha_with_tz =</span> <span class="kw">with_tz</span>(fecha_convertida_tz, <span class="dt">tzone =</span> <span class="st">&quot;UTC&quot;</span>)) </a>
-<a class="sourceLine" id="cb22-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb22-4" data-line-number="4">reportes <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="st">   </span><span class="kw">pull</span>(fecha_with_tz) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Necesitamos extraer el vector para ver la zona horaria.</span></a>
-<a class="sourceLine" id="cb22-6" data-line-number="6"><span class="st">  </span>.[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>reportes &lt;-<span class="st"> </span>reportes <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fecha_with_tz =</span> <span class="kw">with_tz</span>(fecha_convertida_tz, <span class="dt">tzone =</span> <span class="st">&quot;UTC&quot;</span>)) </span>
+<span id="cb22-3"><a href="#cb22-3"></a></span>
+<span id="cb22-4"><a href="#cb22-4"></a>reportes <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="st">   </span><span class="kw">pull</span>(fecha_with_tz) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Necesitamos extraer el vector para ver la zona horaria.</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="st">  </span>.[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;2018-10-30 01:05:00 UTC&quot;</code></pre>
 <div class="alert alert-info">
 <p><strong>Desafío</strong></p>

@@ -26,6 +26,15 @@
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      </style>
+
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
   pre:not([class]) {
@@ -435,7 +444,7 @@ div.tocify {
 <div id="ubuntukubuntuxubuntulubuntu-etc" class="section level3">
 <h3>Ubuntu/Kubuntu/Xubuntu/Lubuntu, etc…</h3>
 <p>Ejecutá (es todo un comando)</p>
-<p><code>sudo echo &quot;deb http://cran.rstudio.com/bin/linux/ubuntu $(lsb_release -cs)/&quot; | sudo tee -a /etc/apt/sources.list</code></p>
+<p><code>sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu $(lsb_release -cs)/" | sudo tee -a /etc/apt/sources.list</code></p>
 <p>Ahora</p>
 <p><code>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9</code></p>
 <p>Finalmente, actualizá las fuentes de los repositorios e instalá R con:</p>

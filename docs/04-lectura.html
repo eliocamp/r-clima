@@ -25,13 +25,85 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      code.sourceCode > span { display: inline-block; line-height: 1.25; }
+  code.sourceCode > span { color: inherit; text-decoration: inherit; }
+  code.sourceCode > span:empty { height: 1.2em; }
+  .sourceCode { overflow: visible; }
+  code.sourceCode { white-space: pre; position: relative; }
+  div.sourceCode { margin: 1em 0; }
+  pre.sourceCode { margin: 0; }
+  @media screen {
+  div.sourceCode { overflow: auto; }
+  }
+  @media print {
+  code.sourceCode { white-space: pre-wrap; }
+  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+  }
+  pre.numberSource code
+    { counter-reset: source-line 0; }
+  pre.numberSource code > span
+    { position: relative; left: -4em; counter-increment: source-line; }
+  pre.numberSource code > span > a:first-child::before
+    { content: counter(source-line);
+      position: relative; left: -1em; text-align: right; vertical-align: baseline;
+      border: none; display: inline-block;
+      -webkit-touch-callout: none; -webkit-user-select: none;
+      -khtml-user-select: none; -moz-user-select: none;
+      -ms-user-select: none; user-select: none;
+      padding: 0 4px; width: 4em;
+      color: #aaaaaa;
+    }
+  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+  div.sourceCode
+    {  background-color: #f8f8f8; }
+  @media screen {
+  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+  }
+  code span.al { color: #ef2929; } /* Alert */
+  code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+  code span.at { color: #c4a000; } /* Attribute */
+  code span.bn { color: #0000cf; } /* BaseN */
+  code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+  code span.ch { color: #4e9a06; } /* Char */
+  code span.cn { color: #000000; } /* Constant */
+  code span.co { color: #8f5902; font-style: italic; } /* Comment */
+  code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+  code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+  code span.dt { color: #204a87; } /* DataType */
+  code span.dv { color: #0000cf; } /* DecVal */
+  code span.er { color: #a40000; font-weight: bold; } /* Error */
+  code span.ex { } /* Extension */
+  code span.fl { color: #0000cf; } /* Float */
+  code span.fu { color: #000000; } /* Function */
+  code span.im { } /* Import */
+  code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+  code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+  code span.ot { color: #8f5902; } /* Other */
+  code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+  code span.sc { color: #000000; } /* SpecialChar */
+  code span.ss { color: #4e9a06; } /* SpecialString */
+  code span.st { color: #4e9a06; } /* String */
+  code span.va { color: #000000; } /* Variable */
+  code span.vs { color: #4e9a06; } /* VerbatimString */
+  code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -41,14 +113,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -57,9 +131,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -521,15 +595,15 @@ div.tocify {
 <div id="archivos-csv" class="section level1">
 <h1>Archivos csv</h1>
 <p>Existen muchas funciones distintas para leer datos dependiendo del formato en el que están guardados. Para datos tabulares, la forma más útil es el formato csv, que es un archivo de texto plano con datos separados por coma. Vamos a trabajar con datos de temperatura de una estación meterológica en Bariloche:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   Fecha = col_datetime(format = &quot;&quot;),
 ##   Temperatura = col_character()
 ## )</code></pre>
 <p>Todo ese texto naranja/rojo es intimidante pero no te preocupes, es sólo un mensaje que nos informa que los datos se leyeron y qué tipo de dato tiene cada columna. ¿Notás algo raro? A pesar de que claramente la temperatura es un número, la columna <code>Temperatura</code> se está leyendo como un caracter. Otra forma de ver esto es usando la a función <code>str()</code> (de <em>structure</em> en inglés):</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">str</span>(bariloche)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">str</span>(bariloche)</span></code></pre></div>
 <pre><code>## tibble [3,024 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ Fecha      : POSIXct[1:3024], format: &quot;2011-05-28&quot; &quot;2011-05-29&quot; ...
 ##  $ Temperatura: chr [1:3024] NA &quot;4.272223&quot; &quot;-999.99&quot; &quot;3.473611&quot; ...
@@ -540,11 +614,12 @@ div.tocify {
 ##   .. )</code></pre>
 <p>Donde se ve que la columna <code>Temperatura</code> tiene clase <code>chr</code> (caracter).</p>
 <p>Seguramente lo primero que tratarás en un caso así es simplemente cambiarle el tipo a la columna</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div>
-<pre><code>## Warning: replacing previous import &#39;vctrs::data_frame&#39; by &#39;tibble::data_frame&#39;
-## when loading &#39;dplyr&#39;</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura =</span> <span class="kw">as.numeric</span>(Temperatura))</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura =</span> <span class="kw">as.numeric</span>(Temperatura))</span></code></pre></div>
+<pre><code>## Warning: Problem with `mutate()` input `Temperatura`.
+## ℹ NAs introduced by coercion
+## ℹ Input `Temperatura` is `as.numeric(Temperatura)`.</code></pre>
 <pre><code>## Warning in mask$eval_all_mutate(dots[[i]]): NAs introduced by coercion</code></pre>
 <pre><code>## # A tibble: 3,024 x 2
 ##    Fecha               Temperatura
@@ -561,8 +636,8 @@ div.tocify {
 ## 10 2011-06-06 00:00:00        5.45
 ## # … with 3,014 more rows</code></pre>
 <p>Pero R dice que hay un problema. <code>NAs introduced by coercion</code> significa que algunos valores no se pudieron transformar en numéricos y entonces <code>as.numeric</code> los dejó como valores faltantes. Casi con seguridad no querés eso. Para ver qué está pasando, hay que investigar qué contenidos tienen esas filas. Para eso, podés filtrar las filas de <code>bariloche</code> que no tienen <code>NA</code> en <code>Temperatura</code> pero que se convierten en <code>NA</code> al hacer <code>as.numeric(Temperatura)</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">bariloche <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Temperatura) <span class="op">&amp;</span><span class="st"> </span><span class="kw">is.na</span>(<span class="kw">as.numeric</span>(Temperatura)))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Temperatura) <span class="op">&amp;</span><span class="st"> </span><span class="kw">is.na</span>(<span class="kw">as.numeric</span>(Temperatura)))</span></code></pre></div>
 <pre><code>## Warning in mask$eval_all_filter(dots, env_filter): NAs introduced by coercion</code></pre>
 <pre><code>## # A tibble: 302 x 2
 ##    Fecha               Temperatura
@@ -583,14 +658,14 @@ div.tocify {
 <p><strong>Desafío</strong> andá a la ayuda de <code>read_csv</code> y fijate si hay algún argumento que controle la lectura de datos faltantes. Sabiendo que hay valores faltantes codificados como “N/A”, ¿qué deberías pasarle a ese argumento para leer correctamente los datos?</p>
 </div>
 <p><code>read_csv</code> tiene un argumento <code>na</code> que controla qué valores van a interpretarse como valores faltantes. En este caso, sabés que “N/A” es uno. Entonces debería funcionar buen leer los datos así:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;N/A&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;N/A&quot;</span>)</span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   Fecha = col_datetime(format = &quot;&quot;),
 ##   Temperatura = col_character()
 ## )</code></pre>
 <p>¡No! Otra vez <code>Temperatura</code> se leyó como caracter. Si usás <code>str</code> podés ver que’pasó:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">str</span>(bariloche)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">str</span>(bariloche)</span></code></pre></div>
 <pre><code>## tibble [3,024 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ Fecha      : POSIXct[1:3024], format: &quot;2011-05-28&quot; &quot;2011-05-29&quot; ...
 ##  $ Temperatura: chr [1:3024] &quot;NA&quot; &quot;4.272223&quot; &quot;-999.99&quot; &quot;3.473611&quot; ...
@@ -603,15 +678,15 @@ div.tocify {
 <div class="alert alert-info">
 <p><strong>Desafío</strong> ¿Por qué ahora <code>read_csv</code> está leyendo ese dato incorrectamente? Consejo: volvé a la ayuda de <code>read_csv</code> y fijate el valor por default del argumento <code>na</code>.</p>
 </div>
-<p>Antes, <code>na</code> estaba como el valor por defecto, que es <code>c(&quot;&quot;, &quot;NA&quot;)</code>, lo que significa que tanto valores vacíos como valores <code>&quot;NA&quot;</code> son considerados valores faltantes. Lo que tenés que hacer es agregar también el valor <code>&quot;N/A&quot;</code>:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>,  <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;N/A&quot;</span>))</a></code></pre></div>
+<p>Antes, <code>na</code> estaba como el valor por defecto, que es <code>c("", "NA")</code>, lo que significa que tanto valores vacíos como valores <code>"NA"</code> son considerados valores faltantes. Lo que tenés que hacer es agregar también el valor <code>"N/A"</code>:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>,  <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;N/A&quot;</span>))</span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   Fecha = col_datetime(format = &quot;&quot;),
 ##   Temperatura = col_double()
 ## )</code></pre>
 <p>Bien. Ahí la columna <code>Temperatura</code> se leyó como doble. Pero, ¿se leyeron bien? Una forma rápida de chequear los datos es usando la función <code>summary</code>:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">summary</span>(bariloche)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">summary</span>(bariloche)</span></code></pre></div>
 <pre><code>##      Fecha                      Temperatura       
 ##  Min.   :2011-05-28 00:00:00   Min.   : -999.990  
 ##  1st Qu.:2013-06-06 00:00:00   1st Qu.:    4.617  
@@ -621,14 +696,14 @@ div.tocify {
 ##  Max.   :2020-09-12 00:00:00   Max.   :   25.710  
 ##                                NA&#39;s   :501</code></pre>
 <p><code>summary</code> devuelve algunas estadísticas simples sobre cada columna. La columna <code>Temperatura</code> tiene 501 valores faltantes, su máximo es 25.70972 y su mínimo es… ¿-999.990? Eso no puede ser. Seguramente a otro alguien se le ocurrió usar “-999.99” para marcar los datos faltantes. Una vez que sabés eso, podés volver a leer otra vez los datos agregando otro marcador más para los datos faltantes.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;N/A&quot;</span>, <span class="st">&quot;-999.99&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;N/A&quot;</span>, <span class="st">&quot;-999.99&quot;</span>))</span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   Fecha = col_datetime(format = &quot;&quot;),
 ##   Temperatura = col_double()
 ## )</code></pre>
 <p>Y ahora <code>summary</code> da:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">summary</span>(bariloche)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">summary</span>(bariloche)</span></code></pre></div>
 <pre><code>##      Fecha                      Temperatura    
 ##  Min.   :2011-05-28 00:00:00   Min.   :-4.806  
 ##  1st Qu.:2013-06-06 00:00:00   1st Qu.: 5.994  
@@ -647,9 +722,9 @@ div.tocify {
 <h1>Archivos NetCDF</h1>
 <p>Luego de esta epopeya para conseguir leer estos datos correctamente está bueno reflexionar sobre la importancia de los <strong>metadatos</strong>; los datos sobre los datos que, entre otras cosas, podrían indicar cómo están codificados los datos faltantes. Una alternativa es usar formatos de datos “autodescriptivos”. Estos son tipos de archivos que contienen sus propios metadatos.</p>
 <p>Uno de estos tipos de formatos muy utilizado en ciencias para guardar datos atmosféricos grillados es el <a href="https://en.wikipedia.org/wiki/NetCDF">NetCDF</a>. Existen varios paquetes para estos archivos. Uno de ellos es {metR}.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">library</span>(metR)</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">library</span>(metR)</span></code></pre></div>
 <p>Los datos en archivos NetCDF puede ser bastante grandes y destruir tu sesión de R si tratás de leerlos enteros en memoria. Por eso, siempre es bueno primero fijarse qué tiene un archivo nuevo. Para eso, {metR} tiene la función <code>GlanceNetCDF</code> que muestra un vistazo de los metadatos del archivo. Vamos a trabajar con un archivo en este formato que contiene datos de reanálisis del NCEP.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">GlanceNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">GlanceNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>)</span></code></pre></div>
 <pre><code>## ----- Variables ----- 
 ## air:
 ##     mean Daily Air temperature in degK
@@ -667,8 +742,8 @@ div.tocify {
 </div>
 <p>En este caso, el archivo tiene una sola variable, llamada <code>air</code> que es la temperatura media en Kelvin (un archivo NetCDF puede tener muchas variables y no todas en la misma grilla). De las dimensiones del archivo, se ve que tiene dimensiones de tiempo, nivel, longitud y latitud. La latitud va de -90 a 90 y la longitud de 0 a 357.5, por lo que es un campo global. <code>level</code> es la coordenada vertical, que va de 1000 milibares (básicamente la superficie) a 10 millibares (la estratósfera media).</p>
 <p>Para leer los datos, se usa <code>ReadNetCDF()</code>:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">temperatura &lt;-<span class="st"> </span><span class="kw">ReadNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>, <span class="dt">vars =</span> <span class="st">&quot;air&quot;</span>)</a>
-<a class="sourceLine" id="cb28-2" data-line-number="2">temperatura</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>temperatura &lt;-<span class="st"> </span><span class="kw">ReadNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>, <span class="dt">vars =</span> <span class="st">&quot;air&quot;</span>)</span>
+<span id="cb27-2"><a href="#cb27-2"></a>temperatura</span></code></pre></div>
 <pre><code>##               time level lat   lon    air
 ##      1: 2010-07-09  1000  90   0.0 274.87
 ##      2: 2010-07-09  1000  90   2.5 274.87
@@ -682,11 +757,11 @@ div.tocify {
 ## 178703: 2010-07-09    10 -90 355.0 188.25
 ## 178704: 2010-07-09    10 -90 357.5 188.25</code></pre>
 <div class="alert alert-success">
-<p>Si no le ponés <code>vars = &quot;air&quot;</code>, <code>ReadNetCDF()</code> va a tratar de leer todas las variables presentes en el archivo. Esto a veces puede causar problemas si las grillas de las variables no son compatibles (por ejemplo, si una variable es la temperatura del aire definida en distintas alturas, y otra es la temperatura del suelo). En este caso, como “temperatura.nc” tiene sólo una variable, no haría falta ponerlo.</p>
+<p>Si no le ponés <code>vars = "air"</code>, <code>ReadNetCDF()</code> va a tratar de leer todas las variables presentes en el archivo. Esto a veces puede causar problemas si las grillas de las variables no son compatibles (por ejemplo, si una variable es la temperatura del aire definida en distintas alturas, y otra es la temperatura del suelo). En este caso, como “temperatura.nc” tiene sólo una variable, no haría falta ponerlo.</p>
 </div>
 <p>Es muy posible que quieras datos sólo de una región. Una opción es leer todo el archivo y luego filtrar los datos. Si te interesa la temperatura de superficie de Argentina, podrías hacer algo así:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">temperatura <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(level <span class="op">==</span><span class="st"> </span><span class="dv">1000</span> <span class="op">&amp;</span><span class="st"> </span><span class="kw">between</span>(lat, <span class="dv">-65</span>, <span class="dv">-20</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">between</span>(lon, <span class="dv">280</span>, <span class="dv">310</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>temperatura <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="st">  </span><span class="kw">filter</span>(level <span class="op">==</span><span class="st"> </span><span class="dv">1000</span> <span class="op">&amp;</span><span class="st"> </span><span class="kw">between</span>(lat, <span class="dv">-65</span>, <span class="dv">-20</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">between</span>(lon, <span class="dv">280</span>, <span class="dv">310</span>))</span></code></pre></div>
 <pre><code>##            time level lat   lon    air
 ##   1: 2010-07-09  1000 -20 280.0 287.62
 ##   2: 2010-07-09  1000 -20 282.5 287.70
@@ -700,10 +775,10 @@ div.tocify {
 ## 246: 2010-07-09  1000 -65 307.5 269.47
 ## 247: 2010-07-09  1000 -65 310.0 270.35</code></pre>
 <p>Pero es mucho maś eficiente leer sólo los datos que te interesan, especialmente en archivos NetCDF grandes, que incluso no puede ser leídos en memoria enteros. <code>ReadNetCDF()</code> tiene un argumento llamado <code>subset</code> que sirve para especificar qué datos leer:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">ReadNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>, <span class="dt">vars =</span> <span class="st">&quot;air&quot;</span>,</a>
-<a class="sourceLine" id="cb32-2" data-line-number="2">           <span class="dt">subset =</span> <span class="kw">list</span>(<span class="dt">level =</span> <span class="dv">1000</span>,</a>
-<a class="sourceLine" id="cb32-3" data-line-number="3">                         <span class="dt">lat =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">65</span>, <span class="dv">-20</span>),</a>
-<a class="sourceLine" id="cb32-4" data-line-number="4">                         <span class="dt">lon =</span> <span class="kw">c</span>(<span class="dv">280</span>, <span class="dv">310</span>))) </a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">ReadNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>, <span class="dt">vars =</span> <span class="st">&quot;air&quot;</span>,</span>
+<span id="cb31-2"><a href="#cb31-2"></a>           <span class="dt">subset =</span> <span class="kw">list</span>(<span class="dt">level =</span> <span class="dv">1000</span>,</span>
+<span id="cb31-3"><a href="#cb31-3"></a>                         <span class="dt">lat =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">65</span>, <span class="dv">-20</span>),</span>
+<span id="cb31-4"><a href="#cb31-4"></a>                         <span class="dt">lon =</span> <span class="kw">c</span>(<span class="dv">280</span>, <span class="dv">310</span>))) </span></code></pre></div>
 <pre><code>##            time level lat   lon    air
 ##   1: 2010-07-09  1000 -20 280.0 287.62
 ##   2: 2010-07-09  1000 -20 282.5 287.70
@@ -719,19 +794,19 @@ div.tocify {
 <p>A <code>subset</code> hay que pasarle una lista donde cada elemento tiene el nombre de una dimensión con un vector cuyo rango define el rango de los datos a leer. El código de arriba, entonces, dice que de la dimensión <code>level</code> lea únicamente el valor 1000, de la dimensión <code>lat</code>, lea los valores que van entre -65 y -20, y de la dimensión <code>lon</code>, los valores entre 280 y 310.</p>
 <div class="alert alert-info">
 <p><strong>Desafío</strong> Elegí una región del mundo y completá el código que sigue para que lea la temperatura en superficie de esa región.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">temperatura &lt;-<span class="st"> </span><span class="kw">ReadNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>, <span class="dt">vars =</span> <span class="st">&quot;air&quot;</span>,</a>
-<a class="sourceLine" id="cb34-2" data-line-number="2">           <span class="dt">subset =</span> <span class="kw">list</span>(<span class="dt">level =</span> <span class="dv">1000</span>,</a>
-<a class="sourceLine" id="cb34-3" data-line-number="3">                         <span class="dt">lat =</span> <span class="kw">c</span>(___, ___),</a>
-<a class="sourceLine" id="cb34-4" data-line-number="4">                         <span class="dt">lon =</span> <span class="kw">c</span>(___, ___)))</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>temperatura &lt;-<span class="st"> </span><span class="kw">ReadNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>, <span class="dt">vars =</span> <span class="st">&quot;air&quot;</span>,</span>
+<span id="cb33-2"><a href="#cb33-2"></a>           <span class="dt">subset =</span> <span class="kw">list</span>(<span class="dt">level =</span> <span class="dv">1000</span>,</span>
+<span id="cb33-3"><a href="#cb33-3"></a>                         <span class="dt">lat =</span> <span class="kw">c</span>(___, ___),</span>
+<span id="cb33-4"><a href="#cb33-4"></a>                         <span class="dt">lon =</span> <span class="kw">c</span>(___, ___)))</span></code></pre></div>
 <p>Para revisar si leíste los datos correctos, corré este código (no te preocupes si no usas ggplot, en una sección más adelante lo veremos)</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> air)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> <span class="kw">map_data</span>(<span class="st">&quot;world2&quot;</span>), <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group))</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> air)) <span class="op">+</span></span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> <span class="kw">map_data</span>(<span class="st">&quot;world2&quot;</span>), <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group))</span></code></pre></div>
 </div>
 <div class="alert alert-success">
-<p>Ponerle nombre a las variables es a veces la parte más difícil de escribir código. A R no le viene bien cualquier nombre de variable siempre y cuando no empiece con un número o un &quot;_&quot;. Pero a los seres humanos que lean el código y tengan que interpretarlos les va a resultas más fácil entender qué hace la variable <code>temperatura_cordoba</code> que la variable <code>xxy1</code>.</p>
-<p>El consejo es tratar en lo posible usar nombre descriptivos y consistentes. Por ejemplo, siempre usar minúsculas y separar palabras con &quot;_&quot;.</p>
+<p>Ponerle nombre a las variables es a veces la parte más difícil de escribir código. A R no le viene bien cualquier nombre de variable siempre y cuando no empiece con un número o un "_". Pero a los seres humanos que lean el código y tengan que interpretarlos les va a resultas más fácil entender qué hace la variable <code>temperatura_cordoba</code> que la variable <code>xxy1</code>.</p>
+<p>El consejo es tratar en lo posible usar nombre descriptivos y consistentes. Por ejemplo, siempre usar minúsculas y separar palabras con "_".</p>
 <p><strong>Tip</strong>: Para hacerse la vida más fácil existen “guías de estilo” para programar que explicitan reglas específicas para escribir código. Por ejemplo <a href="https://rpubs.com/FvD/guia-estilo-r" class="alert-link">esta</a> o <a href="https://github.com/eliocamp/tesis/blob/master/docs/gu%C3%ADa_de_estilo.md" class="alert-link">esta otra</a>. Se trata de reglas únicamente para los ojos humanos, y que no afectan en absoluto la eficiencia o correctitud de la programación. En general, no existen guías buenas o malas, la idea es elegir una y ser consistente. De esta manera, vas a poder entender tu código con más facilidad.</p>
 </div>
 <div class="btn-group" role="group" aria-label="Navegación">

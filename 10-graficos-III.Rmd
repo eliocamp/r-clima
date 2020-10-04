@@ -30,16 +30,15 @@ Para mostrar como funciona, vamos a descargar datos de las estaciones meteoroló
 Pero por supuesto, primero tenemos que manipular los datos para poder utilizarlos. En particular necesitaremos información de las estaciones, sus metadatos, que se encuentran en un archivo distinto. Y de paso calculamos la variable que nos interesa: la temperatura máxima media para agosto.
 
 ```{r}
-estaciones <- read_csv("datos/estaciones_smn.csv") # Metadatos
-
-fechas <- seq.Date(lubridate::ymd(20200801), lubridate::ymd(20200831), by = "1 day")
-
-observaciones <- GetSMNData(fechas, type = "daily") %>% 
+observaciones <- readr::read_csv("datos/observaciones_smn.csv") %>% 
   group_by(station) %>% 
   summarise(tmax_media = mean(tmax, na.rm = TRUE),
-            tmax_var = sd(tmax, na.rm = TRUE))
+            tmax_var = sd(tmax, na.rm = TRUE),)
 
-observaciones <- left_join(observaciones, estaciones, by = c("station" = "nombre")) 
+estaciones <- read_csv("datos/estaciones_smn.csv") 
+
+observaciones <- left_join(observaciones, estaciones, by = c("station" = "nombre")) %>% 
+  filter(provincia != "ANTARTIDA")
 ```
 
 
