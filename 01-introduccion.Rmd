@@ -59,7 +59,7 @@ le decís a R que cargue las funciones que vienen en el paquete readr para usarl
 
 
 ::: {.alert .alert-success}
-**Nota**: Si cerrás y volveś a abrir R, vas a tener que usar `library(readr)` nuevamente para acceder a la funcionalidad del paquete readr
+**Nota**: Si cerrás y volveś a abrir R, vas a tener que correr el comando `library(readr)` nuevamente para acceder a las funciones del paquete readr
 :::
 
 
