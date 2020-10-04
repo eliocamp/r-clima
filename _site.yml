@@ -34,9 +34,9 @@ navbar:
       - text: Leer y analizar datos
         href: desafio-1.html
       - text: Graficar datos
-        href: desafio-3.html
+        href: desafio-2.html
       - text: Generar un informe
-        href: desafio-4.html
+        href: desafio-3.html
 output_dir: docs
 output:
   html_document:

@@ -61,7 +61,7 @@ Agarrá el reporte que estuviste armando en los desafíos o alguno que usaste du
 
 Cada función de formato viene con sus opciones de personalización que podés acceder leyendo su documentación. Para ver la documentación de `html_document`, usa este comando:
 
-```{r}
+```{r, eval = FALSE}
 ?rmarkdown::html_document
 ```
 

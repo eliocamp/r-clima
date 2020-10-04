@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Netlify</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R para Clima</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="hoja-de-ruta.html">Hoja de ruta</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Temas
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01-introduccion.html">Introducción</a>
+    </li>
+    <li>
+      <a href="02-proyectos.html">Proyectos de RStudio</a>
+    </li>
+    <li>
+      <a href="03-reportes-I.html">Reportes I</a>
+    </li>
+    <li>
+      <a href="04-lectura.html">Lectura de datos</a>
+    </li>
+    <li>
+      <a href="05-dplyr.html">Manipulación de datos I</a>
+    </li>
+    <li>
+      <a href="06-graficos-I.html">Gráficos I</a>
+    </li>
+    <li>
+      <a href="07-graficos-II.html">Gráficos II</a>
+    </li>
+    <li>
+      <a href="08-dplyr-tidyr-II.html">Manipulación de datos II</a>
+    </li>
+    <li>
+      <a href="09-funciones.html">Funciones</a>
+    </li>
+    <li>
+      <a href="10-ggplot-III.html">Gráficos para publicar</a>
+    </li>
+    <li>
+      <a href="11-reportes-II.html">Reportes II</a>
+    </li>
+    <li>
+      <a href="12-publicar.html">Publicar reportes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Desafíos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="desafio-1.html">Leer y analizar datos</a>
+    </li>
+    <li>
+      <a href="desafio-2.html">Graficar datos</a>
+    </li>
+    <li>
+      <a href="desafio-3.html">Generar un informe</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Netlify</h1>
+
+</div>
+
+
+<p>De nada sirve amar un informe en R Markdown y luego compilarlo si nadie lo va a ver. Hay que hacérselo llegar a las personas que deben leerlo. Publicar los reportes en una página web puede ser un método especialmente útil para reportes que requieren actualizarse periódicamente y lo bueno es que podés convertir tu reporte de R Markdown en una paǵina web en muy pocos pasos.</p>
+<div id="sitio-web-de-una-sola-página" class="section level2">
+<h2>Sitio web de una sola página</h2>
+<p>Lo bueno es que si ya sabés cómo generar un reporte en html usando R Markdown, ya sabés todo lo que necesitás para publicar un sitio web simple! Lo único que hace falta es un servicio que te hostee el archivo y lo muestre a los visitantes. Uno de ellos es <a href="https://www.netlify.com/">Netlify</a>, que permite crear un sitio web con sólo arrastrar una carpeta.</p>
+<p>Pero primero un pequeño detalle. Seguramente tu reporte tiene algún nombre descriptivo consistente con su contenido, pero para este paso va a tener que tener el nombre especial: “index.html”. Para esto tenés dos opciones:</p>
+<ol style="list-style-type: decimal">
+<li>ponerle “index.Rmd” al archivo de R Markdon y knitear como siempre</li>
+<li>que tu archivo Rmd tenga el nombre que sea, knitar como siempre y luego ir y renombrar el archivo de salida como “index.html”</li>
+</ol>
+<p>En cualquiera de los dos casos, lo que querés tener es una carpeta con un archivo llamado “index.html” adentro. Listo, eso es un sitio web!</p>
+<p>Ahora lo último que queda es ir a <a href="https://app.netlify.com/drop">https://app.netlify.com/drop</a> y arrastrar la carpeta. Netlify va a crear una página web con un nombre aleatorio:</p>
+<figure>
+<video width=770px controls>
+<source src="img/netlify_drop.webm" type="video/webm">
+</video>
+</figure>
+<div class="alert alert-info">
+<p><strong>Desafío</strong> Creá una página web! 1. creá una copia del informe que venís trabajando, renombrala “index.Rmd”, <em>kniteá</em> y asegurate que el resultado sea un archivo llamado “index.html” en la raiz de la carpeta del proyecto. 2. Andá a <a href="https://app.netlify.com/drop">https://app.netlify.com/drop</a> 3. Arrastrá la carpeta de tu proyecto, que tiene el archivo index.html.</p>
+</div>
+<div class="alert alert-success">
+<p>Habrás notado que Netlify borra los sitios web luego de 24 horas. Para que tu sitio sea permanente tenés que crearte una cuenta.</p>
+</div>
+</div>
+<div id="sitio-web-de-muchas-páginas" class="section level2">
+<h2>Sitio web de muchas páginas</h2>
+<p>Esto que hiciste para un sitio web con una sola página se puede extender para un sitio web con varias páginas simplemente agregando otros archivos html a la carpeta que subís a Netlify. El problema es que por convención, el archivo que vas a poder ver cuando entrás a la URL de tu página siempre va a ser el archivo index.html. Para poder ver los otros tenés agregarlos en la URL, pero esto requiere que sepas el nombre de cada archivo y es muy poco amigable.</p>
+<p>Para un sitio web con más de una página, lo mejor es que el archivo index.html (generado a partir de un archivo llamado “index.Rmd”) sea una página “bienvenida” donde estén los vínculos a todos demás archivos. Por ejemplo, un buen archivo index.Rmd podría ser algo como esto:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a>---</span>
+<span id="cb1-2"><a href="#cb1-2"></a>title: &quot;Inicio&quot;</span>
+<span id="cb1-3"><a href="#cb1-3"></a>---</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">### Listado de informes:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a>* <span class="st">Informe 1: </span><span class="ot">[link](informe_1.html)</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="st">* Informe 2: </span><span class="ot">[link](informe_2.html)</span></span></code></pre></div>
+<p>Donde los los archivos informe_1.html e informe_2.html serían generados por sus correspondientes archivos informe_1.Rmd e informe_2.Rmd. Notá que los links son a los archivos html, no a los archivos Rmd!</p>
+<div class="alert alert-info">
+<p><strong>Desafío</strong> Creá un sitio web con una página de inicio!</p>
+<ol style="list-style-type: decimal">
+<li>Creá uno o más archivos Rmd (podés dejar la plantilla por defecto que da RStudio) y knitealos en sus respectivos archivos html.</li>
+<li>Abrí el archivo index.Rmd convertila en una página de inicio con vínculos a los archivos html que creaste y kniteálo para obtener el archivo index.html</li>
+<li>Subí esa carpeta a Netlify.</li>
+</ol>
+</div>
+</div>
+<div id="sitio-web-organizado" class="section level2">
+<h2>Sitio web organizado</h2>
+<p>Ahora tenés un sitio web funcional pero el flujo de trabajo es muy manual. Tenés que knitear los documentos uno por uno cada vez que los cambiás y en la carpeta de tu proyecto tenés tanto los archivos Rmd como los html, lo cual puede ser molesto. Además, cada página parece aislada: no es posible navegar entre los distintos informes.</p>
+<p>Estos problemas se puede resolver agregando un archivo con el nombre "_site.yml" en la carpeta de tu proyecto. Este archivo va a identificar a este proyecto como un sitio web y va a tener todas las opciones globales del mismo. Además va a servir para generar una barra de navegación que lo va a hacer mucho más amigable.</p>
+<p>Por ejemplo, el archivo _site.yml de este sitio web tiene las siguientes líneas:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">output_dir</span><span class="kw">:</span><span class="at"> docs</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> united</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">navbar</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Página con informes</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="at">  </span><span class="fu">left</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Informes</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="at">    </span><span class="fu">menu</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Informe 1</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="at">        </span><span class="fu">href</span><span class="kw">:</span><span class="at"> informe_1.html</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Informe 2</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="at">        </span><span class="fu">href</span><span class="kw">:</span><span class="at"> informe_2.html</span></span></code></pre></div>
+<p>¿Qué es lo que hace cada parte?</p>
+<ul>
+<li><p><code>output_dir: docs</code> define que el sitio web se va a generar en la carpeta “docs”, que va a estar dentro de la carpeta del proyecto. Esa carpeta va a tener todos los archivos html y demás archivos necesarios para que el sitio funcione.</p></li>
+<li><p><code>output:...</code> define opciones globales de salida para no tener que definirlas dentro de cada archivo Rmd. Podés ver las opciones disponibles en la documentación con <code>?rmarkdown::html_document()</code>. En este caso, define que la apariencia a a ser con el tema “united”.</p></li>
+<li><p><code>navbar:...</code> define una barra de navegación que ves ahí arriba. Tiene varias partes, como un título, un link que lleva a la hoja de ruta, y dos menúes desplegables.</p></li>
+</ul>
+<div class="figure">
+<img src="img/navbar.png" alt="" />
+<p class="caption">Las partes del navbar</p>
+</div>
+<p>Tener el archivo _site.yaml tiene otra gran ventaja. Ahora RStudio sabe que querés hacer un sitio web y podés generar todo el sitio web directamente yendo a la solapa “Build” y haciendo click en “Build Website” o con el atajo de teclado Ctrl + Shift + B. Esto va a renderizar todos los archivos .Rmd que estén en la raiz del proyecto y va a generar el sitio web en la carpeta especificada en <code>output_dir</code>.</p>
+<div class="alert alert-info">
+<p><strong>Desafío</strong> Armá tu sitio web con barra de navegación!</p>
+<ol style="list-style-type: decimal">
+<li>Creá un archivo "_site.yaml".</li>
+<li>Definí el tema (fijate en la documentación de <code>rmarkdown::html_document</code> cuáles son las opciones disponibles)</li>
+<li>Generá una barra de navegación que linkee a los informes.</li>
+<li>Generá el sitio apretando el botón “Build Website” que está en la solapa “Build” de RStudio.</li>
+<li>Andá a <a href="https://app.netlify.com/drop">https://app.netlify.com/drop</a> y arrastrá la carpeta donde se generó el sitio (que va a ser una carpeta dentro del proyecto, no la carpeta del proyecto).</li>
+</ol>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTmV0bGlmeSIKb3V0cHV0OiAKICBodG1sX2RvY3VtZW50OgogICAgY29kZV9kb3dubG9hZDogdHJ1ZQogICAgdG9jOiB0cnVlCiAgICB0b2NfZmxvYXQ6IHRydWUKICAgIGhpZ2hsaWdodDogdGFuZ28KLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpgYGAKCgpEZSBuYWRhIHNpcnZlIGFtYXIgdW4gaW5mb3JtZSBlbiBSIE1hcmtkb3duIHkgbHVlZ28gY29tcGlsYXJsbyBzaSBuYWRpZSBsbyB2YSBhIHZlci4gSGF5IHF1ZSBoYWPDqXJzZWxvIGxsZWdhciBhIGxhcyBwZXJzb25hcyBxdWUgZGViZW4gbGVlcmxvLiBQdWJsaWNhciBsb3MgcmVwb3J0ZXMgZW4gdW5hIHDDoWdpbmEgd2ViIHB1ZWRlIHNlciB1biBtw6l0b2RvIGVzcGVjaWFsbWVudGUgw7p0aWwgcGFyYSByZXBvcnRlcyBxdWUgcmVxdWllcmVuIGFjdHVhbGl6YXJzZSBwZXJpw7NkaWNhbWVudGUgeSBsbyBidWVubyBlcyBxdWUgcG9kw6lzIGNvbnZlcnRpciB0dSByZXBvcnRlIGRlIFIgTWFya2Rvd24gZW4gdW5hIHBhx7VpbmEgd2ViIGVuIG11eSBwb2NvcyBwYXNvcy4KCiMjIFNpdGlvIHdlYiBkZSB1bmEgc29sYSBww6FnaW5hIAoKTG8gYnVlbm8gZXMgcXVlIHNpIHlhIHNhYsOpcyBjw7NtbyBnZW5lcmFyIHVuIHJlcG9ydGUgZW4gaHRtbCB1c2FuZG8gUiBNYXJrZG93biwgeWEgc2Fiw6lzIHRvZG8gbG8gcXVlIG5lY2VzaXTDoXMgcGFyYSBwdWJsaWNhciB1biBzaXRpbyB3ZWIgc2ltcGxlISBMbyDDum5pY28gcXVlIGhhY2UgZmFsdGEgZXMgdW4gc2VydmljaW8gcXVlIHRlIGhvc3RlZSBlbCBhcmNoaXZvIHkgbG8gbXVlc3RyZSBhIGxvcyB2aXNpdGFudGVzLiBVbm8gZGUgZWxsb3MgZXMgW05ldGxpZnldKGh0dHBzOi8vd3d3Lm5ldGxpZnkuY29tLyksIHF1ZSBwZXJtaXRlIGNyZWFyIHVuIHNpdGlvIHdlYiBjb24gc8OzbG8gYXJyYXN0cmFyIHVuYSBjYXJwZXRhLiAKClBlcm8gcHJpbWVybyB1biBwZXF1ZcOxbyBkZXRhbGxlLiBTZWd1cmFtZW50ZSB0dSByZXBvcnRlIHRpZW5lIGFsZ8O6biBub21icmUgZGVzY3JpcHRpdm8gY29uc2lzdGVudGUgY29uIHN1IGNvbnRlbmlkbywgcGVybyBwYXJhIGVzdGUgcGFzbyB2YSBhIHRlbmVyIHF1ZSB0ZW5lciBlbCBub21icmUgZXNwZWNpYWw6ICJpbmRleC5odG1sIi4gUGFyYSBlc3RvIHRlbsOpcyBkb3Mgb3BjaW9uZXM6IAoKMS4gcG9uZXJsZSAiaW5kZXguUm1kIiBhbCBhcmNoaXZvIGRlIFIgTWFya2RvbiB5IGtuaXRlYXIgY29tbyBzaWVtcHJlCjIuIHF1ZSB0dSBhcmNoaXZvIFJtZCB0ZW5nYSBlbCBub21icmUgcXVlIHNlYSwga25pdGFyIGNvbW8gc2llbXByZSB5IGx1ZWdvIGlyIHkgcmVub21icmFyIGVsIGFyY2hpdm8gZGUgc2FsaWRhIGNvbW8gImluZGV4Lmh0bWwiCgpFbiBjdWFscXVpZXJhIGRlIGxvcyBkb3MgY2Fzb3MsIGxvIHF1ZSBxdWVyw6lzIHRlbmVyIGVzIHVuYSBjYXJwZXRhIGNvbiB1biBhcmNoaXZvIGxsYW1hZG8gImluZGV4Lmh0bWwiIGFkZW50cm8uIExpc3RvLCBlc28gZXMgdW4gc2l0aW8gd2ViIQoKQWhvcmEgbG8gw7psdGltbyBxdWUgcXVlZGEgZXMgaXIgYSBbaHR0cHM6Ly9hcHAubmV0bGlmeS5jb20vZHJvcF0oaHR0cHM6Ly9hcHAubmV0bGlmeS5jb20vZHJvcCkgeSBhcnJhc3RyYXIgbGEgY2FycGV0YS4gTmV0bGlmeSB2YSBhIGNyZWFyIHVuYSBww6FnaW5hIHdlYiBjb24gdW4gbm9tYnJlIGFsZWF0b3JpbzoKCgo8ZmlndXJlPgo8dmlkZW8gd2lkdGg9NzcwcHggY29udHJvbHM+CiAgPHNvdXJjZSBzcmM9ImltZy9uZXRsaWZ5X2Ryb3Aud2VibSIgdHlwZT0idmlkZW8vd2VibSI+CjwvdmlkZW8+CjwvZmlndXJlPgoKCjo6OiB7LmFsZXJ0IC5hbGVydC1pbmZvfSAKKipEZXNhZsOtbyoqIENyZcOhIHVuYSBww6FnaW5hIHdlYiEKMS4gY3Jlw6EgdW5hIGNvcGlhIGRlbCBpbmZvcm1lIHF1ZSB2ZW7DrXMgdHJhYmFqYW5kbywgcmVub21icmFsYSAiaW5kZXguUm1kIiwgKmtuaXRlw6EqIHkgYXNlZ3VyYXRlIHF1ZSBlbCByZXN1bHRhZG8gc2VhIHVuIGFyY2hpdm8gbGxhbWFkbyAiaW5kZXguaHRtbCIgZW4gbGEgcmFpeiBkZSBsYSBjYXJwZXRhIGRlbCBwcm95ZWN0by4gCjIuIEFuZMOhIGEgW2h0dHBzOi8vYXBwLm5ldGxpZnkuY29tL2Ryb3BdKGh0dHBzOi8vYXBwLm5ldGxpZnkuY29tL2Ryb3ApCjMuIEFycmFzdHLDoSBsYSBjYXJwZXRhIGRlIHR1IHByb3llY3RvLCBxdWUgdGllbmUgZWwgYXJjaGl2byBpbmRleC5odG1sLgo6OjoKCgo6Ojp7LmFsZXJ0IC5hbGVydC1zdWNjZXNzfQpIYWJyw6FzIG5vdGFkbyBxdWUgTmV0bGlmeSBib3JyYSBsb3Mgc2l0aW9zIHdlYiBsdWVnbyBkZSAyNCBob3Jhcy4gUGFyYSBxdWUgdHUgc2l0aW8gc2VhIHBlcm1hbmVudGUgdGVuw6lzIHF1ZSBjcmVhcnRlIHVuYSBjdWVudGEuCjo6OgoKIyMgU2l0aW8gd2ViIGRlIG11Y2hhcyBww6FnaW5hcwoKRXN0byBxdWUgaGljaXN0ZSBwYXJhIHVuIHNpdGlvIHdlYiBjb24gdW5hIHNvbGEgcMOhZ2luYSBzZSBwdWVkZSBleHRlbmRlciBwYXJhIHVuIHNpdGlvIHdlYiBjb24gdmFyaWFzIHDDoWdpbmFzIHNpbXBsZW1lbnRlIGFncmVnYW5kbyBvdHJvcyBhcmNoaXZvcyBodG1sIGEgbGEgY2FycGV0YSBxdWUgc3Viw61zIGEgTmV0bGlmeS4gRWwgcHJvYmxlbWEgZXMgcXVlIHBvciBjb252ZW5jacOzbiwgZWwgYXJjaGl2byBxdWUgdmFzIGEgcG9kZXIgdmVyIGN1YW5kbyBlbnRyw6FzIGEgbGEgVVJMIGRlIHR1IHDDoWdpbmEgc2llbXByZSB2YSBhIHNlciBlbCBhcmNoaXZvIGluZGV4Lmh0bWwuIFBhcmEgcG9kZXIgdmVyIGxvcyBvdHJvcyB0ZW7DqXMgYWdyZWdhcmxvcyBlbiBsYSBVUkwsIHBlcm8gZXN0byByZXF1aWVyZSBxdWUgc2VwYXMgZWwgbm9tYnJlIGRlIGNhZGEgYXJjaGl2byB5IGVzIG11eSBwb2NvIGFtaWdhYmxlLiAKClBhcmEgdW4gc2l0aW8gd2ViIGNvbiBtw6FzIGRlIHVuYSBww6FnaW5hLCBsbyBtZWpvciBlcyBxdWUgZWwgYXJjaGl2byBpbmRleC5odG1sIChnZW5lcmFkbyBhIHBhcnRpciBkZSB1biBhcmNoaXZvIGxsYW1hZG8gImluZGV4LlJtZCIpIHNlYSB1bmEgcMOhZ2luYSAiYmllbnZlbmlkYSIgZG9uZGUgZXN0w6luIGxvcyB2w61uY3Vsb3MgYSB0b2RvcyBkZW3DoXMgYXJjaGl2b3MuIFBvciBlamVtcGxvLCB1biBidWVuIGFyY2hpdm8gaW5kZXguUm1kIHBvZHLDrWEgc2VyIGFsZ28gY29tbyBlc3RvOgoKYGBgbWFya2Rvd24KLS0tCnRpdGxlOiAiSW5pY2lvIgotLS0KCiMjIyBMaXN0YWRvIGRlIGluZm9ybWVzOgoKKiBJbmZvcm1lIDE6IFtsaW5rXShpbmZvcm1lXzEuaHRtbCkKKiBJbmZvcm1lIDI6IFtsaW5rXShpbmZvcm1lXzIuaHRtbCkKYGBgCgpEb25kZSBsb3MgbG9zIGFyY2hpdm9zIGluZm9ybWVfMS5odG1sIGUgaW5mb3JtZV8yLmh0bWwgc2Vyw61hbiBnZW5lcmFkb3MgcG9yIHN1cyBjb3JyZXNwb25kaWVudGVzIGFyY2hpdm9zIGluZm9ybWVfMS5SbWQgZSBpbmZvcm1lXzIuUm1kLiBOb3TDoSBxdWUgbG9zIGxpbmtzIHNvbiBhIGxvcyBhcmNoaXZvcyBodG1sLCBubyBhIGxvcyBhcmNoaXZvcyBSbWQhCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30gCioqRGVzYWbDrW8qKiBDcmXDoSB1biBzaXRpbyB3ZWIgY29uIHVuYSBww6FnaW5hIGRlIGluaWNpbyEKCjEuIENyZcOhIHVubyBvIG3DoXMgYXJjaGl2b3MgUm1kIChwb2TDqXMgZGVqYXIgbGEgcGxhbnRpbGxhIHBvciBkZWZlY3RvIHF1ZSBkYSBSU3R1ZGlvKSB5IGtuaXRlYWxvcyBlbiBzdXMgcmVzcGVjdGl2b3MgYXJjaGl2b3MgaHRtbC4gCjIuIEFicsOtIGVsIGFyY2hpdm8gaW5kZXguUm1kIGNvbnZlcnRpbGEgZW4gdW5hIHDDoWdpbmEgZGUgaW5pY2lvIGNvbiB2w61uY3Vsb3MgYSBsb3MgYXJjaGl2b3MgaHRtbCBxdWUgY3JlYXN0ZSB5IGtuaXRlw6FsbyBwYXJhIG9idGVuZXIgZWwgYXJjaGl2byBpbmRleC5odG1sCjMuIFN1YsOtIGVzYSBjYXJwZXRhIGEgTmV0bGlmeS4gCjo6OgoKCiMjIFNpdGlvIHdlYiBvcmdhbml6YWRvCgpBaG9yYSB0ZW7DqXMgdW4gc2l0aW8gd2ViIGZ1bmNpb25hbCBwZXJvIGVsIGZsdWpvIGRlIHRyYWJham8gZXMgbXV5IG1hbnVhbC4gVGVuw6lzIHF1ZSBrbml0ZWFyIGxvcyBkb2N1bWVudG9zIHVubyBwb3IgdW5vIGNhZGEgdmV6IHF1ZSBsb3MgY2FtYmnDoXMgeSBlbiBsYSBjYXJwZXRhIGRlIHR1IHByb3llY3RvIHRlbsOpcyB0YW50byBsb3MgYXJjaGl2b3MgUm1kIGNvbW8gbG9zIGh0bWwsIGxvIGN1YWwgcHVlZGUgc2VyIG1vbGVzdG8uIEFkZW3DoXMsIGNhZGEgcMOhZ2luYSBwYXJlY2UgYWlzbGFkYTogbm8gZXMgcG9zaWJsZSBuYXZlZ2FyIGVudHJlIGxvcyBkaXN0aW50b3MgaW5mb3JtZXMuIAoKRXN0b3MgcHJvYmxlbWFzIHNlIHB1ZWRlIHJlc29sdmVyIGFncmVnYW5kbyB1biBhcmNoaXZvIGNvbiBlbCBub21icmUgIl9zaXRlLnltbCIgZW4gbGEgY2FycGV0YSBkZSB0dSBwcm95ZWN0by4gRXN0ZSBhcmNoaXZvIHZhIGEgaWRlbnRpZmljYXIgYSBlc3RlIHByb3llY3RvIGNvbW8gdW4gc2l0aW8gd2ViIHkgdmEgYSB0ZW5lciB0b2RhcyBsYXMgb3BjaW9uZXMgZ2xvYmFsZXMgZGVsIG1pc21vLiBBZGVtw6FzIHZhIGEgc2VydmlyIHBhcmEgZ2VuZXJhciB1bmEgYmFycmEgZGUgbmF2ZWdhY2nDs24gcXVlIGxvIHZhIGEgaGFjZXIgbXVjaG8gbcOhcyBhbWlnYWJsZS4gCgpQb3IgZWplbXBsbywgZWwgYXJjaGl2byBfc2l0ZS55bWwgZGUgZXN0ZSBzaXRpbyB3ZWIgdGllbmUgbGFzIHNpZ3VpZW50ZXMgbMOtbmVhczoKCmBgYHlhbWwKb3V0cHV0X2RpcjogZG9jcwoKb3V0cHV0OgogIGh0bWxfZG9jdW1lbnQ6CiAgICB0aGVtZTogdW5pdGVkCgpuYXZiYXI6IAogIHRpdGxlOiBQw6FnaW5hIGNvbiBpbmZvcm1lcwogIGxlZnQ6IAogIC0gdGV4dDogSW5mb3JtZXMKICAgIG1lbnU6IAogICAgICAtIHRleHQ6IEluZm9ybWUgMQogICAgICAgIGhyZWY6IGluZm9ybWVfMS5odG1sCiAgICAgIC0gdGV4dDogSW5mb3JtZSAyCiAgICAgICAgaHJlZjogaW5mb3JtZV8yLmh0bWwKYGBgCgoKCsK/UXXDqSBlcyBsbyBxdWUgaGFjZSBjYWRhIHBhcnRlPwoKKiBgb3V0cHV0X2RpcjogZG9jc2AgZGVmaW5lIHF1ZSBlbCBzaXRpbyB3ZWIgc2UgdmEgYSBnZW5lcmFyIGVuIGxhIGNhcnBldGEgImRvY3MiLCBxdWUgdmEgYSBlc3RhciBkZW50cm8gZGUgbGEgY2FycGV0YSBkZWwgcHJveWVjdG8uIEVzYSBjYXJwZXRhIHZhIGEgdGVuZXIgdG9kb3MgbG9zIGFyY2hpdm9zIGh0bWwgeSBkZW3DoXMgYXJjaGl2b3MgbmVjZXNhcmlvcyBwYXJhIHF1ZSBlbCBzaXRpbyBmdW5jaW9uZS4KCiogYG91dHB1dDouLi5gIGRlZmluZSBvcGNpb25lcyBnbG9iYWxlcyBkZSBzYWxpZGEgcGFyYSBubyB0ZW5lciBxdWUgZGVmaW5pcmxhcyBkZW50cm8gZGUgY2FkYSBhcmNoaXZvIFJtZC4gUG9kw6lzIHZlciBsYXMgb3BjaW9uZXMgZGlzcG9uaWJsZXMgZW4gbGEgZG9jdW1lbnRhY2nDs24gY29uIGA/cm1hcmtkb3duOjpodG1sX2RvY3VtZW50KClgLiBFbiBlc3RlIGNhc28sIGRlZmluZSBxdWUgbGEgYXBhcmllbmNpYSBhIGEgc2VyIGNvbiBlbCB0ZW1hICJ1bml0ZWQiLiAKCiogYG5hdmJhcjouLi5gIGRlZmluZSB1bmEgYmFycmEgZGUgbmF2ZWdhY2nDs24gcXVlIHZlcyBhaMOtIGFycmliYS4gVGllbmUgdmFyaWFzIHBhcnRlcywgY29tbyB1biB0w610dWxvLCB1biBsaW5rIHF1ZSBsbGV2YSBhIGxhIGhvamEgZGUgcnV0YSwgeSBkb3MgbWVuw7plcyBkZXNwbGVnYWJsZXMuIAoKIVtMYXMgcGFydGVzIGRlbCBuYXZiYXJdKGltZy9uYXZiYXIucG5nKQoKVGVuZXIgZWwgYXJjaGl2byBfc2l0ZS55YW1sIHRpZW5lIG90cmEgZ3JhbiB2ZW50YWphLiBBaG9yYSBSU3R1ZGlvIHNhYmUgcXVlIHF1ZXLDqXMgaGFjZXIgdW4gc2l0aW8gd2ViIHkgcG9kw6lzIGdlbmVyYXIgdG9kbyBlbCBzaXRpbyB3ZWIgZGlyZWN0YW1lbnRlIHllbmRvIGEgbGEgc29sYXBhICJCdWlsZCIgeSBoYWNpZW5kbyBjbGljayBlbiAiQnVpbGQgV2Vic2l0ZSIgbyBjb24gZWwgYXRham8gZGUgdGVjbGFkbyBDdHJsICsgU2hpZnQgKyBCLiBFc3RvIHZhIGEgcmVuZGVyaXphciB0b2RvcyBsb3MgYXJjaGl2b3MgLlJtZCBxdWUgZXN0w6luIGVuIGxhIHJhaXogZGVsIHByb3llY3RvIHkgdmEgYSBnZW5lcmFyIGVsIHNpdGlvIHdlYiBlbiBsYSBjYXJwZXRhIGVzcGVjaWZpY2FkYSBlbiBgb3V0cHV0X2RpcmAuCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30KKipEZXNhZsOtbyoqIEFybcOhIHR1IHNpdGlvIHdlYiBjb24gYmFycmEgZGUgbmF2ZWdhY2nDs24hCgoxLiBDcmXDoSB1biBhcmNoaXZvICJfc2l0ZS55YW1sIi4KMi4gRGVmaW7DrSBlbCB0ZW1hIChmaWphdGUgZW4gbGEgZG9jdW1lbnRhY2nDs24gZGUgYHJtYXJrZG93bjo6aHRtbF9kb2N1bWVudGAgY3XDoWxlcyBzb24gbGFzIG9wY2lvbmVzIGRpc3BvbmlibGVzKQozLiBHZW5lcsOhIHVuYSBiYXJyYSBkZSBuYXZlZ2FjacOzbiBxdWUgbGlua2VlIGEgbG9zIGluZm9ybWVzLiAKNC4gR2VuZXLDoSBlbCBzaXRpbyBhcHJldGFuZG8gZWwgYm90w7NuICJCdWlsZCBXZWJzaXRlIiBxdWUgZXN0w6EgZW4gbGEgc29sYXBhICJCdWlsZCIgZGUgUlN0dWRpby4gCjUuIEFuZMOhIGEgW2h0dHBzOi8vYXBwLm5ldGxpZnkuY29tL2Ryb3BdKGh0dHBzOi8vYXBwLm5ldGxpZnkuY29tL2Ryb3ApIHkgYXJyYXN0csOhIGxhIGNhcnBldGEgZG9uZGUgc2UgZ2VuZXLDsyBlbCBzaXRpbyAocXVlIHZhIGEgc2VyIHVuYSBjYXJwZXRhIGRlbnRybyBkZWwgcHJveWVjdG8sIG5vIGxhIGNhcnBldGEgZGVsIHByb3llY3RvKS4KOjo6</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("12-publicar.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

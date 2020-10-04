@@ -1,8 +1,5 @@
 ---
 title: 'Desafío 2: Graficar los datos'
-output: 
-  html_document:
-    theme: flatly
 ---
 
 ```{r setup, include=FALSE}
