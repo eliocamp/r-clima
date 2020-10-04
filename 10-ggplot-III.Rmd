@@ -45,7 +45,7 @@ observaciones <- left_join(observaciones, estaciones, by = c("station" = "nombre
 
 ```{r}
 observaciones %>% 
-  filter(region != "ANTARTIDA") %>% 
+  filter(provincia != "ANTARTIDA") %>% 
   ggplot(aes(lon, lat)) +
   geom_point() 
 ```
@@ -56,7 +56,7 @@ Por ahora este gráfico no nos dice nada, necesitamos agregarle una capa con el 
 mapa <- rnaturalearth::ne_states(country = c("argentina"), returnclass = "sf")
 
 observaciones %>% 
-  filter(region != "ANTARTIDA") %>% 
+  filter(provincia != "ANTARTIDA") %>% 
   ggplot(aes(lon, lat)) +
   geom_point() +
   geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) 
@@ -69,7 +69,7 @@ Si bien ahora podemos identificar donde están las estaciones, no tenemos inform
 
 ```{r}
 observaciones %>% 
-  filter(region != "ANTARTIDA") %>% 
+  filter(provincia != "ANTARTIDA") %>% 
   ggplot(aes(lon, lat)) +
   geom_point(aes(color = tmax_media)) +
   geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) 
@@ -81,7 +81,7 @@ Vamos a probar la paleta "YlOrRd" , esta paleta es *secuencial* y es justo lo qu
 
 ```{r}
 observaciones %>% 
-  filter(region != "ANTARTIDA") %>% 
+  filter(provincia != "ANTARTIDA") %>% 
   ggplot(aes(lon, lat)) +
   geom_point(aes(color = tmax_media)) +
   geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
@@ -101,7 +101,7 @@ Nuestro gráfico va quedando mejor y podemos aprovechar la capacidad de {ggplot2
 
 ```{r}
 observaciones %>% 
-  filter(region != "ANTARTIDA") %>% 
+  filter(provincia != "ANTARTIDA") %>% 
   ggplot(aes(lon, lat)) +
   geom_point(aes(color = tmax_media, size = tmax_var)) +
   geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
@@ -112,7 +112,7 @@ Es interesante ver como las temperaturas máximas medias mayores también tienen
 
 ```{r}
 observaciones %>% 
-  filter(region != "ANTARTIDA") %>% 
+  filter(provincia != "ANTARTIDA") %>% 
   ggplot(aes(lon, lat)) +
   geom_point(aes(color = tmax_media, size = tmax_var), alpha = 0.7) +
   geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
@@ -131,7 +131,7 @@ Pero queremos que nuestro gráfico quede listo para publicar y la "W" de west (o
 
 ```{r}
 observaciones %>% 
-  filter(region != "ANTARTIDA") %>% 
+  filter(provincia != "ANTARTIDA") %>% 
   ggplot(aes(lon, lat)) +
   geom_point(aes(color = tmax_media, size = tmax_var), alpha = 0.7) +
   geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
@@ -147,7 +147,7 @@ Ya sumamos 3 escalas y el gráfico ya se ve muy bien. ¿Cómo hacemos si queremo
 
 ```{r}
 observaciones %>% 
-  filter(region != "ANTARTIDA") %>% 
+  filter(provincia != "ANTARTIDA") %>% 
   ggplot(aes(lon, lat)) +
   geom_point(aes(color = tmax_media, size = tmax_var), alpha = 0.7) +
   geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
@@ -161,12 +161,12 @@ Pero nos olvidamos que tenemos más de 100 estaciones, es imposible agregarle et
 
 ```{r}
 extremos_temperatura <- observaciones %>% 
-  filter(region != "ANTARTIDA") %>% 
+  filter(provincia != "ANTARTIDA") %>% 
   filter(tmax_media == max(tmax_media, na.rm = TRUE) |
            tmax_media == min(tmax_media, na.rm = TRUE)) # Estaciones con extremos!
 
 observaciones %>% 
-  filter(region != "ANTARTIDA") %>% 
+  filter(provincia != "ANTARTIDA") %>% 
   ggplot(aes(lon, lat)) +
   geom_point(aes(color = tmax_media, size = tmax_var), alpha = 0.7) +
   geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
@@ -189,7 +189,7 @@ Veamos ahora una (de varias) maneras agregar o modificar elementos de texto en e
 
 ```{r}
 observaciones %>% 
-  filter(region != "ANTARTIDA") %>% 
+  filter(provincia != "ANTARTIDA") %>% 
   ggplot(aes(lon, lat)) +
   geom_point(aes(color = tmax_media, size = tmax_var), alpha = 0.7) +
   geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +
@@ -217,7 +217,7 @@ Por defecto {ggplot2} usa `theme_grey()`, probemos `theme_light()`:
 
 ```{r}
 observaciones %>% 
-  filter(region != "ANTARTIDA") %>% 
+  filter(provincia != "ANTARTIDA") %>% 
   ggplot(aes(lon, lat)) +
   geom_point(aes(color = tmax_media, size = tmax_var), alpha = 0.7) +
   geom_sf(data = mapa, fill = NA, color = "black", size = 0.2, inherit.aes = FALSE) +

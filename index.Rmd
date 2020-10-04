@@ -25,8 +25,6 @@ En muchos casos tomamos inspiración o nos basamos en los siguientes recursos:
 
 * [R para Análisis Científicos Reproducibles](https://swcarpentry.github.io/r-novice-gapminder-es/) de The Carpentries
 
-* [R for Excel Users](https://rstudio-conf-2020.github.io/r-for-excel/) de Dr. Julie Stewart Lowndes y Dr. Allison Horst
-
 * [R para Ciencia de Datos](https://es.r4ds.hadley.nz/) de Hadley Wickham
 
 El código fuente de estos materiales y página web se encuentrá [acá](https://github.com/eliocamp/r-clima).
