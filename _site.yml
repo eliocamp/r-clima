@@ -24,7 +24,7 @@ navbar:
       - text: Gráficos II
         href: 09-graficos-II.html
       - text: Gráficos para publicar
-        href: 10-ggplot-III.html
+        href: 10-graficos-III.html
       - text: Reportes II
         href: 11-reportes-II.html
       - text: Publicar reportes
