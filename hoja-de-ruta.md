@@ -45,8 +45,8 @@ Si en realidad estás buscando aprender R desde cero, te sugerimos revisar [este
   - Gráfico de columnas.
   - Escalas de tiempo.
   - Paneles.
-- Manejo de fechas
-  - Parseo de datos de fecha
+- [Manipulando fechas](08-lubridate.html)
+  - Generación de fechas y horas
   - Manipulación de componentes
   - Transformación de zonas horarias
 - Graficar en el espacio

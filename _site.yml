@@ -15,14 +15,14 @@ navbar:
         href: 04-lectura.html
       - text: Manipulación de datos I
         href: 05-dplyr.html
-      - text: Gráficos I
-        href: 06-graficos-I.html
-      - text: Gráficos II
-        href: 07-graficos-II.html
       - text: Manipulación de datos II
-        href: 08-dplyr-tidyr-II.html
-      - text: Funciones
-        href: 09-funciones.html
+        href: 06-dplyr-tidyr-II.html        
+      - text: Gráficos I
+        href: 07-graficos-I.html
+      - text: Manipulación fechas
+        href: 08-lubridate.html        
+      - text: Gráficos II
+        href: 09-graficos-II.html
       - text: Gráficos para publicar
         href: 10-ggplot-III.html
       - text: Reportes II
