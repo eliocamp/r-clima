@@ -25,14 +25,13 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -42,16 +41,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -60,9 +57,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  background-color: #f8f8f8; }
+  { background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -457,19 +454,19 @@ div.tocify {
       <a href="05-dplyr.html">Manipulación de datos I</a>
     </li>
     <li>
-      <a href="06-graficos-I.html">Gráficos I</a>
+      <a href="06-dplyr-tidyr-II.html">Manipulación de datos II</a>
     </li>
     <li>
-      <a href="07-graficos-II.html">Gráficos II</a>
+      <a href="07-graficos-I.html">Gráficos I</a>
     </li>
     <li>
-      <a href="08-dplyr-tidyr-II.html">Manipulación de datos II</a>
+      <a href="08-lubridate.html">Manipulación fechas</a>
     </li>
     <li>
-      <a href="09-funciones.html">Funciones</a>
+      <a href="09-graficos-II.html">Gráficos II</a>
     </li>
     <li>
-      <a href="10-ggplot-III.html">Gráficos para publicar</a>
+      <a href="10-graficos-III.html">Gráficos para publicar</a>
     </li>
     <li>
       <a href="11-reportes-II.html">Reportes II</a>
@@ -548,14 +545,14 @@ div.tocify {
 <h2>Sitio web de muchas páginas</h2>
 <p>Esto que hiciste para un sitio web con una sola página se puede extender para un sitio web con varias páginas simplemente agregando otros archivos html a la carpeta que subís a Netlify. El problema es que por convención, el archivo que vas a poder ver cuando entrás a la URL de tu página siempre va a ser el archivo index.html. Para poder ver los otros tenés agregarlos en la URL, pero esto requiere que sepas el nombre de cada archivo y es muy poco amigable.</p>
 <p>Para un sitio web con más de una página, lo mejor es que el archivo index.html (generado a partir de un archivo llamado “index.Rmd”) sea una página “bienvenida” donde estén los vínculos a todos demás archivos. Por ejemplo, un buen archivo index.Rmd podría ser algo como esto:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a>---</span>
-<span id="cb1-2"><a href="#cb1-2"></a>title: &quot;Inicio&quot;</span>
-<span id="cb1-3"><a href="#cb1-3"></a>---</span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">### Listado de informes:</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a>* <span class="st">Informe 1: </span><span class="ot">[link](informe_1.html)</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="st">* Informe 2: </span><span class="ot">[link](informe_2.html)</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb1-1" data-line-number="1">---</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">title: &quot;Inicio&quot;</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">---</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="fu">### Listado de informes:</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">* <span class="fl">Informe 1: </span><span class="ot">[link](informe_1.html)</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="fl">* Informe 2: </span><span class="ot">[link](informe_2.html)</span></a></code></pre></div>
 <p>Donde los los archivos informe_1.html e informe_2.html serían generados por sus correspondientes archivos informe_1.Rmd e informe_2.Rmd. Notá que los links son a los archivos html, no a los archivos Rmd!</p>
 <div class="alert alert-info">
 <p><strong>Desafío</strong> Creá un sitio web con una página de inicio!</p>
@@ -569,23 +566,23 @@ div.tocify {
 <div id="sitio-web-organizado" class="section level2">
 <h2>Sitio web organizado</h2>
 <p>Ahora tenés un sitio web funcional pero el flujo de trabajo es muy manual. Tenés que knitear los documentos uno por uno cada vez que los cambiás y en la carpeta de tu proyecto tenés tanto los archivos Rmd como los html, lo cual puede ser molesto. Además, cada página parece aislada: no es posible navegar entre los distintos informes.</p>
-<p>Estos problemas se puede resolver agregando un archivo con el nombre "_site.yml" en la carpeta de tu proyecto. Este archivo va a identificar a este proyecto como un sitio web y va a tener todas las opciones globales del mismo. Además va a servir para generar una barra de navegación que lo va a hacer mucho más amigable.</p>
+<p>Estos problemas se puede resolver agregando un archivo con el nombre &quot;_site.yml&quot; en la carpeta de tu proyecto. Este archivo va a identificar a este proyecto como un sitio web y va a tener todas las opciones globales del mismo. Además va a servir para generar una barra de navegación que lo va a hacer mucho más amigable.</p>
 <p>Por ejemplo, el archivo _site.yml de este sitio web tiene las siguientes líneas:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">output_dir</span><span class="kw">:</span><span class="at"> docs</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">output</span><span class="kw">:</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> united</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">navbar</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Página con informes</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="at">  </span><span class="fu">left</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Informes</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="at">    </span><span class="fu">menu</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Informe 1</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="at">        </span><span class="fu">href</span><span class="kw">:</span><span class="at"> informe_1.html</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Informe 2</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="at">        </span><span class="fu">href</span><span class="kw">:</span><span class="at"> informe_2.html</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">output_dir:</span><span class="at"> docs</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="fu">output:</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="fu">html_document:</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="fu">theme:</span><span class="at"> united</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="fu">navbar:</span><span class="at"> </span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="fu">title:</span><span class="at"> Página con informes</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">  <span class="fu">left:</span><span class="at"> </span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">  <span class="kw">-</span> <span class="fu">text:</span><span class="at"> Informes</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">    <span class="fu">menu:</span><span class="at"> </span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">      <span class="kw">-</span> <span class="fu">text:</span><span class="at"> Informe 1</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">        <span class="fu">href:</span><span class="at"> informe_1.html</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">      <span class="kw">-</span> <span class="fu">text:</span><span class="at"> Informe 2</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">        <span class="fu">href:</span><span class="at"> informe_2.html</span></a></code></pre></div>
 <p>¿Qué es lo que hace cada parte?</p>
 <ul>
 <li><p><code>output_dir: docs</code> define que el sitio web se va a generar en la carpeta “docs”, que va a estar dentro de la carpeta del proyecto. Esa carpeta va a tener todos los archivos html y demás archivos necesarios para que el sitio funcione.</p></li>
@@ -593,14 +590,14 @@ div.tocify {
 <li><p><code>navbar:...</code> define una barra de navegación que ves ahí arriba. Tiene varias partes, como un título, un link que lleva a la hoja de ruta, y dos menúes desplegables.</p></li>
 </ul>
 <div class="figure">
-<img src="img/navbar.png" alt="" />
+<img src="img/navbar.png" alt="Las partes del navbar" />
 <p class="caption">Las partes del navbar</p>
 </div>
 <p>Tener el archivo _site.yaml tiene otra gran ventaja. Ahora RStudio sabe que querés hacer un sitio web y podés generar todo el sitio web directamente yendo a la solapa “Build” y haciendo click en “Build Website” o con el atajo de teclado Ctrl + Shift + B. Esto va a renderizar todos los archivos .Rmd que estén en la raiz del proyecto y va a generar el sitio web en la carpeta especificada en <code>output_dir</code>.</p>
 <div class="alert alert-info">
 <p><strong>Desafío</strong> Armá tu sitio web con barra de navegación!</p>
 <ol style="list-style-type: decimal">
-<li>Creá un archivo "_site.yaml".</li>
+<li>Creá un archivo &quot;_site.yaml&quot;.</li>
 <li>Definí el tema (fijate en la documentación de <code>rmarkdown::html_document</code> cuáles son las opciones disponibles)</li>
 <li>Generá una barra de navegación que linkee a los informes.</li>
 <li>Generá el sitio apretando el botón “Build Website” que está en la solapa “Build” de RStudio.</li>

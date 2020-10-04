@@ -32,7 +32,7 @@ Si en realidad estás buscando aprender R desde cero, te sugerimos revisar [este
 *Desafío: [leer correctamente una base de datos y generar nuevas columnas a partir de información de otras columnas y generar resúmenes a partir de los datos.](desafio-1html)*
 
 
-### Segundo encuentro (en proceso...)
+### Segundo encuentro
 
 #### Contenidos
 
