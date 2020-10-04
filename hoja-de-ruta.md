@@ -19,10 +19,9 @@ Si en realidad estás buscando aprender R desde cero, te sugerimos revisar [este
 - [Introducción a {RMarkdown}](03-reportes-I.html)
   - Sintaxis básica de Markdown.
   - Unificar código, gráficos y prosa.
-- [Lectura de archivos .csv y .nc](04-lectura.html)
-  - Tipos de datos en R.
-  - Identificar datos ordenados.
-  - Diferenciar tablas “anchas” y “largas”
+- [Lectura de datos](04-lectura.html)
+  - Archivos tipo CSV
+  - Archivos en formato NetCDF
 - [Manipulación de datos ordenados usando {dplyr}](05-dplyr.html)
   - Agregar y quitar filas y columnas.
   - Crear nuevas columnas incluyendo cálculos y comparación de datos.

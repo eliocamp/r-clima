@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Archivos csv
 
-Existen muchas funciones distintas para leer datos dependiendo del formato en el que están guardados. Para datos tabulares, la forma más útil es el formato csv, que es un archivo de texto plano con datos separados por coma. 
+Existen muchas funciones distintas para leer datos dependiendo del formato en el que están guardados. Para datos tabulares, la forma más útil es el formato csv, que es un archivo de texto plano con datos separados por coma. Vamos a trabajar con datos de temperatura de una estación meterológica en Bariloche:
 
 ```{r}
 library(readr)
@@ -91,6 +91,13 @@ summary(bariloche)
 
 Ahora el rango de temperatura es razonable y podés tener confianza de que los datos están bien leídos. 
 
+:::{.alert .alert-success}
+
+Junto a `read_csv()` hay una familia de funciones similares que leen archivos con distintos tipos de delimitadores distintos de la coma. La buena noticia es que todas las funciones tiene argumentos similares y se usan casi indistintamente.
+
+Si quisieras leer archivos que están en formato "xlsx" (Excel) podés usar el paquete `{readxl}`.
+
+:::
 
 
 # Archivos NetCDF
@@ -104,7 +111,7 @@ library(metR)
 ```
 
 
-Los datos en archivos NetCDF puede ser bastante grandes y destruir tu sesión de R si tratás de leerlos enteros en memoria. Por eso, siempre es bueno primero fijarse qué tiene un archivo nuevo. Para eso, { metR} tiene la función `GlanceNetCDF`:
+Los datos en archivos NetCDF puede ser bastante grandes y destruir tu sesión de R si tratás de leerlos enteros en memoria. Por eso, siempre es bueno primero fijarse qué tiene un archivo nuevo. Para eso, {metR} tiene la función `GlanceNetCDF` que muestra un vistazo de los metadatos del archivo. Vamos a trabajar con un archivo en este formato que contiene datos de reanálisis del NCEP.
 
 ```{r}
 GlanceNetCDF("datos/temperatura.nc")
@@ -116,7 +123,7 @@ La salida de esta función muestra las variables que tiene el archivo y sus dime
 **Desafío** ¿Qué información podés deducir sobre el contenido de temperatura.nc a partir de esto?
 :::
 
-En este caso, el archivo tiene una sola variable, llamada `air` que es la temperatura media en Kelvin (un archivo NetCDF puede tener muchas variables y no todas en la misma grilla). De las dimensiones del archivo, se ve que tiene dimensiones de tiempo, nivel, longitud y latitud. La latitud va de -90 a 90 y la longitud de 0 a 357.5, por lo que es un campo global. `level` es la coordenada vertical, que va de 1000 milibares (básicamente la superficie) a 10 millibares (la estatósfera media). 
+En este caso, el archivo tiene una sola variable, llamada `air` que es la temperatura media en Kelvin (un archivo NetCDF puede tener muchas variables y no todas en la misma grilla). De las dimensiones del archivo, se ve que tiene dimensiones de tiempo, nivel, longitud y latitud. La latitud va de -90 a 90 y la longitud de 0 a 357.5, por lo que es un campo global. `level` es la coordenada vertical, que va de 1000 milibares (básicamente la superficie) a 10 millibares (la estratósfera media). 
 
 Para leer los datos, se usa `ReadNetCDF()`:
 
@@ -129,7 +136,7 @@ temperatura
 Si no le ponés `vars = "air"`, `ReadNetCDF()` va a tratar de leer todas las variables presentes en el archivo. Esto a veces puede causar problemas si las grillas de las variables no son compatibles (por ejemplo, si una variable es la temperatura del aire definida en distintas alturas, y otra es la temperatura del suelo). En este caso, como "temperatura.nc" tiene sólo una variable, no haría falta ponerlo.
 :::
 
-Es muy posible que quieras datos sólo de una región. Una opción es leer todo el archivo y luego filtrar los datos. Si te interesa la temperatura de superficie de Argentina, podrías hacer algo así
+Es muy posible que quieras datos sólo de una región. Una opción es leer todo el archivo y luego filtrar los datos. Si te interesa la temperatura de superficie de Argentina, podrías hacer algo así:
 
 ```{r}
 temperatura %>% 
@@ -157,7 +164,7 @@ temperatura <- ReadNetCDF("datos/temperatura.nc", vars = "air",
                          lat = c(___, ___),
                          lon = c(___, ___)))
 ```
-Para revisar si leíste los datos correctos, corré este código (no te preocupes si no lo entendés)
+Para revisar si leíste los datos correctos, corré este código (no te preocupes si no usas ggplot, en una sección más adelante lo veremos)
 
 ```{r, eval = FALSE}
 library(ggplot2)
