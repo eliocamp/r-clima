@@ -23,7 +23,7 @@ library(metR)
 
 También cambiamos la apariencia del relleno (o `fill`) de los contornos y la forma de los puntos (o `shape`). Para esto, {ggplot2} siempre usa una escala que podemos modificar de acuerdo a nuestro gusto y teniendo en cuenta cómo queremos comunicar nuestros resultados. 
 
-Por supuesto, modificar una escala implica sumar una nueva capa al gráfico sumando una nueva función. Todas las funciones de escala comienzan con `scale` (de escala en inglés), el típo de apariencia que queremos modificar (`color`, `fill`, `shape`, etc) y en muchos casos un nombre o una característica de esa escala. 
+Por supuesto, modificar una escala implica sumar una nueva capa al gráfico sumando una nueva función. Todas las funciones de escala comienzan con `scale` (de escala en inglés), el tipo de apariencia que queremos modificar (`color`, `fill`, `shape`, etc) y en muchos casos un nombre o una característica de esa escala. 
 
 Para mostrar como funciona, vamos a descargar datos de las estaciones meteorológicas del Servicio Meteorológico Nacional para el mes de agosto de 2020 y con suerte al final de este documento tendremos un gráfico listo para publicar.
 
@@ -87,7 +87,7 @@ observaciones %>%
   scale_color_distiller(palette = "YlOrRd", direction = 1)
 ```
 
-En este caso también agregamos el argumento `direction = 1` para que la paleta de colores los muestre de más oscuros a más claros. Esta desición es estética y muchas veces depende de las variables a graficar. 
+En este caso también agregamos el argumento `direction = 1` para que la paleta de colores los muestre de más oscuros a más claros. Esta decisión es estética y muchas veces depende de las variables a graficar. 
 
 
 ::: {.alert .alert-info}
@@ -96,7 +96,7 @@ En este caso también agregamos el argumento `direction = 1` para que la paleta 
 A modo de prueba, cambia la paleta de colores actual por la de Viridis. Para eso tenés que usar `scale_color_viridis_c()`. La "c" del final viene de *continuous* y se usa para variables continuas, mientras que si los datos son discretos o categorías, se usa "d" al final.
 :::
 
-Nuestro gráfico va quedando mejor y podemos aprovechar la capacidad de {ggplot2} de *mapear* variables a los elementos del gráfico y visualizar la variabilidad de la temperatura máxima modificando el tamaño de los puntos de acuerdo al desvío estandar.
+Nuestro gráfico va quedando mejor y podemos aprovechar la capacidad de {ggplot2} de *mapear* variables a los elementos del gráfico y visualizar la variabilidad de la temperatura máxima modificando el tamaño de los puntos de acuerdo al desvío estándar.
 
 ```{r}
 observaciones %>% 
@@ -123,7 +123,7 @@ observaciones %>%
 
 Ahora que la información del gráfico se ve bien, pasemos a los ejes. Al igual que para el color, el tamaño y otros elementos del gráfico, para los ejes también existen funciones "scale". En este caso las escalas que modifican los ejes justamente comienzan con `scala_x_` o `scale_y_` según sea el caso y hay una gran variedad de opciones dependiendo del tipo de dato que estamos graficando en cada eje. 
 
-Si en el eje y graficamos una variable discreta entonces podremos modificar su especto con `scale_y_discrete()`. En este caso la función `geom_sf()` automáticamente modifica la apariencia de los ejes y no requieren de mucho trabajo. 
+Si en el eje y graficamos una variable discreta entonces podremos modificar su aspecto con `scale_y_discrete()`. En este caso la función `geom_sf()` automáticamente modifica la apariencia de los ejes y no requieren de mucho trabajo. 
 
 Pero queremos que nuestro gráfico quede listo para publicar y la "W" de west (oeste en inglés) puede no ser muy amigable. Modifiquemos entonces el eje x con la función `scale_x_continuous()`. En este caso queremos modificar las etiquetas o `labels` y para eso usaremos la función `LonLabel()` del paquete {metR}. Esta función recibe una función anónima que toma cada longitud y el cambia el "°W° por "°O".
 
@@ -206,7 +206,7 @@ observaciones %>%
        color = "")
 ```
 
-Agregamos un título, un subtítulo, el epígrafe de la figura (*caption*) para las aclaraciones y cambiamos el nombre de los ejes para que se vean mejor. Pero ademas eliminamos el nombre de la leyenda porque era un poco redundante (ya está en el título). 
+Agregamos un título, un subtitulo, el epígrafe de la figura (*caption*) para las aclaraciones y cambiamos el nombre de los ejes para que se vean mejor. Pero ademas eliminamos el nombre de la leyenda porque era un poco redundante (ya está en el título). 
 
 ## Temas
 
@@ -243,11 +243,11 @@ Ahora es tu turno. Elegí un [tema que te guste](https://es.r4ds.hadley.nz/image
 
 ::: {.alert .alert-success}
 
-Junto con las funciones `theme_...()`, hay una función llamada `theme()` que permite cambiar la apariencia de cualquier elemento del gráfico. Tiene casi infinitas opciones y si algún momento te desvelas intentando cambiar esa línea o ese borde, seguro que `theme()` tiene alguna opción par ahacer eso.
+Junto con las funciones `theme_...()`, hay una función llamada `theme()` que permite cambiar la apariencia de cualquier elemento del gráfico. Tiene casi infinitas opciones y si algún momento te desvelas intentando cambiar esa línea o ese borde, seguro que `theme()` tiene alguna opción para hacer eso.
 
 :::
 
 <div class="btn-group" role="group" aria-label="Navegación">
-  <a href= "09-ggplot-II.html" class = "btn btn-primary">Anterior</a>
+  <a href= "09-graficos-II.html" class = "btn btn-primary">Anterior</a>
   <a href= "11-reportes-II.html" class = "btn btn-primary">Siguiente</a>
 </div>

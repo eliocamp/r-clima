@@ -25,12 +25,12 @@ library(readr)
 
 R maneja fechas y fechas y horas y para esto tiene los tipos de datos `<date>` y `<dttm>` y si bien internamente esos datos se almacenan como números enteros (por ejemplo cantidad de segundos desde el 1 de enero de 1970) con lubridate casi no tenemos que preocuparnos de eso y podemos trabajar con fechas como seres humanos. 
 
-Es posible que al leer bases de datos algunas columnas con este tipo de información sea leída como cadadena de caracteres, por ejemplo "25-Oct-1990". Esto se puede solucionar tanto en la lectura de los datos como luego usando lubridate. Veamos lo segundo.
+Es posible que al leer bases de datos algunas columnas con este tipo de información sea leída como cadena de caracteres, por ejemplo "25-Oct-1990". Esto se puede solucionar tanto en la lectura de los datos como luego usando lubridate. Veamos lo segundo.
 
 
 Vamos a trabajar con una base de datos de reportes de eventos severos reportados por personas durante la  campaña [RELAMPAGO](https://www.bbc.com/mundo/noticias-46133330) que se llevó a cabo en Argentina entre octubre y diciembre de 2018. 
 
-Los reportes se recolectaron a traves de un formulario de google que entre otros datos pedía: el tipo de evento o eventos observados, el lugar y horario de ocurrencia del evento. 
+Los reportes se recolectaron a través de un formulario de google que entre otros datos pedía: el tipo de evento o eventos observados, el lugar y horario de ocurrencia del evento. 
 
 ```{r datos}
 reportes <- read_csv("https://raw.githubusercontent.com/paocorrales/r4ds-notas/master/examen/eventos_severos_RELAMPAGO.csv")
@@ -73,7 +73,7 @@ Por defecto cualquiera de las funciones de la familia `ymd_hms()` le asigna la z
 :::
 
 
-Si en vez de tener la información de la fecha u fecha y hora en una sola columna, la tenemos en distintas columnas (el mes por un lado, el día por el otro, ect.), existen un par de funciones que permiten armar la variable: `make_date()` y `make_datetime()`. Si quisieramos armar la fecha 25 de octubre de 1990 tendríamos que usar la siguiente línea de código:
+Si en vez de tener la información de la fecha u fecha y hora en una sola columna, la tenemos en distintas columnas (el mes por un lado, el día por el otro, ect.), existen un par de funciones que permiten armar la variable: `make_date()` y `make_datetime()`. Si quisiéramos armar la fecha 25 de octubre de 1990 tendríamos que usar la siguiente línea de código:
 
 ```{r}
 make_date(year = 1990, month = 10, day = 25)
@@ -86,7 +86,7 @@ make_datetime(year = 1988, month = 8, day = 14, hour = 13)
 ```
 
 
-Por supuesto podríamos guardar esas fechas en variables o usar las funciones dentro de `mutate()` pra generar columnas nuevas en un data frame.
+Por supuesto podríamos guardar esas fechas en variables o usar las funciones dentro de `mutate()` para generar columnas nuevas en un data frame.
 
 ## Sus componentes
 
@@ -121,7 +121,7 @@ En este caso, los reportes tienen la hora a la que ocurrió el evento en Argenti
 Todas las funciones de la familia `ymd_hms()` tiene un argumento `tz` que permite cambiar la zona horaria. El truco está en saber la nomenclatura de zonas horarias.
 
 ```{r}
-head(OlsonNames()) # Lista de las nás de 600 zonas horarias disponibles
+head(OlsonNames()) # Lista de las más de 600 zonas horarias disponibles
 Sys.timezone()     # ¿En qué zona horaria está mi computadora?
 ```
 
@@ -138,7 +138,7 @@ reportes %>%
 
 ### Tranformando zonas horarias
 
-Ahora si, R interpresa estas fechas y horas en la zona horaria correcta. Sin embargo, en meteorología estamos acostumbrados a comunicar nuestros resultados en hora *UTC* (u *hora Z*, que es lo mismo), ¿cómo convertimos las fechas y horas a otra zona horaria?
+Ahora si, R interpreta estas fechas y horas en la zona horaria correcta. Sin embargo, en meteorología estamos acostumbrados a comunicar nuestros resultados en hora *UTC* (u *hora Z*, que es lo mismo), ¿cómo convertimos las fechas y horas a otra zona horaria?
  
 {lubridate} tiene dos funciones específicas para trabajar con zonas horarias. 
  
@@ -208,6 +208,6 @@ Si corrieras la siguiente línea de código, cuál será el resultado? (pensá c
 :::
 
 <div class="btn-group" role="group" aria-label="Navegación">
-  <a href= "07-ggplot-I.html" class = "btn btn-primary">Anterior</a>
-  <a href= "09-ggplot-II.html" class = "btn btn-primary">Siguiente</a>
+  <a href= "07-graficos-I.html" class = "btn btn-primary">Anterior</a>
+  <a href= "09-graficos-II.html" class = "btn btn-primary">Siguiente</a>
 </div>

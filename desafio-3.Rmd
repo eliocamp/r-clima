@@ -16,7 +16,7 @@ Abrí tu proyecto desde el explorador de archivos (haciendo doble click en el ar
 
 Agregá títulos y mejorá las etiquetas en tus gráficos, si querés, también podés cambiar el tema o alguna escala para que tenga una apariencia distinta (tenés todo [acá](10-ggplot-III.html)). 
 
-Si bien no lo vimos en el curso, podrías querer mejorar la apariencia de las tablas que puedas haber genrado. Si querés hacerlo podés seguir la guía que contrarás [acá](https://paocorrales.github.io/deExcelaR/11-tablas.html).
+Si bien no lo vimos en el curso, podrías querer mejorar la apariencia de las tablas que puedas haber generado. Si querés hacerlo podés seguir la guía que encontrás [acá](https://paocorrales.github.io/deExcelaR/11-tablas.html).
 
 ### 3. Definí el formato final
 

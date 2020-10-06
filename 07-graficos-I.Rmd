@@ -37,12 +37,12 @@ bariloche <- readr::read_csv("datos/bariloche_enlimpio.csv") %>%
 ```
 
 ::: {.alert .alert-success}
-**Tip:** Es muy común tener que manipular y limpiar los datos para poder utilizarlos tal como hicimos con las observaciones de Bariloche. En este caso esa manipulación no requiere de mucho tiempo porque se tratan de pocos datos. Si estuvieras trabajando con muchos datos o haciendo una manipulación que requiere mucho tiempo de computo, es recomendable guardar esa nueva versión es un nuevo archivo. Pero, es muy importante guardar el código que generó esa nueva versión de la base de datos, nunca se sabe cuando habrá que reahacer todo!
+**Tip:** Es muy común tener que manipular y limpiar los datos para poder utilizarlos tal como hicimos con las observaciones de Bariloche. En este caso esa manipulación no requiere de mucho tiempo porque se tratan de pocos datos. Si estuvieras trabajando con muchos datos o haciendo una manipulación que requiere mucho tiempo de computo, es recomendable guardar esa nueva versión es un nuevo archivo. Pero, es muy importante guardar el código que generó esa nueva versión de la base de datos, nunca se sabe cuando habrá que rehacer todo!
 :::
 
 La función principal de ggplot2 es justamente `ggplot()` que nos permite *iniciar* el gráfico y además definir las características *globales*. El primer argumento de esta función serán los datos que queremos visualizar, siempre en un data.frame. En este caso usamos `paises`. 
 
-El segundo argumento se llama mapping justamente porque *mapea* o *dibuja* los ejes del gráfico y **siempre** va acompañado de la función `aes()`. La función `aes()` recibe las propiedades estésticas del gráfico (o *aesthetic* en inglés) a partir de las variables (o columnas) del data.frame estamos usando. En este caso le indicamos que en el eje **x** querremos graficar la variable `tipo` (o sea mínima, media y máxima) y en eje **y** la variable `valor` que en realidad contiene las observaciones de temperatura.
+El segundo argumento se llama mapping justamente porque *mapea* o *dibuja* los ejes del gráfico y **siempre** va acompañado de la función `aes()`. La función `aes()` recibe las propiedades estéticas del gráfico (o *aesthetic* en inglés) a partir de las variables (o columnas) del data.frame estamos usando. En este caso le indicamos que en el eje **x** querremos graficar la variable `tipo` (o sea mínima, media y máxima) y en eje **y** la variable `valor` que en realidad contiene las observaciones de temperatura.
 
 Pero esta sola función no es suficiente, solo genera la primera capa: el área del gráfico.
 
@@ -102,7 +102,7 @@ ggplot(data = na.omit(bariloche), mapping = aes(x = Fecha, y = valor)) +
 Es posible que te estés preguntando que hace ese `na.omit()` metido adentro del código. Resulta que los gráficos de líneas en general no se llevan bien con los datos faltantes y necesitamos sacarlos para que no nos haga problemas. En la vida real tendríamos que decidir como resolver este problema de una manera menos drástica!
 :::
 
-Por suerte las funciones `geom_*()` tienen más o menos nombres amigables. Pero el gráfico sigue teniendo problemas algo más sutiles. En este caso está haciendo un gráfico por tipo de temperatura, pero en el camino mezcló las observaciones que se hicieron en el abrgo, a la intemperie y en el suelo. Si estuvieramos dibujando este gráfico con lapiz y papel muy posiblemente hubieramos identificado los puntos que corresponden a cada tipo de temperatura y lugar y los hubieramos "unido con líneas", necesitamos que ggplot2 haga esto. ¿Cómo le indicamos que observaciones corresponde a cada variable de temperatura? Necesitamos que los *agrupe* por las variables `tipo` y `lugar` (¡qué bueno que tenemos toda esa información en nuestra base de datos!).
+Por suerte las funciones `geom_*()` tienen más o menos nombres amigables. Pero el gráfico sigue teniendo problemas algo más sutiles. En este caso está haciendo un gráfico por tipo de temperatura, pero en el camino mezcló las observaciones que se hicieron en el abrigo, a la intemperie y en el suelo. Si estuviéramos dibujando este gráfico con lápiz y papel muy posiblemente hubiéramos identificado los puntos que corresponden a cada tipo de temperatura y lugar y los hubiéramos "unido con líneas", necesitamos que ggplot2 haga esto. ¿Cómo le indicamos que observaciones corresponde a cada variable de temperatura? Necesitamos que los *agrupe* por las variables `tipo` y `lugar` (¡qué bueno que tenemos toda esa información en nuestra base de datos!).
 
 ```{r}
 ggplot(data = na.omit(bariloche), mapping = aes(x = Fecha, y = valor)) +
@@ -123,7 +123,7 @@ Cuando mencionamos que ggplot2 construye gráficos por capas, lo decíamos en se
 3. ¿Qué cambio podrías hacer para que los puntos también tengan color según el tipo de temperatura?
 :::
 
-Acá surge una característica importante de las capas: pueden tener apariencia independiente si solo *mapeamos* el color en la capa de las líneas y no en la capa de los puntos. Al mismo tiempo, si quisieramos que todas las capas tenga la misma apariencia podemos incluir el argumento `color = `en la función global `ggpplot()` o repetirlo en cada capa.
+Acá surge una característica importante de las capas: pueden tener apariencia independiente si solo *mapeamos* el color en la capa de las líneas y no en la capa de los puntos. Al mismo tiempo, si quisiéramos que todas las capas tenga la misma apariencia podemos incluir el argumento `color = `en la función global `ggpplot()` o repetirlo en cada capa.
 
 ```{r}
 ggplot(na.omit(bariloche), aes(x = Fecha, y = valor)) +
@@ -144,7 +144,7 @@ Algunos argumentos para cambiar la apariencia de las geometrías son:
 * `pch` modifica el tamaño del punto
 * `size` modifica el tamaño de los elementos (por ejemplo el tamaño de puntos o el grosor de líneas)
 * `alpha` modifica la transparencia de los elementos (1 = opaco, 0 = transparente)
-* `shape` modifica el tipo de punto (circulos, cuadrados, triángulos, etc.)
+* `shape` modifica el tipo de punto (círculos, cuadrados, triángulos, etc.)
 
 El *mapeo* entre una variable y un parámetro de geometría se hace a través de una **escala**. La escala de colores es lo que define, por ejemplo, que los puntos donde la variable `tipo` toma el valor `"Maxima"` van a tener el color rosa (<span style="color:#F77D75">&#9679;</span>), donde toma el valor `"Minima"`, celeste (<span style="color:#619cff">&#9679;</span>), etc...
 
@@ -180,7 +180,7 @@ Tal vez notaste que agregamos una función (`lubridate::floor_date()`) para obte
 
 Esto es posible gracias al operador `%>%` que le *pasa* el resultado de `summarise()` a la función `ggplot()`. Y este resultado no es ni más ni menos que el data.frame que necesitamos para hacer nuestro gráfico. Es importante notar que una vez que comenzamos el gráfico ya **no** se puede usar el operador `%>%` y las capas del gráfico se *suman* como siempre con `+`.
 
-Este gráfico entonces parece mostrar la evolución de la temperatura a lo largo del tiempo de una manera más límpia. Pero sería interesante ver esa evlución o relación en el tiempo más explicitamente agregando una nueva capa con `geom_smooth()`.
+Este gráfico entonces parece mostrar la evolución de la temperatura a lo largo del tiempo de una manera más limpia. Pero sería interesante ver esa evolución o relación en el tiempo más explícitamente agregando una nueva capa con `geom_smooth()`.
 
 ```{r}
 bariloche %>% 
@@ -259,7 +259,7 @@ Esta nueva capa con `facet_wrap()` divide al gráfico inicial en 3 paneles o fac
 
 ¿Y si quisiéramos generar paneles a partir de 2 variables? Para eso existe `facet_grid()`. En este gráfico generamos paneles viendo la “relación entre el tipo y el lugar” donde se midió la temperatura y por ejemplo en el primer panel arriba a la izquierda podremos observar la temperatura máxima en el abrigo. En este caso mapear el tipo de temperatura al color delos puntos no parece ser necesario ya que cada columna ya nos permite identificar eso, sin embargo en algunos casos ayuda a leer el gráfico más rápido.
 
-En este caso también notamos que esta base de datos está poblada de datos faltantas ya que varios paneles quedan vacíos. 
+En este caso también notamos que esta base de datos está poblada de datos faltantes ya que varios paneles quedan vacíos. 
 
 ```{r}
 bariloche %>% 

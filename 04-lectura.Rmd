@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Archivos csv
 
-Existen muchas funciones distintas para leer datos dependiendo del formato en el que están guardados. Para datos tabulares, la forma más útil es el formato csv, que es un archivo de texto plano con datos separados por coma. Vamos a trabajar con datos de temperatura de una estación meterológica en Bariloche:
+Existen muchas funciones distintas para leer datos dependiendo del formato en el que están guardados. Para datos tabulares, la forma más útil es el formato csv, que es un archivo de texto plano con datos separados por coma. Vamos a trabajar con datos de temperatura de una estación meteorológica en Bariloche:
 
 ```{r}
 library(readr)
@@ -56,7 +56,7 @@ Ajá! Se ve que a alguien se le ocurrió usar los caracteres "N/A" para designar
 ```{r}
 bariloche <- read_csv("datos/bariloche.csv", na = "N/A")
 ```
-¡No! Otra vez `Temperatura` se leyó como caracter. Si usás `str` podés ver que'pasó:
+¡No! Otra vez `Temperatura` se leyó como caracter. Si usás `str` podés ver qué pasó:
 
 ```{r}
 str(bariloche)
@@ -143,7 +143,7 @@ temperatura %>%
   filter(level == 1000 & between(lat, -65, -20) & between(lon, 280, 310))
 ```
 
-Pero es mucho maś eficiente leer sólo los datos que te interesan, especialmente en archivos NetCDF grandes, que incluso no puede ser leídos en memoria enteros. `ReadNetCDF()` tiene un argumento llamado `subset` que sirve para especificar qué datos leer:
+Pero es mucho más eficiente leer sólo los datos que te interesan, especialmente en archivos NetCDF grandes, que incluso no puede ser leídos en memoria enteros. `ReadNetCDF()` tiene un argumento llamado `subset` que sirve para especificar qué datos leer:
 
 ```{r}
 ReadNetCDF("datos/temperatura.nc", vars = "air",

@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-De nada sirve amar un informe en R Markdown y luego compilarlo si nadie lo va a ver. Hay que hacérselo llegar a las personas que deben leerlo. Publicar los reportes en una página web puede ser un método especialmente útil para reportes que requieren actualizarse periódicamente y lo bueno es que podés convertir tu reporte de R Markdown en una paǵina web en muy pocos pasos.
+De nada sirve amar un informe en R Markdown y luego compilarlo si nadie lo va a ver. Hay que hacérselo llegar a las personas que deben leerlo. Publicar los reportes en una página web puede ser un método especialmente útil para reportes que requieren actualizarse periódicamente y lo bueno es que podés convertir tu reporte de R Markdown en una página web en muy pocos pasos.
 
 ## Sitio web de una sola página 
 
@@ -21,8 +21,8 @@ Lo bueno es que si ya sabés cómo generar un reporte en html usando R Markdown,
 
 Pero primero un pequeño detalle. Seguramente tu reporte tiene algún nombre descriptivo consistente con su contenido, pero para este paso va a tener que tener el nombre especial: "index.html". Para esto tenés dos opciones: 
 
-1. ponerle "index.Rmd" al archivo de R Markdon y knitear como siempre
-2. que tu archivo Rmd tenga el nombre que sea, knitar como siempre y luego ir y renombrar el archivo de salida como "index.html"
+1. ponerle "index.Rmd" al archivo de R Markdown y knitear como siempre
+2. que tu archivo Rmd tenga el nombre que sea, knitear como siempre y luego ir y renombrar el archivo de salida como "index.html"
 
 En cualquiera de los dos casos, lo que querés tener es una carpeta con un archivo llamado "index.html" adentro. Listo, eso es un sitio web!
 
@@ -71,7 +71,7 @@ Donde los los archivos informe_1.html e informe_2.html serían generados por sus
 **Desafío** Creá un sitio web con una página de inicio!
 
 1. Creá uno o más archivos Rmd (podés dejar la plantilla por defecto que da RStudio) y knitealos en sus respectivos archivos html. 
-2. Abrí el archivo index.Rmd convertila en una página de inicio con vínculos a los archivos html que creaste y kniteálo para obtener el archivo index.html
+2. Abrí el archivo index.Rmd convertila en una página de inicio con vínculos a los archivos html que creaste y knitealo para obtener el archivo index.html
 3. Subí esa carpeta a Netlify. 
 :::
 
@@ -125,3 +125,10 @@ Tener el archivo _site.yaml tiene otra gran ventaja. Ahora RStudio sabe que quer
 4. Generá el sitio apretando el botón "Build Website" que está en la solapa "Build" de RStudio. 
 5. Andá a [https://app.netlify.com/drop](https://app.netlify.com/drop) y arrastrá la carpeta donde se generó el sitio (que va a ser una carpeta dentro del proyecto, no la carpeta del proyecto).
 :::
+
+
+<div class="btn-group" role="group" aria-label="Navegación">
+  <a href= "11-reportes-II.html" class = "btn btn-primary">Anterior</a>
+  <a href= "hoja-de-ruta.html" class = "btn btn-primary">Hoja de Ruta</a>
+</div>
+

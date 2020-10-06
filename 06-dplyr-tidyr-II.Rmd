@@ -19,7 +19,7 @@ Un mismo conjunto de datos puede estar en un formato "ancho" o "largo". Los dato
 
 En el formato "ancho" es un poco más complejo de definirlo pero la idea general es que:
 
--   cada fila es un "item"
+-   cada fila es un "ítem"
 -   cada columna es una variable
 
 ![](img/largo-ancho.png)
@@ -150,7 +150,7 @@ Esta tabla sólo tiene datos de temperatura. ¿Se podría incluir cualquier otra
 
 ## De largo a ancho con `pivot_wider()`
 
-Ahora la variable `bariloche_largo` está en el formato más largo posible. Tiene 6 columnas, de las cuales sólo una es la columnas con valores. Pero con los datos así no podrías hacer un gráfico de puntos que muestre, por ejemplo, la relación entre la tempertura mínima y la tempoeratura máxima. En este caso todos los valores en la columna `valor` tienen las mismas unidades, pero podría tener otras variables, como humedad o presión. En ese caso, no tendrían las mismas unidaes, por lo que operar con ese vector podría dar resultados sin sentido. Muchas veces es conveniente y natural tener los datos en un formato intermedio en donde hay múltiples columnas con los valores de distintas variables observadas.
+Ahora la variable `bariloche_largo` está en el formato más largo posible. Tiene 6 columnas, de las cuales sólo una es la columnas con valores. Pero con los datos así no podrías hacer un gráfico de puntos que muestre, por ejemplo, la relación entre la temperatura mínima y la temperatura máxima. En este caso todos los valores en la columna `valor` tienen las mismas unidades, pero podría tener otras variables, como humedad o presión. En ese caso, no tendrían las mismas unidades, por lo que operar con ese vector podría dar resultados sin sentido. Muchas veces es conveniente y natural tener los datos en un formato intermedio en donde hay múltiples columnas con los valores de distintas variables observadas.
 
 Pasa "ensanchar" una tabla está la función `pivot_wider()` ("wider" es "más ancha" en inglés) y el código para conseguir este formato intermedio es:
 
@@ -241,7 +241,7 @@ Para buscar sistemáticamente estas estaciones errantes hay que usar `anti_join`
 anti_join(observaciones, estaciones, by = c("station" = "nombre"))
 ```
 
-En la tabla `observaciones`, la estación "PRESIDENCIA ROQUE SAENZ PEÑA AERO" existe, tiene un problema de codificación! ¿Qué pasa si intercambás el órden de las variables (y el orden de los nombres en el vector que le pasamos a `by`)?
+En la tabla `observaciones`, la estación "PRESIDENCIA ROQUE SAENZ PEÑA AERO" existe, tiene un problema de codificación! ¿Qué pasa si intercambiás el orden de las variables (y el orden de los nombres en el vector que le pasamos a `by`)?
 
 
 ```{r}
@@ -277,7 +277,7 @@ En este caso, perdemos las filas de `observaciones` que no encontraron coinciden
 ::: {.alert .alert-info}
 **Desafío**
 
-En el archivo "radiacion_smn.csv" hay datos de radiación media diaria medidos en dos estaciones del Servicio Meteorológico Nacional. El objetivo es que unas `observaciones` con esos datos teniendo en cuenta tanto la estación como la fecha.
+En el archivo "radiación_smn.csv" hay datos de radiación media diaria medidos en dos estaciones del Servicio Meteorológico Nacional. El objetivo es que unas `observaciones` con esos datos teniendo en cuenta tanto la estación como la fecha.
 
 1.  Lee la base de datos `radiacion_smn.csv` en una nueva variable que se llame `radiacion`.
 2.  Revisá el nombre de las variables en esta base de datos, ¿se llaman igual que las variables en `observaciones`?

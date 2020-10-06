@@ -14,13 +14,13 @@ output:
 
 ### Orientándose en RStudio
 
-En principio se podría escribir código de R con el Bloc de Notas y luego ejecutarlo, pero nosotros vamos a usar RStudio, que brinda una interfaz gráfica con  un montón de herramientas extra para hacernos la vida maś fácil. 
+En principio se podría escribir código de R con el Bloc de Notas y luego ejecutarlo, pero nosotros vamos a usar RStudio, que brinda una interfaz gráfica con  un montón de herramientas extra para hacernos la vida más fácil. 
 
 Cuando abras RStudio te vas a encontrar con una ventana con cuatro paneles como esta:
 
 ![Ventana de RStudio](img/rstudio.png)
 
-Los dos paneles de la izquierda son las dos formas principales de interactuar con R. El panel de abajo a la izquierda es **la consola**. Es el lugar que te permite *conversar* con R. Podés escribir comandos que se van a ejecutar inmediátamente cuando apretes Enter y cuyo resultado se va a mostar en la consola. 
+Los dos paneles de la izquierda son las dos formas principales de interactuar con R. El panel de abajo a la izquierda es **la consola**. Es el lugar que te permite *conversar* con R. Podés escribir comandos que se van a ejecutar inmediátamente cuando apretes Enter y cuyo resultado se va a mostrar en la consola. 
 
 Por ejemplo, hacé click en la consola, escribí `2 + 2` y apretá Enter. Vas a ver algo como esto:
 
@@ -41,7 +41,7 @@ Entonces, para resumir:
 
 ### Extendiendo R
 
-R es un lenguaje creado por estadísticos y pensado para la estadística, por lo que ya viene con un montón de métodos estadísticos incorporados, como `mean()` o `median()`. Pero hay tantos métodos estadísticos como gente haciendo estadística así que es imposible que estén todos. La solución es que podés "agregarle" a R funciones que no vienen instaladas por defecto pero que escribieron otras personas en forma de "paquetes". Este es el poder de **la communidad de R**! 
+R es un lenguaje creado por estadísticos y pensado para la estadística, por lo que ya viene con un montón de métodos estadísticos incorporados, como `mean()` o `median()`. Pero hay tantos métodos estadísticos como gente haciendo estadística así que es imposible que estén todos. La solución es que podés "agregarle" a R funciones que no vienen instaladas por defecto pero que escribieron otras personas en forma de "paquetes". Este es el poder de **la comunidad de R**! 
 
 Para instalar paquetes de R, la forma mas fácil es con la función `install.packages()`. Entonces, por ejemplo, 
 
@@ -101,7 +101,7 @@ Value
 
 
 Examples
-: (abajo de todo) Es la sección más importante y probablemente la que vas a buscar primero cuando te encuentres con una función nueva que no sabés cómo usar. Acá vas a encontrar código de R de que ejemplifica el uso típico de la función. Podes copiar y pegar el codigo en la consola y ver el resultado para entender como funciona. 
+: (abajo de todo) Es la sección más importante y probablemente la que vas a buscar primero cuando te encuentres con una función nueva que no sabés cómo usar. Acá vas a encontrar código de R de que ejemplifica el uso típico de la función. Podes copiar y pegar el código en la consola y ver el resultado para entender como funciona. 
 
 
 (Otras secciones)

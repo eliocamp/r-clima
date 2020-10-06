@@ -127,7 +127,7 @@ bariloche %>%
 
 Si querés calcular la temperatura media para cada mes, tenés que usar el combo `group_by() %>% summarise()`. Es decir, primero agrupar la tabla según la columna `mes` y luego calcular un promedio de `Temperatura_Abrigo_150cm` para cada grupo.
 
-Para agrupar la tabla bariloche según el mes usamos el siguiente código:
+Para agrupar la tabla `bariloche` según el mes usamos el siguiente código:
 
 ```{r}
 bariloche %>% 
@@ -146,7 +146,7 @@ bariloche %>%
 
 ¡Tadá! `summarise()` devuelve una tabla con una columna para el continente y otra nueva, llamada "Temperatura_media" que contiene el promedio de `Temperatura_Abrigo_150cm` para cada grupo. Pero... aparecen muchos datos faltantes, cuando en realidad hay muchas observaciones para cada mes. 
 
-Si revisamos la ayuda de la función `mean()`, vemos que tiene un argumento que por defecto es `na.rm = FALSE`, esto significa que si al menos una observación es `NA`, el resultado será `NA`. Cambiemos estre argumento a `TRUE` para cambiar el comportamiento de la función.
+Si revisamos la ayuda de la función `mean()`, vemos que tiene un argumento que por defecto es `na.rm = FALSE`, esto significa que si al menos una observación es `NA`, el resultado será `NA`. Cambiemos este argumento a `TRUE` para cambiar el comportamiento de la función.
 
 ```{r}
 bariloche %>% 
@@ -195,7 +195,7 @@ En este caso `count()` es análogo a `summarise(cantidad = n())`.
 
 Todo esto está bien para hacer cálculos con columnas previamente existentes, pero muchas veces tenés que crear nuevas columnas. 
 
-La tabla `bariloche` tiene información de temperaturas en grados centigrados y puede ser necesario convertirlas a kelvin. `mutate()` permite agregar una nueva columna llamada "Temperatura_kelvin" con esa información:
+La tabla `bariloche` tiene información de temperaturas en grados centígrados y puede ser necesario convertirlas a kelvin. `mutate()` permite agregar una nueva columna llamada "Temperatura_kelvin" con esa información:
 
 ```{r}
 bariloche %>% 
@@ -204,7 +204,7 @@ bariloche %>%
 
 Recordá que las funciones de {dplyr} nunca modifican la tabla original. `mutate()` devolvió una nueva tabla que es igual a la tabla `bariloche` pero con la columna "Temperatura_kelvin" agregada. La tabla `bariloche` sigue intacta.
 
-Si quiseramos aplicar la misma operación a todas las columnas que tienen temperatura, la función `across()` brinda un atajo para no tener que aplicar `mutate()` una y otra vez a cada cada columna.
+Si quisiéramos aplicar la misma operación a todas las columnas que tienen temperatura, la función `across()` brinda un atajo para no tener que aplicar `mutate()` una y otra vez a cada cada columna.
 
 ```{r}
 bariloche %>% 
@@ -221,7 +221,7 @@ Varias cosas pasaron acá:
 
 **Desafío**
 
-Si quiseras calcular la temperatura media para cada día y guardarla en una nueva variable, ¿cómo completarías el siguiente código?
+Si quisieras calcular la temperatura media para cada día y guardarla en una nueva variable, ¿cómo completarías el siguiente código?
 
 ```{r eval=FALSE}
 bariloche %>% 
@@ -229,11 +229,11 @@ bariloche %>%
 ```
 :::
 
-Ahora imaginemos que necesitamos modificar algunas observaciones, aquellas que cumplen con una condición. Por ejemplo, descubrimos que cuando la humedad es 100%, el sensor de temperatura no funciona correctamente y necesitamos aplicarle una correción de -2° en esas situaciones. 
+Ahora imaginemos que necesitamos modificar algunas observaciones, aquellas que cumplen con una condición. Por ejemplo, descubrimos que cuando la humedad es 100%, el sensor de temperatura no funciona correctamente y necesitamos aplicarle una corrección de -2° en esas situaciones. 
 
-Podríamos filtrar las observaciones que cumplen con que `Humedad_Media == 100` y luego modificar la temperatura, pero entonces tendríamos una base de datos para las observaciones con mayor humedad y la temperatura corregida y otra base de datos sin la corrección. Necesitamos poder modifiar *solo algunas* observaciones y que el resto se mantenga igual.
+Podríamos filtrar las observaciones que cumplen con que `Humedad_Media == 100` y luego modificar la temperatura, pero entonces tendríamos una base de datos para las observaciones con mayor humedad y la temperatura corregida y otra base de datos sin la corrección. Necesitamos poder modificar *solo algunas* observaciones y que el resto se mantenga igual.
 
-Para eso podemos utilizar la función `if_else()`, que aplica una operación *si ocurre algo* y otra operación *si no*. En este caso si `Humedad_Media == 100` es verdadera, restamos 2 grados a la Temeperatura, si es falsa no la modificamos. Y por supuesto se la aplicamos a la columna con `mutate()`
+Para eso podemos utilizar la función `if_else()`, que aplica una operación *si ocurre algo* y otra operación *si no*. En este caso si `Humedad_Media == 100` es verdadera, restamos 2 grados a la Temperatura, si es falsa no la modificamos. Y por supuesto se la aplicamos a la columna con `mutate()`
 
 ```{r}
 bariloche %>% 
@@ -246,7 +246,7 @@ bariloche %>%
 
 La mayoría de las funciones de R pueden trabajar sobre vectores (y las columnas de un data.frame son como vectores ordenados!) y lo hacen **elemento a elemento**. 
 
-En este caso `if_else()` recorre la columa con la información de humedad y *elemento a elemento* revisa si el valor es igual a 100. Luego decide si debe modificar o no cada elemento, en el orden en el que aparecen.
+En este caso `if_else()` recorre la columna con la información de humedad y *elemento a elemento* revisa si el valor es igual a 100. Luego decide si debe modificar o no cada elemento, en el orden en el que aparecen.
 :::
 
 :::{.alert .alert-info}

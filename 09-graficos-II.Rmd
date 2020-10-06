@@ -33,7 +33,7 @@ temperatura <- ReadNetCDF("datos/temperatura.nc", vars = "air",
 glimpse(temperatura)
 ```
 
-La variable `temperatura` es una tabla que tiene dato de temperatura del aire para cada tiempo, nivel (altura), latitud y longitud. Como este archivo tiene información sólo para un tiempo y el código filtró sólo datos de un nivel, entonces la variació es sólo en latitud y longitud. ¿Cómo se grafica?
+La variable `temperatura` es una tabla que tiene dato de temperatura del aire para cada tiempo, nivel (altura), latitud y longitud. Como este archivo tiene información sólo para un tiempo y el código filtró sólo datos de un nivel, entonces la variación es sólo en latitud y longitud. ¿Cómo se grafica?
 
 Se puede dibujar un punto por cada dato:
 
@@ -49,7 +49,7 @@ ggplot(temperatura, aes(lon, lat)) +
   geom_point(aes(color = air))
 ```
 
-Puntos redondos y separdos no es la forma más informativa de ver estos datos. Una grilla regular en relaidad define como una "imagen" donde cada punto es un pixel. Esto se llama un "raster" y con ggplot se puede graficar con `geom_raster()`.
+Puntos redondos y separados no es la forma más informativa de ver estos datos. Una grilla regular en realidad define como una "imagen" donde cada punto es un pixel. Esto se llama un "raster" y con ggplot se puede graficar con `geom_raster()`.
 
 
 ```{r}
@@ -67,9 +67,9 @@ ggplot2 tiene tres funciones para generar rectángulos: `geom_raster()`, `geom_t
 
 ## Mapas
 
-Bien, hasta ahí tenés un gráfico con los datos, pero para entenderlos en su contexto espacial como mínimo hace falta un mapa. Para tener un mapa se neceistan datos de la localización de las costas o las fronteras. Existen varias fuentes de estos datos, pero una muy buena es [Natural Earth](https://www.naturalearthdata.com/). El paquete {rnaturalearth} provee una interfaz amigable para usar estos datos directamente en {ggplot2}. 
+Bien, hasta ahí tenés un gráfico con los datos, pero para entenderlos en su contexto espacial como mínimo hace falta un mapa. Para tener un mapa se necesitan datos de la localización de las costas o las fronteras. Existen varias fuentes de estos datos, pero una muy buena es [Natural Earth](https://www.naturalearthdata.com/). El paquete {rnaturalearth} provee una interfaz amigable para usar estos datos directamente en {ggplot2}. 
 
-Primero hay que cargar el mapa que querramos. Por ejemplo, para graficar el mapa de Argentina y sus países limítrofes cargamos los datos con `ne_countries()`:
+Primero hay que cargar el mapa que queramos. Por ejemplo, para graficar el mapa de Argentina y sus países limítrofes cargamos los datos con `ne_countries()`:
 
 ```{r}
 mapa <- rnaturalearth::ne_countries(country = c("argentina", "chile", "uruguay", 
@@ -78,7 +78,7 @@ mapa <- rnaturalearth::ne_countries(country = c("argentina", "chile", "uruguay",
                                     returnclass = "sf")
 ```
 
-El argumento `country` es un vector con los países que necesitamos. El argumento `returnclass` es un poco técnico, pero hase referencia a la estructura que queremos que devuevla. En este caso, `returnclass = "sf"` hace que devuelva un objeto de clase "Simple Features". Las "Simple Features" son cualquier cosa menos simple internamente pero con {ggplot2} se pueden graficar con un geom específico: 
+El argumento `country` es un vector con los países que necesitamos. El argumento `returnclass` es un poco técnico, pero hace referencia a la estructura que queremos que devuelva. En este caso, `returnclass = "sf"` hace que devuelva un objeto de clase "Simple Features". Las "Simple Features" son cualquier cosa menos simple internamente pero con {ggplot2} se pueden graficar con un geom específico: 
 
 ```{r}
 ggplot(mapa) +
@@ -100,7 +100,7 @@ mi_mapa <- geom_sf(data = mapa, inherit.aes = FALSE, fill = NA, color = "black",
 
 Además de las modificaciones estéticas, esta llamada a `geom_sf` tiene el argumento `data = mapa`, ya que no va a usar los datos "globales" de la llamada a `ggplot()`. También tiene `ìnherit.aes = FALSE` porque tampoco tiene que "heredar" los aes globales. 
 
-Entonces ahora, para graficar la temperatura y el mapa encima, armarmos el gráfico de raster igual que antes y le sumamos el mapa:
+Entonces ahora, para graficar la temperatura y el mapa encima, armamos el gráfico de raster igual que antes y le sumamos el mapa:
 
 
 ```{r}
@@ -115,7 +115,7 @@ ggplot(temperatura, aes(lon, lat)) +
 ¿Podés explicar qué salió mal?
 :::
 
-Existen dos convenciones básicas para medir la longitud, medida entre 0ª y 360º o entre -180ª y +180ª. Los datos de temperatura usan la primera y los del mapa, la segunda. Para convertir entre una y otra convención, podés usar la función `ConvertLongitude()` de {metR}:
+Existen dos convenciones básicas para medir la longitud, medida entre 0º y 360º o entre -180º y +180º. Los datos de temperatura usan la primera y los del mapa, la segunda. Para convertir entre una y otra convención, podés usar la función `ConvertLongitude()` de {metR}:
 
 ```{r}
 temperatura <- mutate(temperatura, lon = metR::ConvertLongitude(lon, from = 360))
@@ -149,7 +149,7 @@ ggplot(temperatura, aes(lon, lat)) +
   coord_sf(ylim = c(-55, -20), xlim = c(-80, -50))
 ```
 
-Las líneas dibujadas por `geom_contour()` son líneas de nivel que unen puntos de valor constante. Sin embargo, esas líneas azules no dan ninguna indicación del valor de la variable por lo que es conveniente mapear el color de las líneasa ese valor constante.
+Las líneas dibujadas por `geom_contour()` son líneas de nivel que unen puntos de valor constante. Sin embargo, esas líneas azules no dan ninguna indicación del valor de la variable por lo que es conveniente mapear el color de las líneas ese valor constante.
 
 ```{r}
 ggplot(temperatura, aes(lon, lat)) +
@@ -158,7 +158,7 @@ ggplot(temperatura, aes(lon, lat)) +
   coord_sf(ylim = c(-55, -20), xlim = c(-80, -50))
 ```
 
-¿De dónde salió ese `stat(level)`? Algunso geoms que realizan transofrmaciones estadísticas computan variables nuevas que luego se pueden mapear a parámetros geométricos. "level" es una de esas variables computadas de `geom_contour`. Para decirle a ggplot que al level al que te referís es a la variable computada, se rodea a la variable con la función `stat()`.
+¿De dónde salió ese `stat(level)`? Algunos geoms que realizan transformaciones estadísticas computan variables nuevas que luego se pueden mapear a parámetros geométricos. "level" es una de esas variables computadas de `geom_contour`. Para decirle a ggplot que al level al que te referís es a la variable computada, se rodea a la variable con la función `stat()`.
 
 Una variedad de las líneas de contorno son las líneas "llenas". Hasta hace poco, {ggplot2} no tenía una forma de graficar estos contornos llenos, así que está implementado en {metR} con la function `geom_contour_fill()`. Recientemente {ggplot2} implementó la función `geom_contour_filled()` pero a nosotros nos gusta más la versión de {metR} `r emo::ji("wink")`
 
@@ -217,7 +217,7 @@ Graficá estos puntos usando `geom_raster()` y `geom_contour()`. ¿Cuál es el r
 
 Como estos datos no están en una grilla regular, `geom_raster()` y `geom_contour()` no los pueden graficar. Para usar contornos hay que interpolar a una grilla regular. Una forma de hacerlo es usando la técnica de [kriging](https://es.wikipedia.org/wiki/Kriging). Un paquete de R que la implementa es {kriging} en su función `kriging`
 
-Si vas a la ayuda de `kriging()`, vas a ver que requerie un vector de coordenadas x, un vector de coordenadas y y un vector de valores observados. Estos son las columnas `lon`, `lat` y `tmax_media` de la tabla `observaciones`. Entonces el código sería:
+Si vas a la ayuda de `kriging()`, vas a ver que requiere un vector de coordenadas x, un vector de coordenadas y y un vector de valores observados. Estos son las columnas `lon`, `lat` y `tmax_media` de la tabla `observaciones`. Entonces el código sería:
 
 ```{r, error = TRUE}
 observaciones_regular <- kriging::kriging(x = observaciones$lon, 
@@ -244,7 +244,7 @@ observaciones_regular <- observaciones %>%
 ::: {.alert .alert-info} 
 **Desafío**
 
-¿Qué es lo que devolvió la función `kriging()`? Podés mirar la doumentación de la función (en la sección "Value") o usando `glimpse(observaciones_regular)`.
+¿Qué es lo que devolvió la función `kriging()`? Podés mirar la documentación de la función (en la sección "Value") o usando `glimpse(observaciones_regular)`.
 
 :::
 
@@ -254,7 +254,7 @@ observaciones_regular <- observaciones %>%
 ```{r}
 glimpse(observaciones_regular)
 ```
-La mayoría de los elementos brindan información detallad sobre los parámetros usados y computados para relaizar la interpolación. El elemento útil es el que se llama `map`, que tiene los datos interpolados. ¿Qué es lo que tiene `map`?
+La mayoría de los elementos brindan información detallad sobre los parámetros usados y computados para realizar la interpolación. El elemento útil es el que se llama `map`, que tiene los datos interpolados. ¿Qué es lo que tiene `map`?
 
 ```{r}
 glimpse(observaciones_regular$map)
@@ -278,7 +278,7 @@ ggplot(observaciones_regular, aes(lon, lat)) +
   coord_sf(ylim = c(-55, -20), xlim = c(-80, -50))
 ```
 
-Este mapa se puede mejorar. En particular, la interpolación en el Mar Argentino, a miles de kilómetros de cualquier observación, no tiene ningún sentido. Para controlar el dominio en el cual se relaiza la interpolación hay que usar el argumento `polygons` de `kriging()`. Ahí, hay que poner puntos en x e y que definan el polígono dentro del cual se va a hacer la interpolación. ¿De dónde sacás un polígono con el contorno de Argentina? `r emo::ji("thinking")`. ¡Lo estás mirando! Es nuestro mapa. 
+Este mapa se puede mejorar. En particular, la interpolación en el Mar Argentino, a miles de kilómetros de cualquier observación, no tiene ningún sentido. Para controlar el dominio en el cual se realiza la interpolación hay que usar el argumento `polygons` de `kriging()`. Ahí, hay que poner puntos en x e y que definan el polígono dentro del cual se va a hacer la interpolación. ¿De dónde sacás un polígono con el contorno de Argentina? `r emo::ji("thinking")`. ¡Lo estás mirando! Es nuestro mapa. 
 
 La función `fortify()` de {ggplot2} genera polígonos a partir de la salida de {rnaturalearth}. De esos polígonos hay que seleccionar únicamente las coordenadas de longitud y latitud, y al mismo tiempo, renombrarlas como x e y para que `kriging()` las entienda. Finalmente, hay que meter todo eso en una lista. 
 
@@ -310,7 +310,13 @@ ggplot(observaciones_regular, aes(lon, lat)) +
 ::: {.alert .alert-info}
 **Desafío**
 
-La interpolación de este gráfico queda fea en los bordes porque tiene poca resolución. ¿Qué hay que cambiar en la llamda a `kriging()` para incrementarla? Fijate en la documentación de la función. 
+La interpolación de este gráfico queda fea en los bordes porque tiene poca resolución. ¿Qué hay que cambiar en la llamada a `kriging()` para incrementarla? Fijate en la documentación de la función. 
 
 
 :::
+
+
+<div class="btn-group" role="group" aria-label="Navegación">
+  <a href= "08-lubridate.html" class = "btn btn-primary">Anterior</a>
+  <a href= "10-graficos-III.html" class = "btn btn-primary">Siguiente</a>
+</div>

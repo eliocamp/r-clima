@@ -41,7 +41,7 @@ Si en realidad estás buscando aprender R desde cero, te sugerimos revisar [este
     - Organizar columnas y sus nombres
     - Combinar tablas de datos a partir de variables llave
 - [Graficar en el tiempo](07-graficos-I.html)
-  - Graficos de puntos
+  - Gráficos de puntos
   - Gráfico de líneas
   - Suavizado
   - Paneles
