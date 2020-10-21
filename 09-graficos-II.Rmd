@@ -169,6 +169,7 @@ ggplot(temperatura, aes(lon, lat)) +
   coord_sf(ylim = c(-55, -20), xlim = c(-80, -50))
 ```
 
+
 Por último, tranquilamente se pueden usar ambos geoms para resaltar los límites y
 
 
@@ -307,6 +308,7 @@ ggplot(observaciones_regular, aes(lon, lat)) +
   coord_sf(ylim = c(-55, -20), xlim = c(-80, -50))
 ```
 
+
 ::: {.alert .alert-info}
 **Desafío**
 
@@ -314,6 +316,34 @@ La interpolación de este gráfico queda fea en los bordes porque tiene poca res
 
 
 :::
+
+::: {.alert .alert-success} 
+**Nota** 
+Para que `geom_contour_fill()` funcione bien en este caso, hay que instalar la versión de desarrollo de `metR`que se puede instalar con el comando `remotes::install_gihub("eliocamp/metR@dev")`. 
+También es necesaria esa versión para que funcione `geom_text_contour()` como en el ejemplo que sigue.
+:::
+
+
+Este gráfico tiene lo básico, pero se le puede poner un poco de amor para que quede mejor. Se le puede agregar líneas de contorno en negro para resaltar los contornos, cambiar la escala de colores para que evoque más la idea de "temperatura máxima", agregar etiquetas a los contornos y modificar el texto de los ejes y las escalas. Haciendo todo eso, podemos llegar a algo como esto.
+
+```{r}
+ggplot(observaciones_regular, aes(lon, lat)) +
+  geom_contour_fill(aes(z = tmax_media)) +
+  geom_contour2(aes(z = tmax_media), size = 0.2) +
+  geom_text_contour(aes(z = tmax_media), skip = 1,
+                    rotate = FALSE, size = 3.5,
+                    stroke = 0.1, color ="white", stroke.color = "black") +
+  geom_point(data = observaciones, size = 0.2) +
+  mi_mapa +
+  scale_fill_distiller(palette = "YlOrRd", direction = 1) +
+  coord_sf(ylim = c(-55, -20), xlim = c(-80, -50)) +
+  labs(fill = "Temperatura (ºC)", 
+       x = NULL,
+       y = NULL)  +
+  theme_minimal()
+```
+
+Vas av er un poco más sobre la apariencia de los gráficos en la siguiente sección. 
 
 
 <div class="btn-group" role="group" aria-label="Navegación">

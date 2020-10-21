@@ -597,7 +597,8 @@ div.tocify {
 <p>Existen muchas funciones distintas para leer datos dependiendo del formato en el que están guardados. Para datos tabulares, la forma más útil es el formato csv, que es un archivo de texto plano con datos separados por coma. Vamos a trabajar con datos de temperatura de una estación meteorológica en Bariloche:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(readr)</span>
 <span id="cb1-2"><a href="#cb1-2"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## Parsed with column specification:
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   Fecha = col_datetime(format = &quot;&quot;),
 ##   Temperatura = col_character()
@@ -659,7 +660,8 @@ div.tocify {
 </div>
 <p><code>read_csv</code> tiene un argumento <code>na</code> que controla qué valores van a interpretarse como valores faltantes. En este caso, sabés que “N/A” es uno. Entonces debería funcionar buen leer los datos así:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;N/A&quot;</span>)</span></code></pre></div>
-<pre><code>## Parsed with column specification:
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   Fecha = col_datetime(format = &quot;&quot;),
 ##   Temperatura = col_character()
@@ -680,7 +682,8 @@ div.tocify {
 </div>
 <p>Antes, <code>na</code> estaba como el valor por defecto, que es <code>c("", "NA")</code>, lo que significa que tanto valores vacíos como valores <code>"NA"</code> son considerados valores faltantes. Lo que tenés que hacer es agregar también el valor <code>"N/A"</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>,  <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;N/A&quot;</span>))</span></code></pre></div>
-<pre><code>## Parsed with column specification:
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   Fecha = col_datetime(format = &quot;&quot;),
 ##   Temperatura = col_double()
@@ -697,7 +700,8 @@ div.tocify {
 ##                                NA&#39;s   :501</code></pre>
 <p><code>summary</code> devuelve algunas estadísticas simples sobre cada columna. La columna <code>Temperatura</code> tiene 501 valores faltantes, su máximo es 25.70972 y su mínimo es… ¿-999.990? Eso no puede ser. Seguramente a otro alguien se le ocurrió usar “-999.99” para marcar los datos faltantes. Una vez que sabés eso, podés volver a leer otra vez los datos agregando otro marcador más para los datos faltantes.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;N/A&quot;</span>, <span class="st">&quot;-999.99&quot;</span>))</span></code></pre></div>
-<pre><code>## Parsed with column specification:
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   Fecha = col_datetime(format = &quot;&quot;),
 ##   Temperatura = col_double()

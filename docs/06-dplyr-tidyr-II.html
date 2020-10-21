@@ -620,7 +620,8 @@ div.tocify {
 <h2>De ancho a largo con <code>pivot_longer()</code></h2>
 <p>En secciones anteriores usaste datos de una estación meteorológica en Bariloche:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>bariloche &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche_enlimpio.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## Parsed with column specification:
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   .default = col_logical(),
 ##   Fecha = col_datetime(format = &quot;&quot;),
@@ -640,9 +641,9 @@ div.tocify {
 ##   Horas_Frio = col_double(),
 ##   Unidades_Frio = col_double(),
 ##   mes = col_character()
-## )</code></pre>
-<pre><code>## See spec(...) for full column specifications.</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>bariloche</span></code></pre></div>
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>bariloche</span></code></pre></div>
 <pre><code>## # A tibble: 3,024 x 31
 ##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
 ##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
@@ -674,11 +675,11 @@ div.tocify {
 <p>¿Notaste que en el código anterior no usaste <code>library(readr)</code> para cargar el paquete y luego leer? Con la notación <code>paquete::funcion()</code> podés acceder a las funciones de un paquete sin tener que cargarlo. Es una buena forma de no tener que cargar un montón de paquetes innecesarios si vas a correr una única función de un paquete pocas veces.</p>
 </div>
 <p>¿Cómo harías para calcular el valor medio mensual de cada variable relacionada con la temperatura? En el formato en el que están ahora los datos, tendrías que hacer algo como esto</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Temperatura_abrigo_150cm =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
-<span id="cb8-4"><a href="#cb8-4"></a>            <span class="dt">Temperatura_Abrigo_150cm_Maxima =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), </span>
-<span id="cb8-5"><a href="#cb8-5"></a>            <span class="dt">Temperatura_Abrigo_150cm_Minima =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Minima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Temperatura_abrigo_150cm =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb7-4"><a href="#cb7-4"></a>            <span class="dt">Temperatura_Abrigo_150cm_Maxima =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), </span>
+<span id="cb7-5"><a href="#cb7-5"></a>            <span class="dt">Temperatura_Abrigo_150cm_Minima =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Minima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 12 x 4
 ##    mes      Temperatura_abrigo_… Temperatura_Abrigo_150… Temperatura_Abrigo_150…
@@ -701,17 +702,17 @@ div.tocify {
 <p>¡No! Sería un ejercicio altamente tedioso.</p>
 </div>
 <p>Para no tener que escribir 30 líneas todas iguales, sería mejor poder hacer un promedio para cada mes <strong>y para cada variable</strong>. Algo como esto:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes, variable) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">promedio =</span> <span class="kw">mean</span>(valor, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes, variable) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">promedio =</span> <span class="kw">mean</span>(valor, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <p>Para poder hacer eso hay que tener los datos en un formato más largo. Para convertirlo en una tabla más larga, se usa <code>pivot_longer()</code> (“longer” es “más largo” en inglés):</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>bariloche_largo &lt;-<span class="st"> </span>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span><span class="kw">select</span>(Fecha, <span class="kw">starts_with</span>(<span class="st">&quot;Temperatura&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="op">-</span>Fecha,</span>
-<span id="cb12-4"><a href="#cb12-4"></a>               <span class="dt">names_to =</span> <span class="st">&quot;variable_lugar_altura_tipo&quot;</span>,</span>
-<span id="cb12-5"><a href="#cb12-5"></a>               <span class="dt">values_to =</span> <span class="st">&quot;valor&quot;</span>)</span>
-<span id="cb12-6"><a href="#cb12-6"></a></span>
-<span id="cb12-7"><a href="#cb12-7"></a>bariloche_largo</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>bariloche_largo &lt;-<span class="st"> </span>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">select</span>(Fecha, <span class="kw">starts_with</span>(<span class="st">&quot;Temperatura&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="op">-</span>Fecha,</span>
+<span id="cb11-4"><a href="#cb11-4"></a>               <span class="dt">names_to =</span> <span class="st">&quot;variable_lugar_altura_tipo&quot;</span>,</span>
+<span id="cb11-5"><a href="#cb11-5"></a>               <span class="dt">values_to =</span> <span class="st">&quot;valor&quot;</span>)</span>
+<span id="cb11-6"><a href="#cb11-6"></a></span>
+<span id="cb11-7"><a href="#cb11-7"></a>bariloche_largo</span></code></pre></div>
 <pre><code>## # A tibble: 27,216 x 3
 ##    Fecha               variable_lugar_altura_tipo          valor
 ##    &lt;dttm&gt;              &lt;chr&gt;                               &lt;dbl&gt;
@@ -738,13 +739,13 @@ div.tocify {
 <p class="caption">Proceso de largo a ancho</p>
 </div>
 <p>La columna <code>variable_lugar_altura_tipo</code> todavía no es muy útil porque contiene 4 datos, la variable (temperatura), el lugar, la altura y el tipo de observación. Sería mejor separar esta información en dos columnas llamadas “variable”, “lugar”, “altura” y “tipo”. Para eso está la función <code>separate()</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>bariloche_largo &lt;-<span class="st"> </span><span class="kw">separate</span>(bariloche_largo, </span>
-<span id="cb14-2"><a href="#cb14-2"></a>                            <span class="dt">col =</span> variable_lugar_altura_tipo, </span>
-<span id="cb14-3"><a href="#cb14-3"></a>                            <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;lugar&quot;</span>, <span class="st">&quot;altura&quot;</span>, <span class="st">&quot;tipo&quot;</span>), </span>
-<span id="cb14-4"><a href="#cb14-4"></a>                            <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>bariloche_largo &lt;-<span class="st"> </span><span class="kw">separate</span>(bariloche_largo, </span>
+<span id="cb13-2"><a href="#cb13-2"></a>                            <span class="dt">col =</span> variable_lugar_altura_tipo, </span>
+<span id="cb13-3"><a href="#cb13-3"></a>                            <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;lugar&quot;</span>, <span class="st">&quot;altura&quot;</span>, <span class="st">&quot;tipo&quot;</span>), </span>
+<span id="cb13-4"><a href="#cb13-4"></a>                            <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: Expected 4 pieces. Missing pieces filled with `NA` in 6048 rows [1, 8,
 ## 10, 17, 19, 26, 28, 35, 37, 44, 46, 53, 55, 62, 64, 71, 73, 80, 82, 89, ...].</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>bariloche_largo</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>bariloche_largo</span></code></pre></div>
 <pre><code>## # A tibble: 27,216 x 6
 ##    Fecha               variable    lugar      altura tipo   valor
 ##    &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;
@@ -761,9 +762,9 @@ div.tocify {
 ## # … with 27,206 more rows</code></pre>
 <p>El primer argumento, como siempre, es la tabla a procesar. El segundo, <code>col</code>, es la columna a separar en dos (o más) columnas nuevas. El tercero, <code>into</code> es el nombre de las nuevas columnas que <code>separate()</code> va a crear. El último argumento es <code>sep</code> que define cómo realizar la separación. Por defecto, <code>sep</code> es una <a href="https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular">expresión regular</a> que captura cualquier caracter no alfanumérico.</p>
 <p>Habrás notado un problema. Para “Temperatura_Abrigo_150cm” y para “Temperatura_Inte_5cm”, la columna “tipo” es NA. Esto es porque el texto no tiene 4 “pedazos”. Sería conveniente agregarle algo. Asumiendo que es una temperatura media, se puede modificar con un <code>if_else()</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>bariloche_largo &lt;-<span class="st"> </span>bariloche_largo <span class="op">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tipo =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(tipo), <span class="st">&quot;Media&quot;</span>, tipo))</span>
-<span id="cb18-3"><a href="#cb18-3"></a>bariloche_largo</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>bariloche_largo &lt;-<span class="st"> </span>bariloche_largo <span class="op">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tipo =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(tipo), <span class="st">&quot;Media&quot;</span>, tipo))</span>
+<span id="cb17-3"><a href="#cb17-3"></a>bariloche_largo</span></code></pre></div>
 <pre><code>## # A tibble: 27,216 x 6
 ##    Fecha               variable    lugar      altura tipo   valor
 ##    &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;
@@ -791,8 +792,8 @@ div.tocify {
 <h2>De largo a ancho con <code>pivot_wider()</code></h2>
 <p>Ahora la variable <code>bariloche_largo</code> está en el formato más largo posible. Tiene 6 columnas, de las cuales sólo una es la columnas con valores. Pero con los datos así no podrías hacer un gráfico de puntos que muestre, por ejemplo, la relación entre la temperatura mínima y la temperatura máxima. En este caso todos los valores en la columna <code>valor</code> tienen las mismas unidades, pero podría tener otras variables, como humedad o presión. En ese caso, no tendrían las mismas unidades, por lo que operar con ese vector podría dar resultados sin sentido. Muchas veces es conveniente y natural tener los datos en un formato intermedio en donde hay múltiples columnas con los valores de distintas variables observadas.</p>
 <p>Pasa “ensanchar” una tabla está la función <code>pivot_wider()</code> (“wider” es “más ancha” en inglés) y el código para conseguir este formato intermedio es:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>bariloche_medio &lt;-<span class="st"> </span><span class="kw">pivot_wider</span>(bariloche_largo, <span class="dt">names_from =</span> tipo, <span class="dt">values_from =</span> valor)</span>
-<span id="cb20-2"><a href="#cb20-2"></a>bariloche_medio</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>bariloche_medio &lt;-<span class="st"> </span><span class="kw">pivot_wider</span>(bariloche_largo, <span class="dt">names_from =</span> tipo, <span class="dt">values_from =</span> valor)</span>
+<span id="cb19-2"><a href="#cb19-2"></a>bariloche_medio</span></code></pre></div>
 <pre><code>## # A tibble: 21,168 x 7
 ##    Fecha               variable    lugar      altura Media Maxima Minima
 ##    &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -809,10 +810,10 @@ div.tocify {
 ## # … with 21,158 more rows</code></pre>
 <p>Nuevamente el primer argumento es la tabla original. El segundo, <code>names_from</code> es la columna cuyos valores únicos van a convertirse en nuevas columnas. La columna <code>tipo</code> tiene los valores <code>"Media"</code>, <code>"Maxima"</code> y <code>"Minima"</code> y entonces la tabla nueva tendrá tres columnas con esos nombres. El tercer argumento, <code>values_from</code>, es la columna de la cual sacar los valores.</p>
 <p>Para volver al formato más ancho, basta con agregar más columnas en el argumento <code>names_from</code>:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">pivot_wider</span>(bariloche_largo, </span>
-<span id="cb22-2"><a href="#cb22-2"></a>            <span class="dt">names_from =</span> <span class="kw">c</span>(variable, lugar, altura, tipo), </span>
-<span id="cb22-3"><a href="#cb22-3"></a>            <span class="dt">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
-<span id="cb22-4"><a href="#cb22-4"></a>            <span class="dt">values_from =</span> valor)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">pivot_wider</span>(bariloche_largo, </span>
+<span id="cb21-2"><a href="#cb21-2"></a>            <span class="dt">names_from =</span> <span class="kw">c</span>(variable, lugar, altura, tipo), </span>
+<span id="cb21-3"><a href="#cb21-3"></a>            <span class="dt">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
+<span id="cb21-4"><a href="#cb21-4"></a>            <span class="dt">values_from =</span> valor)</span></code></pre></div>
 <pre><code>## # A tibble: 3,024 x 10
 ##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
 ##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
@@ -852,8 +853,8 @@ div.tocify {
 </ul>
 <p><img src="img/join_family.png" /></p>
 <p>En el archivo “estaciones_smn.csv” hay metadatos de las estaciones meteorológicas del Servicio Meteorológico Nacional (nombre, provincia, ubicación, etc…):</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>estaciones &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;datos/estaciones_smn.csv&quot;</span>) </span>
-<span id="cb24-2"><a href="#cb24-2"></a>estaciones</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>estaciones &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;datos/estaciones_smn.csv&quot;</span>) </span>
+<span id="cb23-2"><a href="#cb23-2"></a>estaciones</span></code></pre></div>
 <pre><code>## # A tibble: 123 x 5
 ##    nombre                   provincia      lon   lat altua
 ##    &lt;chr&gt;                    &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -869,15 +870,16 @@ div.tocify {
 ## 10 BOLIVAR AERO             BUENOS AIRES -61.1 -36.2    94
 ## # … with 113 more rows</code></pre>
 <p>Por otra parte, en el archivo “observaciones_smn.csv” hay datos diarios de temperatura mínima y máxima observados en cada una cada una y distintas fechas:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>observaciones &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;datos/observaciones_smn.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## Parsed with column specification:
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>observaciones &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;datos/observaciones_smn.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   tmax = col_double(),
 ##   tmin = col_double(),
 ##   station = col_character(),
 ##   date = col_date(format = &quot;&quot;)
 ## )</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>observaciones</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>observaciones</span></code></pre></div>
 <pre><code>## # A tibble: 3,812 x 4
 ##     tmax  tmin station                  date      
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                    &lt;date&gt;    
@@ -899,8 +901,8 @@ div.tocify {
 <li>qué variable o variables (se puede usar más de una!) usar para identificar coincidencias: el argumento <code>by</code>.</li>
 </ul>
 <p>Unamos <code>observaciones</code> y <code>estaciones</code> primero con <code>full_join()</code>:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>estaciones_obs &lt;-<span class="st"> </span><span class="kw">full_join</span>(observaciones, estaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>))</span>
-<span id="cb30-2"><a href="#cb30-2"></a>estaciones_obs</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>estaciones_obs &lt;-<span class="st"> </span><span class="kw">full_join</span>(observaciones, estaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>))</span>
+<span id="cb29-2"><a href="#cb29-2"></a>estaciones_obs</span></code></pre></div>
 <pre><code>## # A tibble: 3,813 x 8
 ##     tmax  tmin station                date       provincia       lon   lat altua
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                  &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -923,7 +925,7 @@ div.tocify {
 </ul>
 <p>¿Existe alguna estación que no esté en ambas tablas? Si comparás la cantidad de filas de <code>observaciones</code> y de <code>estaciones_obs</code>, vas a ver que la primera tiene 3812 filas y la segunda, 3813. Esto ya da una pista de que probablemente haya una estación en <code>estaciones</code> que no está en <code>observaciones</code> que es la fila extra.</p>
 <p>Para buscar sistemáticamente estas estaciones errantes hay que usar <code>anti_join</code>, que devuelve las filas de la tabla de la izquierda que no está en la derecha. Entonces, usando exactamente el mismo código de arriba pero cambiando <code>full_join</code> por <code>anti_join</code>, queda:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">anti_join</span>(observaciones, estaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">anti_join</span>(observaciones, estaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 31 x 4
 ##     tmax  tmin station                           date      
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                             &lt;date&gt;    
@@ -939,15 +941,15 @@ div.tocify {
 ## 10  36.2  15   PRESIDENCIA ROQUE SAENZ PE�A AERO 2020-08-10
 ## # … with 21 more rows</code></pre>
 <p>En la tabla <code>observaciones</code>, la estación “PRESIDENCIA ROQUE SAENZ PEÑA AERO” existe, tiene un problema de codificación! ¿Qué pasa si intercambiás el orden de las variables (y el orden de los nombres en el vector que le pasamos a <code>by</code>)?</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">anti_join</span>(estaciones, observaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;nombre&quot;</span> =<span class="st"> &quot;station&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">anti_join</span>(estaciones, observaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;nombre&quot;</span> =<span class="st"> &quot;station&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 5
 ##   nombre                            provincia   lon   lat altua
 ##   &lt;chr&gt;                             &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 PRESIDENCIA ROQUE SAENZ PEÑA AERO CHACO     -60.4 -26.8    93</code></pre>
 <p>Esto nos dice que la estación “PRESIDENCIA ROQUE SAENZ PEÑA AERO”, está en la tabla <code>estaciones</code> con la codificación correcta. <code>anti_join</code> es muy útil para encontrar problemas como estos.</p>
 <p><code>full_join</code> es la opción más segura si no sabés si todas las observaciones de una tabla están presente en a otra. Si sólo te interesa conservar las filas de la tabla de la izquierda (en este caso <code>estaciones</code> entonces:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>obs_estaciones &lt;-<span class="st"> </span><span class="kw">left_join</span>(observaciones, estaciones,  <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>))</span>
-<span id="cb36-2"><a href="#cb36-2"></a>obs_estaciones</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>obs_estaciones &lt;-<span class="st"> </span><span class="kw">left_join</span>(observaciones, estaciones,  <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>))</span>
+<span id="cb35-2"><a href="#cb35-2"></a>obs_estaciones</span></code></pre></div>
 <pre><code>## # A tibble: 3,812 x 8
 ##     tmax  tmin station                date       provincia       lon   lat altua
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                  &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -963,8 +965,8 @@ div.tocify {
 ## 10   1.4  -7.6 BASE SAN MARTIN        2020-08-01 ANTARTIDA     -67.1 -68.1     7
 ## # … with 3,802 more rows</code></pre>
 <p>Esta tabla tiene la misma cantidad de filas que <code>observaciones</code>. ¿Qué pasó con la estación que está mal codificada? Filtrando los datos:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>obs_estaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">startsWith</span>(station, <span class="st">&quot;PRESIDENCIA ROQUE&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>obs_estaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">startsWith</span>(station, <span class="st">&quot;PRESIDENCIA ROQUE&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 31 x 8
 ##     tmax  tmin station                    date       provincia   lon   lat altua
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                      &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -981,8 +983,8 @@ div.tocify {
 ## # … with 21 more rows</code></pre>
 <p><code>left_join</code> le puso <code>NA</code> en las filas de <code>observaciones</code> que no tienen coincidencia con <code>estaciones</code>.</p>
 <p>Finalmente, si quisieras quedarte sólo con las observaciones que están presentes en ambas tablas usamos <code>inner_join()</code>.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>obs_estaciones &lt;-<span class="st"> </span><span class="kw">inner_join</span>(observaciones, estaciones,  <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>))</span>
-<span id="cb40-2"><a href="#cb40-2"></a>obs_estaciones</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>obs_estaciones &lt;-<span class="st"> </span><span class="kw">inner_join</span>(observaciones, estaciones,  <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>))</span>
+<span id="cb39-2"><a href="#cb39-2"></a>obs_estaciones</span></code></pre></div>
 <pre><code>## # A tibble: 3,781 x 8
 ##     tmax  tmin station                date       provincia       lon   lat altua
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                  &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;

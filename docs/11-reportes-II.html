@@ -733,7 +733,8 @@ knitr::opts_chunk$set(echo = TRUE)
 <p>Generalmente tiene sentido poner esto en el primer chunk de un documento, que como suele ser cuestiones de configuración del reporte, también conviene ponerle <code>include = FALSE</code>.</p>
 <p>Habrás visto que a vece algunas funciones escupen mensajes sobre lo que hacen. Por ejemplo, cuando <code>read_csv</code> lee un archivo describe el tipo de dato de cada columna:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche_enlimpio.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## Parsed with column specification:
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   .default = col_logical(),
 ##   Fecha = col_datetime(format = &quot;&quot;),
@@ -753,14 +754,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ##   Horas_Frio = col_double(),
 ##   Unidades_Frio = col_double(),
 ##   mes = col_character()
-## )</code></pre>
-<pre><code>## See spec(...) for full column specifications.</code></pre>
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
 <p>Esto es útil cuando uno está haciendo trabajo interactivo pero en general no quiere que quede en el reporte. Para que no muestre estos mensajes basta con poner la opción <code>message = FALSE</code></p>
 <pre><code>```{r message = FALSE}
 bariloche &lt;- read_csv(&quot;datos/bariloche_enlimpio.csv&quot;)
 ```</code></pre>
 <p>En general no pasa nada si ignorás los mensajes. Son cuestiones diagnósticas extra que sirven para que vos, como humano, te enteres de lo que hizo una función. Distinto son las advertencias, o “warnings”. Una advertencia te está diciendo que hay algo “raro” en el código que puede significar que hay algo mal. No llega al nivel de error, que es algo que literalmente “no computa”. Por ejemplo, <code>sqrt</code> tira una advertencia cuando recibe números negativos.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>i &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>i &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## Warning in sqrt(-1): NaNs produced</code></pre>
 <p>Si un chunk tira una advertencia que es esperable pero no querés que aparezca en el reporte, podés ocultarlas con la opción <code>warning = FALSE</code>.</p>
 <pre><code>```{r warning = FALSE}
