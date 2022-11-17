@@ -13,19 +13,28 @@
 
 <title>Gráficos espaciales</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -34,86 +43,32 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      code.sourceCode > span { display: inline-block; line-height: 1.25; }
-  code.sourceCode > span { color: inherit; text-decoration: inherit; }
-  code.sourceCode > span:empty { height: 1.2em; }
-  .sourceCode { overflow: visible; }
-  code.sourceCode { white-space: pre; position: relative; }
-  div.sourceCode { margin: 1em 0; }
-  pre.sourceCode { margin: 0; }
-  @media screen {
-  div.sourceCode { overflow: auto; }
-  }
-  @media print {
-  code.sourceCode { white-space: pre-wrap; }
-  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-  }
-  pre.numberSource code
-    { counter-reset: source-line 0; }
-  pre.numberSource code > span
-    { position: relative; left: -4em; counter-increment: source-line; }
-  pre.numberSource code > span > a:first-child::before
-    { content: counter(source-line);
-      position: relative; left: -1em; text-align: right; vertical-align: baseline;
-      border: none; display: inline-block;
-      -webkit-touch-callout: none; -webkit-user-select: none;
-      -khtml-user-select: none; -moz-user-select: none;
-      -ms-user-select: none; user-select: none;
-      padding: 0 4px; width: 4em;
-      color: #aaaaaa;
-    }
-  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-  div.sourceCode
-    {  background-color: #f8f8f8; }
-  @media screen {
-  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-  }
-  code span.al { color: #ef2929; } /* Alert */
-  code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-  code span.at { color: #c4a000; } /* Attribute */
-  code span.bn { color: #0000cf; } /* BaseN */
-  code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-  code span.ch { color: #4e9a06; } /* Char */
-  code span.cn { color: #000000; } /* Constant */
-  code span.co { color: #8f5902; font-style: italic; } /* Comment */
-  code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-  code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-  code span.dt { color: #204a87; } /* DataType */
-  code span.dv { color: #0000cf; } /* DecVal */
-  code span.er { color: #a40000; font-weight: bold; } /* Error */
-  code span.ex { } /* Extension */
-  code span.fl { color: #0000cf; } /* Float */
-  code span.fu { color: #000000; } /* Function */
-  code span.im { } /* Import */
-  code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-  code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-  code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-  code span.ot { color: #8f5902; } /* Other */
-  code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-  code span.sc { color: #000000; } /* SpecialChar */
-  code span.ss { color: #4e9a06; } /* SpecialString */
-  code span.st { color: #4e9a06; } /* String */
-  code span.va { color: #000000; } /* Variable */
-  code span.vs { color: #4e9a06; } /* VerbatimString */
-  code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -133,7 +88,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -186,42 +141,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
 <style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
 #rmd-source-code {
   display: none;
 }
 </style>
+
 
 
 
@@ -231,10 +158,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -251,40 +174,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -312,7 +211,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -324,7 +223,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -335,10 +234,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -350,7 +262,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -479,7 +390,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -493,7 +404,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -506,7 +417,7 @@ div.tocify {
   <a href="hoja-de-ruta.html">Hoja de ruta</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Temas
      
     <span class="caret"></span>
@@ -551,7 +462,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Desafíos
      
     <span class="caret"></span>
@@ -576,11 +487,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
@@ -592,141 +503,227 @@ div.tocify {
 </div>
 
 
-<p>Hay dos grandes tipos de datos espaciales: grillas regulares y grillas irregulares.</p>
+<p>Hay dos grandes tipos de datos espaciales: grillas regulares y
+grillas irregulares.</p>
 <div id="grillas-regulares" class="section level2">
 <h2>Grillas regulares</h2>
-<p>En <a href="04-lectura.html#Archivos_NetCDF">la segunda sección de lectura de datos</a> viste cómo leer archivos NetCDF:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>temperatura &lt;-<span class="st"> </span><span class="kw">ReadNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>, <span class="dt">vars =</span> <span class="st">&quot;air&quot;</span>,</span>
-<span id="cb1-2"><a href="#cb1-2"></a>                          <span class="dt">subset =</span> <span class="kw">list</span>(<span class="dt">level =</span> <span class="dv">1000</span>,</span>
-<span id="cb1-3"><a href="#cb1-3"></a>                                        <span class="dt">lat =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">55</span>, <span class="dv">-20</span>),</span>
-<span id="cb1-4"><a href="#cb1-4"></a>                                        <span class="dt">lon =</span> <span class="kw">c</span>(<span class="dv">280</span>, <span class="dv">310</span>))) </span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">glimpse</span>(temperatura)</span></code></pre></div>
+<p>En <a href="04-lectura.html#Archivos_NetCDF">la segunda sección de
+lectura de datos</a> viste cómo leer archivos NetCDF:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>temperatura <span class="ot">&lt;-</span> <span class="fu">ReadNetCDF</span>(<span class="st">&quot;datos/temperatura.nc&quot;</span>, <span class="at">vars =</span> <span class="st">&quot;air&quot;</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">subset =</span> <span class="fu">list</span>(<span class="at">level =</span> <span class="dv">1000</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">lat =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>, <span class="sc">-</span><span class="dv">20</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">lon =</span> <span class="fu">c</span>(<span class="dv">280</span>, <span class="dv">310</span>))) </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(temperatura)</span></code></pre></div>
 <pre><code>## Rows: 195
 ## Columns: 5
-## $ time  &lt;dttm&gt; 2010-07-09, 2010-07-09, 2010-07-09, 2010-07-09, 2010-07-09, 20…
-## $ level &lt;dbl&gt; 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 100…
-## $ lat   &lt;dbl&gt; -20.0, -20.0, -20.0, -20.0, -20.0, -20.0, -20.0, -20.0, -20.0, …
-## $ lon   &lt;dbl&gt; 280.0, 282.5, 285.0, 287.5, 290.0, 292.5, 295.0, 297.5, 300.0, …
-## $ air   &lt;dbl&gt; 287.62, 287.70, 289.72, 293.25, 296.32, 297.30, 296.57, 296.15,…</code></pre>
-<p>La variable <code>temperatura</code> es una tabla que tiene dato de temperatura del aire para cada tiempo, nivel (altura), latitud y longitud. Como este archivo tiene información sólo para un tiempo y el código filtró sólo datos de un nivel, entonces la variación es sólo en latitud y longitud. ¿Cómo se grafica?</p>
+## $ time  &lt;dttm&gt; 2010-07-09, 2010-07-09, 2010-07-09, 2010-07-09, 2010-07-09, 201…
+## $ level &lt;dbl&gt; 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000…
+## $ lat   &lt;dbl&gt; -20.0, -20.0, -20.0, -20.0, -20.0, -20.0, -20.0, -20.0, -20.0, -…
+## $ lon   &lt;dbl&gt; 280.0, 282.5, 285.0, 287.5, 290.0, 292.5, 295.0, 297.5, 300.0, 3…
+## $ air   &lt;dbl&gt; 287.62, 287.70, 289.72, 293.25, 296.32, 297.30, 296.57, 296.15, …</code></pre>
+<p>La variable <code>temperatura</code> es una tabla que tiene dato de
+temperatura del aire para cada tiempo, nivel (altura), latitud y
+longitud. Como este archivo tiene información sólo para un tiempo y el
+código filtró sólo datos de un nivel, entonces la variación es sólo en
+latitud y longitud. ¿Cómo se grafica?</p>
 <p>Se puede dibujar un punto por cada dato:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperatura, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>Esto no dice nada, aunque podemos confirmar que los datos están en una grilla regular. Para visualizar la temperatura, hay que mapear éste valor a un parámetro estético, por ejemplo, el color:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> air))</span></code></pre></div>
+<p>Esto no dice nada, aunque podemos confirmar que los datos están en
+una grilla regular. Para visualizar la temperatura, hay que mapear éste
+valor a un parámetro estético, por ejemplo, el color:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperatura, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> air))</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>Puntos redondos y separados no es la forma más informativa de ver estos datos. Una grilla regular en realidad define como una “imagen” donde cada punto es un pixel. Esto se llama un “raster” y con ggplot se puede graficar con <code>geom_raster()</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> air))</span></code></pre></div>
+<p>Puntos redondos y separados no es la forma más informativa de ver
+estos datos. Una grilla regular en realidad define como una “imagen”
+donde cada punto es un pixel. Esto se llama un “raster” y con ggplot se
+puede graficar con <code>geom_raster()</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperatura, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">fill =</span> air))</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p><code>geom_raster()</code> dibuja rectángulos de igual ancho y alto en cada x, y. El ancho y el alto se definen a través de la resolución de los datos. Funcionan perfectamente para grillas regulares. Estos rectángulos tienen un color interno, por lo que el parámetro estético se llama “fill”.</p>
+<p><code>geom_raster()</code> dibuja rectángulos de igual ancho y alto
+en cada x, y. El ancho y el alto se definen a través de la resolución de
+los datos. Funcionan perfectamente para grillas regulares. Estos
+rectángulos tienen un color interno, por lo que el parámetro estético se
+llama “fill”.</p>
 <div class="alert alert-info">
 <p><strong>Desafío</strong></p>
-<p>ggplot2 tiene tres funciones para generar rectángulos: <code>geom_raster()</code>, <code>geom_tile()</code> y <code>geom_rect()</code>. ¿Cuál es la diferencia entre cada uno? Fijate en la documentación.</p>
+<p>ggplot2 tiene tres funciones para generar rectángulos:
+<code>geom_raster()</code>, <code>geom_tile()</code> y
+<code>geom_rect()</code>. ¿Cuál es la diferencia entre cada uno? Fijate
+en la documentación.</p>
 </div>
 </div>
 <div id="mapas" class="section level2">
 <h2>Mapas</h2>
-<p>Bien, hasta ahí tenés un gráfico con los datos, pero para entenderlos en su contexto espacial como mínimo hace falta un mapa. Para tener un mapa se necesitan datos de la localización de las costas o las fronteras. Existen varias fuentes de estos datos, pero una muy buena es <a href="https://www.naturalearthdata.com/">Natural Earth</a>. El paquete {rnaturalearth} provee una interfaz amigable para usar estos datos directamente en {ggplot2}.</p>
-<p>Primero hay que cargar el mapa que queramos. Por ejemplo, para graficar el mapa de Argentina y sus países limítrofes cargamos los datos con <code>ne_countries()</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>mapa &lt;-<span class="st"> </span>rnaturalearth<span class="op">::</span><span class="kw">ne_countries</span>(<span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&quot;argentina&quot;</span>, <span class="st">&quot;chile&quot;</span>, <span class="st">&quot;uruguay&quot;</span>, </span>
-<span id="cb6-2"><a href="#cb6-2"></a>                                                <span class="st">&quot;paraguay&quot;</span>, <span class="st">&quot;brazil&quot;</span>, <span class="st">&quot;bolivia&quot;</span>, </span>
-<span id="cb6-3"><a href="#cb6-3"></a>                                                <span class="st">&quot;falkland islands&quot;</span>), </span>
-<span id="cb6-4"><a href="#cb6-4"></a>                                    <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>)</span></code></pre></div>
-<p>El argumento <code>country</code> es un vector con los países que necesitamos. El argumento <code>returnclass</code> es un poco técnico, pero hace referencia a la estructura que queremos que devuelva. En este caso, <code>returnclass = "sf"</code> hace que devuelva un objeto de clase “Simple Features”. Las “Simple Features” son cualquier cosa menos simple internamente pero con {ggplot2} se pueden graficar con un geom específico:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">ggplot</span>(mapa) <span class="op">+</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">geom_sf</span>()</span></code></pre></div>
+<p>Bien, hasta ahí tenés un gráfico con los datos, pero para entenderlos
+en su contexto espacial como mínimo hace falta un mapa. Para tener un
+mapa se necesitan datos de la localización de las costas o las
+fronteras. Existen varias fuentes de estos datos, pero una muy buena es
+<a href="https://www.naturalearthdata.com/">Natural Earth</a>. El
+paquete {rnaturalearth} provee una interfaz amigable para usar estos
+datos directamente en {ggplot2}.</p>
+<p>Primero hay que cargar el mapa que queramos. Por ejemplo, para
+graficar el mapa de Argentina y sus países limítrofes cargamos los datos
+con <code>ne_countries()</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mapa <span class="ot">&lt;-</span> rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>(<span class="at">country =</span> <span class="fu">c</span>(<span class="st">&quot;argentina&quot;</span>, <span class="st">&quot;chile&quot;</span>, <span class="st">&quot;uruguay&quot;</span>, </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">&quot;paraguay&quot;</span>, <span class="st">&quot;brazil&quot;</span>, <span class="st">&quot;bolivia&quot;</span>, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">&quot;falkland islands&quot;</span>), </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">returnclass =</span> <span class="st">&quot;sf&quot;</span>)</span></code></pre></div>
+<p>El argumento <code>country</code> es un vector con los países que
+necesitamos. El argumento <code>returnclass</code> es un poco técnico,
+pero hace referencia a la estructura que queremos que devuelva. En este
+caso, <code>returnclass = "sf"</code> hace que devuelva un objeto de
+clase “Simple Features”. Las “Simple Features” son cualquier cosa menos
+simple internamente pero con {ggplot2} se pueden graficar con un geom
+específico:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mapa) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>Por defecto, el mapa se dibuja con un fondo gris, pero el problema es ese fondo va a tapar los datos! Paro para dibujar sólo los contornos hay que modificarlo un poco:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">ggplot</span>(mapa) <span class="op">+</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<p>Por defecto, el mapa se dibuja con un fondo gris, pero el problema es
+ese fondo va a tapar los datos! Paro para dibujar sólo los contornos hay
+que modificarlo un poco:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mapa) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="fl">0.2</span>)</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p>Cuando uno usa mucho un mapa, muchas veces termina siendo útil guardar el geom por separado en una variable.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>mi_mapa &lt;-<span class="st"> </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> mapa, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>) </span></code></pre></div>
-<p>Además de las modificaciones estéticas, esta llamada a <code>geom_sf</code> tiene el argumento <code>data = mapa</code>, ya que no va a usar los datos “globales” de la llamada a <code>ggplot()</code>. También tiene <code>ìnherit.aes = FALSE</code> porque tampoco tiene que “heredar” los aes globales.</p>
-<p>Entonces ahora, para graficar la temperatura y el mapa encima, armamos el gráfico de raster igual que antes y le sumamos el mapa:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> air)) <span class="op">+</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span>mi_mapa</span></code></pre></div>
+<p>Cuando uno usa mucho un mapa, muchas veces termina siendo útil
+guardar el geom por separado en una variable.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mi_mapa <span class="ot">&lt;-</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> mapa, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="fl">0.2</span>) </span></code></pre></div>
+<p>Además de las modificaciones estéticas, esta llamada a
+<code>geom_sf</code> tiene el argumento <code>data = mapa</code>, ya que
+no va a usar los datos “globales” de la llamada a <code>ggplot()</code>.
+También tiene <code>ìnherit.aes = FALSE</code> porque tampoco tiene que
+“heredar” los aes globales.</p>
+<p>Entonces ahora, para graficar la temperatura y el mapa encima,
+armamos el gráfico de raster igual que antes y le sumamos el mapa:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperatura, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">fill =</span> air)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  mi_mapa</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <div class="alert alert-info">
 <p><strong>Desafío</strong></p>
 <p>¿Podés explicar qué salió mal?</p>
 </div>
-<p>Existen dos convenciones básicas para medir la longitud, medida entre 0º y 360º o entre -180º y +180º. Los datos de temperatura usan la primera y los del mapa, la segunda. Para convertir entre una y otra convención, podés usar la función <code>ConvertLongitude()</code> de {metR}:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>temperatura &lt;-<span class="st"> </span><span class="kw">mutate</span>(temperatura, <span class="dt">lon =</span> metR<span class="op">::</span><span class="kw">ConvertLongitude</span>(lon, <span class="dt">from =</span> <span class="dv">360</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> air)) <span class="op">+</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="st">  </span>mi_mapa </span></code></pre></div>
+<p>Existen dos convenciones básicas para medir la longitud, medida entre
+0º y 360º o entre -180º y +180º. Los datos de temperatura usan la
+primera y los del mapa, la segunda. Para convertir entre una y otra
+convención, podés usar la función <code>ConvertLongitude()</code> de
+{metR}:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>temperatura <span class="ot">&lt;-</span> <span class="fu">mutate</span>(temperatura, <span class="at">lon =</span> metR<span class="sc">::</span><span class="fu">ConvertLongitude</span>(lon, <span class="at">from =</span> <span class="dv">360</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperatura, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">fill =</span> air)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  mi_mapa </span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p>Lo único que le falta a este gráfico es lo que le sobra: todo el espacio donde no hay datos. Para recortar el área del gráfico y que tome sólo donde tenemos datos de temperatura, hay que especificar los límites del sistema de coordenadas. Como <code>mi_mapa</code> es un <code>geom_sf</code>, hay que usar <code>coord_sf</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> air)) <span class="op">+</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span>mi_mapa <span class="op">+</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">55</span>, <span class="dv">-20</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">80</span>, <span class="dv">-50</span>))</span></code></pre></div>
+<p>Lo único que le falta a este gráfico es lo que le sobra: todo el
+espacio donde no hay datos. Para recortar el área del gráfico y que tome
+sólo donde tenemos datos de temperatura, hay que especificar los límites
+del sistema de coordenadas. Como <code>mi_mapa</code> es un
+<code>geom_sf</code>, hay que usar <code>coord_sf</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperatura, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">fill =</span> air)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  mi_mapa <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>, <span class="sc">-</span><span class="dv">20</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>, <span class="sc">-</span><span class="dv">50</span>))</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<p>Otra forma de graficar datos espaciales es pensarlos como una superficie tridimensional donde el x y el y son las coordenadas y la altura (la coordenada z) es proporcional al valor de la variable. Imaginándoselo así, este gráfico de temperatura sería una montaña con su cima en Paraguay y su punto más bajo cerca de Chubut.</p>
-<p>Precisamente para esta situación están pensadas las líneas de contorno que se pueden graficar en {ggplot2} usando la función <code>geom_contour()</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw">geom_contour</span>(<span class="kw">aes</span>(<span class="dt">z =</span> air)) <span class="op">+</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="st">  </span>mi_mapa <span class="op">+</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">55</span>, <span class="dv">-20</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">80</span>, <span class="dv">-50</span>))</span></code></pre></div>
+<p>Otra forma de graficar datos espaciales es pensarlos como una
+superficie tridimensional donde el x y el y son las coordenadas y la
+altura (la coordenada z) es proporcional al valor de la variable.
+Imaginándoselo así, este gráfico de temperatura sería una montaña con su
+cima en Paraguay y su punto más bajo cerca de Chubut.</p>
+<p>Precisamente para esta situación están pensadas las líneas de
+contorno que se pueden graficar en {ggplot2} usando la función
+<code>geom_contour()</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperatura, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour</span>(<span class="fu">aes</span>(<span class="at">z =</span> air)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  mi_mapa <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>, <span class="sc">-</span><span class="dv">20</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>, <span class="sc">-</span><span class="dv">50</span>))</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p>Las líneas dibujadas por <code>geom_contour()</code> son líneas de nivel que unen puntos de valor constante. Sin embargo, esas líneas azules no dan ninguna indicación del valor de la variable por lo que es conveniente mapear el color de las líneas ese valor constante.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="st">  </span><span class="kw">geom_contour</span>(<span class="kw">aes</span>(<span class="dt">z =</span> air, <span class="dt">color =</span> <span class="kw">stat</span>(level))) <span class="op">+</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="st">  </span>mi_mapa <span class="op">+</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">55</span>, <span class="dv">-20</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">80</span>, <span class="dv">-50</span>))</span></code></pre></div>
+<p>Las líneas dibujadas por <code>geom_contour()</code> son líneas de
+nivel que unen puntos de valor constante. Sin embargo, esas líneas
+azules no dan ninguna indicación del valor de la variable por lo que es
+conveniente mapear el color de las líneas ese valor constante.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperatura, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour</span>(<span class="fu">aes</span>(<span class="at">z =</span> air, <span class="at">color =</span> <span class="fu">stat</span>(level))) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  mi_mapa <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>, <span class="sc">-</span><span class="dv">20</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>, <span class="sc">-</span><span class="dv">50</span>))</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<p>¿De dónde salió ese <code>stat(level)</code>? Algunos geoms que realizan transformaciones estadísticas computan variables nuevas que luego se pueden mapear a parámetros geométricos. “level” es una de esas variables computadas de <code>geom_contour</code>. Para decirle a ggplot que al level al que te referís es a la variable computada, se rodea a la variable con la función <code>stat()</code>.</p>
-<p>Una variedad de las líneas de contorno son las líneas “llenas”. Hasta hace poco, {ggplot2} no tenía una forma de graficar estos contornos llenos, así que está implementado en {metR} con la function <code>geom_contour_fill()</code>. Recientemente {ggplot2} implementó la función <code>geom_contour_filled()</code> pero a nosotros nos gusta más la versión de {metR} 😉</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="st">  </span>metR<span class="op">::</span><span class="kw">geom_contour_fill</span>(<span class="kw">aes</span>(<span class="dt">z =</span> air)) <span class="op">+</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="st">  </span>mi_mapa <span class="op">+</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">55</span>, <span class="dv">-20</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">80</span>, <span class="dv">-50</span>))</span></code></pre></div>
+<p>¿De dónde salió ese <code>stat(level)</code>? Algunos geoms que
+realizan transformaciones estadísticas computan variables nuevas que
+luego se pueden mapear a parámetros geométricos. “level” es una de esas
+variables computadas de <code>geom_contour</code>. Para decirle a ggplot
+que al level al que te referís es a la variable computada, se rodea a la
+variable con la función <code>stat()</code>.</p>
+<p>Una variedad de las líneas de contorno son las líneas “llenas”. Hasta
+hace poco, {ggplot2} no tenía una forma de graficar estos contornos
+llenos, así que está implementado en {metR} con la function
+<code>geom_contour_fill()</code>. Recientemente {ggplot2} implementó la
+función <code>geom_contour_filled()</code> pero a nosotros nos gusta más
+la versión de {metR} 😉</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperatura, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  metR<span class="sc">::</span><span class="fu">geom_contour_fill</span>(<span class="fu">aes</span>(<span class="at">z =</span> air)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  mi_mapa <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>, <span class="sc">-</span><span class="dv">20</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>, <span class="sc">-</span><span class="dv">50</span>))</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<p>Por último, tranquilamente se pueden usar ambos geoms para resaltar los límites y</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">ggplot</span>(temperatura, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="st">  </span>metR<span class="op">::</span><span class="kw">geom_contour_fill</span>(<span class="kw">aes</span>(<span class="dt">z =</span> air)) <span class="op">+</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="st">  </span><span class="kw">geom_contour</span>(<span class="kw">aes</span>(<span class="dt">z =</span> air), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="st">  </span>mi_mapa <span class="op">+</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a><span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">55</span>, <span class="dv">-20</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">80</span>, <span class="dv">-50</span>))</span></code></pre></div>
+<p>Por último, tranquilamente se pueden usar ambos geoms para resaltar
+los límites y</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperatura, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  metR<span class="sc">::</span><span class="fu">geom_contour_fill</span>(<span class="fu">aes</span>(<span class="at">z =</span> air)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour</span>(<span class="fu">aes</span>(<span class="at">z =</span> air), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  mi_mapa <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>, <span class="sc">-</span><span class="dv">20</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>, <span class="sc">-</span><span class="dv">50</span>))</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 </div>
 <div id="grillas-irregulares" class="section level2">
 <h2>Grillas irregulares</h2>
-<p>¿Qué pasa cuando en vez de observaciones organizadas en una bella grilla regular, tenés observaciones puntuales en lugares dispersos? Si te acordás de la sección de uniones, en la carpeta datos hay un archivo con datos de temperatura del servicio meteorológico y metadatos con sus ubicaciones. Esto define datos espaciales de temperatura.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Para trabajar con menos datos, nos quedamos con la temperatura máxima media </span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="co"># de cada estación.</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a>observaciones &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;datos/observaciones_smn.csv&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-4"><a href="#cb18-4"></a><span class="st">  </span><span class="kw">group_by</span>(station) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tmax_media =</span> <span class="kw">mean</span>(tmax, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span>
-<span id="cb18-6"><a href="#cb18-6"></a></span>
-<span id="cb18-7"><a href="#cb18-7"></a>estaciones &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/estaciones_smn.csv&quot;</span>) </span>
-<span id="cb18-8"><a href="#cb18-8"></a></span>
-<span id="cb18-9"><a href="#cb18-9"></a>observaciones &lt;-<span class="st"> </span><span class="kw">left_join</span>(observaciones, estaciones, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;station&quot;</span> =<span class="st"> &quot;nombre&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-10"><a href="#cb18-10"></a><span class="st">  </span><span class="kw">filter</span>(provincia <span class="op">!=</span><span class="st"> &quot;ANTARTIDA&quot;</span>)</span></code></pre></div>
-<p>Lo primero que se puede hacer es graficar estos datos de estación con puntos, de la misma forma que para los datos regulares.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">ggplot</span>(observaciones, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> tmax_media)) <span class="op">+</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="st">  </span>mi_mapa <span class="op">+</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">55</span>, <span class="dv">-20</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">80</span>, <span class="dv">-50</span>))</span></code></pre></div>
+<p>¿Qué pasa cuando en vez de observaciones organizadas en una bella
+grilla regular, tenés observaciones puntuales en lugares dispersos? Si
+te acordás de la sección de uniones, en la carpeta datos hay un archivo
+con datos de temperatura del servicio meteorológico y metadatos con sus
+ubicaciones. Esto define datos espaciales de temperatura.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para trabajar con menos datos, nos quedamos con la temperatura máxima media </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># de cada estación.</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>observaciones <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;datos/observaciones_smn.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(station) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tmax_media =</span> <span class="fu">mean</span>(tmax, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>estaciones <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;datos/estaciones_smn.csv&quot;</span>) </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>observaciones <span class="ot">&lt;-</span> <span class="fu">left_join</span>(observaciones, estaciones, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;station&quot;</span> <span class="ot">=</span> <span class="st">&quot;nombre&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(provincia <span class="sc">!=</span> <span class="st">&quot;ANTARTIDA&quot;</span>)</span></code></pre></div>
+<p>Lo primero que se puede hacer es graficar estos datos de estación con
+puntos, de la misma forma que para los datos regulares.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(observaciones, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> tmax_media)) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  mi_mapa <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>, <span class="sc">-</span><span class="dv">20</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>, <span class="sc">-</span><span class="dv">50</span>))</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <div class="alert alert-info">
 <p><strong>Desafío</strong></p>
-<p>Graficá estos puntos usando <code>geom_raster()</code> y <code>geom_contour()</code>. ¿Cuál es el resultado?</p>
+<p>Graficá estos puntos usando <code>geom_raster()</code> y
+<code>geom_contour()</code>. ¿Cuál es el resultado?</p>
 </div>
-<p>Como estos datos no están en una grilla regular, <code>geom_raster()</code> y <code>geom_contour()</code> no los pueden graficar. Para usar contornos hay que interpolar a una grilla regular. Una forma de hacerlo es usando la técnica de <a href="https://es.wikipedia.org/wiki/Kriging">kriging</a>. Un paquete de R que la implementa es {kriging} en su función <code>kriging</code></p>
-<p>Si vas a la ayuda de <code>kriging()</code>, vas a ver que requiere un vector de coordenadas x, un vector de coordenadas y y un vector de valores observados. Estos son las columnas <code>lon</code>, <code>lat</code> y <code>tmax_media</code> de la tabla <code>observaciones</code>. Entonces el código sería:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>observaciones_regular &lt;-<span class="st"> </span>kriging<span class="op">::</span><span class="kw">kriging</span>(<span class="dt">x =</span> observaciones<span class="op">$</span>lon, </span>
-<span id="cb20-2"><a href="#cb20-2"></a>                                          <span class="dt">y =</span> observaciones<span class="op">$</span>lat,</span>
-<span id="cb20-3"><a href="#cb20-3"></a>                                          <span class="dt">response =</span> observaciones<span class="op">$</span>tmax_media)</span></code></pre></div>
+<p>Como estos datos no están en una grilla regular,
+<code>geom_raster()</code> y <code>geom_contour()</code> no los pueden
+graficar. Para usar contornos hay que interpolar a una grilla regular.
+Una forma de hacerlo es usando la técnica de <a
+href="https://es.wikipedia.org/wiki/Kriging">kriging</a>. Un paquete de
+R que la implementa es {kriging} en su función <code>kriging</code></p>
+<p>Si vas a la ayuda de <code>kriging()</code>, vas a ver que requiere
+un vector de coordenadas x, un vector de coordenadas y y un vector de
+valores observados. Estos son las columnas <code>lon</code>,
+<code>lat</code> y <code>tmax_media</code> de la tabla
+<code>observaciones</code>. Entonces el código sería:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>observaciones_regular <span class="ot">&lt;-</span> kriging<span class="sc">::</span><span class="fu">kriging</span>(<span class="at">x =</span> observaciones<span class="sc">$</span>lon, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">y =</span> observaciones<span class="sc">$</span>lat,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">response =</span> observaciones<span class="sc">$</span>tmax_media)</span></code></pre></div>
 <pre><code>## Error in onedim(response, n): NA/NaN/Inf in foreign function call (arg 1)</code></pre>
-<p>Este error indica que hay <code>NA</code>s, y <code>kriging()</code> no funciona si hay valores faltantes. Lo que hay que hacer es omitirlos. La función <code>na.omit()</code> elimina filas donde algún valor sea <code>NA</code>.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">na.omit</span>(observaciones)</span></code></pre></div>
-<pre><code>## # A tibble: 115 x 6
+<p>Este error indica que hay <code>NA</code>s, y <code>kriging()</code>
+no funciona si hay valores faltantes. Lo que hay que hacer es omitirlos.
+La función <code>na.omit()</code> elimina filas donde algún valor sea
+<code>NA</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">na.omit</span>(observaciones)</span></code></pre></div>
+<pre><code>## # A tibble: 115 × 6
 ##    station                   tmax_media provincia         lon   lat altua
 ##    &lt;chr&gt;                          &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ##  1 AEROPARQUE AERO                17.4  CAPITAL FEDERAL -58.4 -34.6     6
@@ -740,17 +737,25 @@ div.tocify {
 ##  9 CAMPO DE MAYO AERO             18.8  BUENOS AIRES    -58.7 -34.5    26
 ## 10 CATAMARCA AERO                 25.1  CATAMARCA       -65.8 -28.6   464
 ## # … with 105 more rows</code></pre>
-<p>Para no escribir <code>na.omit(observaciones)</code> tres veces dentro de la llamada a <code>krigin()</code> se puede usar la función <code>with()</code>. Esta función no es de {dplyr} pero funciona parecido a <code>summarise()</code>/<code>mutate()</code> en que toma como primer argumento una tabla y luego el código que pongamos se entiende que hace referencia a las columnas de esa tabla.</p>
+<p>Para no escribir <code>na.omit(observaciones)</code> tres veces
+dentro de la llamada a <code>krigin()</code> se puede usar la función
+<code>with()</code>. Esta función no es de {dplyr} pero funciona
+parecido a <code>summarise()</code>/<code>mutate()</code> en que toma
+como primer argumento una tabla y luego el código que pongamos se
+entiende que hace referencia a las columnas de esa tabla.</p>
 <p>Entonces, poniendo todo eso junto en una cadena:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>observaciones_regular &lt;-<span class="st"> </span>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="st">  </span><span class="kw">with</span>(kriging<span class="op">::</span><span class="kw">kriging</span>(lon, lat, <span class="dt">response =</span> tmax_media))</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>observaciones_regular <span class="ot">&lt;-</span> observaciones <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(kriging<span class="sc">::</span><span class="fu">kriging</span>(lon, lat, <span class="at">response =</span> tmax_media))</span></code></pre></div>
 <div class="alert alert-info">
 <p><strong>Desafío</strong></p>
-<p>¿Qué es lo que devolvió la función <code>kriging()</code>? Podés mirar la documentación de la función (en la sección “Value”) o usando <code>glimpse(observaciones_regular)</code>.</p>
+<p>¿Qué es lo que devolvió la función <code>kriging()</code>? Podés
+mirar la documentación de la función (en la sección “Value”) o usando
+<code>glimpse(observaciones_regular)</code>.</p>
 </div>
-<p><code>observaciones_regular</code> es una lista con muchos elementos:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">glimpse</span>(observaciones_regular)</span></code></pre></div>
+<p><code>observaciones_regular</code> es una lista con muchos
+elementos:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(observaciones_regular)</span></code></pre></div>
 <pre><code>## List of 7
 ##  $ model        : chr &quot;spherical&quot;
 ##  $ nugget       : num -4.4
@@ -765,73 +770,103 @@ div.tocify {
 ##   ..$ distance    : num [1:10] 0.685 1.943 3.143 4.41 5.628 ...
 ##   ..$ semivariance: num [1:10] 0.555 2.139 3.295 5.659 8.877 ...
 ##  - attr(*, &quot;class&quot;)= chr &quot;kriging&quot;</code></pre>
-<p>La mayoría de los elementos brindan información detallad sobre los parámetros usados y computados para realizar la interpolación. El elemento útil es el que se llama <code>map</code>, que tiene los datos interpolados. ¿Qué es lo que tiene <code>map</code>?</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">glimpse</span>(observaciones_regular<span class="op">$</span>map)</span></code></pre></div>
+<p>La mayoría de los elementos brindan información detallad sobre los
+parámetros usados y computados para realizar la interpolación. El
+elemento útil es el que se llama <code>map</code>, que tiene los datos
+interpolados. ¿Qué es lo que tiene <code>map</code>?</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(observaciones_regular<span class="sc">$</span>map)</span></code></pre></div>
 <pre><code>## Rows: 5,544
 ## Columns: 3
-## $ x    &lt;dbl&gt; -72.05, -72.05, -72.05, -72.05, -72.05, -72.05, -72.05, -72.05, …
-## $ y    &lt;dbl&gt; -54.80000, -54.46970, -54.13939, -53.80909, -53.47879, -53.14848…
-## $ pred &lt;dbl&gt; 8.938263, 8.740744, 8.554452, 8.379149, 8.240792, 8.154581, 8.11…</code></pre>
-<p>Es una tabla con columnas, “x”, “y” y “pred”, que representan las coordenadas horizontales y los valores interpolados. Estos nombres no son muy descriptivos; se pueden cambiar con <code>rename</code>. Entonces este código extrae el elemento <code>map</code> de la lista <code>observaciones_regular</code>, le cambia el nombre a las variables y asigna el resultado a <code>observaciones_regular</code></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>observaciones_regular &lt;-<span class="st"> </span>observaciones_regular<span class="op">$</span>map <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">lon =</span> x, <span class="dt">lat =</span> y, <span class="dt">tmax_media =</span> pred)</span></code></pre></div>
-<p>Y esto, como es una grilla regular, se puede graficar con cualquiera de las <a href="#gillas-regulares">técnicas anteriores</a>. Dado que esto es una interpolación, es buena costumbre, además, indicar con puntos las coordenadas de las observaciones usadas para realizarla.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">ggplot</span>(observaciones_regular, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="st">  </span><span class="kw">geom_contour_fill</span>(<span class="kw">aes</span>(<span class="dt">z =</span> tmax_media)) <span class="op">+</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> observaciones, <span class="dt">size =</span> <span class="fl">0.2</span>) <span class="op">+</span></span>
-<span id="cb30-4"><a href="#cb30-4"></a><span class="st">  </span>mi_mapa <span class="op">+</span></span>
-<span id="cb30-5"><a href="#cb30-5"></a><span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">55</span>, <span class="dv">-20</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">80</span>, <span class="dv">-50</span>))</span></code></pre></div>
+## $ x    &lt;dbl&gt; -72.05, -72.05, -72.05, -72.05, -72.05, -72.05, -72.05, -72.05, -…
+## $ y    &lt;dbl&gt; -54.80000, -54.46970, -54.13939, -53.80909, -53.47879, -53.14848,…
+## $ pred &lt;dbl&gt; 8.938263, 8.740744, 8.554452, 8.379149, 8.240792, 8.154581, 8.111…</code></pre>
+<p>Es una tabla con columnas, “x”, “y” y “pred”, que representan las
+coordenadas horizontales y los valores interpolados. Estos nombres no
+son muy descriptivos; se pueden cambiar con <code>rename</code>.
+Entonces este código extrae el elemento <code>map</code> de la lista
+<code>observaciones_regular</code>, le cambia el nombre a las variables
+y asigna el resultado a <code>observaciones_regular</code></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>observaciones_regular <span class="ot">&lt;-</span> observaciones_regular<span class="sc">$</span>map <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">lon =</span> x, <span class="at">lat =</span> y, <span class="at">tmax_media =</span> pred)</span></code></pre></div>
+<p>Y esto, como es una grilla regular, se puede graficar con cualquiera
+de las <a href="#gillas-regulares">técnicas anteriores</a>. Dado que
+esto es una interpolación, es buena costumbre, además, indicar con
+puntos las coordenadas de las observaciones usadas para realizarla.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(observaciones_regular, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour_fill</span>(<span class="fu">aes</span>(<span class="at">z =</span> tmax_media)) <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> observaciones, <span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  mi_mapa <span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>, <span class="sc">-</span><span class="dv">20</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>, <span class="sc">-</span><span class="dv">50</span>))</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
-<p>Este mapa se puede mejorar. En particular, la interpolación en el Mar Argentino, a miles de kilómetros de cualquier observación, no tiene ningún sentido. Para controlar el dominio en el cual se realiza la interpolación hay que usar el argumento <code>polygons</code> de <code>kriging()</code>. Ahí, hay que poner puntos en x e y que definan el polígono dentro del cual se va a hacer la interpolación. ¿De dónde sacás un polígono con el contorno de Argentina? 🤔. ¡Lo estás mirando! Es nuestro mapa.</p>
-<p>La función <code>fortify()</code> de {ggplot2} genera polígonos a partir de la salida de {rnaturalearth}. De esos polígonos hay que seleccionar únicamente las coordenadas de longitud y latitud, y al mismo tiempo, renombrarlas como x e y para que <code>kriging()</code> las entienda. Finalmente, hay que meter todo eso en una lista.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>poligonos_arg &lt;-<span class="st"> </span>rnaturalearth<span class="op">::</span><span class="kw">ne_countries</span>(<span class="dt">country =</span> <span class="st">&quot;argentina&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="st">  </span><span class="kw">fortify</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="st">  </span><span class="kw">select</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="st">  </span><span class="kw">list</span>()</span></code></pre></div>
-<p>Ahora, hay que repetir todo lo anterior, pero usando con <code>polygons = poligonos_arg</code>.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>observaciones_regular &lt;-<span class="st"> </span>observaciones <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="st">  </span><span class="kw">with</span>(kriging<span class="op">::</span><span class="kw">kriging</span>(lon, lat, <span class="dt">response =</span> tmax_media, <span class="dt">polygons =</span> poligonos_arg)) </span>
-<span id="cb32-4"><a href="#cb32-4"></a></span>
-<span id="cb32-5"><a href="#cb32-5"></a>observaciones_regular &lt;-<span class="st"> </span>observaciones_regular<span class="op">$</span>map <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb32-6"><a href="#cb32-6"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">lon =</span> x, <span class="dt">lat =</span> y, <span class="dt">tmax_media =</span> pred)</span>
-<span id="cb32-7"><a href="#cb32-7"></a></span>
-<span id="cb32-8"><a href="#cb32-8"></a><span class="kw">ggplot</span>(observaciones_regular, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb32-9"><a href="#cb32-9"></a><span class="st">  </span><span class="kw">geom_contour_fill</span>(<span class="kw">aes</span>(<span class="dt">z =</span> tmax_media)) <span class="op">+</span></span>
-<span id="cb32-10"><a href="#cb32-10"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> observaciones, <span class="dt">size =</span> <span class="fl">0.2</span>) <span class="op">+</span></span>
-<span id="cb32-11"><a href="#cb32-11"></a><span class="st">  </span>mi_mapa <span class="op">+</span></span>
-<span id="cb32-12"><a href="#cb32-12"></a><span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">55</span>, <span class="dv">-20</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">80</span>, <span class="dv">-50</span>))</span></code></pre></div>
+<p>Este mapa se puede mejorar. En particular, la interpolación en el Mar
+Argentino, a miles de kilómetros de cualquier observación, no tiene
+ningún sentido. Para controlar el dominio en el cual se realiza la
+interpolación hay que usar el argumento <code>polygons</code> de
+<code>kriging()</code>. Ahí, hay que poner puntos en x e y que definan
+el polígono dentro del cual se va a hacer la interpolación. ¿De dónde
+sacás un polígono con el contorno de Argentina? 🤔. ¡Lo estás mirando!
+Es nuestro mapa.</p>
+<p>La función <code>fortify()</code> de {ggplot2} genera polígonos a
+partir de la salida de {rnaturalearth}. De esos polígonos hay que
+seleccionar únicamente las coordenadas de longitud y latitud, y al mismo
+tiempo, renombrarlas como x e y para que <code>kriging()</code> las
+entienda. Finalmente, hay que meter todo eso en una lista.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>poligonos_arg <span class="ot">&lt;-</span> rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>(<span class="at">country =</span> <span class="st">&quot;argentina&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fortify</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>()</span></code></pre></div>
+<p>Ahora, hay que repetir todo lo anterior, pero usando con
+<code>polygons = poligonos_arg</code>.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>observaciones_regular <span class="ot">&lt;-</span> observaciones <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(kriging<span class="sc">::</span><span class="fu">kriging</span>(lon, lat, <span class="at">response =</span> tmax_media, <span class="at">polygons =</span> poligonos_arg)) </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>observaciones_regular <span class="ot">&lt;-</span> observaciones_regular<span class="sc">$</span>map <span class="sc">%&gt;%</span> </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">lon =</span> x, <span class="at">lat =</span> y, <span class="at">tmax_media =</span> pred)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(observaciones_regular, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour_fill</span>(<span class="fu">aes</span>(<span class="at">z =</span> tmax_media)) <span class="sc">+</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> observaciones, <span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  mi_mapa <span class="sc">+</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>, <span class="sc">-</span><span class="dv">20</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>, <span class="sc">-</span><span class="dv">50</span>))</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <div class="alert alert-info">
 <p><strong>Desafío</strong></p>
-<p>La interpolación de este gráfico queda fea en los bordes porque tiene poca resolución. ¿Qué hay que cambiar en la llamada a <code>kriging()</code> para incrementarla? Fijate en la documentación de la función.</p>
+<p>La interpolación de este gráfico queda fea en los bordes porque tiene
+poca resolución. ¿Qué hay que cambiar en la llamada a
+<code>kriging()</code> para incrementarla? Fijate en la documentación de
+la función.</p>
 </div>
-<div class="alert alert-success">
-<p><strong>Nota</strong> Para que <code>geom_contour_fill()</code> funcione bien en este caso, hay que instalar la versión de desarrollo de <code>metR</code>que se puede instalar con el comando <code>remotes::install_gihub("eliocamp/metR@dev")</code>. También es necesaria esa versión para que funcione <code>geom_text_contour()</code> como en el ejemplo que sigue.</p>
-</div>
-<p>Este gráfico tiene lo básico, pero se le puede poner un poco de amor para que quede mejor. Se le puede agregar líneas de contorno en negro para resaltar los contornos, cambiar la escala de colores para que evoque más la idea de “temperatura máxima”, agregar etiquetas a los contornos y modificar el texto de los ejes y las escalas. Haciendo todo eso, podemos llegar a algo como esto.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">ggplot</span>(observaciones_regular, <span class="kw">aes</span>(lon, lat)) <span class="op">+</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a><span class="st">  </span><span class="kw">geom_contour_fill</span>(<span class="kw">aes</span>(<span class="dt">z =</span> tmax_media)) <span class="op">+</span></span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="st">  </span><span class="kw">geom_contour2</span>(<span class="kw">aes</span>(<span class="dt">z =</span> tmax_media), <span class="dt">size =</span> <span class="fl">0.2</span>) <span class="op">+</span></span>
-<span id="cb33-4"><a href="#cb33-4"></a><span class="st">  </span><span class="kw">geom_text_contour</span>(<span class="kw">aes</span>(<span class="dt">z =</span> tmax_media), <span class="dt">skip =</span> <span class="dv">1</span>,</span>
-<span id="cb33-5"><a href="#cb33-5"></a>                    <span class="dt">rotate =</span> <span class="ot">FALSE</span>, <span class="dt">size =</span> <span class="fl">3.5</span>,</span>
-<span id="cb33-6"><a href="#cb33-6"></a>                    <span class="dt">stroke =</span> <span class="fl">0.1</span>, <span class="dt">color =</span><span class="st">&quot;white&quot;</span>, <span class="dt">stroke.color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></span>
-<span id="cb33-7"><a href="#cb33-7"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> observaciones, <span class="dt">size =</span> <span class="fl">0.2</span>) <span class="op">+</span></span>
-<span id="cb33-8"><a href="#cb33-8"></a><span class="st">  </span>mi_mapa <span class="op">+</span></span>
-<span id="cb33-9"><a href="#cb33-9"></a><span class="st">  </span><span class="kw">scale_fill_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb33-10"><a href="#cb33-10"></a><span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">55</span>, <span class="dv">-20</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">80</span>, <span class="dv">-50</span>)) <span class="op">+</span></span>
-<span id="cb33-11"><a href="#cb33-11"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Temperatura (ºC)&quot;</span>, </span>
-<span id="cb33-12"><a href="#cb33-12"></a>       <span class="dt">x =</span> <span class="ot">NULL</span>,</span>
-<span id="cb33-13"><a href="#cb33-13"></a>       <span class="dt">y =</span> <span class="ot">NULL</span>)  <span class="op">+</span></span>
-<span id="cb33-14"><a href="#cb33-14"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<p>Este gráfico tiene lo básico, pero se le puede poner un poco de amor
+para que quede mejor. Se le puede agregar líneas de contorno en negro
+para resaltar los contornos, cambiar la escala de colores para que
+evoque más la idea de “temperatura máxima”, agregar etiquetas a los
+contornos y modificar el texto de los ejes y las escalas. Haciendo todo
+eso, podemos llegar a algo como esto.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(observaciones_regular, <span class="fu">aes</span>(lon, lat)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour_fill</span>(<span class="fu">aes</span>(<span class="at">z =</span> tmax_media)) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour2</span>(<span class="fu">aes</span>(<span class="at">z =</span> tmax_media), <span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_contour</span>(<span class="fu">aes</span>(<span class="at">z =</span> tmax_media), <span class="at">skip =</span> <span class="dv">1</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">rotate =</span> <span class="cn">FALSE</span>, <span class="at">size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stroke =</span> <span class="fl">0.1</span>, <span class="at">color =</span><span class="st">&quot;white&quot;</span>, <span class="at">stroke.color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> observaciones, <span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  mi_mapa <span class="sc">+</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">direction =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>, <span class="sc">-</span><span class="dv">20</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>, <span class="sc">-</span><span class="dv">50</span>)) <span class="sc">+</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Temperatura (ºC)&quot;</span>, </span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)  <span class="sc">+</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="09-graficos-II_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
-<p>Vas av er un poco más sobre la apariencia de los gráficos en la siguiente sección.</p>
+<p>Vas av er un poco más sobre la apariencia de los gráficos en la
+siguiente sección.</p>
 <div class="btn-group" role="group" aria-label="Navegación">
-<p><a href= "08-lubridate.html" class = "btn btn-primary">Anterior</a> <a href= "10-graficos-III.html" class = "btn btn-primary">Siguiente</a></p>
+<p><a href= "08-lubridate.html" class = "btn btn-primary">Anterior</a>
+<a href= "10-graficos-III.html" class = "btn btn-primary">Siguiente</a></p>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiR3LDoWZpY29zIGVzcGFjaWFsZXMiCm91dHB1dDogCiAgaHRtbF9kb2N1bWVudDoKICAgIGNvZGVfZG93bmxvYWQ6IHRydWUKICAgIHRvYzogdHJ1ZQogICAgdG9jX2Zsb2F0OiB0cnVlCiAgICBoaWdobGlnaHQ6IHRhbmdvCi0tLQoKYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSwKICAgICAgICAgICAgICAgICAgICAgIG1lc3NhZ2UgPSBGQUxTRSkKbGlicmFyeShnZ3Bsb3QyKQpsaWJyYXJ5KGRwbHlyKQpsaWJyYXJ5KHJlYWRyKQpsaWJyYXJ5KG1ldFIpCmBgYAoKCkhheSBkb3MgZ3JhbmRlcyB0aXBvcyBkZSBkYXRvcyBlc3BhY2lhbGVzOiBncmlsbGFzIHJlZ3VsYXJlcyB5IGdyaWxsYXMgaXJyZWd1bGFyZXMuIAoKIyMgR3JpbGxhcyByZWd1bGFyZXMKCkVuIFtsYSBzZWd1bmRhIHNlY2Npw7NuIGRlIGxlY3R1cmEgZGUgZGF0b3NdKDA0LWxlY3R1cmEuaHRtbCNBcmNoaXZvc19OZXRDREYpIHZpc3RlIGPDs21vIGxlZXIgYXJjaGl2b3MgTmV0Q0RGOgoKCmBgYHtyfQp0ZW1wZXJhdHVyYSA8LSBSZWFkTmV0Q0RGKCJkYXRvcy90ZW1wZXJhdHVyYS5uYyIsIHZhcnMgPSAiYWlyIiwKICAgICAgICAgICAgICAgICAgICAgICAgICBzdWJzZXQgPSBsaXN0KGxldmVsID0gMTAwMCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhdCA9IGMoLTU1LCAtMjApLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbG9uID0gYygyODAsIDMxMCkpKSAKZ2xpbXBzZSh0ZW1wZXJhdHVyYSkKYGBgCgpMYSB2YXJpYWJsZSBgdGVtcGVyYXR1cmFgIGVzIHVuYSB0YWJsYSBxdWUgdGllbmUgZGF0byBkZSB0ZW1wZXJhdHVyYSBkZWwgYWlyZSBwYXJhIGNhZGEgdGllbXBvLCBuaXZlbCAoYWx0dXJhKSwgbGF0aXR1ZCB5IGxvbmdpdHVkLiBDb21vIGVzdGUgYXJjaGl2byB0aWVuZSBpbmZvcm1hY2nDs24gc8OzbG8gcGFyYSB1biB0aWVtcG8geSBlbCBjw7NkaWdvIGZpbHRyw7Mgc8OzbG8gZGF0b3MgZGUgdW4gbml2ZWwsIGVudG9uY2VzIGxhIHZhcmlhY2nDs24gZXMgc8OzbG8gZW4gbGF0aXR1ZCB5IGxvbmdpdHVkLiDCv0PDs21vIHNlIGdyYWZpY2E/CgpTZSBwdWVkZSBkaWJ1amFyIHVuIHB1bnRvIHBvciBjYWRhIGRhdG86CgpgYGB7cn0KZ2dwbG90KHRlbXBlcmF0dXJhLCBhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9wb2ludCgpCmBgYAoKRXN0byBubyBkaWNlIG5hZGEsIGF1bnF1ZSBwb2RlbW9zIGNvbmZpcm1hciBxdWUgbG9zIGRhdG9zIGVzdMOhbiBlbiB1bmEgZ3JpbGxhIHJlZ3VsYXIuIFBhcmEgdmlzdWFsaXphciBsYSB0ZW1wZXJhdHVyYSwgaGF5IHF1ZSBtYXBlYXIgw6lzdGUgdmFsb3IgYSB1biBwYXLDoW1ldHJvIGVzdMOpdGljbywgcG9yIGVqZW1wbG8sIGVsIGNvbG9yOgoKYGBge3J9CmdncGxvdCh0ZW1wZXJhdHVyYSwgYWVzKGxvbiwgbGF0KSkgKwogIGdlb21fcG9pbnQoYWVzKGNvbG9yID0gYWlyKSkKYGBgCgpQdW50b3MgcmVkb25kb3MgeSBzZXBhcmFkb3Mgbm8gZXMgbGEgZm9ybWEgbcOhcyBpbmZvcm1hdGl2YSBkZSB2ZXIgZXN0b3MgZGF0b3MuIFVuYSBncmlsbGEgcmVndWxhciBlbiByZWFsaWRhZCBkZWZpbmUgY29tbyB1bmEgImltYWdlbiIgZG9uZGUgY2FkYSBwdW50byBlcyB1biBwaXhlbC4gRXN0byBzZSBsbGFtYSB1biAicmFzdGVyIiB5IGNvbiBnZ3Bsb3Qgc2UgcHVlZGUgZ3JhZmljYXIgY29uIGBnZW9tX3Jhc3RlcigpYC4KCgpgYGB7cn0KZ2dwbG90KHRlbXBlcmF0dXJhLCBhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9yYXN0ZXIoYWVzKGZpbGwgPSBhaXIpKQpgYGAKCmBnZW9tX3Jhc3RlcigpYCBkaWJ1amEgcmVjdMOhbmd1bG9zIGRlIGlndWFsIGFuY2hvIHkgYWx0byBlbiBjYWRhIHgsIHkuIEVsIGFuY2hvIHkgZWwgYWx0byBzZSBkZWZpbmVuIGEgdHJhdsOpcyBkZSBsYSByZXNvbHVjacOzbiBkZSBsb3MgZGF0b3MuIEZ1bmNpb25hbiBwZXJmZWN0YW1lbnRlIHBhcmEgZ3JpbGxhcyByZWd1bGFyZXMuIEVzdG9zIHJlY3TDoW5ndWxvcyB0aWVuZW4gdW4gY29sb3IgaW50ZXJubywgcG9yIGxvIHF1ZSBlbCBwYXLDoW1ldHJvIGVzdMOpdGljbyBzZSBsbGFtYSAiZmlsbCIuIAoKOjo6IHsuYWxlcnQgLmFsZXJ0LWluZm99IAoqKkRlc2Fmw61vKioKCmdncGxvdDIgdGllbmUgdHJlcyBmdW5jaW9uZXMgcGFyYSBnZW5lcmFyIHJlY3TDoW5ndWxvczogYGdlb21fcmFzdGVyKClgLCBgZ2VvbV90aWxlKClgIHkgYGdlb21fcmVjdCgpYC4gwr9DdcOhbCBlcyBsYSBkaWZlcmVuY2lhIGVudHJlIGNhZGEgdW5vPyBGaWphdGUgZW4gbGEgZG9jdW1lbnRhY2nDs24uIAo6OjoKCiMjIE1hcGFzCgpCaWVuLCBoYXN0YSBhaMOtIHRlbsOpcyB1biBncsOhZmljbyBjb24gbG9zIGRhdG9zLCBwZXJvIHBhcmEgZW50ZW5kZXJsb3MgZW4gc3UgY29udGV4dG8gZXNwYWNpYWwgY29tbyBtw61uaW1vIGhhY2UgZmFsdGEgdW4gbWFwYS4gUGFyYSB0ZW5lciB1biBtYXBhIHNlIG5lY2VzaXRhbiBkYXRvcyBkZSBsYSBsb2NhbGl6YWNpw7NuIGRlIGxhcyBjb3N0YXMgbyBsYXMgZnJvbnRlcmFzLiBFeGlzdGVuIHZhcmlhcyBmdWVudGVzIGRlIGVzdG9zIGRhdG9zLCBwZXJvIHVuYSBtdXkgYnVlbmEgZXMgW05hdHVyYWwgRWFydGhdKGh0dHBzOi8vd3d3Lm5hdHVyYWxlYXJ0aGRhdGEuY29tLykuIEVsIHBhcXVldGUge3JuYXR1cmFsZWFydGh9IHByb3ZlZSB1bmEgaW50ZXJmYXogYW1pZ2FibGUgcGFyYSB1c2FyIGVzdG9zIGRhdG9zIGRpcmVjdGFtZW50ZSBlbiB7Z2dwbG90Mn0uIAoKUHJpbWVybyBoYXkgcXVlIGNhcmdhciBlbCBtYXBhIHF1ZSBxdWVyYW1vcy4gUG9yIGVqZW1wbG8sIHBhcmEgZ3JhZmljYXIgZWwgbWFwYSBkZSBBcmdlbnRpbmEgeSBzdXMgcGHDrXNlcyBsaW3DrXRyb2ZlcyBjYXJnYW1vcyBsb3MgZGF0b3MgY29uIGBuZV9jb3VudHJpZXMoKWA6CgpgYGB7cn0KbWFwYSA8LSBybmF0dXJhbGVhcnRoOjpuZV9jb3VudHJpZXMoY291bnRyeSA9IGMoImFyZ2VudGluYSIsICJjaGlsZSIsICJ1cnVndWF5IiwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJwYXJhZ3VheSIsICJicmF6aWwiLCAiYm9saXZpYSIsIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiZmFsa2xhbmQgaXNsYW5kcyIpLCAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuY2xhc3MgPSAic2YiKQpgYGAKCkVsIGFyZ3VtZW50byBgY291bnRyeWAgZXMgdW4gdmVjdG9yIGNvbiBsb3MgcGHDrXNlcyBxdWUgbmVjZXNpdGFtb3MuIEVsIGFyZ3VtZW50byBgcmV0dXJuY2xhc3NgIGVzIHVuIHBvY28gdMOpY25pY28sIHBlcm8gaGFjZSByZWZlcmVuY2lhIGEgbGEgZXN0cnVjdHVyYSBxdWUgcXVlcmVtb3MgcXVlIGRldnVlbHZhLiBFbiBlc3RlIGNhc28sIGByZXR1cm5jbGFzcyA9ICJzZiJgIGhhY2UgcXVlIGRldnVlbHZhIHVuIG9iamV0byBkZSBjbGFzZSAiU2ltcGxlIEZlYXR1cmVzIi4gTGFzICJTaW1wbGUgRmVhdHVyZXMiIHNvbiBjdWFscXVpZXIgY29zYSBtZW5vcyBzaW1wbGUgaW50ZXJuYW1lbnRlIHBlcm8gY29uIHtnZ3Bsb3QyfSBzZSBwdWVkZW4gZ3JhZmljYXIgY29uIHVuIGdlb20gZXNwZWPDrWZpY286IAoKYGBge3J9CmdncGxvdChtYXBhKSArCiAgZ2VvbV9zZigpCmBgYAoKUG9yIGRlZmVjdG8sIGVsIG1hcGEgc2UgZGlidWphIGNvbiB1biBmb25kbyBncmlzLCBwZXJvIGVsIHByb2JsZW1hIGVzIGVzZSBmb25kbyB2YSBhIHRhcGFyIGxvcyBkYXRvcyEgUGFybyBwYXJhIGRpYnVqYXIgc8OzbG8gbG9zIGNvbnRvcm5vcyBoYXkgcXVlIG1vZGlmaWNhcmxvIHVuIHBvY286CgpgYGB7cn0KZ2dwbG90KG1hcGEpICsKICBnZW9tX3NmKGZpbGwgPSBOQSwgY29sb3IgPSAiYmxhY2siLCBzaXplID0gMC4yKQpgYGAKCkN1YW5kbyB1bm8gdXNhIG11Y2hvIHVuIG1hcGEsIG11Y2hhcyB2ZWNlcyB0ZXJtaW5hIHNpZW5kbyDDunRpbCBndWFyZGFyIGVsIGdlb20gcG9yIHNlcGFyYWRvIGVuIHVuYSB2YXJpYWJsZS4gCgpgYGB7cn0KbWlfbWFwYSA8LSBnZW9tX3NmKGRhdGEgPSBtYXBhLCBpbmhlcml0LmFlcyA9IEZBTFNFLCBmaWxsID0gTkEsIGNvbG9yID0gImJsYWNrIiwgc2l6ZSA9IDAuMikgCmBgYAoKQWRlbcOhcyBkZSBsYXMgbW9kaWZpY2FjaW9uZXMgZXN0w6l0aWNhcywgZXN0YSBsbGFtYWRhIGEgYGdlb21fc2ZgIHRpZW5lIGVsIGFyZ3VtZW50byBgZGF0YSA9IG1hcGFgLCB5YSBxdWUgbm8gdmEgYSB1c2FyIGxvcyBkYXRvcyAiZ2xvYmFsZXMiIGRlIGxhIGxsYW1hZGEgYSBgZ2dwbG90KClgLiBUYW1iacOpbiB0aWVuZSBgw6xuaGVyaXQuYWVzID0gRkFMU0VgIHBvcnF1ZSB0YW1wb2NvIHRpZW5lIHF1ZSAiaGVyZWRhciIgbG9zIGFlcyBnbG9iYWxlcy4gCgpFbnRvbmNlcyBhaG9yYSwgcGFyYSBncmFmaWNhciBsYSB0ZW1wZXJhdHVyYSB5IGVsIG1hcGEgZW5jaW1hLCBhcm1hbW9zIGVsIGdyw6FmaWNvIGRlIHJhc3RlciBpZ3VhbCBxdWUgYW50ZXMgeSBsZSBzdW1hbW9zIGVsIG1hcGE6CgoKYGBge3J9CmdncGxvdCh0ZW1wZXJhdHVyYSwgYWVzKGxvbiwgbGF0KSkgKwogIGdlb21fcmFzdGVyKGFlcyhmaWxsID0gYWlyKSkgKwogIG1pX21hcGEKYGBgCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30KKipEZXNhZsOtbyoqCgrCv1BvZMOpcyBleHBsaWNhciBxdcOpIHNhbGnDsyBtYWw/Cjo6OgoKRXhpc3RlbiBkb3MgY29udmVuY2lvbmVzIGLDoXNpY2FzIHBhcmEgbWVkaXIgbGEgbG9uZ2l0dWQsIG1lZGlkYSBlbnRyZSAwwrogeSAzNjDCuiBvIGVudHJlIC0xODDCuiB5ICsxODDCui4gTG9zIGRhdG9zIGRlIHRlbXBlcmF0dXJhIHVzYW4gbGEgcHJpbWVyYSB5IGxvcyBkZWwgbWFwYSwgbGEgc2VndW5kYS4gUGFyYSBjb252ZXJ0aXIgZW50cmUgdW5hIHkgb3RyYSBjb252ZW5jacOzbiwgcG9kw6lzIHVzYXIgbGEgZnVuY2nDs24gYENvbnZlcnRMb25naXR1ZGUoKWAgZGUge21ldFJ9OgoKYGBge3J9CnRlbXBlcmF0dXJhIDwtIG11dGF0ZSh0ZW1wZXJhdHVyYSwgbG9uID0gbWV0Ujo6Q29udmVydExvbmdpdHVkZShsb24sIGZyb20gPSAzNjApKQpgYGAKCgpgYGB7cn0KZ2dwbG90KHRlbXBlcmF0dXJhLCBhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9yYXN0ZXIoYWVzKGZpbGwgPSBhaXIpKSArCiAgbWlfbWFwYSAKYGBgCgpMbyDDum5pY28gcXVlIGxlIGZhbHRhIGEgZXN0ZSBncsOhZmljbyBlcyBsbyBxdWUgbGUgc29icmE6IHRvZG8gZWwgZXNwYWNpbyBkb25kZSBubyBoYXkgZGF0b3MuIFBhcmEgcmVjb3J0YXIgZWwgw6FyZWEgZGVsIGdyw6FmaWNvIHkgcXVlIHRvbWUgc8OzbG8gZG9uZGUgdGVuZW1vcyBkYXRvcyBkZSB0ZW1wZXJhdHVyYSwgaGF5IHF1ZSBlc3BlY2lmaWNhciBsb3MgbMOtbWl0ZXMgZGVsIHNpc3RlbWEgZGUgY29vcmRlbmFkYXMuIENvbW8gYG1pX21hcGFgIGVzIHVuIGBnZW9tX3NmYCwgaGF5IHF1ZSB1c2FyIGBjb29yZF9zZmAuCgpgYGB7cn0KZ2dwbG90KHRlbXBlcmF0dXJhLCBhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9yYXN0ZXIoYWVzKGZpbGwgPSBhaXIpKSArCiAgbWlfbWFwYSArCiAgY29vcmRfc2YoeWxpbSA9IGMoLTU1LCAtMjApLCB4bGltID0gYygtODAsIC01MCkpCmBgYAoKCk90cmEgZm9ybWEgZGUgZ3JhZmljYXIgZGF0b3MgZXNwYWNpYWxlcyBlcyBwZW5zYXJsb3MgY29tbyB1bmEgc3VwZXJmaWNpZSB0cmlkaW1lbnNpb25hbCBkb25kZSBlbCB4IHkgZWwgeSBzb24gbGFzIGNvb3JkZW5hZGFzIHkgbGEgYWx0dXJhIChsYSBjb29yZGVuYWRhIHopIGVzIHByb3BvcmNpb25hbCBhbCB2YWxvciBkZSBsYSB2YXJpYWJsZS4gSW1hZ2luw6FuZG9zZWxvIGFzw60sIGVzdGUgZ3LDoWZpY28gZGUgdGVtcGVyYXR1cmEgc2Vyw61hIHVuYSBtb250YcOxYSBjb24gc3UgY2ltYSBlbiBQYXJhZ3VheSB5IHN1IHB1bnRvIG3DoXMgYmFqbyBjZXJjYSBkZSBDaHVidXQuIAoKUHJlY2lzYW1lbnRlIHBhcmEgZXN0YSBzaXR1YWNpw7NuIGVzdMOhbiBwZW5zYWRhcyBsYXMgbMOtbmVhcyBkZSBjb250b3JubyBxdWUgc2UgcHVlZGVuIGdyYWZpY2FyIGVuIHtnZ3Bsb3QyfSB1c2FuZG8gbGEgZnVuY2nDs24gYGdlb21fY29udG91cigpYC4KCmBgYHtyfQpnZ3Bsb3QodGVtcGVyYXR1cmEsIGFlcyhsb24sIGxhdCkpICsKICBnZW9tX2NvbnRvdXIoYWVzKHogPSBhaXIpKSArCiAgbWlfbWFwYSArCiAgY29vcmRfc2YoeWxpbSA9IGMoLTU1LCAtMjApLCB4bGltID0gYygtODAsIC01MCkpCmBgYAoKTGFzIGzDrW5lYXMgZGlidWphZGFzIHBvciBgZ2VvbV9jb250b3VyKClgIHNvbiBsw61uZWFzIGRlIG5pdmVsIHF1ZSB1bmVuIHB1bnRvcyBkZSB2YWxvciBjb25zdGFudGUuIFNpbiBlbWJhcmdvLCBlc2FzIGzDrW5lYXMgYXp1bGVzIG5vIGRhbiBuaW5ndW5hIGluZGljYWNpw7NuIGRlbCB2YWxvciBkZSBsYSB2YXJpYWJsZSBwb3IgbG8gcXVlIGVzIGNvbnZlbmllbnRlIG1hcGVhciBlbCBjb2xvciBkZSBsYXMgbMOtbmVhcyBlc2UgdmFsb3IgY29uc3RhbnRlLgoKYGBge3J9CmdncGxvdCh0ZW1wZXJhdHVyYSwgYWVzKGxvbiwgbGF0KSkgKwogIGdlb21fY29udG91cihhZXMoeiA9IGFpciwgY29sb3IgPSBzdGF0KGxldmVsKSkpICsKICBtaV9tYXBhICsKICBjb29yZF9zZih5bGltID0gYygtNTUsIC0yMCksIHhsaW0gPSBjKC04MCwgLTUwKSkKYGBgCgrCv0RlIGTDs25kZSBzYWxpw7MgZXNlIGBzdGF0KGxldmVsKWA/IEFsZ3Vub3MgZ2VvbXMgcXVlIHJlYWxpemFuIHRyYW5zZm9ybWFjaW9uZXMgZXN0YWTDrXN0aWNhcyBjb21wdXRhbiB2YXJpYWJsZXMgbnVldmFzIHF1ZSBsdWVnbyBzZSBwdWVkZW4gbWFwZWFyIGEgcGFyw6FtZXRyb3MgZ2VvbcOpdHJpY29zLiAibGV2ZWwiIGVzIHVuYSBkZSBlc2FzIHZhcmlhYmxlcyBjb21wdXRhZGFzIGRlIGBnZW9tX2NvbnRvdXJgLiBQYXJhIGRlY2lybGUgYSBnZ3Bsb3QgcXVlIGFsIGxldmVsIGFsIHF1ZSB0ZSByZWZlcsOtcyBlcyBhIGxhIHZhcmlhYmxlIGNvbXB1dGFkYSwgc2Ugcm9kZWEgYSBsYSB2YXJpYWJsZSBjb24gbGEgZnVuY2nDs24gYHN0YXQoKWAuCgpVbmEgdmFyaWVkYWQgZGUgbGFzIGzDrW5lYXMgZGUgY29udG9ybm8gc29uIGxhcyBsw61uZWFzICJsbGVuYXMiLiBIYXN0YSBoYWNlIHBvY28sIHtnZ3Bsb3QyfSBubyB0ZW7DrWEgdW5hIGZvcm1hIGRlIGdyYWZpY2FyIGVzdG9zIGNvbnRvcm5vcyBsbGVub3MsIGFzw60gcXVlIGVzdMOhIGltcGxlbWVudGFkbyBlbiB7bWV0Un0gY29uIGxhIGZ1bmN0aW9uIGBnZW9tX2NvbnRvdXJfZmlsbCgpYC4gUmVjaWVudGVtZW50ZSB7Z2dwbG90Mn0gaW1wbGVtZW50w7MgbGEgZnVuY2nDs24gYGdlb21fY29udG91cl9maWxsZWQoKWAgcGVybyBhIG5vc290cm9zIG5vcyBndXN0YSBtw6FzIGxhIHZlcnNpw7NuIGRlIHttZXRSfSBgciBlbW86OmppKCJ3aW5rIilgCgpgYGB7cn0KZ2dwbG90KHRlbXBlcmF0dXJhLCBhZXMobG9uLCBsYXQpKSArCiAgbWV0Ujo6Z2VvbV9jb250b3VyX2ZpbGwoYWVzKHogPSBhaXIpKSArCiAgbWlfbWFwYSArCiAgY29vcmRfc2YoeWxpbSA9IGMoLTU1LCAtMjApLCB4bGltID0gYygtODAsIC01MCkpCmBgYAoKClBvciDDumx0aW1vLCB0cmFucXVpbGFtZW50ZSBzZSBwdWVkZW4gdXNhciBhbWJvcyBnZW9tcyBwYXJhIHJlc2FsdGFyIGxvcyBsw61taXRlcyB5CgoKYGBge3J9CmdncGxvdCh0ZW1wZXJhdHVyYSwgYWVzKGxvbiwgbGF0KSkgKwogIG1ldFI6Omdlb21fY29udG91cl9maWxsKGFlcyh6ID0gYWlyKSkgKwogIGdlb21fY29udG91cihhZXMoeiA9IGFpciksIGNvbG9yID0gImJsYWNrIikgKwogIG1pX21hcGEgKwogIGNvb3JkX3NmKHlsaW0gPSBjKC01NSwgLTIwKSwgeGxpbSA9IGMoLTgwLCAtNTApKQpgYGAKCiMjIEdyaWxsYXMgaXJyZWd1bGFyZXMKCsK/UXXDqSBwYXNhIGN1YW5kbyBlbiB2ZXogZGUgb2JzZXJ2YWNpb25lcyBvcmdhbml6YWRhcyBlbiB1bmEgYmVsbGEgZ3JpbGxhIHJlZ3VsYXIsIHRlbsOpcyBvYnNlcnZhY2lvbmVzIHB1bnR1YWxlcyBlbiBsdWdhcmVzIGRpc3BlcnNvcz8gU2kgdGUgYWNvcmTDoXMgZGUgbGEgc2VjY2nDs24gZGUgdW5pb25lcywgZW4gbGEgY2FycGV0YSBkYXRvcyBoYXkgdW4gYXJjaGl2byBjb24gZGF0b3MgZGUgdGVtcGVyYXR1cmEgZGVsIHNlcnZpY2lvIG1ldGVvcm9sw7NnaWNvIHkgbWV0YWRhdG9zIGNvbiBzdXMgdWJpY2FjaW9uZXMuIEVzdG8gZGVmaW5lIGRhdG9zIGVzcGFjaWFsZXMgZGUgdGVtcGVyYXR1cmEuIAoKCmBgYHtyfQojIFBhcmEgdHJhYmFqYXIgY29uIG1lbm9zIGRhdG9zLCBub3MgcXVlZGFtb3MgY29uIGxhIHRlbXBlcmF0dXJhIG3DoXhpbWEgbWVkaWEgCiMgZGUgY2FkYSBlc3RhY2nDs24uCm9ic2VydmFjaW9uZXMgPC0gcmVhZHI6OnJlYWRfY3N2KCJkYXRvcy9vYnNlcnZhY2lvbmVzX3Ntbi5jc3YiKSAlPiUgCiAgZ3JvdXBfYnkoc3RhdGlvbikgJT4lIAogIHN1bW1hcmlzZSh0bWF4X21lZGlhID0gbWVhbih0bWF4LCBuYS5ybSA9IFRSVUUpKQoKZXN0YWNpb25lcyA8LSByZWFkX2NzdigiZGF0b3MvZXN0YWNpb25lc19zbW4uY3N2IikgCgpvYnNlcnZhY2lvbmVzIDwtIGxlZnRfam9pbihvYnNlcnZhY2lvbmVzLCBlc3RhY2lvbmVzLCBieSA9IGMoInN0YXRpb24iID0gIm5vbWJyZSIpKSAlPiUgCiAgZmlsdGVyKHByb3ZpbmNpYSAhPSAiQU5UQVJUSURBIikKYGBgCgpMbyBwcmltZXJvIHF1ZSBzZSBwdWVkZSBoYWNlciBlcyBncmFmaWNhciBlc3RvcyBkYXRvcyBkZSBlc3RhY2nDs24gY29uIHB1bnRvcywgZGUgbGEgbWlzbWEgZm9ybWEgcXVlIHBhcmEgbG9zIGRhdG9zIHJlZ3VsYXJlcy4KCmBgYHtyfQpnZ3Bsb3Qob2JzZXJ2YWNpb25lcywgYWVzKGxvbiwgbGF0KSkgKwogIGdlb21fcG9pbnQoYWVzKGNvbG9yID0gdG1heF9tZWRpYSkpICsKICBtaV9tYXBhICsKICBjb29yZF9zZih5bGltID0gYygtNTUsIC0yMCksIHhsaW0gPSBjKC04MCwgLTUwKSkKYGBgCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30gCioqRGVzYWbDrW8qKgoKR3JhZmljw6EgZXN0b3MgcHVudG9zIHVzYW5kbyBgZ2VvbV9yYXN0ZXIoKWAgeSBgZ2VvbV9jb250b3VyKClgLiDCv0N1w6FsIGVzIGVsIHJlc3VsdGFkbz8KCjo6OgoKCkNvbW8gZXN0b3MgZGF0b3Mgbm8gZXN0w6FuIGVuIHVuYSBncmlsbGEgcmVndWxhciwgYGdlb21fcmFzdGVyKClgIHkgYGdlb21fY29udG91cigpYCBubyBsb3MgcHVlZGVuIGdyYWZpY2FyLiBQYXJhIHVzYXIgY29udG9ybm9zIGhheSBxdWUgaW50ZXJwb2xhciBhIHVuYSBncmlsbGEgcmVndWxhci4gVW5hIGZvcm1hIGRlIGhhY2VybG8gZXMgdXNhbmRvIGxhIHTDqWNuaWNhIGRlIFtrcmlnaW5nXShodHRwczovL2VzLndpa2lwZWRpYS5vcmcvd2lraS9LcmlnaW5nKS4gVW4gcGFxdWV0ZSBkZSBSIHF1ZSBsYSBpbXBsZW1lbnRhIGVzIHtrcmlnaW5nfSBlbiBzdSBmdW5jacOzbiBga3JpZ2luZ2AKClNpIHZhcyBhIGxhIGF5dWRhIGRlIGBrcmlnaW5nKClgLCB2YXMgYSB2ZXIgcXVlIHJlcXVpZXJlIHVuIHZlY3RvciBkZSBjb29yZGVuYWRhcyB4LCB1biB2ZWN0b3IgZGUgY29vcmRlbmFkYXMgeSB5IHVuIHZlY3RvciBkZSB2YWxvcmVzIG9ic2VydmFkb3MuIEVzdG9zIHNvbiBsYXMgY29sdW1uYXMgYGxvbmAsIGBsYXRgIHkgYHRtYXhfbWVkaWFgIGRlIGxhIHRhYmxhIGBvYnNlcnZhY2lvbmVzYC4gRW50b25jZXMgZWwgY8OzZGlnbyBzZXLDrWE6CgpgYGB7ciwgZXJyb3IgPSBUUlVFfQpvYnNlcnZhY2lvbmVzX3JlZ3VsYXIgPC0ga3JpZ2luZzo6a3JpZ2luZyh4ID0gb2JzZXJ2YWNpb25lcyRsb24sIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB5ID0gb2JzZXJ2YWNpb25lcyRsYXQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlc3BvbnNlID0gb2JzZXJ2YWNpb25lcyR0bWF4X21lZGlhKQpgYGAKCkVzdGUgZXJyb3IgaW5kaWNhIHF1ZSBoYXkgYE5BYHMsIHkgYGtyaWdpbmcoKWAgbm8gZnVuY2lvbmEgc2kgaGF5IHZhbG9yZXMgZmFsdGFudGVzLiBMbyBxdWUgaGF5IHF1ZSBoYWNlciBlcyBvbWl0aXJsb3MuIExhIGZ1bmNpw7NuIGBuYS5vbWl0KClgIGVsaW1pbmEgZmlsYXMgZG9uZGUgYWxnw7puIHZhbG9yIHNlYSBgTkFgLgoKYGBge3J9Cm5hLm9taXQob2JzZXJ2YWNpb25lcykKYGBgCgpQYXJhIG5vIGVzY3JpYmlyIGBuYS5vbWl0KG9ic2VydmFjaW9uZXMpYCB0cmVzIHZlY2VzIGRlbnRybyBkZSBsYSBsbGFtYWRhIGEgYGtyaWdpbigpYCBzZSBwdWVkZSB1c2FyIGxhIGZ1bmNpw7NuIGB3aXRoKClgLiBFc3RhIGZ1bmNpw7NuIG5vIGVzIGRlIHtkcGx5cn0gcGVybyBmdW5jaW9uYSBwYXJlY2lkbyBhIGBzdW1tYXJpc2UoKWAvYG11dGF0ZSgpYCBlbiBxdWUgdG9tYSBjb21vIHByaW1lciBhcmd1bWVudG8gdW5hIHRhYmxhIHkgbHVlZ28gZWwgY8OzZGlnbyBxdWUgcG9uZ2Ftb3Mgc2UgZW50aWVuZGUgcXVlIGhhY2UgcmVmZXJlbmNpYSBhIGxhcyBjb2x1bW5hcyBkZSBlc2EgdGFibGEuIAoKRW50b25jZXMsIHBvbmllbmRvIHRvZG8gZXNvIGp1bnRvIGVuIHVuYSBjYWRlbmE6IAoKYGBge3J9Cm9ic2VydmFjaW9uZXNfcmVndWxhciA8LSBvYnNlcnZhY2lvbmVzICU+JSAKICBuYS5vbWl0KCkgJT4lIAogIHdpdGgoa3JpZ2luZzo6a3JpZ2luZyhsb24sIGxhdCwgcmVzcG9uc2UgPSB0bWF4X21lZGlhKSkKYGBgCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30gCioqRGVzYWbDrW8qKgoKwr9RdcOpIGVzIGxvIHF1ZSBkZXZvbHZpw7MgbGEgZnVuY2nDs24gYGtyaWdpbmcoKWA/IFBvZMOpcyBtaXJhciBsYSBkb2N1bWVudGFjacOzbiBkZSBsYSBmdW5jacOzbiAoZW4gbGEgc2VjY2nDs24gIlZhbHVlIikgbyB1c2FuZG8gYGdsaW1wc2Uob2JzZXJ2YWNpb25lc19yZWd1bGFyKWAuCgo6OjoKCgpgb2JzZXJ2YWNpb25lc19yZWd1bGFyYCBlcyB1bmEgbGlzdGEgY29uIG11Y2hvcyBlbGVtZW50b3M6CgpgYGB7cn0KZ2xpbXBzZShvYnNlcnZhY2lvbmVzX3JlZ3VsYXIpCmBgYApMYSBtYXlvcsOtYSBkZSBsb3MgZWxlbWVudG9zIGJyaW5kYW4gaW5mb3JtYWNpw7NuIGRldGFsbGFkIHNvYnJlIGxvcyBwYXLDoW1ldHJvcyB1c2Fkb3MgeSBjb21wdXRhZG9zIHBhcmEgcmVhbGl6YXIgbGEgaW50ZXJwb2xhY2nDs24uIEVsIGVsZW1lbnRvIMO6dGlsIGVzIGVsIHF1ZSBzZSBsbGFtYSBgbWFwYCwgcXVlIHRpZW5lIGxvcyBkYXRvcyBpbnRlcnBvbGFkb3MuIMK/UXXDqSBlcyBsbyBxdWUgdGllbmUgYG1hcGA/CgpgYGB7cn0KZ2xpbXBzZShvYnNlcnZhY2lvbmVzX3JlZ3VsYXIkbWFwKQpgYGAKCkVzIHVuYSB0YWJsYSBjb24gY29sdW1uYXMsICJ4IiwgInkiIHkgInByZWQiLCBxdWUgcmVwcmVzZW50YW4gbGFzIGNvb3JkZW5hZGFzIGhvcml6b250YWxlcyB5IGxvcyB2YWxvcmVzIGludGVycG9sYWRvcy4gRXN0b3Mgbm9tYnJlcyBubyBzb24gbXV5IGRlc2NyaXB0aXZvczsgc2UgcHVlZGVuIGNhbWJpYXIgY29uIGByZW5hbWVgLiBFbnRvbmNlcyBlc3RlIGPDs2RpZ28gZXh0cmFlIGVsIGVsZW1lbnRvIGBtYXBgIGRlIGxhIGxpc3RhIGBvYnNlcnZhY2lvbmVzX3JlZ3VsYXJgLCBsZSBjYW1iaWEgZWwgbm9tYnJlIGEgbGFzIHZhcmlhYmxlcyB5IGFzaWduYSBlbCByZXN1bHRhZG8gYSBgb2JzZXJ2YWNpb25lc19yZWd1bGFyYAoKCmBgYHtyfQpvYnNlcnZhY2lvbmVzX3JlZ3VsYXIgPC0gb2JzZXJ2YWNpb25lc19yZWd1bGFyJG1hcCAlPiUgCiAgcmVuYW1lKGxvbiA9IHgsIGxhdCA9IHksIHRtYXhfbWVkaWEgPSBwcmVkKQpgYGAKClkgZXN0bywgY29tbyBlcyB1bmEgZ3JpbGxhIHJlZ3VsYXIsIHNlIHB1ZWRlIGdyYWZpY2FyIGNvbiBjdWFscXVpZXJhIGRlIGxhcyBbdMOpY25pY2FzIGFudGVyaW9yZXNdKCNnaWxsYXMtcmVndWxhcmVzKS4gRGFkbyBxdWUgZXN0byBlcyB1bmEgaW50ZXJwb2xhY2nDs24sIGVzIGJ1ZW5hIGNvc3R1bWJyZSwgYWRlbcOhcywgaW5kaWNhciBjb24gcHVudG9zIGxhcyBjb29yZGVuYWRhcyBkZSBsYXMgb2JzZXJ2YWNpb25lcyB1c2FkYXMgcGFyYSByZWFsaXphcmxhLiAKCmBgYHtyfQpnZ3Bsb3Qob2JzZXJ2YWNpb25lc19yZWd1bGFyLCBhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9jb250b3VyX2ZpbGwoYWVzKHogPSB0bWF4X21lZGlhKSkgKwogIGdlb21fcG9pbnQoZGF0YSA9IG9ic2VydmFjaW9uZXMsIHNpemUgPSAwLjIpICsKICBtaV9tYXBhICsKICBjb29yZF9zZih5bGltID0gYygtNTUsIC0yMCksIHhsaW0gPSBjKC04MCwgLTUwKSkKYGBgCgpFc3RlIG1hcGEgc2UgcHVlZGUgbWVqb3Jhci4gRW4gcGFydGljdWxhciwgbGEgaW50ZXJwb2xhY2nDs24gZW4gZWwgTWFyIEFyZ2VudGlubywgYSBtaWxlcyBkZSBraWzDs21ldHJvcyBkZSBjdWFscXVpZXIgb2JzZXJ2YWNpw7NuLCBubyB0aWVuZSBuaW5nw7puIHNlbnRpZG8uIFBhcmEgY29udHJvbGFyIGVsIGRvbWluaW8gZW4gZWwgY3VhbCBzZSByZWFsaXphIGxhIGludGVycG9sYWNpw7NuIGhheSBxdWUgdXNhciBlbCBhcmd1bWVudG8gYHBvbHlnb25zYCBkZSBga3JpZ2luZygpYC4gQWjDrSwgaGF5IHF1ZSBwb25lciBwdW50b3MgZW4geCBlIHkgcXVlIGRlZmluYW4gZWwgcG9sw61nb25vIGRlbnRybyBkZWwgY3VhbCBzZSB2YSBhIGhhY2VyIGxhIGludGVycG9sYWNpw7NuLiDCv0RlIGTDs25kZSBzYWPDoXMgdW4gcG9sw61nb25vIGNvbiBlbCBjb250b3JubyBkZSBBcmdlbnRpbmE/IGByIGVtbzo6amkoInRoaW5raW5nIilgLiDCoUxvIGVzdMOhcyBtaXJhbmRvISBFcyBudWVzdHJvIG1hcGEuIAoKTGEgZnVuY2nDs24gYGZvcnRpZnkoKWAgZGUge2dncGxvdDJ9IGdlbmVyYSBwb2zDrWdvbm9zIGEgcGFydGlyIGRlIGxhIHNhbGlkYSBkZSB7cm5hdHVyYWxlYXJ0aH0uIERlIGVzb3MgcG9sw61nb25vcyBoYXkgcXVlIHNlbGVjY2lvbmFyIMO6bmljYW1lbnRlIGxhcyBjb29yZGVuYWRhcyBkZSBsb25naXR1ZCB5IGxhdGl0dWQsIHkgYWwgbWlzbW8gdGllbXBvLCByZW5vbWJyYXJsYXMgY29tbyB4IGUgeSBwYXJhIHF1ZSBga3JpZ2luZygpYCBsYXMgZW50aWVuZGEuIEZpbmFsbWVudGUsIGhheSBxdWUgbWV0ZXIgdG9kbyBlc28gZW4gdW5hIGxpc3RhLiAKCmBgYHtyfQpwb2xpZ29ub3NfYXJnIDwtIHJuYXR1cmFsZWFydGg6Om5lX2NvdW50cmllcyhjb3VudHJ5ID0gImFyZ2VudGluYSIpICU+JSAKICBmb3J0aWZ5KCkgJT4lIAogIHNlbGVjdCh4ID0gbG9uZywgeSA9IGxhdCkgJT4lIAogIGxpc3QoKQpgYGAKCgpBaG9yYSwgaGF5IHF1ZSByZXBldGlyIHRvZG8gbG8gYW50ZXJpb3IsIHBlcm8gdXNhbmRvIGNvbiBgcG9seWdvbnMgPSBwb2xpZ29ub3NfYXJnYC4gCgpgYGB7cn0Kb2JzZXJ2YWNpb25lc19yZWd1bGFyIDwtIG9ic2VydmFjaW9uZXMgJT4lIAogIG5hLm9taXQoKSAlPiUgCiAgd2l0aChrcmlnaW5nOjprcmlnaW5nKGxvbiwgbGF0LCByZXNwb25zZSA9IHRtYXhfbWVkaWEsIHBvbHlnb25zID0gcG9saWdvbm9zX2FyZykpIAoKb2JzZXJ2YWNpb25lc19yZWd1bGFyIDwtIG9ic2VydmFjaW9uZXNfcmVndWxhciRtYXAgJT4lIAogIHJlbmFtZShsb24gPSB4LCBsYXQgPSB5LCB0bWF4X21lZGlhID0gcHJlZCkKCmdncGxvdChvYnNlcnZhY2lvbmVzX3JlZ3VsYXIsIGFlcyhsb24sIGxhdCkpICsKICBnZW9tX2NvbnRvdXJfZmlsbChhZXMoeiA9IHRtYXhfbWVkaWEpKSArCiAgZ2VvbV9wb2ludChkYXRhID0gb2JzZXJ2YWNpb25lcywgc2l6ZSA9IDAuMikgKwogIG1pX21hcGEgKwogIGNvb3JkX3NmKHlsaW0gPSBjKC01NSwgLTIwKSwgeGxpbSA9IGMoLTgwLCAtNTApKQpgYGAKCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30KKipEZXNhZsOtbyoqCgpMYSBpbnRlcnBvbGFjacOzbiBkZSBlc3RlIGdyw6FmaWNvIHF1ZWRhIGZlYSBlbiBsb3MgYm9yZGVzIHBvcnF1ZSB0aWVuZSBwb2NhIHJlc29sdWNpw7NuLiDCv1F1w6kgaGF5IHF1ZSBjYW1iaWFyIGVuIGxhIGxsYW1hZGEgYSBga3JpZ2luZygpYCBwYXJhIGluY3JlbWVudGFybGE/IEZpamF0ZSBlbiBsYSBkb2N1bWVudGFjacOzbiBkZSBsYSBmdW5jacOzbi4gCgoKOjo6Cgo6Ojogey5hbGVydCAuYWxlcnQtc3VjY2Vzc30gCioqTm90YSoqIApQYXJhIHF1ZSBgZ2VvbV9jb250b3VyX2ZpbGwoKWAgZnVuY2lvbmUgYmllbiBlbiBlc3RlIGNhc28sIGhheSBxdWUgaW5zdGFsYXIgbGEgdmVyc2nDs24gZGUgZGVzYXJyb2xsbyBkZSBgbWV0UmBxdWUgc2UgcHVlZGUgaW5zdGFsYXIgY29uIGVsIGNvbWFuZG8gYHJlbW90ZXM6Omluc3RhbGxfZ2lodWIoImVsaW9jYW1wL21ldFJAZGV2IilgLiAKVGFtYmnDqW4gZXMgbmVjZXNhcmlhIGVzYSB2ZXJzacOzbiBwYXJhIHF1ZSBmdW5jaW9uZSBgZ2VvbV90ZXh0X2NvbnRvdXIoKWAgY29tbyBlbiBlbCBlamVtcGxvIHF1ZSBzaWd1ZS4KOjo6CgoKRXN0ZSBncsOhZmljbyB0aWVuZSBsbyBiw6FzaWNvLCBwZXJvIHNlIGxlIHB1ZWRlIHBvbmVyIHVuIHBvY28gZGUgYW1vciBwYXJhIHF1ZSBxdWVkZSBtZWpvci4gU2UgbGUgcHVlZGUgYWdyZWdhciBsw61uZWFzIGRlIGNvbnRvcm5vIGVuIG5lZ3JvIHBhcmEgcmVzYWx0YXIgbG9zIGNvbnRvcm5vcywgY2FtYmlhciBsYSBlc2NhbGEgZGUgY29sb3JlcyBwYXJhIHF1ZSBldm9xdWUgbcOhcyBsYSBpZGVhIGRlICJ0ZW1wZXJhdHVyYSBtw6F4aW1hIiwgYWdyZWdhciBldGlxdWV0YXMgYSBsb3MgY29udG9ybm9zIHkgbW9kaWZpY2FyIGVsIHRleHRvIGRlIGxvcyBlamVzIHkgbGFzIGVzY2FsYXMuIEhhY2llbmRvIHRvZG8gZXNvLCBwb2RlbW9zIGxsZWdhciBhIGFsZ28gY29tbyBlc3RvLgoKYGBge3J9CmdncGxvdChvYnNlcnZhY2lvbmVzX3JlZ3VsYXIsIGFlcyhsb24sIGxhdCkpICsKICBnZW9tX2NvbnRvdXJfZmlsbChhZXMoeiA9IHRtYXhfbWVkaWEpKSArCiAgZ2VvbV9jb250b3VyMihhZXMoeiA9IHRtYXhfbWVkaWEpLCBzaXplID0gMC4yKSArCiAgZ2VvbV90ZXh0X2NvbnRvdXIoYWVzKHogPSB0bWF4X21lZGlhKSwgc2tpcCA9IDEsCiAgICAgICAgICAgICAgICAgICAgcm90YXRlID0gRkFMU0UsIHNpemUgPSAzLjUsCiAgICAgICAgICAgICAgICAgICAgc3Ryb2tlID0gMC4xLCBjb2xvciA9IndoaXRlIiwgc3Ryb2tlLmNvbG9yID0gImJsYWNrIikgKwogIGdlb21fcG9pbnQoZGF0YSA9IG9ic2VydmFjaW9uZXMsIHNpemUgPSAwLjIpICsKICBtaV9tYXBhICsKICBzY2FsZV9maWxsX2Rpc3RpbGxlcihwYWxldHRlID0gIllsT3JSZCIsIGRpcmVjdGlvbiA9IDEpICsKICBjb29yZF9zZih5bGltID0gYygtNTUsIC0yMCksIHhsaW0gPSBjKC04MCwgLTUwKSkgKwogIGxhYnMoZmlsbCA9ICJUZW1wZXJhdHVyYSAowrpDKSIsIAogICAgICAgeCA9IE5VTEwsCiAgICAgICB5ID0gTlVMTCkgICsKICB0aGVtZV9taW5pbWFsKCkKYGBgCgpWYXMgYXYgZXIgdW4gcG9jbyBtw6FzIHNvYnJlIGxhIGFwYXJpZW5jaWEgZGUgbG9zIGdyw6FmaWNvcyBlbiBsYSBzaWd1aWVudGUgc2VjY2nDs24uIAoKCjxkaXYgY2xhc3M9ImJ0bi1ncm91cCIgcm9sZT0iZ3JvdXAiIGFyaWEtbGFiZWw9Ik5hdmVnYWNpw7NuIj4KICA8YSBocmVmPSAiMDgtbHVicmlkYXRlLmh0bWwiIGNsYXNzID0gImJ0biBidG4tcHJpbWFyeSI+QW50ZXJpb3I8L2E+CiAgPGEgaHJlZj0gIjEwLWdyYWZpY29zLUlJSS5odG1sIiBjbGFzcyA9ICJidG4gYnRuLXByaW1hcnkiPlNpZ3VpZW50ZTwvYT4KPC9kaXY+</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiR3LDoWZpY29zIGVzcGFjaWFsZXMiCm91dHB1dDogCiAgaHRtbF9kb2N1bWVudDoKICAgIGNvZGVfZG93bmxvYWQ6IHRydWUKICAgIHRvYzogdHJ1ZQogICAgdG9jX2Zsb2F0OiB0cnVlCiAgICBoaWdobGlnaHQ6IHRhbmdvCi0tLQoKYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSwKICAgICAgICAgICAgICAgICAgICAgIG1lc3NhZ2UgPSBGQUxTRSkKbGlicmFyeShnZ3Bsb3QyKQpsaWJyYXJ5KGRwbHlyKQpsaWJyYXJ5KHJlYWRyKQpsaWJyYXJ5KG1ldFIpCmBgYAoKCkhheSBkb3MgZ3JhbmRlcyB0aXBvcyBkZSBkYXRvcyBlc3BhY2lhbGVzOiBncmlsbGFzIHJlZ3VsYXJlcyB5IGdyaWxsYXMgaXJyZWd1bGFyZXMuIAoKIyMgR3JpbGxhcyByZWd1bGFyZXMKCkVuIFtsYSBzZWd1bmRhIHNlY2Npw7NuIGRlIGxlY3R1cmEgZGUgZGF0b3NdKDA0LWxlY3R1cmEuaHRtbCNBcmNoaXZvc19OZXRDREYpIHZpc3RlIGPDs21vIGxlZXIgYXJjaGl2b3MgTmV0Q0RGOgoKCmBgYHtyfQp0ZW1wZXJhdHVyYSA8LSBSZWFkTmV0Q0RGKCJkYXRvcy90ZW1wZXJhdHVyYS5uYyIsIHZhcnMgPSAiYWlyIiwKICAgICAgICAgICAgICAgICAgICAgICAgICBzdWJzZXQgPSBsaXN0KGxldmVsID0gMTAwMCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhdCA9IGMoLTU1LCAtMjApLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbG9uID0gYygyODAsIDMxMCkpKSAKZ2xpbXBzZSh0ZW1wZXJhdHVyYSkKYGBgCgpMYSB2YXJpYWJsZSBgdGVtcGVyYXR1cmFgIGVzIHVuYSB0YWJsYSBxdWUgdGllbmUgZGF0byBkZSB0ZW1wZXJhdHVyYSBkZWwgYWlyZSBwYXJhIGNhZGEgdGllbXBvLCBuaXZlbCAoYWx0dXJhKSwgbGF0aXR1ZCB5IGxvbmdpdHVkLiBDb21vIGVzdGUgYXJjaGl2byB0aWVuZSBpbmZvcm1hY2nDs24gc8OzbG8gcGFyYSB1biB0aWVtcG8geSBlbCBjw7NkaWdvIGZpbHRyw7Mgc8OzbG8gZGF0b3MgZGUgdW4gbml2ZWwsIGVudG9uY2VzIGxhIHZhcmlhY2nDs24gZXMgc8OzbG8gZW4gbGF0aXR1ZCB5IGxvbmdpdHVkLiDCv0PDs21vIHNlIGdyYWZpY2E/CgpTZSBwdWVkZSBkaWJ1amFyIHVuIHB1bnRvIHBvciBjYWRhIGRhdG86CgpgYGB7cn0KZ2dwbG90KHRlbXBlcmF0dXJhLCBhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9wb2ludCgpCmBgYAoKRXN0byBubyBkaWNlIG5hZGEsIGF1bnF1ZSBwb2RlbW9zIGNvbmZpcm1hciBxdWUgbG9zIGRhdG9zIGVzdMOhbiBlbiB1bmEgZ3JpbGxhIHJlZ3VsYXIuIFBhcmEgdmlzdWFsaXphciBsYSB0ZW1wZXJhdHVyYSwgaGF5IHF1ZSBtYXBlYXIgw6lzdGUgdmFsb3IgYSB1biBwYXLDoW1ldHJvIGVzdMOpdGljbywgcG9yIGVqZW1wbG8sIGVsIGNvbG9yOgoKYGBge3J9CmdncGxvdCh0ZW1wZXJhdHVyYSwgYWVzKGxvbiwgbGF0KSkgKwogIGdlb21fcG9pbnQoYWVzKGNvbG9yID0gYWlyKSkKYGBgCgpQdW50b3MgcmVkb25kb3MgeSBzZXBhcmFkb3Mgbm8gZXMgbGEgZm9ybWEgbcOhcyBpbmZvcm1hdGl2YSBkZSB2ZXIgZXN0b3MgZGF0b3MuIFVuYSBncmlsbGEgcmVndWxhciBlbiByZWFsaWRhZCBkZWZpbmUgY29tbyB1bmEgImltYWdlbiIgZG9uZGUgY2FkYSBwdW50byBlcyB1biBwaXhlbC4gRXN0byBzZSBsbGFtYSB1biAicmFzdGVyIiB5IGNvbiBnZ3Bsb3Qgc2UgcHVlZGUgZ3JhZmljYXIgY29uIGBnZW9tX3Jhc3RlcigpYC4KCgpgYGB7cn0KZ2dwbG90KHRlbXBlcmF0dXJhLCBhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9yYXN0ZXIoYWVzKGZpbGwgPSBhaXIpKQpgYGAKCmBnZW9tX3Jhc3RlcigpYCBkaWJ1amEgcmVjdMOhbmd1bG9zIGRlIGlndWFsIGFuY2hvIHkgYWx0byBlbiBjYWRhIHgsIHkuIEVsIGFuY2hvIHkgZWwgYWx0byBzZSBkZWZpbmVuIGEgdHJhdsOpcyBkZSBsYSByZXNvbHVjacOzbiBkZSBsb3MgZGF0b3MuIEZ1bmNpb25hbiBwZXJmZWN0YW1lbnRlIHBhcmEgZ3JpbGxhcyByZWd1bGFyZXMuIEVzdG9zIHJlY3TDoW5ndWxvcyB0aWVuZW4gdW4gY29sb3IgaW50ZXJubywgcG9yIGxvIHF1ZSBlbCBwYXLDoW1ldHJvIGVzdMOpdGljbyBzZSBsbGFtYSAiZmlsbCIuIAoKOjo6IHsuYWxlcnQgLmFsZXJ0LWluZm99IAoqKkRlc2Fmw61vKioKCmdncGxvdDIgdGllbmUgdHJlcyBmdW5jaW9uZXMgcGFyYSBnZW5lcmFyIHJlY3TDoW5ndWxvczogYGdlb21fcmFzdGVyKClgLCBgZ2VvbV90aWxlKClgIHkgYGdlb21fcmVjdCgpYC4gwr9DdcOhbCBlcyBsYSBkaWZlcmVuY2lhIGVudHJlIGNhZGEgdW5vPyBGaWphdGUgZW4gbGEgZG9jdW1lbnRhY2nDs24uIAo6OjoKCiMjIE1hcGFzCgpCaWVuLCBoYXN0YSBhaMOtIHRlbsOpcyB1biBncsOhZmljbyBjb24gbG9zIGRhdG9zLCBwZXJvIHBhcmEgZW50ZW5kZXJsb3MgZW4gc3UgY29udGV4dG8gZXNwYWNpYWwgY29tbyBtw61uaW1vIGhhY2UgZmFsdGEgdW4gbWFwYS4gUGFyYSB0ZW5lciB1biBtYXBhIHNlIG5lY2VzaXRhbiBkYXRvcyBkZSBsYSBsb2NhbGl6YWNpw7NuIGRlIGxhcyBjb3N0YXMgbyBsYXMgZnJvbnRlcmFzLiBFeGlzdGVuIHZhcmlhcyBmdWVudGVzIGRlIGVzdG9zIGRhdG9zLCBwZXJvIHVuYSBtdXkgYnVlbmEgZXMgW05hdHVyYWwgRWFydGhdKGh0dHBzOi8vd3d3Lm5hdHVyYWxlYXJ0aGRhdGEuY29tLykuIEVsIHBhcXVldGUge3JuYXR1cmFsZWFydGh9IHByb3ZlZSB1bmEgaW50ZXJmYXogYW1pZ2FibGUgcGFyYSB1c2FyIGVzdG9zIGRhdG9zIGRpcmVjdGFtZW50ZSBlbiB7Z2dwbG90Mn0uIAoKUHJpbWVybyBoYXkgcXVlIGNhcmdhciBlbCBtYXBhIHF1ZSBxdWVyYW1vcy4gUG9yIGVqZW1wbG8sIHBhcmEgZ3JhZmljYXIgZWwgbWFwYSBkZSBBcmdlbnRpbmEgeSBzdXMgcGHDrXNlcyBsaW3DrXRyb2ZlcyBjYXJnYW1vcyBsb3MgZGF0b3MgY29uIGBuZV9jb3VudHJpZXMoKWA6CgpgYGB7cn0KbWFwYSA8LSBybmF0dXJhbGVhcnRoOjpuZV9jb3VudHJpZXMoY291bnRyeSA9IGMoImFyZ2VudGluYSIsICJjaGlsZSIsICJ1cnVndWF5IiwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJwYXJhZ3VheSIsICJicmF6aWwiLCAiYm9saXZpYSIsIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiZmFsa2xhbmQgaXNsYW5kcyIpLCAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuY2xhc3MgPSAic2YiKQpgYGAKCkVsIGFyZ3VtZW50byBgY291bnRyeWAgZXMgdW4gdmVjdG9yIGNvbiBsb3MgcGHDrXNlcyBxdWUgbmVjZXNpdGFtb3MuIEVsIGFyZ3VtZW50byBgcmV0dXJuY2xhc3NgIGVzIHVuIHBvY28gdMOpY25pY28sIHBlcm8gaGFjZSByZWZlcmVuY2lhIGEgbGEgZXN0cnVjdHVyYSBxdWUgcXVlcmVtb3MgcXVlIGRldnVlbHZhLiBFbiBlc3RlIGNhc28sIGByZXR1cm5jbGFzcyA9ICJzZiJgIGhhY2UgcXVlIGRldnVlbHZhIHVuIG9iamV0byBkZSBjbGFzZSAiU2ltcGxlIEZlYXR1cmVzIi4gTGFzICJTaW1wbGUgRmVhdHVyZXMiIHNvbiBjdWFscXVpZXIgY29zYSBtZW5vcyBzaW1wbGUgaW50ZXJuYW1lbnRlIHBlcm8gY29uIHtnZ3Bsb3QyfSBzZSBwdWVkZW4gZ3JhZmljYXIgY29uIHVuIGdlb20gZXNwZWPDrWZpY286IAoKYGBge3J9CmdncGxvdChtYXBhKSArCiAgZ2VvbV9zZigpCmBgYAoKUG9yIGRlZmVjdG8sIGVsIG1hcGEgc2UgZGlidWphIGNvbiB1biBmb25kbyBncmlzLCBwZXJvIGVsIHByb2JsZW1hIGVzIGVzZSBmb25kbyB2YSBhIHRhcGFyIGxvcyBkYXRvcyEgUGFybyBwYXJhIGRpYnVqYXIgc8OzbG8gbG9zIGNvbnRvcm5vcyBoYXkgcXVlIG1vZGlmaWNhcmxvIHVuIHBvY286CgpgYGB7cn0KZ2dwbG90KG1hcGEpICsKICBnZW9tX3NmKGZpbGwgPSBOQSwgY29sb3IgPSAiYmxhY2siLCBzaXplID0gMC4yKQpgYGAKCkN1YW5kbyB1bm8gdXNhIG11Y2hvIHVuIG1hcGEsIG11Y2hhcyB2ZWNlcyB0ZXJtaW5hIHNpZW5kbyDDunRpbCBndWFyZGFyIGVsIGdlb20gcG9yIHNlcGFyYWRvIGVuIHVuYSB2YXJpYWJsZS4gCgpgYGB7cn0KbWlfbWFwYSA8LSBnZW9tX3NmKGRhdGEgPSBtYXBhLCBpbmhlcml0LmFlcyA9IEZBTFNFLCBmaWxsID0gTkEsIGNvbG9yID0gImJsYWNrIiwgc2l6ZSA9IDAuMikgCmBgYAoKQWRlbcOhcyBkZSBsYXMgbW9kaWZpY2FjaW9uZXMgZXN0w6l0aWNhcywgZXN0YSBsbGFtYWRhIGEgYGdlb21fc2ZgIHRpZW5lIGVsIGFyZ3VtZW50byBgZGF0YSA9IG1hcGFgLCB5YSBxdWUgbm8gdmEgYSB1c2FyIGxvcyBkYXRvcyAiZ2xvYmFsZXMiIGRlIGxhIGxsYW1hZGEgYSBgZ2dwbG90KClgLiBUYW1iacOpbiB0aWVuZSBgw6xuaGVyaXQuYWVzID0gRkFMU0VgIHBvcnF1ZSB0YW1wb2NvIHRpZW5lIHF1ZSAiaGVyZWRhciIgbG9zIGFlcyBnbG9iYWxlcy4gCgpFbnRvbmNlcyBhaG9yYSwgcGFyYSBncmFmaWNhciBsYSB0ZW1wZXJhdHVyYSB5IGVsIG1hcGEgZW5jaW1hLCBhcm1hbW9zIGVsIGdyw6FmaWNvIGRlIHJhc3RlciBpZ3VhbCBxdWUgYW50ZXMgeSBsZSBzdW1hbW9zIGVsIG1hcGE6CgoKYGBge3J9CmdncGxvdCh0ZW1wZXJhdHVyYSwgYWVzKGxvbiwgbGF0KSkgKwogIGdlb21fcmFzdGVyKGFlcyhmaWxsID0gYWlyKSkgKwogIG1pX21hcGEKYGBgCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30KKipEZXNhZsOtbyoqCgrCv1BvZMOpcyBleHBsaWNhciBxdcOpIHNhbGnDsyBtYWw/Cjo6OgoKRXhpc3RlbiBkb3MgY29udmVuY2lvbmVzIGLDoXNpY2FzIHBhcmEgbWVkaXIgbGEgbG9uZ2l0dWQsIG1lZGlkYSBlbnRyZSAwwrogeSAzNjDCuiBvIGVudHJlIC0xODDCuiB5ICsxODDCui4gTG9zIGRhdG9zIGRlIHRlbXBlcmF0dXJhIHVzYW4gbGEgcHJpbWVyYSB5IGxvcyBkZWwgbWFwYSwgbGEgc2VndW5kYS4gUGFyYSBjb252ZXJ0aXIgZW50cmUgdW5hIHkgb3RyYSBjb252ZW5jacOzbiwgcG9kw6lzIHVzYXIgbGEgZnVuY2nDs24gYENvbnZlcnRMb25naXR1ZGUoKWAgZGUge21ldFJ9OgoKYGBge3J9CnRlbXBlcmF0dXJhIDwtIG11dGF0ZSh0ZW1wZXJhdHVyYSwgbG9uID0gbWV0Ujo6Q29udmVydExvbmdpdHVkZShsb24sIGZyb20gPSAzNjApKQpgYGAKCgpgYGB7cn0KZ2dwbG90KHRlbXBlcmF0dXJhLCBhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9yYXN0ZXIoYWVzKGZpbGwgPSBhaXIpKSArCiAgbWlfbWFwYSAKYGBgCgpMbyDDum5pY28gcXVlIGxlIGZhbHRhIGEgZXN0ZSBncsOhZmljbyBlcyBsbyBxdWUgbGUgc29icmE6IHRvZG8gZWwgZXNwYWNpbyBkb25kZSBubyBoYXkgZGF0b3MuIFBhcmEgcmVjb3J0YXIgZWwgw6FyZWEgZGVsIGdyw6FmaWNvIHkgcXVlIHRvbWUgc8OzbG8gZG9uZGUgdGVuZW1vcyBkYXRvcyBkZSB0ZW1wZXJhdHVyYSwgaGF5IHF1ZSBlc3BlY2lmaWNhciBsb3MgbMOtbWl0ZXMgZGVsIHNpc3RlbWEgZGUgY29vcmRlbmFkYXMuIENvbW8gYG1pX21hcGFgIGVzIHVuIGBnZW9tX3NmYCwgaGF5IHF1ZSB1c2FyIGBjb29yZF9zZmAuCgpgYGB7cn0KZ2dwbG90KHRlbXBlcmF0dXJhLCBhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9yYXN0ZXIoYWVzKGZpbGwgPSBhaXIpKSArCiAgbWlfbWFwYSArCiAgY29vcmRfc2YoeWxpbSA9IGMoLTU1LCAtMjApLCB4bGltID0gYygtODAsIC01MCkpCmBgYAoKCk90cmEgZm9ybWEgZGUgZ3JhZmljYXIgZGF0b3MgZXNwYWNpYWxlcyBlcyBwZW5zYXJsb3MgY29tbyB1bmEgc3VwZXJmaWNpZSB0cmlkaW1lbnNpb25hbCBkb25kZSBlbCB4IHkgZWwgeSBzb24gbGFzIGNvb3JkZW5hZGFzIHkgbGEgYWx0dXJhIChsYSBjb29yZGVuYWRhIHopIGVzIHByb3BvcmNpb25hbCBhbCB2YWxvciBkZSBsYSB2YXJpYWJsZS4gSW1hZ2luw6FuZG9zZWxvIGFzw60sIGVzdGUgZ3LDoWZpY28gZGUgdGVtcGVyYXR1cmEgc2Vyw61hIHVuYSBtb250YcOxYSBjb24gc3UgY2ltYSBlbiBQYXJhZ3VheSB5IHN1IHB1bnRvIG3DoXMgYmFqbyBjZXJjYSBkZSBDaHVidXQuIAoKUHJlY2lzYW1lbnRlIHBhcmEgZXN0YSBzaXR1YWNpw7NuIGVzdMOhbiBwZW5zYWRhcyBsYXMgbMOtbmVhcyBkZSBjb250b3JubyBxdWUgc2UgcHVlZGVuIGdyYWZpY2FyIGVuIHtnZ3Bsb3QyfSB1c2FuZG8gbGEgZnVuY2nDs24gYGdlb21fY29udG91cigpYC4KCmBgYHtyfQpnZ3Bsb3QodGVtcGVyYXR1cmEsIGFlcyhsb24sIGxhdCkpICsKICBnZW9tX2NvbnRvdXIoYWVzKHogPSBhaXIpKSArCiAgbWlfbWFwYSArCiAgY29vcmRfc2YoeWxpbSA9IGMoLTU1LCAtMjApLCB4bGltID0gYygtODAsIC01MCkpCmBgYAoKTGFzIGzDrW5lYXMgZGlidWphZGFzIHBvciBgZ2VvbV9jb250b3VyKClgIHNvbiBsw61uZWFzIGRlIG5pdmVsIHF1ZSB1bmVuIHB1bnRvcyBkZSB2YWxvciBjb25zdGFudGUuIFNpbiBlbWJhcmdvLCBlc2FzIGzDrW5lYXMgYXp1bGVzIG5vIGRhbiBuaW5ndW5hIGluZGljYWNpw7NuIGRlbCB2YWxvciBkZSBsYSB2YXJpYWJsZSBwb3IgbG8gcXVlIGVzIGNvbnZlbmllbnRlIG1hcGVhciBlbCBjb2xvciBkZSBsYXMgbMOtbmVhcyBlc2UgdmFsb3IgY29uc3RhbnRlLgoKYGBge3J9CmdncGxvdCh0ZW1wZXJhdHVyYSwgYWVzKGxvbiwgbGF0KSkgKwogIGdlb21fY29udG91cihhZXMoeiA9IGFpciwgY29sb3IgPSBzdGF0KGxldmVsKSkpICsKICBtaV9tYXBhICsKICBjb29yZF9zZih5bGltID0gYygtNTUsIC0yMCksIHhsaW0gPSBjKC04MCwgLTUwKSkKYGBgCgrCv0RlIGTDs25kZSBzYWxpw7MgZXNlIGBzdGF0KGxldmVsKWA/IEFsZ3Vub3MgZ2VvbXMgcXVlIHJlYWxpemFuIHRyYW5zZm9ybWFjaW9uZXMgZXN0YWTDrXN0aWNhcyBjb21wdXRhbiB2YXJpYWJsZXMgbnVldmFzIHF1ZSBsdWVnbyBzZSBwdWVkZW4gbWFwZWFyIGEgcGFyw6FtZXRyb3MgZ2VvbcOpdHJpY29zLiAibGV2ZWwiIGVzIHVuYSBkZSBlc2FzIHZhcmlhYmxlcyBjb21wdXRhZGFzIGRlIGBnZW9tX2NvbnRvdXJgLiBQYXJhIGRlY2lybGUgYSBnZ3Bsb3QgcXVlIGFsIGxldmVsIGFsIHF1ZSB0ZSByZWZlcsOtcyBlcyBhIGxhIHZhcmlhYmxlIGNvbXB1dGFkYSwgc2Ugcm9kZWEgYSBsYSB2YXJpYWJsZSBjb24gbGEgZnVuY2nDs24gYHN0YXQoKWAuCgpVbmEgdmFyaWVkYWQgZGUgbGFzIGzDrW5lYXMgZGUgY29udG9ybm8gc29uIGxhcyBsw61uZWFzICJsbGVuYXMiLiBIYXN0YSBoYWNlIHBvY28sIHtnZ3Bsb3QyfSBubyB0ZW7DrWEgdW5hIGZvcm1hIGRlIGdyYWZpY2FyIGVzdG9zIGNvbnRvcm5vcyBsbGVub3MsIGFzw60gcXVlIGVzdMOhIGltcGxlbWVudGFkbyBlbiB7bWV0Un0gY29uIGxhIGZ1bmN0aW9uIGBnZW9tX2NvbnRvdXJfZmlsbCgpYC4gUmVjaWVudGVtZW50ZSB7Z2dwbG90Mn0gaW1wbGVtZW50w7MgbGEgZnVuY2nDs24gYGdlb21fY29udG91cl9maWxsZWQoKWAgcGVybyBhIG5vc290cm9zIG5vcyBndXN0YSBtw6FzIGxhIHZlcnNpw7NuIGRlIHttZXRSfSBgciBlbW86OmppKCJ3aW5rIilgCgpgYGB7cn0KZ2dwbG90KHRlbXBlcmF0dXJhLCBhZXMobG9uLCBsYXQpKSArCiAgbWV0Ujo6Z2VvbV9jb250b3VyX2ZpbGwoYWVzKHogPSBhaXIpKSArCiAgbWlfbWFwYSArCiAgY29vcmRfc2YoeWxpbSA9IGMoLTU1LCAtMjApLCB4bGltID0gYygtODAsIC01MCkpCmBgYAoKClBvciDDumx0aW1vLCB0cmFucXVpbGFtZW50ZSBzZSBwdWVkZW4gdXNhciBhbWJvcyBnZW9tcyBwYXJhIHJlc2FsdGFyIGxvcyBsw61taXRlcyB5CgoKYGBge3J9CmdncGxvdCh0ZW1wZXJhdHVyYSwgYWVzKGxvbiwgbGF0KSkgKwogIG1ldFI6Omdlb21fY29udG91cl9maWxsKGFlcyh6ID0gYWlyKSkgKwogIGdlb21fY29udG91cihhZXMoeiA9IGFpciksIGNvbG9yID0gImJsYWNrIikgKwogIG1pX21hcGEgKwogIGNvb3JkX3NmKHlsaW0gPSBjKC01NSwgLTIwKSwgeGxpbSA9IGMoLTgwLCAtNTApKQpgYGAKCiMjIEdyaWxsYXMgaXJyZWd1bGFyZXMKCsK/UXXDqSBwYXNhIGN1YW5kbyBlbiB2ZXogZGUgb2JzZXJ2YWNpb25lcyBvcmdhbml6YWRhcyBlbiB1bmEgYmVsbGEgZ3JpbGxhIHJlZ3VsYXIsIHRlbsOpcyBvYnNlcnZhY2lvbmVzIHB1bnR1YWxlcyBlbiBsdWdhcmVzIGRpc3BlcnNvcz8gU2kgdGUgYWNvcmTDoXMgZGUgbGEgc2VjY2nDs24gZGUgdW5pb25lcywgZW4gbGEgY2FycGV0YSBkYXRvcyBoYXkgdW4gYXJjaGl2byBjb24gZGF0b3MgZGUgdGVtcGVyYXR1cmEgZGVsIHNlcnZpY2lvIG1ldGVvcm9sw7NnaWNvIHkgbWV0YWRhdG9zIGNvbiBzdXMgdWJpY2FjaW9uZXMuIEVzdG8gZGVmaW5lIGRhdG9zIGVzcGFjaWFsZXMgZGUgdGVtcGVyYXR1cmEuIAoKCmBgYHtyfQojIFBhcmEgdHJhYmFqYXIgY29uIG1lbm9zIGRhdG9zLCBub3MgcXVlZGFtb3MgY29uIGxhIHRlbXBlcmF0dXJhIG3DoXhpbWEgbWVkaWEgCiMgZGUgY2FkYSBlc3RhY2nDs24uCm9ic2VydmFjaW9uZXMgPC0gcmVhZHI6OnJlYWRfY3N2KCJkYXRvcy9vYnNlcnZhY2lvbmVzX3Ntbi5jc3YiKSAlPiUgCiAgZ3JvdXBfYnkoc3RhdGlvbikgJT4lIAogIHN1bW1hcmlzZSh0bWF4X21lZGlhID0gbWVhbih0bWF4LCBuYS5ybSA9IFRSVUUpKQoKZXN0YWNpb25lcyA8LSByZWFkX2NzdigiZGF0b3MvZXN0YWNpb25lc19zbW4uY3N2IikgCgpvYnNlcnZhY2lvbmVzIDwtIGxlZnRfam9pbihvYnNlcnZhY2lvbmVzLCBlc3RhY2lvbmVzLCBieSA9IGMoInN0YXRpb24iID0gIm5vbWJyZSIpKSAlPiUgCiAgZmlsdGVyKHByb3ZpbmNpYSAhPSAiQU5UQVJUSURBIikKYGBgCgpMbyBwcmltZXJvIHF1ZSBzZSBwdWVkZSBoYWNlciBlcyBncmFmaWNhciBlc3RvcyBkYXRvcyBkZSBlc3RhY2nDs24gY29uIHB1bnRvcywgZGUgbGEgbWlzbWEgZm9ybWEgcXVlIHBhcmEgbG9zIGRhdG9zIHJlZ3VsYXJlcy4KCmBgYHtyfQpnZ3Bsb3Qob2JzZXJ2YWNpb25lcywgYWVzKGxvbiwgbGF0KSkgKwogIGdlb21fcG9pbnQoYWVzKGNvbG9yID0gdG1heF9tZWRpYSkpICsKICBtaV9tYXBhICsKICBjb29yZF9zZih5bGltID0gYygtNTUsIC0yMCksIHhsaW0gPSBjKC04MCwgLTUwKSkKYGBgCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30gCioqRGVzYWbDrW8qKgoKR3JhZmljw6EgZXN0b3MgcHVudG9zIHVzYW5kbyBgZ2VvbV9yYXN0ZXIoKWAgeSBgZ2VvbV9jb250b3VyKClgLiDCv0N1w6FsIGVzIGVsIHJlc3VsdGFkbz8KCjo6OgoKCkNvbW8gZXN0b3MgZGF0b3Mgbm8gZXN0w6FuIGVuIHVuYSBncmlsbGEgcmVndWxhciwgYGdlb21fcmFzdGVyKClgIHkgYGdlb21fY29udG91cigpYCBubyBsb3MgcHVlZGVuIGdyYWZpY2FyLiBQYXJhIHVzYXIgY29udG9ybm9zIGhheSBxdWUgaW50ZXJwb2xhciBhIHVuYSBncmlsbGEgcmVndWxhci4gVW5hIGZvcm1hIGRlIGhhY2VybG8gZXMgdXNhbmRvIGxhIHTDqWNuaWNhIGRlIFtrcmlnaW5nXShodHRwczovL2VzLndpa2lwZWRpYS5vcmcvd2lraS9LcmlnaW5nKS4gVW4gcGFxdWV0ZSBkZSBSIHF1ZSBsYSBpbXBsZW1lbnRhIGVzIHtrcmlnaW5nfSBlbiBzdSBmdW5jacOzbiBga3JpZ2luZ2AKClNpIHZhcyBhIGxhIGF5dWRhIGRlIGBrcmlnaW5nKClgLCB2YXMgYSB2ZXIgcXVlIHJlcXVpZXJlIHVuIHZlY3RvciBkZSBjb29yZGVuYWRhcyB4LCB1biB2ZWN0b3IgZGUgY29vcmRlbmFkYXMgeSB5IHVuIHZlY3RvciBkZSB2YWxvcmVzIG9ic2VydmFkb3MuIEVzdG9zIHNvbiBsYXMgY29sdW1uYXMgYGxvbmAsIGBsYXRgIHkgYHRtYXhfbWVkaWFgIGRlIGxhIHRhYmxhIGBvYnNlcnZhY2lvbmVzYC4gRW50b25jZXMgZWwgY8OzZGlnbyBzZXLDrWE6CgpgYGB7ciwgZXJyb3IgPSBUUlVFfQpvYnNlcnZhY2lvbmVzX3JlZ3VsYXIgPC0ga3JpZ2luZzo6a3JpZ2luZyh4ID0gb2JzZXJ2YWNpb25lcyRsb24sIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB5ID0gb2JzZXJ2YWNpb25lcyRsYXQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlc3BvbnNlID0gb2JzZXJ2YWNpb25lcyR0bWF4X21lZGlhKQpgYGAKCkVzdGUgZXJyb3IgaW5kaWNhIHF1ZSBoYXkgYE5BYHMsIHkgYGtyaWdpbmcoKWAgbm8gZnVuY2lvbmEgc2kgaGF5IHZhbG9yZXMgZmFsdGFudGVzLiBMbyBxdWUgaGF5IHF1ZSBoYWNlciBlcyBvbWl0aXJsb3MuIExhIGZ1bmNpw7NuIGBuYS5vbWl0KClgIGVsaW1pbmEgZmlsYXMgZG9uZGUgYWxnw7puIHZhbG9yIHNlYSBgTkFgLgoKYGBge3J9Cm5hLm9taXQob2JzZXJ2YWNpb25lcykKYGBgCgpQYXJhIG5vIGVzY3JpYmlyIGBuYS5vbWl0KG9ic2VydmFjaW9uZXMpYCB0cmVzIHZlY2VzIGRlbnRybyBkZSBsYSBsbGFtYWRhIGEgYGtyaWdpbigpYCBzZSBwdWVkZSB1c2FyIGxhIGZ1bmNpw7NuIGB3aXRoKClgLiBFc3RhIGZ1bmNpw7NuIG5vIGVzIGRlIHtkcGx5cn0gcGVybyBmdW5jaW9uYSBwYXJlY2lkbyBhIGBzdW1tYXJpc2UoKWAvYG11dGF0ZSgpYCBlbiBxdWUgdG9tYSBjb21vIHByaW1lciBhcmd1bWVudG8gdW5hIHRhYmxhIHkgbHVlZ28gZWwgY8OzZGlnbyBxdWUgcG9uZ2Ftb3Mgc2UgZW50aWVuZGUgcXVlIGhhY2UgcmVmZXJlbmNpYSBhIGxhcyBjb2x1bW5hcyBkZSBlc2EgdGFibGEuIAoKRW50b25jZXMsIHBvbmllbmRvIHRvZG8gZXNvIGp1bnRvIGVuIHVuYSBjYWRlbmE6IAoKYGBge3J9Cm9ic2VydmFjaW9uZXNfcmVndWxhciA8LSBvYnNlcnZhY2lvbmVzICU+JSAKICBuYS5vbWl0KCkgJT4lIAogIHdpdGgoa3JpZ2luZzo6a3JpZ2luZyhsb24sIGxhdCwgcmVzcG9uc2UgPSB0bWF4X21lZGlhKSkKYGBgCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30gCioqRGVzYWbDrW8qKgoKwr9RdcOpIGVzIGxvIHF1ZSBkZXZvbHZpw7MgbGEgZnVuY2nDs24gYGtyaWdpbmcoKWA/IFBvZMOpcyBtaXJhciBsYSBkb2N1bWVudGFjacOzbiBkZSBsYSBmdW5jacOzbiAoZW4gbGEgc2VjY2nDs24gIlZhbHVlIikgbyB1c2FuZG8gYGdsaW1wc2Uob2JzZXJ2YWNpb25lc19yZWd1bGFyKWAuCgo6OjoKCgpgb2JzZXJ2YWNpb25lc19yZWd1bGFyYCBlcyB1bmEgbGlzdGEgY29uIG11Y2hvcyBlbGVtZW50b3M6CgpgYGB7cn0KZ2xpbXBzZShvYnNlcnZhY2lvbmVzX3JlZ3VsYXIpCmBgYApMYSBtYXlvcsOtYSBkZSBsb3MgZWxlbWVudG9zIGJyaW5kYW4gaW5mb3JtYWNpw7NuIGRldGFsbGFkIHNvYnJlIGxvcyBwYXLDoW1ldHJvcyB1c2Fkb3MgeSBjb21wdXRhZG9zIHBhcmEgcmVhbGl6YXIgbGEgaW50ZXJwb2xhY2nDs24uIEVsIGVsZW1lbnRvIMO6dGlsIGVzIGVsIHF1ZSBzZSBsbGFtYSBgbWFwYCwgcXVlIHRpZW5lIGxvcyBkYXRvcyBpbnRlcnBvbGFkb3MuIMK/UXXDqSBlcyBsbyBxdWUgdGllbmUgYG1hcGA/CgpgYGB7cn0KZ2xpbXBzZShvYnNlcnZhY2lvbmVzX3JlZ3VsYXIkbWFwKQpgYGAKCkVzIHVuYSB0YWJsYSBjb24gY29sdW1uYXMsICJ4IiwgInkiIHkgInByZWQiLCBxdWUgcmVwcmVzZW50YW4gbGFzIGNvb3JkZW5hZGFzIGhvcml6b250YWxlcyB5IGxvcyB2YWxvcmVzIGludGVycG9sYWRvcy4gRXN0b3Mgbm9tYnJlcyBubyBzb24gbXV5IGRlc2NyaXB0aXZvczsgc2UgcHVlZGVuIGNhbWJpYXIgY29uIGByZW5hbWVgLiBFbnRvbmNlcyBlc3RlIGPDs2RpZ28gZXh0cmFlIGVsIGVsZW1lbnRvIGBtYXBgIGRlIGxhIGxpc3RhIGBvYnNlcnZhY2lvbmVzX3JlZ3VsYXJgLCBsZSBjYW1iaWEgZWwgbm9tYnJlIGEgbGFzIHZhcmlhYmxlcyB5IGFzaWduYSBlbCByZXN1bHRhZG8gYSBgb2JzZXJ2YWNpb25lc19yZWd1bGFyYAoKCmBgYHtyfQpvYnNlcnZhY2lvbmVzX3JlZ3VsYXIgPC0gb2JzZXJ2YWNpb25lc19yZWd1bGFyJG1hcCAlPiUgCiAgcmVuYW1lKGxvbiA9IHgsIGxhdCA9IHksIHRtYXhfbWVkaWEgPSBwcmVkKQpgYGAKClkgZXN0bywgY29tbyBlcyB1bmEgZ3JpbGxhIHJlZ3VsYXIsIHNlIHB1ZWRlIGdyYWZpY2FyIGNvbiBjdWFscXVpZXJhIGRlIGxhcyBbdMOpY25pY2FzIGFudGVyaW9yZXNdKCNnaWxsYXMtcmVndWxhcmVzKS4gRGFkbyBxdWUgZXN0byBlcyB1bmEgaW50ZXJwb2xhY2nDs24sIGVzIGJ1ZW5hIGNvc3R1bWJyZSwgYWRlbcOhcywgaW5kaWNhciBjb24gcHVudG9zIGxhcyBjb29yZGVuYWRhcyBkZSBsYXMgb2JzZXJ2YWNpb25lcyB1c2FkYXMgcGFyYSByZWFsaXphcmxhLiAKCmBgYHtyfQpnZ3Bsb3Qob2JzZXJ2YWNpb25lc19yZWd1bGFyLCBhZXMobG9uLCBsYXQpKSArCiAgZ2VvbV9jb250b3VyX2ZpbGwoYWVzKHogPSB0bWF4X21lZGlhKSkgKwogIGdlb21fcG9pbnQoZGF0YSA9IG9ic2VydmFjaW9uZXMsIHNpemUgPSAwLjIpICsKICBtaV9tYXBhICsKICBjb29yZF9zZih5bGltID0gYygtNTUsIC0yMCksIHhsaW0gPSBjKC04MCwgLTUwKSkKYGBgCgpFc3RlIG1hcGEgc2UgcHVlZGUgbWVqb3Jhci4gRW4gcGFydGljdWxhciwgbGEgaW50ZXJwb2xhY2nDs24gZW4gZWwgTWFyIEFyZ2VudGlubywgYSBtaWxlcyBkZSBraWzDs21ldHJvcyBkZSBjdWFscXVpZXIgb2JzZXJ2YWNpw7NuLCBubyB0aWVuZSBuaW5nw7puIHNlbnRpZG8uIFBhcmEgY29udHJvbGFyIGVsIGRvbWluaW8gZW4gZWwgY3VhbCBzZSByZWFsaXphIGxhIGludGVycG9sYWNpw7NuIGhheSBxdWUgdXNhciBlbCBhcmd1bWVudG8gYHBvbHlnb25zYCBkZSBga3JpZ2luZygpYC4gQWjDrSwgaGF5IHF1ZSBwb25lciBwdW50b3MgZW4geCBlIHkgcXVlIGRlZmluYW4gZWwgcG9sw61nb25vIGRlbnRybyBkZWwgY3VhbCBzZSB2YSBhIGhhY2VyIGxhIGludGVycG9sYWNpw7NuLiDCv0RlIGTDs25kZSBzYWPDoXMgdW4gcG9sw61nb25vIGNvbiBlbCBjb250b3JubyBkZSBBcmdlbnRpbmE/IGByIGVtbzo6amkoInRoaW5raW5nIilgLiDCoUxvIGVzdMOhcyBtaXJhbmRvISBFcyBudWVzdHJvIG1hcGEuIAoKTGEgZnVuY2nDs24gYGZvcnRpZnkoKWAgZGUge2dncGxvdDJ9IGdlbmVyYSBwb2zDrWdvbm9zIGEgcGFydGlyIGRlIGxhIHNhbGlkYSBkZSB7cm5hdHVyYWxlYXJ0aH0uIERlIGVzb3MgcG9sw61nb25vcyBoYXkgcXVlIHNlbGVjY2lvbmFyIMO6bmljYW1lbnRlIGxhcyBjb29yZGVuYWRhcyBkZSBsb25naXR1ZCB5IGxhdGl0dWQsIHkgYWwgbWlzbW8gdGllbXBvLCByZW5vbWJyYXJsYXMgY29tbyB4IGUgeSBwYXJhIHF1ZSBga3JpZ2luZygpYCBsYXMgZW50aWVuZGEuIEZpbmFsbWVudGUsIGhheSBxdWUgbWV0ZXIgdG9kbyBlc28gZW4gdW5hIGxpc3RhLiAKCmBgYHtyfQpwb2xpZ29ub3NfYXJnIDwtIHJuYXR1cmFsZWFydGg6Om5lX2NvdW50cmllcyhjb3VudHJ5ID0gImFyZ2VudGluYSIpICU+JSAKICBmb3J0aWZ5KCkgJT4lIAogIHNlbGVjdCh4ID0gbG9uZywgeSA9IGxhdCkgJT4lIAogIGxpc3QoKQpgYGAKCgpBaG9yYSwgaGF5IHF1ZSByZXBldGlyIHRvZG8gbG8gYW50ZXJpb3IsIHBlcm8gdXNhbmRvIGNvbiBgcG9seWdvbnMgPSBwb2xpZ29ub3NfYXJnYC4gCgpgYGB7cn0Kb2JzZXJ2YWNpb25lc19yZWd1bGFyIDwtIG9ic2VydmFjaW9uZXMgJT4lIAogIG5hLm9taXQoKSAlPiUgCiAgd2l0aChrcmlnaW5nOjprcmlnaW5nKGxvbiwgbGF0LCByZXNwb25zZSA9IHRtYXhfbWVkaWEsIHBvbHlnb25zID0gcG9saWdvbm9zX2FyZykpIAoKb2JzZXJ2YWNpb25lc19yZWd1bGFyIDwtIG9ic2VydmFjaW9uZXNfcmVndWxhciRtYXAgJT4lIAogIHJlbmFtZShsb24gPSB4LCBsYXQgPSB5LCB0bWF4X21lZGlhID0gcHJlZCkKCmdncGxvdChvYnNlcnZhY2lvbmVzX3JlZ3VsYXIsIGFlcyhsb24sIGxhdCkpICsKICBnZW9tX2NvbnRvdXJfZmlsbChhZXMoeiA9IHRtYXhfbWVkaWEpKSArCiAgZ2VvbV9wb2ludChkYXRhID0gb2JzZXJ2YWNpb25lcywgc2l6ZSA9IDAuMikgKwogIG1pX21hcGEgKwogIGNvb3JkX3NmKHlsaW0gPSBjKC01NSwgLTIwKSwgeGxpbSA9IGMoLTgwLCAtNTApKQpgYGAKCgo6Ojogey5hbGVydCAuYWxlcnQtaW5mb30KKipEZXNhZsOtbyoqCgpMYSBpbnRlcnBvbGFjacOzbiBkZSBlc3RlIGdyw6FmaWNvIHF1ZWRhIGZlYSBlbiBsb3MgYm9yZGVzIHBvcnF1ZSB0aWVuZSBwb2NhIHJlc29sdWNpw7NuLiDCv1F1w6kgaGF5IHF1ZSBjYW1iaWFyIGVuIGxhIGxsYW1hZGEgYSBga3JpZ2luZygpYCBwYXJhIGluY3JlbWVudGFybGE/IEZpamF0ZSBlbiBsYSBkb2N1bWVudGFjacOzbiBkZSBsYSBmdW5jacOzbi4gCgoKOjo6CgoKRXN0ZSBncsOhZmljbyB0aWVuZSBsbyBiw6FzaWNvLCBwZXJvIHNlIGxlIHB1ZWRlIHBvbmVyIHVuIHBvY28gZGUgYW1vciBwYXJhIHF1ZSBxdWVkZSBtZWpvci4gU2UgbGUgcHVlZGUgYWdyZWdhciBsw61uZWFzIGRlIGNvbnRvcm5vIGVuIG5lZ3JvIHBhcmEgcmVzYWx0YXIgbG9zIGNvbnRvcm5vcywgY2FtYmlhciBsYSBlc2NhbGEgZGUgY29sb3JlcyBwYXJhIHF1ZSBldm9xdWUgbcOhcyBsYSBpZGVhIGRlICJ0ZW1wZXJhdHVyYSBtw6F4aW1hIiwgYWdyZWdhciBldGlxdWV0YXMgYSBsb3MgY29udG9ybm9zIHkgbW9kaWZpY2FyIGVsIHRleHRvIGRlIGxvcyBlamVzIHkgbGFzIGVzY2FsYXMuIEhhY2llbmRvIHRvZG8gZXNvLCBwb2RlbW9zIGxsZWdhciBhIGFsZ28gY29tbyBlc3RvLgoKYGBge3J9CmdncGxvdChvYnNlcnZhY2lvbmVzX3JlZ3VsYXIsIGFlcyhsb24sIGxhdCkpICsKICBnZW9tX2NvbnRvdXJfZmlsbChhZXMoeiA9IHRtYXhfbWVkaWEpKSArCiAgZ2VvbV9jb250b3VyMihhZXMoeiA9IHRtYXhfbWVkaWEpLCBzaXplID0gMC4yKSArCiAgZ2VvbV90ZXh0X2NvbnRvdXIoYWVzKHogPSB0bWF4X21lZGlhKSwgc2tpcCA9IDEsCiAgICAgICAgICAgICAgICAgICAgcm90YXRlID0gRkFMU0UsIHNpemUgPSAzLjUsCiAgICAgICAgICAgICAgICAgICAgc3Ryb2tlID0gMC4xLCBjb2xvciA9IndoaXRlIiwgc3Ryb2tlLmNvbG9yID0gImJsYWNrIikgKwogIGdlb21fcG9pbnQoZGF0YSA9IG9ic2VydmFjaW9uZXMsIHNpemUgPSAwLjIpICsKICBtaV9tYXBhICsKICBzY2FsZV9maWxsX2Rpc3RpbGxlcihwYWxldHRlID0gIllsT3JSZCIsIGRpcmVjdGlvbiA9IDEpICsKICBjb29yZF9zZih5bGltID0gYygtNTUsIC0yMCksIHhsaW0gPSBjKC04MCwgLTUwKSkgKwogIGxhYnMoZmlsbCA9ICJUZW1wZXJhdHVyYSAowrpDKSIsIAogICAgICAgeCA9IE5VTEwsCiAgICAgICB5ID0gTlVMTCkgICsKICB0aGVtZV9taW5pbWFsKCkKYGBgCgpWYXMgYXYgZXIgdW4gcG9jbyBtw6FzIHNvYnJlIGxhIGFwYXJpZW5jaWEgZGUgbG9zIGdyw6FmaWNvcyBlbiBsYSBzaWd1aWVudGUgc2VjY2nDs24uIAoKCjxkaXYgY2xhc3M9ImJ0bi1ncm91cCIgcm9sZT0iZ3JvdXAiIGFyaWEtbGFiZWw9Ik5hdmVnYWNpw7NuIj4KICA8YSBocmVmPSAiMDgtbHVicmlkYXRlLmh0bWwiIGNsYXNzID0gImJ0biBidG4tcHJpbWFyeSI+QW50ZXJpb3I8L2E+CiAgPGEgaHJlZj0gIjEwLWdyYWZpY29zLUlJSS5odG1sIiBjbGFzcyA9ICJidG4gYnRuLXByaW1hcnkiPlNpZ3VpZW50ZTwvYT4KPC9kaXY+</div>
 
 
 </div>
@@ -843,7 +878,7 @@ div.tocify {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -861,7 +896,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -875,6 +910,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

@@ -13,19 +13,28 @@
 
 <title>Introducción a {RMarkdown}</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -34,86 +43,32 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      code.sourceCode > span { display: inline-block; line-height: 1.25; }
-  code.sourceCode > span { color: inherit; text-decoration: inherit; }
-  code.sourceCode > span:empty { height: 1.2em; }
-  .sourceCode { overflow: visible; }
-  code.sourceCode { white-space: pre; position: relative; }
-  div.sourceCode { margin: 1em 0; }
-  pre.sourceCode { margin: 0; }
-  @media screen {
-  div.sourceCode { overflow: auto; }
-  }
-  @media print {
-  code.sourceCode { white-space: pre-wrap; }
-  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-  }
-  pre.numberSource code
-    { counter-reset: source-line 0; }
-  pre.numberSource code > span
-    { position: relative; left: -4em; counter-increment: source-line; }
-  pre.numberSource code > span > a:first-child::before
-    { content: counter(source-line);
-      position: relative; left: -1em; text-align: right; vertical-align: baseline;
-      border: none; display: inline-block;
-      -webkit-touch-callout: none; -webkit-user-select: none;
-      -khtml-user-select: none; -moz-user-select: none;
-      -ms-user-select: none; user-select: none;
-      padding: 0 4px; width: 4em;
-      color: #aaaaaa;
-    }
-  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-  div.sourceCode
-    {  background-color: #f8f8f8; }
-  @media screen {
-  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-  }
-  code span.al { color: #ef2929; } /* Alert */
-  code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-  code span.at { color: #c4a000; } /* Attribute */
-  code span.bn { color: #0000cf; } /* BaseN */
-  code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-  code span.ch { color: #4e9a06; } /* Char */
-  code span.cn { color: #000000; } /* Constant */
-  code span.co { color: #8f5902; font-style: italic; } /* Comment */
-  code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-  code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-  code span.dt { color: #204a87; } /* DataType */
-  code span.dv { color: #0000cf; } /* DecVal */
-  code span.er { color: #a40000; font-weight: bold; } /* Error */
-  code span.ex { } /* Extension */
-  code span.fl { color: #0000cf; } /* Float */
-  code span.fu { color: #000000; } /* Function */
-  code span.im { } /* Import */
-  code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-  code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-  code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-  code span.ot { color: #8f5902; } /* Other */
-  code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-  code span.sc { color: #000000; } /* SpecialChar */
-  code span.ss { color: #4e9a06; } /* SpecialString */
-  code span.st { color: #4e9a06; } /* String */
-  code span.va { color: #000000; } /* Variable */
-  code span.vs { color: #4e9a06; } /* VerbatimString */
-  code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -133,7 +88,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -186,42 +141,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
 <style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
 #rmd-source-code {
   display: none;
 }
 </style>
+
 
 
 
@@ -231,10 +158,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -251,40 +174,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -312,7 +211,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -324,7 +223,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -335,10 +234,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -350,7 +262,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -479,7 +390,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -493,7 +404,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -506,7 +417,7 @@ div.tocify {
   <a href="hoja-de-ruta.html">Hoja de ruta</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Temas
      
     <span class="caret"></span>
@@ -551,7 +462,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Desafíos
      
     <span class="caret"></span>
@@ -576,11 +487,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
@@ -592,56 +503,107 @@ div.tocify {
 </div>
 
 
-<p>Es posible que en tu trabajo tengas que presentar informes o resultados de tu análisis de datos. Tal vez te hayas encontrando guardando una y otra vez gráficos y tablas o copiando resultados de un archivo al otro hasta que el informe quedó como querías. Los archivos y el paquete <code>RMarkdown</code> vienen al rescate.</p>
-<p>Un archivo <code>RMarkdown</code> a diferencia de un script <code>.R</code> permite incluir código en bloques o <em>chunks</em> y texto plano o con formato simple de leer usando <a href="https://markdown.es/sintaxis-markdown/">markdown</a>. A poder intercalar cálculos y gráficos con su análisis o explicación, se unifica el flujo de trabajo y deja de ser necesario guardar figuras o tablas para luego insertarlas en un documento de texto. Esto es muy importante si buscamos que nuestro trabajo sea reproducible, pero además ahorra tiempo.</p>
-<p>Aún si nunca necesitaras presentar un informe, trabajar con archivos de este tipo te permite volcar todo tu trabajo en un solo lugar y te asegura que cundo vuelvas a revisar mañana o el año que viene, tendrás el código y tus ideas organizadas.</p>
+<p>Es posible que en tu trabajo tengas que presentar informes o
+resultados de tu análisis de datos. Tal vez te hayas encontrando
+guardando una y otra vez gráficos y tablas o copiando resultados de un
+archivo al otro hasta que el informe quedó como querías. Los archivos y
+el paquete <code>RMarkdown</code> vienen al rescate.</p>
+<p>Un archivo <code>RMarkdown</code> a diferencia de un script
+<code>.R</code> permite incluir código en bloques o <em>chunks</em> y
+texto plano o con formato simple de leer usando <a
+href="https://markdown.es/sintaxis-markdown/">markdown</a>. A poder
+intercalar cálculos y gráficos con su análisis o explicación, se unifica
+el flujo de trabajo y deja de ser necesario guardar figuras o tablas
+para luego insertarlas en un documento de texto. Esto es muy importante
+si buscamos que nuestro trabajo sea reproducible, pero además ahorra
+tiempo.</p>
+<p>Aún si nunca necesitaras presentar un informe, trabajar con archivos
+de este tipo te permite volcar todo tu trabajo en un solo lugar y te
+asegura que cundo vuelvas a revisar mañana o el año que viene, tendrás
+el código y tus ideas organizadas.</p>
 <div id="creando-archivos-.rmd" class="section level3">
 <h3>Creando archivos .Rmd</h3>
-<p>Para crear un nuevo archivo de R Markdown usá el menú desplegable de RStudio:</p>
+<p>Para crear un nuevo archivo de R Markdown usá el menú desplegable de
+RStudio:</p>
 <div class="alert alert-secondary">
 <p>File → New File → R Markdown</p>
 </div>
-<p>Y se abrirá un menú donde podés agregar el título y tu nombre. Por ahora vamos a usar el formato html como salida, charlaremos de las distintas posibilidades que ofrece más adelante.</p>
+<p>Y se abrirá un menú donde podés agregar el título y tu nombre. Por
+ahora vamos a usar el formato html como salida, charlaremos de las
+distintas posibilidades que ofrece más adelante.</p>
 <p><img src="img/nuevo-rmd.png" /></p>
-<p>Al aceptar, se abrirá un nuevo archivo pero que no está vacío. RStudio ofrece una plantilla a partir de la cual empezar a trabajar.</p>
+<p>Al aceptar, se abrirá un nuevo archivo pero que no está vacío.
+RStudio ofrece una plantilla a partir de la cual empezar a trabajar.</p>
 <div class="alert alert-info">
 <p><strong>Primer desafío: Crea un nuevo archivo R Markdown</strong></p>
-<p>Revisá la plantilla que trae el documento. ¿Podés identificar los bloques de código?</p>
+<p>Revisá la plantilla que trae el documento. ¿Podés identificar los
+bloques de código?</p>
 </div>
-<p>Para generar el archivo de salida el paquete <code>knitr</code> (que viene de <em>tejer</em> en inglés) y algunos otros ejecutará el código en una sesión independiente de R e interpretará el texto, su formato y cualquier otra cosa que agreguemos (por ejemplo imágenes o links externos). Esto significa que nuestro archivo debe tener <strong>todo</strong> lo necesario para generar el análisis y si nos olvidamos de algo va a dar error.</p>
-<p>Por esta razón es recomendable <em>knitear</em> el archivo seguido, para encontrarnos con los errores a tiempo y de paso asegurarnos que el análisis es reproducible.</p>
+<p>Para generar el archivo de salida el paquete <code>knitr</code> (que
+viene de <em>tejer</em> en inglés) y algunos otros ejecutará el código
+en una sesión independiente de R e interpretará el texto, su formato y
+cualquier otra cosa que agreguemos (por ejemplo imágenes o links
+externos). Esto significa que nuestro archivo debe tener
+<strong>todo</strong> lo necesario para generar el análisis y si nos
+olvidamos de algo va a dar error.</p>
+<p>Por esta razón es recomendable <em>knitear</em> el archivo seguido,
+para encontrarnos con los errores a tiempo y de paso asegurarnos que el
+análisis es reproducible.</p>
 <div class="alert alert-info">
 <p><strong>Segundo desafío: “knitea” tu R Markdown</strong></p>
-<p>Aprovechando la plantilla de RStudio, obtené el archivo de salida en formato html haciendo click en el botón <strong>knit</strong> (el que tiene un ovillo de lana y un par de agujas!)</p>
+<p>Aprovechando la plantilla de RStudio, obtené el archivo de salida en
+formato html haciendo click en el botón <strong>knit</strong> (el que
+tiene un ovillo de lana y un par de agujas!)</p>
 </div>
 </div>
 <div id="estructura-de-un-.rmd" class="section level3">
 <h3>Estructura de un .Rmd</h3>
 <p>Cualquier archivo de este tipo tiene 3 partes principales:</p>
 <ul>
-<li>El encabezado o <em>yaml</em> que determina que pinta tendrá el archivo de salida, por ejemplo en formato html. También se puede incluir información sobre el autor, la fecha, si queremos o no una tabla de contenidos y muchas cosas más.</li>
-<li>El texto o textos ya que puede estar a lo largo de todo el documento. Para darle formato a los títulos o por ejemplo resaltar parte del texto usando negrita se usa <code>Markdown</code>, un <em>lenguaje</em> que a diferencia de html es legible aún si no está compilado o en su versión final.</li>
-<li>El código en bloques o <code>chuncks</code>. Dentro de un chunk el código de R puede ejecutarse al igual que en un script normal y cualquier comentario o explicación debe tener al principio un <code>#</code> para que R lo interprete correctamente.</li>
+<li>El encabezado o <em>yaml</em> que determina que pinta tendrá el
+archivo de salida, por ejemplo en formato html. También se puede incluir
+información sobre el autor, la fecha, si queremos o no una tabla de
+contenidos y muchas cosas más.</li>
+<li>El texto o textos ya que puede estar a lo largo de todo el
+documento. Para darle formato a los títulos o por ejemplo resaltar parte
+del texto usando negrita se usa <code>Markdown</code>, un
+<em>lenguaje</em> que a diferencia de html es legible aún si no está
+compilado o en su versión final.</li>
+<li>El código en bloques o <code>chuncks</code>. Dentro de un chunk el
+código de R puede ejecutarse al igual que en un script normal y
+cualquier comentario o explicación debe tener al principio un
+<code>#</code> para que R lo interprete correctamente.</li>
 </ul>
 <p><img src="img/rmd-ejemplo-secciones.png" /></p>
-<p>Podés encontrar este archivo de ejemplo <a href="files/mi-primer-rmarkdown.Rmd">acá</a>.</p>
+<p>Podés encontrar este archivo de ejemplo <a
+href="files/mi-primer-rmarkdown.Rmd">acá</a>.</p>
 <div class="alert alert-success">
-<p>Al agregar nuevas opciones en el YAML, se crean jerarquías que se identifican escalonando (o <em>indentando</em>) los renglones. Por ejemplo:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">---</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Mi primer RMarkdown&quot;</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">    </span><span class="fu">code_download</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="at">    </span><span class="fu">toc_float</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="pp">---</span></span></code></pre></div>
-<p>Es muy importante que no modifiques esto ya que de otra forma al hacer <code>knit</code> dará error.</p>
+<p>Al agregar nuevas opciones en el YAML, se crean jerarquías que se
+identifican escalonando (o <em>indentando</em>) los renglones. Por
+ejemplo:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Mi primer RMarkdown&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">code_download</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc_float</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<p>Es muy importante que no modifiques esto ya que de otra forma al
+hacer <code>knit</code> dará error.</p>
 </div>
 </div>
 <div id="markdown" class="section level3">
 <h3>Markdown</h3>
-<p>Markdown permite escribir una página web al igual que html pero de manera simple de leer. Si nuestro archivo de salida es un html, luego el paquete <code>knitr</code> se encargará de reemplazar las marcas de markdown por el código de html correspondiente. Pero como dijimos más arriba también será posible generar otro tipo de archivos de salida.</p>
-<p>Por ejemplo podrás resaltar con <strong>negrita</strong> usando dos asteriscos así: <code>**negrita**</code> o <em>italizada</em> con un asterisco de cada lado: <code>*italics*</code>.</p>
+<p>Markdown permite escribir una página web al igual que html pero de
+manera simple de leer. Si nuestro archivo de salida es un html, luego el
+paquete <code>knitr</code> se encargará de reemplazar las marcas de
+markdown por el código de html correspondiente. Pero como dijimos más
+arriba también será posible generar otro tipo de archivos de salida.</p>
+<p>Por ejemplo podrás resaltar con <strong>negrita</strong> usando dos
+asteriscos así: <code>**negrita**</code> o <em>italizada</em> con un
+asterisco de cada lado: <code>*italics*</code>.</p>
 <p>También podés hacer una lista de elementos utilizando asteriscos:</p>
 <pre><code>* la negrita se consigue con dos asteriscos
 * la italizada con un asterisco
@@ -656,7 +618,9 @@ div.tocify {
 <li>la italizada con un asterisco</li>
 <li>y para resaltar código se usa el acento grave `</li>
 </ul>
-<p>Si en realidad querés una lista numerada, simplemente comenzá el renglón un número y un punto. Podrías usar siempre el mismo número, markdown se encarga del resto:</p>
+<p>Si en realidad querés una lista numerada, simplemente comenzá el
+renglón un número y un punto. Podrías usar siempre el mismo número,
+markdown se encarga del resto:</p>
 <pre><code>1. la negrita se consigue con dos asteriscos
 1. la italizada con un asterisco
 1. y para resaltar código se usa el acento grave `</code></pre>
@@ -666,19 +630,26 @@ div.tocify {
 <li>la italizada con un asterisco</li>
 <li>y para resaltar código se usa el acento grave `</li>
 </ol>
-<p>Podés agregar títulos con distinta jerarquía agregando <code>#</code> al comienzo. Esto además define secciones dentro del documento:</p>
+<p>Podés agregar títulos con distinta jerarquía agregando <code>#</code>
+al comienzo. Esto además define secciones dentro del documento:</p>
 <pre><code># Título
 ## El primer subtítulo
 ### Otro subtítulo de menor jerarquía
 #### Otro más, y podría seguir!</code></pre>
 <div class="alert alert-info">
 <p><strong>Tercer desafío: Agregale texto a tu archivo</strong></p>
-<p>Borrá el contenido del archivo <code>.Rmd</code> que creaste (pero no el encabezado!) y probá escribir algo y darle formato. Luego volvé a apretar el botón <strong>knit</strong> para ver el resultado.</p>
+<p>Borrá el contenido del archivo <code>.Rmd</code> que creaste (pero no
+el encabezado!) y probá escribir algo y darle formato. Luego volvé a
+apretar el botón <strong>knit</strong> para ver el resultado.</p>
 </div>
 <p>Markdown permite muchas otras cosas, por ejemplo:</p>
-<p>Podés agregar un link a una página externa: <code>[text to show](http://the-web-page.com)</code>.</p>
-<p>Podés incluir una imagen: <code>![pie de figura](http://url/for/file)</code></p>
-<p>Y también podés agregar ecuaciones en LaTeX en la misma línea (esto:<code>$E = mc^2$</code> se ve así: <span class="math inline">\(E = mc^2\)</span>) o en una línea propia. Esto:</p>
+<p>Podés agregar un link a una página externa:
+<code>[text to show](http://the-web-page.com)</code>.</p>
+<p>Podés incluir una imagen:
+<code>![pie de figura](http://url/for/file)</code></p>
+<p>Y también podés agregar ecuaciones en LaTeX en la misma línea
+(esto:<code>$E = mc^2$</code> se ve así: <span class="math inline">\(E =
+mc^2\)</span>) o en una línea propia. Esto:</p>
 <pre><code>$$
 y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon
 $$</code></pre>
@@ -687,16 +658,19 @@ $$</code></pre>
 y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon
 \]</span></p>
 <div class="alert alert-success">
-<p>Podés revisar la guía rápida de Markdown desde RStudio (en inglés):</p>
+<p>Podés revisar la guía rápida de Markdown desde RStudio (en
+inglés):</p>
 <p>Help → Markdown Quick Reference</p>
 </div>
 </div>
 <div id="bloques-de-código" class="section level3">
 <h3>Bloques de código</h3>
-<p>Los bloques de código o <strong>chunks</strong> se definen usando 3 acentos grave al principio y al final:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="bn">```{r nombre-del-chunk}</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="bn">```</span></span></code></pre></div>
+<p>Los bloques de código o <strong>chunks</strong> se definen usando 3
+acentos grave al principio y al final:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r nombre-del-chunk}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>Y se diferencia del resto de archivo con un fondo gris.</p>
 <div class="alert alert-success">
 <p>Para insertar un nuevo chunk podés:</p>
@@ -706,8 +680,17 @@ y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon
 <li>Escribir a mano!</li>
 </ul>
 </div>
-<p>Como viste en el ejemplo, los chucks pueden tener nombre y esto es útil para identificar donde ocurren los errores al momento de <em>knitear</em> pero también para tener una pista de lo que hace el código que incluye.</p>
-<p>Todo lo que incluyas entre los acentos graves será interpretado por R como código e intentará ejecutarlo al <em>knitear</em> el archivo. Pero también podemos correr el código interactivamente como en la consola, con la diferencia de que ahora el resultado (ya sea un valor, un gráfico o cualquier otra cosa) aparecerá inmediatamente por debajo del bloque de código. Para correr una línea de código, tendrás que pararte sobre esa línea y apretar:</p>
+<p>Como viste en el ejemplo, los chucks pueden tener nombre y esto es
+útil para identificar donde ocurren los errores al momento de
+<em>knitear</em> pero también para tener una pista de lo que hace el
+código que incluye.</p>
+<p>Todo lo que incluyas entre los acentos graves será interpretado por R
+como código e intentará ejecutarlo al <em>knitear</em> el archivo. Pero
+también podemos correr el código interactivamente como en la consola,
+con la diferencia de que ahora el resultado (ya sea un valor, un gráfico
+o cualquier otra cosa) aparecerá inmediatamente por debajo del bloque de
+código. Para correr una línea de código, tendrás que pararte sobre esa
+línea y apretar:</p>
 <div class="alert alert-secondary">
 <p>Ctrl+Enter</p>
 </div>
@@ -717,10 +700,12 @@ y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon
 </div>
 <div class="alert alert-info">
 <p><strong>Cuarto desafío: Sumá un chunk a tu archivo</strong></p>
-<p>Usando el archivo con el que venís trabajando insertá un nuevo chunk y:</p>
+<p>Usando el archivo con el que venís trabajando insertá un nuevo chunk
+y:</p>
 <ol style="list-style-type: decimal">
 <li>Cargá la librería <code>readr</code>.</li>
-<li>Creá una variable que se llame <code>variable_prueba</code> y asignale un valor.</li>
+<li>Creá una variable que se llame <code>variable_prueba</code> y
+asignale un valor.</li>
 <li>Mostrá ese valor.</li>
 <li>Volvé a <em>knitear</em> el archivo para ver el resultado</li>
 </ol>
@@ -728,12 +713,24 @@ y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon
 </div>
 <div id="texto-en-línea" class="section level3">
 <h3>Texto en línea</h3>
-<p>Finalmente es posible que te encuentres mencionando resultados en el texto, por ejemplo algo así como “la media de temperatura mínima para el mes de marzo fue de 18 grados”. Y también es posible que ese valor cambie si utilizas una base de datos distinta o si luego generas un informe pero para un mes siguiente. Las chances de de que te olvides de actualizar ese “18” son super altas, por eso RMarkdown también tiene la posibilidad de incorporar texto en línea.</p>
-<p>Imaginemos que tenés una variables <code>temperatura</code> a la cual le asignamos el valor “18”:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>temperatura &lt;-<span class="st"> </span><span class="dv">18</span></span></code></pre></div>
-<p>Para mencionarla en el texto entonces tenemos que poner el nombre de esa variable entre dos acentos graves y avisar que se trata de código de R des esta manera <code>`r temperatura`</code>. Entonces si en algún momento cambia el valor de la variable, la próxima vez que <em>knites</em> el documento se actualizará en el texto.</p>
+<p>Finalmente es posible que te encuentres mencionando resultados en el
+texto, por ejemplo algo así como “la media de temperatura mínima para el
+mes de marzo fue de 18 grados”. Y también es posible que ese valor
+cambie si utilizas una base de datos distinta o si luego generas un
+informe pero para un mes siguiente. Las chances de de que te olvides de
+actualizar ese “18” son super altas, por eso RMarkdown también tiene la
+posibilidad de incorporar texto en línea.</p>
+<p>Imaginemos que tenés una variables <code>temperatura</code> a la cual
+le asignamos el valor “18”:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>temperatura <span class="ot">&lt;-</span> <span class="dv">18</span></span></code></pre></div>
+<p>Para mencionarla en el texto entonces tenemos que poner el nombre de
+esa variable entre dos acentos graves y avisar que se trata de código de
+R des esta manera <code>`r temperatura`</code>. Entonces si en algún
+momento cambia el valor de la variable, la próxima vez que
+<em>knites</em> el documento se actualizará en el texto.</p>
 <div class="btn-group" role="group" aria-label="Navegación">
-<p><a href= "02-proyectos.html" class = "btn btn-primary">Anterior</a> <a href= "04-lectura.html" class = "btn btn-primary">Siguiente</a></p>
+<p><a href= "02-proyectos.html" class = "btn btn-primary">Anterior</a>
+<a href= "04-lectura.html" class = "btn btn-primary">Siguiente</a></p>
 </div>
 </div>
 
@@ -749,7 +746,7 @@ y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -767,7 +764,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -781,6 +778,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

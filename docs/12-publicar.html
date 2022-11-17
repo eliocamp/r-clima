@@ -13,19 +13,28 @@
 
 <title>Netlify</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -34,86 +43,32 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      code.sourceCode > span { display: inline-block; line-height: 1.25; }
-  code.sourceCode > span { color: inherit; text-decoration: inherit; }
-  code.sourceCode > span:empty { height: 1.2em; }
-  .sourceCode { overflow: visible; }
-  code.sourceCode { white-space: pre; position: relative; }
-  div.sourceCode { margin: 1em 0; }
-  pre.sourceCode { margin: 0; }
-  @media screen {
-  div.sourceCode { overflow: auto; }
-  }
-  @media print {
-  code.sourceCode { white-space: pre-wrap; }
-  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-  }
-  pre.numberSource code
-    { counter-reset: source-line 0; }
-  pre.numberSource code > span
-    { position: relative; left: -4em; counter-increment: source-line; }
-  pre.numberSource code > span > a:first-child::before
-    { content: counter(source-line);
-      position: relative; left: -1em; text-align: right; vertical-align: baseline;
-      border: none; display: inline-block;
-      -webkit-touch-callout: none; -webkit-user-select: none;
-      -khtml-user-select: none; -moz-user-select: none;
-      -ms-user-select: none; user-select: none;
-      padding: 0 4px; width: 4em;
-      color: #aaaaaa;
-    }
-  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-  div.sourceCode
-    {  background-color: #f8f8f8; }
-  @media screen {
-  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-  }
-  code span.al { color: #ef2929; } /* Alert */
-  code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-  code span.at { color: #c4a000; } /* Attribute */
-  code span.bn { color: #0000cf; } /* BaseN */
-  code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-  code span.ch { color: #4e9a06; } /* Char */
-  code span.cn { color: #000000; } /* Constant */
-  code span.co { color: #8f5902; font-style: italic; } /* Comment */
-  code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-  code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-  code span.dt { color: #204a87; } /* DataType */
-  code span.dv { color: #0000cf; } /* DecVal */
-  code span.er { color: #a40000; font-weight: bold; } /* Error */
-  code span.ex { } /* Extension */
-  code span.fl { color: #0000cf; } /* Float */
-  code span.fu { color: #000000; } /* Function */
-  code span.im { } /* Import */
-  code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-  code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-  code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-  code span.ot { color: #8f5902; } /* Other */
-  code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-  code span.sc { color: #000000; } /* SpecialChar */
-  code span.ss { color: #4e9a06; } /* SpecialString */
-  code span.st { color: #4e9a06; } /* String */
-  code span.va { color: #000000; } /* Variable */
-  code span.vs { color: #4e9a06; } /* VerbatimString */
-  code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -133,7 +88,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -186,42 +141,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
 <style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
 #rmd-source-code {
   display: none;
 }
 </style>
+
 
 
 
@@ -231,10 +158,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -251,40 +174,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -312,7 +211,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -324,7 +223,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -335,10 +234,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -350,7 +262,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -479,7 +390,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -493,7 +404,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -506,7 +417,7 @@ div.tocify {
   <a href="hoja-de-ruta.html">Hoja de ruta</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Temas
      
     <span class="caret"></span>
@@ -551,7 +462,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Desafíos
      
     <span class="caret"></span>
@@ -576,11 +487,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
@@ -592,94 +503,171 @@ div.tocify {
 </div>
 
 
-<p>De nada sirve amar un informe en R Markdown y luego compilarlo si nadie lo va a ver. Hay que hacérselo llegar a las personas que deben leerlo. Publicar los reportes en una página web puede ser un método especialmente útil para reportes que requieren actualizarse periódicamente y lo bueno es que podés convertir tu reporte de R Markdown en una página web en muy pocos pasos.</p>
+<p>De nada sirve amar un informe en R Markdown y luego compilarlo si
+nadie lo va a ver. Hay que hacérselo llegar a las personas que deben
+leerlo. Publicar los reportes en una página web puede ser un método
+especialmente útil para reportes que requieren actualizarse
+periódicamente y lo bueno es que podés convertir tu reporte de R
+Markdown en una página web en muy pocos pasos.</p>
 <div id="sitio-web-de-una-sola-página" class="section level2">
 <h2>Sitio web de una sola página</h2>
-<p>Lo bueno es que si ya sabés cómo generar un reporte en html usando R Markdown, ya sabés todo lo que necesitás para publicar un sitio web simple! Lo único que hace falta es un servicio que te hostee el archivo y lo muestre a los visitantes. Uno de ellos es <a href="https://www.netlify.com/">Netlify</a>, que permite crear un sitio web con sólo arrastrar una carpeta.</p>
-<p>Pero primero un pequeño detalle. Seguramente tu reporte tiene algún nombre descriptivo consistente con su contenido, pero para este paso va a tener que tener el nombre especial: “index.html”. Para esto tenés dos opciones:</p>
+<p>Lo bueno es que si ya sabés cómo generar un reporte en html usando R
+Markdown, ya sabés todo lo que necesitás para publicar un sitio web
+simple! Lo único que hace falta es un servicio que te hostee el archivo
+y lo muestre a los visitantes. Uno de ellos es <a
+href="https://www.netlify.com/">Netlify</a>, que permite crear un sitio
+web con sólo arrastrar una carpeta.</p>
+<p>Pero primero un pequeño detalle. Seguramente tu reporte tiene algún
+nombre descriptivo consistente con su contenido, pero para este paso va
+a tener que tener el nombre especial: “index.html”. Para esto tenés dos
+opciones:</p>
 <ol style="list-style-type: decimal">
-<li>ponerle “index.Rmd” al archivo de R Markdown y knitear como siempre</li>
-<li>que tu archivo Rmd tenga el nombre que sea, knitear como siempre y luego ir y renombrar el archivo de salida como “index.html”</li>
+<li>ponerle “index.Rmd” al archivo de R Markdown y knitear como
+siempre</li>
+<li>que tu archivo Rmd tenga el nombre que sea, knitear como siempre y
+luego ir y renombrar el archivo de salida como “index.html”</li>
 </ol>
-<p>En cualquiera de los dos casos, lo que querés tener es una carpeta con un archivo llamado “index.html” adentro. Listo, eso es un sitio web!</p>
-<p>Ahora lo último que queda es ir a <a href="https://app.netlify.com/drop">https://app.netlify.com/drop</a> y arrastrar la carpeta. Netlify va a crear una página web con un nombre aleatorio:</p>
+<p>En cualquiera de los dos casos, lo que querés tener es una carpeta
+con un archivo llamado “index.html” adentro. Listo, eso es un sitio
+web!</p>
+<p>Ahora lo último que queda es ir a <a
+href="https://app.netlify.com/drop">https://app.netlify.com/drop</a> y
+arrastrar la carpeta. Netlify va a crear una página web con un nombre
+aleatorio:</p>
 <figure>
 <video width=770px controls>
 <source src="img/netlify_drop.webm" type="video/webm">
 </video>
 </figure>
 <div class="alert alert-info">
-<p><strong>Desafío</strong> Creá una página web! 1. creá una copia del informe que venís trabajando, renombrala “index.Rmd”, <em>kniteá</em> y asegurate que el resultado sea un archivo llamado “index.html” en la raiz de la carpeta del proyecto. 2. Andá a <a href="https://app.netlify.com/drop">https://app.netlify.com/drop</a> 3. Arrastrá la carpeta de tu proyecto, que tiene el archivo index.html.</p>
+<p><strong>Desafío</strong> Creá una página web! 1. creá una copia del
+informe que venís trabajando, renombrala “index.Rmd”, <em>kniteá</em> y
+asegurate que el resultado sea un archivo llamado “index.html” en la
+raiz de la carpeta del proyecto. 2. Andá a <a
+href="https://app.netlify.com/drop">https://app.netlify.com/drop</a> 3.
+Arrastrá la carpeta de tu proyecto, que tiene el archivo index.html.</p>
 </div>
 <div class="alert alert-success">
-<p>Habrás notado que Netlify borra los sitios web luego de 24 horas. Para que tu sitio sea permanente tenés que crearte una cuenta.</p>
+<p>Habrás notado que Netlify borra los sitios web luego de 24 horas.
+Para que tu sitio sea permanente tenés que crearte una cuenta.</p>
 </div>
 </div>
 <div id="sitio-web-de-muchas-páginas" class="section level2">
 <h2>Sitio web de muchas páginas</h2>
-<p>Esto que hiciste para un sitio web con una sola página se puede extender para un sitio web con varias páginas simplemente agregando otros archivos html a la carpeta que subís a Netlify. El problema es que por convención, el archivo que vas a poder ver cuando entrás a la URL de tu página siempre va a ser el archivo index.html. Para poder ver los otros tenés agregarlos en la URL, pero esto requiere que sepas el nombre de cada archivo y es muy poco amigable.</p>
-<p>Para un sitio web con más de una página, lo mejor es que el archivo index.html (generado a partir de un archivo llamado “index.Rmd”) sea una página “bienvenida” donde estén los vínculos a todos demás archivos. Por ejemplo, un buen archivo index.Rmd podría ser algo como esto:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a>---</span>
-<span id="cb1-2"><a href="#cb1-2"></a>title: &quot;Inicio&quot;</span>
-<span id="cb1-3"><a href="#cb1-3"></a>---</span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">### Listado de informes:</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a>* <span class="st">Informe 1: </span><span class="ot">[link](informe_1.html)</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="st">* Informe 2: </span><span class="ot">[link](informe_2.html)</span></span></code></pre></div>
-<p>Donde los los archivos informe_1.html e informe_2.html serían generados por sus correspondientes archivos informe_1.Rmd e informe_2.Rmd. Notá que los links son a los archivos html, no a los archivos Rmd!</p>
+<p>Esto que hiciste para un sitio web con una sola página se puede
+extender para un sitio web con varias páginas simplemente agregando
+otros archivos html a la carpeta que subís a Netlify. El problema es que
+por convención, el archivo que vas a poder ver cuando entrás a la URL de
+tu página siempre va a ser el archivo index.html. Para poder ver los
+otros tenés agregarlos en la URL, pero esto requiere que sepas el nombre
+de cada archivo y es muy poco amigable.</p>
+<p>Para un sitio web con más de una página, lo mejor es que el archivo
+index.html (generado a partir de un archivo llamado “index.Rmd”) sea una
+página “bienvenida” donde estén los vínculos a todos demás archivos. Por
+ejemplo, un buen archivo index.Rmd podría ser algo como esto:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Inicio&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Listado de informes:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Informe 1: <span class="co">[</span><span class="ot">link</span><span class="co">](informe_1.html)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Informe 2: <span class="co">[</span><span class="ot">link</span><span class="co">](informe_2.html)</span></span></code></pre></div>
+<p>Donde los los archivos informe_1.html e informe_2.html serían
+generados por sus correspondientes archivos informe_1.Rmd e
+informe_2.Rmd. Notá que los links son a los archivos html, no a los
+archivos Rmd!</p>
 <div class="alert alert-info">
-<p><strong>Desafío</strong> Creá un sitio web con una página de inicio!</p>
+<p><strong>Desafío</strong> Creá un sitio web con una página de
+inicio!</p>
 <ol style="list-style-type: decimal">
-<li>Creá uno o más archivos Rmd (podés dejar la plantilla por defecto que da RStudio) y knitealos en sus respectivos archivos html.</li>
-<li>Abrí el archivo index.Rmd convertila en una página de inicio con vínculos a los archivos html que creaste y knitealo para obtener el archivo index.html</li>
+<li>Creá uno o más archivos Rmd (podés dejar la plantilla por defecto
+que da RStudio) y knitealos en sus respectivos archivos html.</li>
+<li>Abrí el archivo index.Rmd convertila en una página de inicio con
+vínculos a los archivos html que creaste y knitealo para obtener el
+archivo index.html</li>
 <li>Subí esa carpeta a Netlify.</li>
 </ol>
 </div>
 </div>
 <div id="sitio-web-organizado" class="section level2">
 <h2>Sitio web organizado</h2>
-<p>Ahora tenés un sitio web funcional pero el flujo de trabajo es muy manual. Tenés que knitear los documentos uno por uno cada vez que los cambiás y en la carpeta de tu proyecto tenés tanto los archivos Rmd como los html, lo cual puede ser molesto. Además, cada página parece aislada: no es posible navegar entre los distintos informes.</p>
-<p>Estos problemas se puede resolver agregando un archivo con el nombre "_site.yml" en la carpeta de tu proyecto. Este archivo va a identificar a este proyecto como un sitio web y va a tener todas las opciones globales del mismo. Además va a servir para generar una barra de navegación que lo va a hacer mucho más amigable.</p>
-<p>Por ejemplo, el archivo _site.yml de este sitio web tiene las siguientes líneas:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">output_dir</span><span class="kw">:</span><span class="at"> docs</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">output</span><span class="kw">:</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> united</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">navbar</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Página con informes</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="at">  </span><span class="fu">left</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Informes</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="at">    </span><span class="fu">menu</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Informe 1</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="at">        </span><span class="fu">href</span><span class="kw">:</span><span class="at"> informe_1.html</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Informe 2</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="at">        </span><span class="fu">href</span><span class="kw">:</span><span class="at"> informe_2.html</span></span></code></pre></div>
+<p>Ahora tenés un sitio web funcional pero el flujo de trabajo es muy
+manual. Tenés que knitear los documentos uno por uno cada vez que los
+cambiás y en la carpeta de tu proyecto tenés tanto los archivos Rmd como
+los html, lo cual puede ser molesto. Además, cada página parece aislada:
+no es posible navegar entre los distintos informes.</p>
+<p>Estos problemas se puede resolver agregando un archivo con el nombre
+“_site.yml” en la carpeta de tu proyecto. Este archivo va a identificar
+a este proyecto como un sitio web y va a tener todas las opciones
+globales del mismo. Además va a servir para generar una barra de
+navegación que lo va a hacer mucho más amigable.</p>
+<p>Por ejemplo, el archivo _site.yml de este sitio web tiene las
+siguientes líneas:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_dir</span><span class="kw">:</span><span class="at"> docs</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> united</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Página con informes</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">left</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Informes</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">menu</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Informe 1</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">href</span><span class="kw">:</span><span class="at"> informe_1.html</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Informe 2</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">href</span><span class="kw">:</span><span class="at"> informe_2.html</span></span></code></pre></div>
 <p>¿Qué es lo que hace cada parte?</p>
 <ul>
-<li><p><code>output_dir: docs</code> define que el sitio web se va a generar en la carpeta “docs”, que va a estar dentro de la carpeta del proyecto. Esa carpeta va a tener todos los archivos html y demás archivos necesarios para que el sitio funcione.</p></li>
-<li><p><code>output:...</code> define opciones globales de salida para no tener que definirlas dentro de cada archivo Rmd. Podés ver las opciones disponibles en la documentación con <code>?rmarkdown::html_document()</code>. En este caso, define que la apariencia a a ser con el tema “united”.</p></li>
-<li><p><code>navbar:...</code> define una barra de navegación que ves ahí arriba. Tiene varias partes, como un título, un link que lleva a la hoja de ruta, y dos menúes desplegables.</p></li>
+<li><p><code>output_dir: docs</code> define que el sitio web se va a
+generar en la carpeta “docs”, que va a estar dentro de la carpeta del
+proyecto. Esa carpeta va a tener todos los archivos html y demás
+archivos necesarios para que el sitio funcione.</p></li>
+<li><p><code>output:...</code> define opciones globales de salida para
+no tener que definirlas dentro de cada archivo Rmd. Podés ver las
+opciones disponibles en la documentación con
+<code>?rmarkdown::html_document()</code>. En este caso, define que la
+apariencia a a ser con el tema “united”.</p></li>
+<li><p><code>navbar:...</code> define una barra de navegación que ves
+ahí arriba. Tiene varias partes, como un título, un link que lleva a la
+hoja de ruta, y dos menúes desplegables.</p></li>
 </ul>
 <div class="figure">
 <img src="img/navbar.png" alt="" />
 <p class="caption">Las partes del navbar</p>
 </div>
-<p>Tener el archivo _site.yaml tiene otra gran ventaja. Ahora RStudio sabe que querés hacer un sitio web y podés generar todo el sitio web directamente yendo a la solapa “Build” y haciendo click en “Build Website” o con el atajo de teclado Ctrl + Shift + B. Esto va a renderizar todos los archivos .Rmd que estén en la raiz del proyecto y va a generar el sitio web en la carpeta especificada en <code>output_dir</code>.</p>
+<p>Tener el archivo _site.yaml tiene otra gran ventaja. Ahora RStudio
+sabe que querés hacer un sitio web y podés generar todo el sitio web
+directamente yendo a la solapa “Build” y haciendo click en “Build
+Website” o con el atajo de teclado Ctrl + Shift + B. Esto va a
+renderizar todos los archivos .Rmd que estén en la raiz del proyecto y
+va a generar el sitio web en la carpeta especificada en
+<code>output_dir</code>.</p>
 <div class="alert alert-info">
-<p><strong>Desafío</strong> Armá tu sitio web con barra de navegación!</p>
+<p><strong>Desafío</strong> Armá tu sitio web con barra de
+navegación!</p>
 <ol style="list-style-type: decimal">
-<li>Creá un archivo "_site.yaml".</li>
-<li>Definí el tema (fijate en la documentación de <code>rmarkdown::html_document</code> cuáles son las opciones disponibles)</li>
+<li>Creá un archivo “_site.yaml”.</li>
+<li>Definí el tema (fijate en la documentación de
+<code>rmarkdown::html_document</code> cuáles son las opciones
+disponibles)</li>
 <li>Generá una barra de navegación que linkee a los informes.</li>
-<li>Generá el sitio apretando el botón “Build Website” que está en la solapa “Build” de RStudio.</li>
-<li>Andá a <a href="https://app.netlify.com/drop">https://app.netlify.com/drop</a> y arrastrá la carpeta donde se generó el sitio (que va a ser una carpeta dentro del proyecto, no la carpeta del proyecto).</li>
+<li>Generá el sitio apretando el botón “Build Website” que está en la
+solapa “Build” de RStudio.</li>
+<li>Andá a <a
+href="https://app.netlify.com/drop">https://app.netlify.com/drop</a> y
+arrastrá la carpeta donde se generó el sitio (que va a ser una carpeta
+dentro del proyecto, no la carpeta del proyecto).</li>
 </ol>
 </div>
 <div class="btn-group" role="group" aria-label="Navegación">
-<p><a href= "11-reportes-II.html" class = "btn btn-primary">Anterior</a> <a href= "hoja-de-ruta.html" class = "btn btn-primary">Hoja de Ruta</a></p>
+<p><a href= "11-reportes-II.html" class = "btn btn-primary">Anterior</a>
+<a href= "hoja-de-ruta.html" class = "btn btn-primary">Hoja de
+Ruta</a></p>
 </div>
 </div>
 
@@ -695,7 +683,7 @@ div.tocify {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -713,7 +701,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -727,6 +715,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

@@ -13,12 +13,22 @@
 
 <title>Cómo instalar R y RStudio</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -33,14 +43,9 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -53,32 +58,8 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
+
 
 
 
@@ -88,10 +69,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -108,40 +85,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -169,7 +122,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -181,7 +134,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -192,10 +145,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -207,7 +173,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -333,7 +298,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -347,7 +312,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -360,7 +325,7 @@ div.tocify {
   <a href="hoja-de-ruta.html">Hoja de ruta</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Temas
      
     <span class="caret"></span>
@@ -405,7 +370,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Desafíos
      
     <span class="caret"></span>
@@ -430,7 +395,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -447,41 +412,62 @@ div.tocify {
 <p><code>sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu $(lsb_release -cs)/" | sudo tee -a /etc/apt/sources.list</code></p>
 <p>Ahora</p>
 <p><code>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9</code></p>
-<p>Finalmente, actualizá las fuentes de los repositorios e instalá R con:</p>
-<p><code>sudo apt update</code> <code>sudo apt install -y r-base r-base-dev</code></p>
-<p>Si todo salió bien, tenés que tener instalado R en tu máquina y podés ejecutarlo con el comando R en la consola.</p>
+<p>Finalmente, actualizá las fuentes de los repositorios e instalá R
+con:</p>
+<p><code>sudo apt update</code>
+<code>sudo apt install -y r-base r-base-dev</code></p>
+<p>Si todo salió bien, tenés que tener instalado R en tu máquina y podés
+ejecutarlo con el comando R en la consola.</p>
 </div>
 <div id="otras-distribuciones-basadas-en-ubuntu" class="section level3">
 <h3>Otras distribuciones basadas en Ubuntu</h3>
-<p>Primero tenés que saber el nombre de la versión de Ubuntu está basada y luego ejecutar:</p>
+<p>Primero tenés que saber el nombre de la versión de Ubuntu está basada
+y luego ejecutar:</p>
 <p><code>sudo echo “deb http://cran.rstudio.com/bin/linux/debian NOMBRE/” | sudo tee -a /etc/apt/sources.list</code></p>
-<p>Reemplazando <code>NOMBRE</code> por el nombre de la versión y siguiendo los pasos 2 y 3.</p>
+<p>Reemplazando <code>NOMBRE</code> por el nombre de la versión y
+siguiendo los pasos 2 y 3.</p>
 </div>
-<div id="otras-distribuciones-no-basadas-en-ubuntu" class="section level3">
+<div id="otras-distribuciones-no-basadas-en-ubuntu"
+class="section level3">
 <h3>Otras distribuciones no basadas en Ubuntu</h3>
-<p>Si tenés Debian, podés seguir los mismos pasos que antes pero ejecutar</p>
-<p><code>sudo echo “deb http://cran.rstudio.com/bin/linux/debian CODENAME-cran34/” | sudo tee -a /etc/apt/sources.list</code> en el paso 2.</p>
+<p>Si tenés Debian, podés seguir los mismos pasos que antes pero
+ejecutar</p>
+<p><code>sudo echo “deb http://cran.rstudio.com/bin/linux/debian CODENAME-cran34/” | sudo tee -a /etc/apt/sources.list</code>
+en el paso 2.</p>
 </div>
 <div id="windows" class="section level3">
 <h3>Windows</h3>
-<p>Entrá a <a href="https://cran.r-project.org/bin/windows/base/">https://cran.r-project.org/bin/windows/base/</a> y bajate el instalador haciendo click en el link grandote que dice “Download R 4.0.0 for Windows”. Una vez que se bajó, hacé doble click en el archivo y seguí las instrucciones del instalador.</p>
+<p>Entrá a <a
+href="https://cran.r-project.org/bin/windows/base/">https://cran.r-project.org/bin/windows/base/</a>
+y bajate el instalador haciendo click en el link grandote que dice
+“Download R 4.0.0 for Windows”. Una vez que se bajó, hacé doble click en
+el archivo y seguí las instrucciones del instalador.</p>
 </div>
 </div>
 <div id="instalar-rstudio" class="section level2">
 <h2>Instalar RStudio</h2>
-<p>Ir a <a href="https://www.rstudio.com/products/rstudio/download/#download">https://www.rstudio.com/products/rstudio/download/#download</a> y abajo de todo está el listado de instaladores para cada plafatorma.</p>
+<p>Ir a <a
+href="https://www.rstudio.com/products/rstudio/download/#download">https://www.rstudio.com/products/rstudio/download/#download</a>
+y abajo de todo está el listado de instaladores para cada
+plafatorma.</p>
 <div id="ubuntu-o-derivados" class="section level3">
 <h3>Ubuntu o derivados</h3>
-<p>Si tenés instalado una interfaz gráfica para instalar archivos .deb, ejecutando el archivo que descargaste ya vas a poder instalar RStudio. Si no, abrí una terminal en el directorio donde bajaste el archivo y ejecutá</p>
+<p>Si tenés instalado una interfaz gráfica para instalar archivos .deb,
+ejecutando el archivo que descargaste ya vas a poder instalar RStudio.
+Si no, abrí una terminal en el directorio donde bajaste el archivo y
+ejecutá</p>
 <p><code>sudo dpkg -i ARCHIVO</code></p>
-<p>Reemplazando <code>ARCHIVO</code> por el nombre del archivo instalador.</p>
-<p>Es posible que salte algún error por falta de alguna dependencia, en ese caso usá</p>
+<p>Reemplazando <code>ARCHIVO</code> por el nombre del archivo
+instalador.</p>
+<p>Es posible que salte algún error por falta de alguna dependencia, en
+ese caso usá</p>
 <p><code>sudo apt-get -f install</code></p>
 <p>Y debería estar arreglado.</p>
 </div>
 <div id="windows-1" class="section level3">
 <h3>Windows</h3>
-<p>Como siempre, doble click en el archivo y seguir los pasos de instalación.</p>
+<p>Como siempre, doble click en el archivo y seguir los pasos de
+instalación.</p>
 </div>
 </div>
 
@@ -496,7 +482,7 @@ div.tocify {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -514,7 +500,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -523,6 +509,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

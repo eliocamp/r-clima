@@ -317,12 +317,6 @@ La interpolación de este gráfico queda fea en los bordes porque tiene poca res
 
 :::
 
-::: {.alert .alert-success} 
-**Nota** 
-Para que `geom_contour_fill()` funcione bien en este caso, hay que instalar la versión de desarrollo de `metR`que se puede instalar con el comando `remotes::install_gihub("eliocamp/metR@dev")`. 
-También es necesaria esa versión para que funcione `geom_text_contour()` como en el ejemplo que sigue.
-:::
-
 
 Este gráfico tiene lo básico, pero se le puede poner un poco de amor para que quede mejor. Se le puede agregar líneas de contorno en negro para resaltar los contornos, cambiar la escala de colores para que evoque más la idea de "temperatura máxima", agregar etiquetas a los contornos y modificar el texto de los ejes y las escalas. Haciendo todo eso, podemos llegar a algo como esto.
 

@@ -13,19 +13,28 @@
 
 <title>Manipulación de datos ordenados usando {dplyr} - Primera parte</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -34,86 +43,32 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      code.sourceCode > span { display: inline-block; line-height: 1.25; }
-  code.sourceCode > span { color: inherit; text-decoration: inherit; }
-  code.sourceCode > span:empty { height: 1.2em; }
-  .sourceCode { overflow: visible; }
-  code.sourceCode { white-space: pre; position: relative; }
-  div.sourceCode { margin: 1em 0; }
-  pre.sourceCode { margin: 0; }
-  @media screen {
-  div.sourceCode { overflow: auto; }
-  }
-  @media print {
-  code.sourceCode { white-space: pre-wrap; }
-  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-  }
-  pre.numberSource code
-    { counter-reset: source-line 0; }
-  pre.numberSource code > span
-    { position: relative; left: -4em; counter-increment: source-line; }
-  pre.numberSource code > span > a:first-child::before
-    { content: counter(source-line);
-      position: relative; left: -1em; text-align: right; vertical-align: baseline;
-      border: none; display: inline-block;
-      -webkit-touch-callout: none; -webkit-user-select: none;
-      -khtml-user-select: none; -moz-user-select: none;
-      -ms-user-select: none; user-select: none;
-      padding: 0 4px; width: 4em;
-      color: #aaaaaa;
-    }
-  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-  div.sourceCode
-    {  background-color: #f8f8f8; }
-  @media screen {
-  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-  }
-  code span.al { color: #ef2929; } /* Alert */
-  code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-  code span.at { color: #c4a000; } /* Attribute */
-  code span.bn { color: #0000cf; } /* BaseN */
-  code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-  code span.ch { color: #4e9a06; } /* Char */
-  code span.cn { color: #000000; } /* Constant */
-  code span.co { color: #8f5902; font-style: italic; } /* Comment */
-  code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-  code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-  code span.dt { color: #204a87; } /* DataType */
-  code span.dv { color: #0000cf; } /* DecVal */
-  code span.er { color: #a40000; font-weight: bold; } /* Error */
-  code span.ex { } /* Extension */
-  code span.fl { color: #0000cf; } /* Float */
-  code span.fu { color: #000000; } /* Function */
-  code span.im { } /* Import */
-  code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-  code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-  code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-  code span.ot { color: #8f5902; } /* Other */
-  code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-  code span.sc { color: #000000; } /* SpecialChar */
-  code span.ss { color: #4e9a06; } /* SpecialString */
-  code span.st { color: #4e9a06; } /* String */
-  code span.va { color: #000000; } /* Variable */
-  code span.vs { color: #4e9a06; } /* VerbatimString */
-  code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -133,7 +88,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -186,42 +141,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
 <style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
 #rmd-source-code {
   display: none;
 }
 </style>
+
 
 
 
@@ -231,10 +158,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -251,40 +174,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -312,7 +211,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -324,7 +223,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -335,10 +234,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -350,7 +262,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -479,7 +390,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -493,7 +404,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -506,7 +417,7 @@ div.tocify {
   <a href="hoja-de-ruta.html">Hoja de ruta</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Temas
      
     <span class="caret"></span>
@@ -551,7 +462,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Desafíos
      
     <span class="caret"></span>
@@ -576,77 +487,90 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
 
 
 
-<h1 class="title toc-ignore">Manipulación de datos ordenados usando {dplyr} - Primera parte</h1>
+<h1 class="title toc-ignore">Manipulación de datos ordenados usando
+{dplyr} - Primera parte</h1>
 
 </div>
 
 
-<p>El paquete {dplyr} provee una enorme cantidad de funciones útiles para manipular y analizar datos de manera intuitiva y expresiva.</p>
-<p>El espíritu detrás de {dplyr} es que la enorme mayoría de los análisis, por más complicados que sean, involucran combinar y encadenar una serie relativamente acotada de acciones (o verbos). Vamos a comenzar a trabajar con las cinco más comunes:</p>
+<p>El paquete {dplyr} provee una enorme cantidad de funciones útiles
+para manipular y analizar datos de manera intuitiva y expresiva.</p>
+<p>El espíritu detrás de {dplyr} es que la enorme mayoría de los
+análisis, por más complicados que sean, involucran combinar y encadenar
+una serie relativamente acotada de acciones (o verbos). Vamos a comenzar
+a trabajar con las cinco más comunes:</p>
 <ul>
 <li><code>select()</code>: selecciona columnas de una tabla.</li>
-<li><code>filter()</code>: selecciona (o filtra) filas de una tabla a partir de una o más condiciones lógicas.</li>
-<li><code>group_by()</code>: agrupa una tabla en base al valor de una o más columnas.</li>
+<li><code>filter()</code>: selecciona (o filtra) filas de una tabla a
+partir de una o más condiciones lógicas.</li>
+<li><code>group_by()</code>: agrupa una tabla en base al valor de una o
+más columnas.</li>
 <li><code>mutate()</code>: agrega nuevas columnas a una tabla.</li>
-<li><code>summarise()</code>: calcula estadísticas para cada grupo de una tabla.</li>
+<li><code>summarise()</code>: calcula estadísticas para cada grupo de
+una tabla.</li>
 </ul>
 <div class="alert alert-info">
 <p><strong>Primer desafío:</strong></p>
-<p>Te dieron una tabla con datos de temperatura mínima y máxima para distintas estaciones meteorológicas de todo el país durante los 365 días de un año. Las columnas son: <code>id_estacion</code>, <code>temperatura_maxima</code>, <code>temperatura_minima</code> y <code>provincia</code>. En base a esos datos, te piden que computen la temperatura media anual de cada estación únicamente de las estaciones de La Pampa.</p>
-<p>¿En qué orden ejecutarías estos pasos para obtener el resultado deseado? Todavía sin correr ninguna línea de código.</p>
+<p>Te dieron una tabla con datos de temperatura mínima y máxima para
+distintas estaciones meteorológicas de todo el país durante los 365 días
+de un año. Las columnas son: <code>id_estacion</code>,
+<code>temperatura_maxima</code>, <code>temperatura_minima</code> y
+<code>provincia</code>. En base a esos datos, te piden que computen la
+temperatura media anual de cada estación únicamente de las estaciones de
+La Pampa.</p>
+<p>¿En qué orden ejecutarías estos pasos para obtener el resultado
+deseado? Todavía sin correr ninguna línea de código.</p>
 <ul>
-<li>usar <code>summarise()</code> para calcular la estadística <code>mean(temperatura_media)</code> para cada <code>id_estacion</code></li>
-<li>usar <code>group_by()</code> para agrupar por la columna <code>id_estacion</code></li>
-<li>usar <code>mutate()</code> para agregar una columna llamada <code>temperatura_media</code> que sea <code>(temperatura_minima + temperatura_maxima)/2</code>.</li>
-<li>usar <code>filter()</code> para seleccionar solo las filas donde la columnas <code>provincia</code> es igual a “La Pampa”</li>
+<li>usar <code>summarise()</code> para calcular la estadística
+<code>mean(temperatura_media)</code> para cada
+<code>id_estacion</code></li>
+<li>usar <code>group_by()</code> para agrupar por la columna
+<code>id_estacion</code></li>
+<li>usar <code>mutate()</code> para agregar una columna llamada
+<code>temperatura_media</code> que sea
+<code>(temperatura_minima + temperatura_maxima)/2</code>.</li>
+<li>usar <code>filter()</code> para seleccionar solo las filas donde la
+columnas <code>provincia</code> es igual a “La Pampa”</li>
 </ul>
 </div>
 <p>Para usar {dplyr} primero hay que instalarlo con el comando:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&#39;dplyr&#39;</span>)</span></code></pre></div>
-<p>o junto con todos los paquetes del universo de Tidyverse y luego cargarlo en memoria con</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
-<p>Cargar los datos de la estación de Bariloche (para un recordatorio, podés ir a <a href="04-lectura-datos.html">Lectura de datos ordenados</a>):</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(readr)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>bariloche &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;datos/bariloche_enlimpio.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## 
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;dplyr&#39;</span>)</span></code></pre></div>
+<p>o junto con todos los paquetes del universo de Tidyverse y luego
+cargarlo en memoria con</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<p>Cargar los datos de la estación de Bariloche (para un recordatorio,
+podés ir a <a href="04-lectura-datos.html">Lectura de datos
+ordenados</a>):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>bariloche <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;datos/bariloche_enlimpio.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 3024 Columns: 31
 ## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   .default = col_logical(),
-##   Fecha = col_datetime(format = &quot;&quot;),
-##   Temperatura_Abrigo_150cm = col_double(),
-##   Temperatura_Abrigo_150cm_Maxima = col_double(),
-##   Temperatura_Abrigo_150cm_Minima = col_double(),
-##   Temperatura_Suelo_10cm_Media = col_double(),
-##   Precipitacion_Pluviometrica = col_double(),
-##   Precipitacion_Cronologica = col_double(),
-##   Precipitacion_Maxima_30minutos = col_double(),
-##   Tesion_Vapor_Media = col_double(),
-##   Humedad_Media = col_double(),
-##   Humedad_Media_8_14_20 = col_double(),
-##   Rocio_Medio = col_double(),
-##   Direccion_Viento_200cm = col_character(),
-##   Direccion_Viento_1000cm = col_character(),
-##   Horas_Frio = col_double(),
-##   Unidades_Frio = col_double(),
-##   mes = col_character()
-## )
-## ℹ Use `spec()` for the full column specifications.</code></pre>
+## Delimiter: &quot;,&quot;
+## chr   (3): Direccion_Viento_200cm, Direccion_Viento_1000cm, mes
+## dbl  (13): Temperatura_Abrigo_150cm, Temperatura_Abrigo_150cm_Maxima, Temper...
+## lgl  (14): Temperatura_Intemperie_5cm_Minima, Temperatura_Intemperie_50cm_Mi...
+## dttm  (1): Fecha
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div id="seleccionando-columnas-con-select" class="section level2">
 <h2>Seleccionando columnas con <code>select()</code></h2>
-<p>Para quedarse únicamente con las columnas de Fecha, Temperatura_Abrigo_150cm y Humedad_Media podés usar <code>select()</code>, el primer argumento es siempre el data.frame:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">select</span>(bariloche, Fecha, Temperatura_Abrigo_150cm, Humedad_Media) <span class="co"># Ojo con las mayúsculas!</span></span></code></pre></div>
-<pre><code>## # A tibble: 3,024 x 3
+<p>Para quedarse únicamente con las columnas de Fecha,
+Temperatura_Abrigo_150cm y Humedad_Media podés usar
+<code>select()</code>, el primer argumento es siempre el data.frame:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(bariloche, Fecha, Temperatura_Abrigo_150cm, Humedad_Media) <span class="co"># Ojo con las mayúsculas!</span></span></code></pre></div>
+<pre><code>## # A tibble: 3,024 × 3
 ##    Fecha               Temperatura_Abrigo_150cm Humedad_Media
 ##    &lt;dttm&gt;                                 &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 2011-05-28 00:00:00                    NA               NA
@@ -660,39 +584,37 @@ div.tocify {
 ##  9 2011-06-05 00:00:00                     5.00           100
 ## 10 2011-06-06 00:00:00                     5.45            91
 ## # … with 3,014 more rows</code></pre>
-<p>¿Dónde quedó este resultado? Si te fijás en la variable <code>bariloche</code>, ésta está intacta:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>bariloche</span></code></pre></div>
-<pre><code>## # A tibble: 3,024 x 31
-##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
-##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1 2011-05-28 00:00:00            NA                NA               NA  
-##  2 2011-05-29 00:00:00             4.27             12.8             -1.2
-##  3 2011-05-30 00:00:00             1.69              9.2             -2.8
-##  4 2011-05-31 00:00:00             3.47              9.6              0.5
-##  5 2011-06-01 00:00:00             2.90              9.6             -1.5
-##  6 2011-06-02 00:00:00             6.26             13.3              2.9
-##  7 2011-06-03 00:00:00             3.45             12.6             -1.8
-##  8 2011-06-04 00:00:00             6.09             10.2              3.9
-##  9 2011-06-05 00:00:00             5.00              7.1              3.4
-## 10 2011-06-06 00:00:00             5.45              9.5              3.2
+<p>¿Dónde quedó este resultado? Si te fijás en la variable
+<code>bariloche</code>, ésta está intacta:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>bariloche</span></code></pre></div>
+<pre><code>## # A tibble: 3,024 × 31
+##    Fecha               Temperatura_Abrigo_150… Temperatura_Abr… Temperatura_Abr…
+##    &lt;dttm&gt;                                &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 2011-05-28 00:00:00                   NA                NA               NA  
+##  2 2011-05-29 00:00:00                    4.27             12.8             -1.2
+##  3 2011-05-30 00:00:00                    1.69              9.2             -2.8
+##  4 2011-05-31 00:00:00                    3.47              9.6              0.5
+##  5 2011-06-01 00:00:00                    2.90              9.6             -1.5
+##  6 2011-06-02 00:00:00                    6.26             13.3              2.9
+##  7 2011-06-03 00:00:00                    3.45             12.6             -1.8
+##  8 2011-06-04 00:00:00                    6.09             10.2              3.9
+##  9 2011-06-05 00:00:00                    5.00              7.1              3.4
+## 10 2011-06-06 00:00:00                    5.45              9.5              3.2
 ## # … with 3,014 more rows, and 27 more variables:
 ## #   Temperatura_Intemperie_5cm_Minima &lt;lgl&gt;,
 ## #   Temperatura_Intemperie_50cm_Minima &lt;lgl&gt;,
 ## #   Temperatura_Suelo_5cm_Media &lt;lgl&gt;, Temperatura_Suelo_10cm_Media &lt;dbl&gt;,
 ## #   Temperatura_Inte_5cm &lt;lgl&gt;, Temperatura_Intemperie_150cm_Minima &lt;lgl&gt;,
 ## #   Humedad_Suelo &lt;lgl&gt;, Precipitacion_Pluviometrica &lt;dbl&gt;,
-## #   Precipitacion_Cronologica &lt;dbl&gt;, Precipitacion_Maxima_30minutos &lt;dbl&gt;,
-## #   Heliofania_Efectiva &lt;lgl&gt;, Heliofania_Relativa &lt;lgl&gt;,
-## #   Tesion_Vapor_Media &lt;dbl&gt;, Humedad_Media &lt;dbl&gt;, Humedad_Media_8_14_20 &lt;dbl&gt;,
-## #   Rocio_Medio &lt;dbl&gt;, Duracion_Follaje_Mojado &lt;lgl&gt;,
-## #   Velocidad_Viento_200cm_Media &lt;lgl&gt;, Direccion_Viento_200cm &lt;chr&gt;,
-## #   Velocidad_Viento_1000cm_Media &lt;lgl&gt;, Direccion_Viento_1000cm &lt;chr&gt;,
-## #   Velocidad_Viento_Maxima &lt;lgl&gt;, Presion_Media &lt;lgl&gt;, Radiacion_Global &lt;lgl&gt;,
-## #   Horas_Frio &lt;dbl&gt;, Unidades_Frio &lt;dbl&gt;, mes &lt;chr&gt;</code></pre>
-<p><code>select()</code> y el resto de las funciones de {dplyr} siempre generan una nueva tabla y nunca modifican la tabla original. Para guardar la tabla con las tres columnas <code>Fecha</code>, <code>Temperatura_Abrigo_150cm</code> y <code>Humedad_Media</code> tenés que asignar el resultado a una nueva variable.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>temp_hum &lt;-<span class="st"> </span><span class="kw">select</span>(bariloche, Fecha, Temperatura_Abrigo_150cm, Humedad_Media)</span>
-<span id="cb9-2"><a href="#cb9-2"></a>temp_hum</span></code></pre></div>
-<pre><code>## # A tibble: 3,024 x 3
+## #   Precipitacion_Cronologica &lt;dbl&gt;, Precipitacion_Maxima_30minutos &lt;dbl&gt;, …</code></pre>
+<p><code>select()</code> y el resto de las funciones de {dplyr} siempre
+generan una nueva tabla y nunca modifican la tabla original. Para
+guardar la tabla con las tres columnas <code>Fecha</code>,
+<code>Temperatura_Abrigo_150cm</code> y <code>Humedad_Media</code> tenés
+que asignar el resultado a una nueva variable.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>temp_hum <span class="ot">&lt;-</span> <span class="fu">select</span>(bariloche, Fecha, Temperatura_Abrigo_150cm, Humedad_Media)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>temp_hum</span></code></pre></div>
+<pre><code>## # A tibble: 3,024 × 3
 ##    Fecha               Temperatura_Abrigo_150cm Humedad_Media
 ##    &lt;dttm&gt;                                 &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 2011-05-28 00:00:00                    NA               NA
@@ -713,9 +635,11 @@ div.tocify {
 </div>
 <div id="filtrando-filas-con-filter" class="section level2">
 <h2>Filtrando filas con <code>filter()</code></h2>
-<p>Ahora podés usar <code>filter()</code> para quedarte con sólo unas filas. Por ejemplo, para ver aquellos días con temperatura menor a 0 grados:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">filter</span>(temp_hum, Temperatura_Abrigo_150cm <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 38 x 3
+<p>Ahora podés usar <code>filter()</code> para quedarte con sólo unas
+filas. Por ejemplo, para ver aquellos días con temperatura menor a 0
+grados:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(temp_hum, Temperatura_Abrigo_150cm <span class="sc">&lt;</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 38 × 3
 ##    Fecha               Temperatura_Abrigo_150cm Humedad_Media
 ##    &lt;dttm&gt;                                 &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 2011-06-25 00:00:00                   -1.91             86
@@ -729,13 +653,24 @@ div.tocify {
 ##  9 2012-06-06 00:00:00                   -1.92             83
 ## 10 2012-06-07 00:00:00                   -0.915            85
 ## # … with 28 more rows</code></pre>
-<p>La mayoría de los análisis consisten en varios pasos (en el primer desafío usaste 4 pasos para calcular las temperaturas medias de una serie de estaciones). La única tabla que te interesa es la última, por lo que ir asignando variables nuevas en cada paso intermedio es tedioso y poco práctico. Para eso se usa el operador ‘pipe’ (<code>%&gt;%</code>).</p>
-<p>El operador ‘pipe’ (<code>%&gt;%</code>) agarra el resultado de una función y se lo pasa a la siguiente. Esto permite escribir el código como una cadena de funciones que van operando sobre el resultado de la anterior.</p>
-<p>Las dos operaciones anteriores (seleccionar tres columnas y luego filtar las filas correspondientes temperaturas menores a 0°C) se pueden escribir uno después del otro y sin asignar los resultados intermedios a nuevas variables de esta forma:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw">select</span>(Fecha, Temperatura_Abrigo_150cm, Humedad_Media) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">filter</span>(Temperatura_Abrigo_150cm <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 38 x 3
+<p>La mayoría de los análisis consisten en varios pasos (en el primer
+desafío usaste 4 pasos para calcular las temperaturas medias de una
+serie de estaciones). La única tabla que te interesa es la última, por
+lo que ir asignando variables nuevas en cada paso intermedio es tedioso
+y poco práctico. Para eso se usa el operador ‘pipe’
+(<code>%&gt;%</code>).</p>
+<p>El operador ‘pipe’ (<code>%&gt;%</code>) agarra el resultado de una
+función y se lo pasa a la siguiente. Esto permite escribir el código
+como una cadena de funciones que van operando sobre el resultado de la
+anterior.</p>
+<p>Las dos operaciones anteriores (seleccionar tres columnas y luego
+filtar las filas correspondientes temperaturas menores a 0°C) se pueden
+escribir uno después del otro y sin asignar los resultados intermedios a
+nuevas variables de esta forma:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Fecha, Temperatura_Abrigo_150cm, Humedad_Media) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Temperatura_Abrigo_150cm <span class="sc">&lt;</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 38 × 3
 ##    Fecha               Temperatura_Abrigo_150cm Humedad_Media
 ##    &lt;dttm&gt;                                 &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 2011-06-25 00:00:00                   -1.91             86
@@ -749,61 +684,77 @@ div.tocify {
 ##  9 2012-06-06 00:00:00                   -1.92             83
 ## 10 2012-06-07 00:00:00                   -0.915            85
 ## # … with 28 more rows</code></pre>
-<p>La forma de “leer” esto es “Tomá la variable <code>bariloche</code>, <strong>después</strong> aplicale <code>select(Fecha, Temperatura_Abrigo_150cm, Humedad_Media)</code>, <strong>después</strong> aplicale <code>filter(Temperatura_Abrigo_150cm &lt; 0)</code>”.</p>
-<p>Cómo vimos, el primero argumento de todas las funciones de dplyr espera un data.frame y justamente el operador <code>%&gt;%</code> toma el data.frame <code>bariloche</code> y se lo pasa al primer argumento de <code>select()</code>. Luego el data.frame resultante de seleccionar las columnas Fecha, Temperatura_Abrigo_150cm y Humedad_Media <em>pasa</em> como el primer argumento de la función <code>filter()</code> gracias al <code>%&gt;%</code>.</p>
+<p>La forma de “leer” esto es “Tomá la variable <code>bariloche</code>,
+<strong>después</strong> aplicale
+<code>select(Fecha, Temperatura_Abrigo_150cm, Humedad_Media)</code>,
+<strong>después</strong> aplicale
+<code>filter(Temperatura_Abrigo_150cm &lt; 0)</code>”.</p>
+<p>Cómo vimos, el primero argumento de todas las funciones de dplyr
+espera un data.frame y justamente el operador <code>%&gt;%</code> toma
+el data.frame <code>bariloche</code> y se lo pasa al primer argumento de
+<code>select()</code>. Luego el data.frame resultante de seleccionar las
+columnas Fecha, Temperatura_Abrigo_150cm y Humedad_Media <em>pasa</em>
+como el primer argumento de la función <code>filter()</code> gracias al
+<code>%&gt;%</code>.</p>
 <div class="alert alert-success">
 <p><strong>Tip:</strong></p>
-<p>En RStudio podés escribir <code>%&gt;%</code> usando el atajo de teclado Ctr + Shift + M. ¡Probalo!</p>
+<p>En RStudio podés escribir <code>%&gt;%</code> usando el atajo de
+teclado Ctr + Shift + M. ¡Probalo!</p>
 </div>
 <div class="alert alert-info">
 <p><strong>Desafío:</strong></p>
-<p>Completá esta cadena para producir una tabla que contenga los valores de Fecha, Temperatura del suelo y la Humedad únicamente cuando la Humedad es igual a 100%.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="st">  </span><span class="kw">filter</span>(Humedad_Media <span class="op">==</span><span class="st"> </span>___) <span class="op">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="st">  </span><span class="kw">select</span>(___, ___, ___)</span></code></pre></div>
+<p>Completá esta cadena para producir una tabla que contenga los valores
+de Fecha, Temperatura del suelo y la Humedad únicamente cuando la
+Humedad es igual a 100%.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Humedad_Media <span class="sc">==</span> ___) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(___, ___, ___)</span></code></pre></div>
 </div>
 </div>
-<div id="agrupando-y-reduciendo-con-group_by-summarise" class="section level2">
-<h2>Agrupando y reduciendo con <code>group_by() %&gt;% summarise()</code></h2>
-<p>Si querés calcular la temperatura media para cada mes, tenés que usar el combo <code>group_by() %&gt;% summarise()</code>. Es decir, primero agrupar la tabla según la columna <code>mes</code> y luego calcular un promedio de <code>Temperatura_Abrigo_150cm</code> para cada grupo.</p>
-<p>Para agrupar la tabla <code>bariloche</code> según el mes usamos el siguiente código:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) </span></code></pre></div>
-<pre><code>## # A tibble: 3,024 x 31
+<div id="agrupando-y-reduciendo-con-group_by-summarise"
+class="section level2">
+<h2>Agrupando y reduciendo con
+<code>group_by() %&gt;% summarise()</code></h2>
+<p>Si querés calcular la temperatura media para cada mes, tenés que usar
+el combo <code>group_by() %&gt;% summarise()</code>. Es decir, primero
+agrupar la tabla según la columna <code>mes</code> y luego calcular un
+promedio de <code>Temperatura_Abrigo_150cm</code> para cada grupo.</p>
+<p>Para agrupar la tabla <code>bariloche</code> según el mes usamos el
+siguiente código:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(mes) </span></code></pre></div>
+<pre><code>## # A tibble: 3,024 × 31
 ## # Groups:   mes [12]
-##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
-##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1 2011-05-28 00:00:00            NA                NA               NA  
-##  2 2011-05-29 00:00:00             4.27             12.8             -1.2
-##  3 2011-05-30 00:00:00             1.69              9.2             -2.8
-##  4 2011-05-31 00:00:00             3.47              9.6              0.5
-##  5 2011-06-01 00:00:00             2.90              9.6             -1.5
-##  6 2011-06-02 00:00:00             6.26             13.3              2.9
-##  7 2011-06-03 00:00:00             3.45             12.6             -1.8
-##  8 2011-06-04 00:00:00             6.09             10.2              3.9
-##  9 2011-06-05 00:00:00             5.00              7.1              3.4
-## 10 2011-06-06 00:00:00             5.45              9.5              3.2
+##    Fecha               Temperatura_Abrigo_150… Temperatura_Abr… Temperatura_Abr…
+##    &lt;dttm&gt;                                &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 2011-05-28 00:00:00                   NA                NA               NA  
+##  2 2011-05-29 00:00:00                    4.27             12.8             -1.2
+##  3 2011-05-30 00:00:00                    1.69              9.2             -2.8
+##  4 2011-05-31 00:00:00                    3.47              9.6              0.5
+##  5 2011-06-01 00:00:00                    2.90              9.6             -1.5
+##  6 2011-06-02 00:00:00                    6.26             13.3              2.9
+##  7 2011-06-03 00:00:00                    3.45             12.6             -1.8
+##  8 2011-06-04 00:00:00                    6.09             10.2              3.9
+##  9 2011-06-05 00:00:00                    5.00              7.1              3.4
+## 10 2011-06-06 00:00:00                    5.45              9.5              3.2
 ## # … with 3,014 more rows, and 27 more variables:
 ## #   Temperatura_Intemperie_5cm_Minima &lt;lgl&gt;,
 ## #   Temperatura_Intemperie_50cm_Minima &lt;lgl&gt;,
 ## #   Temperatura_Suelo_5cm_Media &lt;lgl&gt;, Temperatura_Suelo_10cm_Media &lt;dbl&gt;,
 ## #   Temperatura_Inte_5cm &lt;lgl&gt;, Temperatura_Intemperie_150cm_Minima &lt;lgl&gt;,
 ## #   Humedad_Suelo &lt;lgl&gt;, Precipitacion_Pluviometrica &lt;dbl&gt;,
-## #   Precipitacion_Cronologica &lt;dbl&gt;, Precipitacion_Maxima_30minutos &lt;dbl&gt;,
-## #   Heliofania_Efectiva &lt;lgl&gt;, Heliofania_Relativa &lt;lgl&gt;,
-## #   Tesion_Vapor_Media &lt;dbl&gt;, Humedad_Media &lt;dbl&gt;, Humedad_Media_8_14_20 &lt;dbl&gt;,
-## #   Rocio_Medio &lt;dbl&gt;, Duracion_Follaje_Mojado &lt;lgl&gt;,
-## #   Velocidad_Viento_200cm_Media &lt;lgl&gt;, Direccion_Viento_200cm &lt;chr&gt;,
-## #   Velocidad_Viento_1000cm_Media &lt;lgl&gt;, Direccion_Viento_1000cm &lt;chr&gt;,
-## #   Velocidad_Viento_Maxima &lt;lgl&gt;, Presion_Media &lt;lgl&gt;, Radiacion_Global &lt;lgl&gt;,
-## #   Horas_Frio &lt;dbl&gt;, Unidades_Frio &lt;dbl&gt;, mes &lt;chr&gt;</code></pre>
-<p>A primera vista parecería que la función no hizo nada, pero fijate que el resultado ahora dice que tiene grupos (“Groups:”), y nos dice qué columna es la que agrupa los datos (“mes”) y cuántos grupos hay (“12”). Las operaciones subsiguientes que le hagamos a esta tabla van a hacerse <em>para cada grupo</em>.</p>
-<p>Para ver esto en acción, usá <code>summarise()</code> para computar el promedio de la temperatura:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Temperatura_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm))</span></code></pre></div>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<pre><code>## # A tibble: 12 x 2
+## #   Precipitacion_Cronologica &lt;dbl&gt;, Precipitacion_Maxima_30minutos &lt;dbl&gt;, …</code></pre>
+<p>A primera vista parecería que la función no hizo nada, pero fijate
+que el resultado ahora dice que tiene grupos (“Groups:”), y nos dice qué
+columna es la que agrupa los datos (“mes”) y cuántos grupos hay (“12”).
+Las operaciones subsiguientes que le hagamos a esta tabla van a hacerse
+<em>para cada grupo</em>.</p>
+<p>Para ver esto en acción, usá <code>summarise()</code> para computar
+el promedio de la temperatura:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(mes) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Temperatura_media =</span> <span class="fu">mean</span>(Temperatura_Abrigo_150cm))</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 2
 ##    mes        Temperatura_media
 ##    &lt;chr&gt;                  &lt;dbl&gt;
 ##  1 abril                   NA  
@@ -818,13 +769,20 @@ div.tocify {
 ## 10 noviembre               NA  
 ## 11 octubre                 NA  
 ## 12 septiembre              NA</code></pre>
-<p>¡Tadá! <code>summarise()</code> devuelve una tabla con una columna para el continente y otra nueva, llamada “Temperatura_media” que contiene el promedio de <code>Temperatura_Abrigo_150cm</code> para cada grupo. Pero… aparecen muchos datos faltantes, cuando en realidad hay muchas observaciones para cada mes.</p>
-<p>Si revisamos la ayuda de la función <code>mean()</code>, vemos que tiene un argumento que por defecto es <code>na.rm = FALSE</code>, esto significa que si al menos una observación es <code>NA</code>, el resultado será <code>NA</code>. Cambiemos este argumento a <code>TRUE</code> para cambiar el comportamiento de la función.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Temperatura_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<pre><code>## # A tibble: 12 x 2
+<p>¡Tadá! <code>summarise()</code> devuelve una tabla con una columna
+para el continente y otra nueva, llamada “Temperatura_media” que
+contiene el promedio de <code>Temperatura_Abrigo_150cm</code> para cada
+grupo. Pero… aparecen muchos datos faltantes, cuando en realidad hay
+muchas observaciones para cada mes.</p>
+<p>Si revisamos la ayuda de la función <code>mean()</code>, vemos que
+tiene un argumento que por defecto es <code>na.rm = FALSE</code>, esto
+significa que si al menos una observación es <code>NA</code>, el
+resultado será <code>NA</code>. Cambiemos este argumento a
+<code>TRUE</code> para cambiar el comportamiento de la función.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(mes) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Temperatura_media =</span> <span class="fu">mean</span>(Temperatura_Abrigo_150cm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 2
 ##    mes        Temperatura_media
 ##    &lt;chr&gt;                  &lt;dbl&gt;
 ##  1 abril                  10.5 
@@ -839,21 +797,33 @@ div.tocify {
 ## 10 noviembre              11.6 
 ## 11 octubre                 8.59
 ## 12 septiembre              6.43</code></pre>
-<p>Ahora si, tenemos la temperatura media para cada mes. <code>group_by()</code> permite agrupar en base a múltiples columnas y <code>summarise()</code> permite generar múltiples columnas de resumen. El resultado va a siempre ser una tabla con la misma cantidad de filas que grupos y una cantidad de columnas igual a la cantidad de columnas usadas para agrupar y los estadísticos computados.</p>
+<p>Ahora si, tenemos la temperatura media para cada mes.
+<code>group_by()</code> permite agrupar en base a múltiples columnas y
+<code>summarise()</code> permite generar múltiples columnas de resumen.
+El resultado va a siempre ser una tabla con la misma cantidad de filas
+que grupos y una cantidad de columnas igual a la cantidad de columnas
+usadas para agrupar y los estadísticos computados.</p>
 <div class="alert alert-info">
 <p><strong>Desafío:</strong></p>
-<p>¿Cuál te imaginás que va a ser el resultado del siguiente código? ¿Cuántas filas y columnas va a tener? (Tratá de pensarlo antes de correrlo.)</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Temperatura_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm))</span></code></pre></div>
+<p>¿Cuál te imaginás que va a ser el resultado del siguiente código?
+¿Cuántas filas y columnas va a tener? (Tratá de pensarlo antes de
+correrlo.)</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Temperatura_media =</span> <span class="fu">mean</span>(Temperatura_Abrigo_150cm))</span></code></pre></div>
 </div>
-<p>El combo <code>group_by() %&gt;% summarise()</code> se puede resumir en esta figura. Las filas de una tabla se dividen en grupos, y luego cada grupo se “resume” en una fila en función del estadístico usado.</p>
+<p>El combo <code>group_by() %&gt;% summarise()</code> se puede resumir
+en esta figura. Las filas de una tabla se dividen en grupos, y luego
+cada grupo se “resume” en una fila en función del estadístico usado.</p>
 <p><img src="img/group_by-summarize.png" /></p>
-<p>Al igual que hicimos “cuentas” usando algunas variables numéricas para obtener información nueva, también podemos utilizar variables categóricas. No tiene sentido calcular <code>mean(mes)</code> ya que contienen caracteres, pero tal vez nos interese <em>contar</em> la cantidad de observaciones por mes:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">cantidad =</span> <span class="kw">n</span>())</span></code></pre></div>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<pre><code>## # A tibble: 12 x 2
+<p>Al igual que hicimos “cuentas” usando algunas variables numéricas
+para obtener información nueva, también podemos utilizar variables
+categóricas. No tiene sentido calcular <code>mean(mes)</code> ya que
+contienen caracteres, pero tal vez nos interese <em>contar</em> la
+cantidad de observaciones por mes:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(mes) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>())</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 2
 ##    mes        cantidad
 ##    &lt;chr&gt;         &lt;int&gt;
 ##  1 abril           239
@@ -869,11 +839,12 @@ div.tocify {
 ## 11 octubre         279
 ## 12 septiembre      252</code></pre>
 <div class="alert alert-success">
-<p>En R se puede resolver un problema de muchas maneras, por ejemplo, el código anterior y el que sigue dan resultados equivalentes:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="st">  </span><span class="kw">count</span>()</span></code></pre></div>
-<pre><code>## # A tibble: 12 x 2
+<p>En R se puede resolver un problema de muchas maneras, por ejemplo, el
+código anterior y el que sigue dan resultados equivalentes:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(mes) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 2
 ## # Groups:   mes [12]
 ##    mes            n
 ##    &lt;chr&gt;      &lt;int&gt;
@@ -889,167 +860,191 @@ div.tocify {
 ## 10 noviembre    241
 ## 11 octubre      279
 ## 12 septiembre   252</code></pre>
-<p>En este caso <code>count()</code> es análogo a <code>summarise(cantidad = n())</code>.</p>
+<p>En este caso <code>count()</code> es análogo a
+<code>summarise(cantidad = n())</code>.</p>
 </div>
 </div>
 <div id="creando-nuevas-columnas-con-mutate" class="section level2">
 <h2>Creando nuevas columnas con <code>mutate()</code></h2>
-<p>Todo esto está bien para hacer cálculos con columnas previamente existentes, pero muchas veces tenés que crear nuevas columnas.</p>
-<p>La tabla <code>bariloche</code> tiene información de temperaturas en grados centígrados y puede ser necesario convertirlas a kelvin. <code>mutate()</code> permite agregar una nueva columna llamada “Temperatura_kelvin” con esa información:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_kelvin =</span> Temperatura_Abrigo_150cm <span class="op">+</span><span class="st"> </span><span class="dv">273</span>,<span class="dv">15</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 3,024 x 33
-##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
-##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1 2011-05-28 00:00:00            NA                NA               NA  
-##  2 2011-05-29 00:00:00             4.27             12.8             -1.2
-##  3 2011-05-30 00:00:00             1.69              9.2             -2.8
-##  4 2011-05-31 00:00:00             3.47              9.6              0.5
-##  5 2011-06-01 00:00:00             2.90              9.6             -1.5
-##  6 2011-06-02 00:00:00             6.26             13.3              2.9
-##  7 2011-06-03 00:00:00             3.45             12.6             -1.8
-##  8 2011-06-04 00:00:00             6.09             10.2              3.9
-##  9 2011-06-05 00:00:00             5.00              7.1              3.4
-## 10 2011-06-06 00:00:00             5.45              9.5              3.2
+<p>Todo esto está bien para hacer cálculos con columnas previamente
+existentes, pero muchas veces tenés que crear nuevas columnas.</p>
+<p>La tabla <code>bariloche</code> tiene información de temperaturas en
+grados centígrados y puede ser necesario convertirlas a kelvin.
+<code>mutate()</code> permite agregar una nueva columna llamada
+“Temperatura_kelvin” con esa información:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Temperatura_kelvin =</span> Temperatura_Abrigo_150cm <span class="sc">+</span> <span class="dv">273</span>,<span class="dv">15</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3,024 × 33
+##    Fecha               Temperatura_Abrigo_150… Temperatura_Abr… Temperatura_Abr…
+##    &lt;dttm&gt;                                &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 2011-05-28 00:00:00                   NA                NA               NA  
+##  2 2011-05-29 00:00:00                    4.27             12.8             -1.2
+##  3 2011-05-30 00:00:00                    1.69              9.2             -2.8
+##  4 2011-05-31 00:00:00                    3.47              9.6              0.5
+##  5 2011-06-01 00:00:00                    2.90              9.6             -1.5
+##  6 2011-06-02 00:00:00                    6.26             13.3              2.9
+##  7 2011-06-03 00:00:00                    3.45             12.6             -1.8
+##  8 2011-06-04 00:00:00                    6.09             10.2              3.9
+##  9 2011-06-05 00:00:00                    5.00              7.1              3.4
+## 10 2011-06-06 00:00:00                    5.45              9.5              3.2
 ## # … with 3,014 more rows, and 29 more variables:
 ## #   Temperatura_Intemperie_5cm_Minima &lt;lgl&gt;,
 ## #   Temperatura_Intemperie_50cm_Minima &lt;lgl&gt;,
 ## #   Temperatura_Suelo_5cm_Media &lt;lgl&gt;, Temperatura_Suelo_10cm_Media &lt;dbl&gt;,
 ## #   Temperatura_Inte_5cm &lt;lgl&gt;, Temperatura_Intemperie_150cm_Minima &lt;lgl&gt;,
 ## #   Humedad_Suelo &lt;lgl&gt;, Precipitacion_Pluviometrica &lt;dbl&gt;,
-## #   Precipitacion_Cronologica &lt;dbl&gt;, Precipitacion_Maxima_30minutos &lt;dbl&gt;,
-## #   Heliofania_Efectiva &lt;lgl&gt;, Heliofania_Relativa &lt;lgl&gt;,
-## #   Tesion_Vapor_Media &lt;dbl&gt;, Humedad_Media &lt;dbl&gt;, Humedad_Media_8_14_20 &lt;dbl&gt;,
-## #   Rocio_Medio &lt;dbl&gt;, Duracion_Follaje_Mojado &lt;lgl&gt;,
-## #   Velocidad_Viento_200cm_Media &lt;lgl&gt;, Direccion_Viento_200cm &lt;chr&gt;,
-## #   Velocidad_Viento_1000cm_Media &lt;lgl&gt;, Direccion_Viento_1000cm &lt;chr&gt;,
-## #   Velocidad_Viento_Maxima &lt;lgl&gt;, Presion_Media &lt;lgl&gt;, Radiacion_Global &lt;lgl&gt;,
-## #   Horas_Frio &lt;dbl&gt;, Unidades_Frio &lt;dbl&gt;, mes &lt;chr&gt;, Temperatura_kelvin &lt;dbl&gt;,
-## #   `15` &lt;dbl&gt;</code></pre>
-<p>Recordá que las funciones de {dplyr} nunca modifican la tabla original. <code>mutate()</code> devolvió una nueva tabla que es igual a la tabla <code>bariloche</code> pero con la columna “Temperatura_kelvin” agregada. La tabla <code>bariloche</code> sigue intacta.</p>
-<p>Si quisiéramos aplicar la misma operación a todas las columnas que tienen temperatura, la función <code>across()</code> brinda un atajo para no tener que aplicar <code>mutate()</code> una y otra vez a cada cada columna.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="kw">across</span>(<span class="kw">starts_with</span>(<span class="st">&quot;Temperatura&quot;</span>), <span class="op">~</span>.x <span class="op">+</span><span class="st"> </span><span class="dv">273</span>,<span class="dv">15</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 3,024 x 9
-##    Temperatura_Abr… Temperatura_Abr… Temperatura_Abr… Temperatura_Int…
-##               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1              NA               NA               NA                NA
-##  2             277.             286.             272.               NA
-##  3             275.             282.             270.               NA
-##  4             276.             283.             274.               NA
-##  5             276.             283.             272.               NA
-##  6             279.             286.             276.               NA
-##  7             276.             286.             271.               NA
-##  8             279.             283.             277.               NA
-##  9             278.             280.             276.               NA
-## 10             278.             282.             276.               NA
+## #   Precipitacion_Cronologica &lt;dbl&gt;, Precipitacion_Maxima_30minutos &lt;dbl&gt;, …</code></pre>
+<p>Recordá que las funciones de {dplyr} nunca modifican la tabla
+original. <code>mutate()</code> devolvió una nueva tabla que es igual a
+la tabla <code>bariloche</code> pero con la columna “Temperatura_kelvin”
+agregada. La tabla <code>bariloche</code> sigue intacta.</p>
+<p>Si quisiéramos aplicar la misma operación a todas las columnas que
+tienen temperatura, la función <code>across()</code> brinda un atajo
+para no tener que aplicar <code>mutate()</code> una y otra vez a cada
+cada columna.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">&quot;Temperatura&quot;</span>), <span class="sc">~</span>.x <span class="sc">+</span> <span class="dv">273</span>,<span class="dv">15</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 3,024 × 9
+##    Temperatura_Abrigo_150cm Temperatura_Abrig… Temperatura_Abr… Temperatura_Int…
+##                       &lt;dbl&gt;              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1                      NA                 NA               NA                NA
+##  2                     277.               286.             272.               NA
+##  3                     275.               282.             270.               NA
+##  4                     276.               283.             274.               NA
+##  5                     276.               283.             272.               NA
+##  6                     279.               286.             276.               NA
+##  7                     276.               286.             271.               NA
+##  8                     279.               283.             277.               NA
+##  9                     278.               280.             276.               NA
+## 10                     278.               282.             276.               NA
 ## # … with 3,014 more rows, and 5 more variables:
 ## #   Temperatura_Intemperie_50cm_Minima &lt;dbl&gt;,
 ## #   Temperatura_Suelo_5cm_Media &lt;dbl&gt;, Temperatura_Suelo_10cm_Media &lt;dbl&gt;,
 ## #   Temperatura_Inte_5cm &lt;dbl&gt;, Temperatura_Intemperie_150cm_Minima &lt;dbl&gt;</code></pre>
 <p>Varias cosas pasaron acá:</p>
 <ul>
-<li>El resultado <em>solo</em> incluye las columnas asociadas a la temperatura.</li>
-<li>No fue necesario escribir el nombre de cada columna, la función <code>start_with()</code> automáticamente busca las columnas que <em>comienzan con</em> la palabra que indicamos, en este caso “Temperatura”.</li>
-<li>Usamos la notación <em>funcional</em> de R, que arranca con <code>~</code> y luego le indicamos que a .x (cada columna) le sume 273,15.</li>
+<li>El resultado <em>solo</em> incluye las columnas asociadas a la
+temperatura.</li>
+<li>No fue necesario escribir el nombre de cada columna, la función
+<code>start_with()</code> automáticamente busca las columnas que
+<em>comienzan con</em> la palabra que indicamos, en este caso
+“Temperatura”.</li>
+<li>Usamos la notación <em>funcional</em> de R, que arranca con
+<code>~</code> y luego le indicamos que a .x (cada columna) le sume
+273,15.</li>
 </ul>
 <div class="alert alert-info">
 <p><strong>Desafío</strong></p>
-<p>Si quisieras calcular la temperatura media para cada día y guardarla en una nueva variable, ¿cómo completarías el siguiente código?</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">____ =</span> ____)</span></code></pre></div>
+<p>Si quisieras calcular la temperatura media para cada día y guardarla
+en una nueva variable, ¿cómo completarías el siguiente código?</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">____ =</span> ____)</span></code></pre></div>
 </div>
-<p>Ahora imaginemos que necesitamos modificar algunas observaciones, aquellas que cumplen con una condición. Por ejemplo, descubrimos que cuando la humedad es 100%, el sensor de temperatura no funciona correctamente y necesitamos aplicarle una corrección de -2° en esas situaciones.</p>
-<p>Podríamos filtrar las observaciones que cumplen con que <code>Humedad_Media == 100</code> y luego modificar la temperatura, pero entonces tendríamos una base de datos para las observaciones con mayor humedad y la temperatura corregida y otra base de datos sin la corrección. Necesitamos poder modificar <em>solo algunas</em> observaciones y que el resto se mantenga igual.</p>
-<p>Para eso podemos utilizar la función <code>if_else()</code>, que aplica una operación <em>si ocurre algo</em> y otra operación <em>si no</em>. En este caso si <code>Humedad_Media == 100</code> es verdadera, restamos 2 grados a la Temperatura, si es falsa no la modificamos. Y por supuesto se la aplicamos a la columna con <code>mutate()</code></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb35-2"><a href="#cb35-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_Abrigo_150cm =</span> <span class="kw">if_else</span>(Humedad_Media <span class="op">==</span><span class="st"> </span><span class="dv">100</span>,       <span class="co"># Condición</span></span>
-<span id="cb35-3"><a href="#cb35-3"></a>                                            Temperatura_Abrigo_150cm <span class="dv">-2</span>,<span class="co"># Si es verdadera</span></span>
-<span id="cb35-4"><a href="#cb35-4"></a>                                            Temperatura_Abrigo_150cm))  <span class="co"># Si es falsa</span></span></code></pre></div>
-<pre><code>## # A tibble: 3,024 x 31
-##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
-##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1 2011-05-28 00:00:00            NA                NA               NA  
-##  2 2011-05-29 00:00:00             4.27             12.8             -1.2
-##  3 2011-05-30 00:00:00             1.69              9.2             -2.8
-##  4 2011-05-31 00:00:00             3.47              9.6              0.5
-##  5 2011-06-01 00:00:00             2.90              9.6             -1.5
-##  6 2011-06-02 00:00:00             6.26             13.3              2.9
-##  7 2011-06-03 00:00:00             3.45             12.6             -1.8
-##  8 2011-06-04 00:00:00             6.09             10.2              3.9
-##  9 2011-06-05 00:00:00             3.00              7.1              3.4
-## 10 2011-06-06 00:00:00             5.45              9.5              3.2
+<p>Ahora imaginemos que necesitamos modificar algunas observaciones,
+aquellas que cumplen con una condición. Por ejemplo, descubrimos que
+cuando la humedad es 100%, el sensor de temperatura no funciona
+correctamente y necesitamos aplicarle una corrección de -2° en esas
+situaciones.</p>
+<p>Podríamos filtrar las observaciones que cumplen con que
+<code>Humedad_Media == 100</code> y luego modificar la temperatura, pero
+entonces tendríamos una base de datos para las observaciones con mayor
+humedad y la temperatura corregida y otra base de datos sin la
+corrección. Necesitamos poder modificar <em>solo algunas</em>
+observaciones y que el resto se mantenga igual.</p>
+<p>Para eso podemos utilizar la función <code>if_else()</code>, que
+aplica una operación <em>si ocurre algo</em> y otra operación <em>si
+no</em>. En este caso si <code>Humedad_Media == 100</code> es verdadera,
+restamos 2 grados a la Temperatura, si es falsa no la modificamos. Y por
+supuesto se la aplicamos a la columna con <code>mutate()</code></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Temperatura_Abrigo_150cm =</span> <span class="fu">if_else</span>(Humedad_Media <span class="sc">==</span> <span class="dv">100</span>,       <span class="co"># Condición</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                                            Temperatura_Abrigo_150cm <span class="sc">-</span><span class="dv">2</span>,<span class="co"># Si es verdadera</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                                            Temperatura_Abrigo_150cm))  <span class="co"># Si es falsa</span></span></code></pre></div>
+<pre><code>## # A tibble: 3,024 × 31
+##    Fecha               Temperatura_Abrigo_150… Temperatura_Abr… Temperatura_Abr…
+##    &lt;dttm&gt;                                &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 2011-05-28 00:00:00                   NA                NA               NA  
+##  2 2011-05-29 00:00:00                    4.27             12.8             -1.2
+##  3 2011-05-30 00:00:00                    1.69              9.2             -2.8
+##  4 2011-05-31 00:00:00                    3.47              9.6              0.5
+##  5 2011-06-01 00:00:00                    2.90              9.6             -1.5
+##  6 2011-06-02 00:00:00                    6.26             13.3              2.9
+##  7 2011-06-03 00:00:00                    3.45             12.6             -1.8
+##  8 2011-06-04 00:00:00                    6.09             10.2              3.9
+##  9 2011-06-05 00:00:00                    3.00              7.1              3.4
+## 10 2011-06-06 00:00:00                    5.45              9.5              3.2
 ## # … with 3,014 more rows, and 27 more variables:
 ## #   Temperatura_Intemperie_5cm_Minima &lt;lgl&gt;,
 ## #   Temperatura_Intemperie_50cm_Minima &lt;lgl&gt;,
 ## #   Temperatura_Suelo_5cm_Media &lt;lgl&gt;, Temperatura_Suelo_10cm_Media &lt;dbl&gt;,
 ## #   Temperatura_Inte_5cm &lt;lgl&gt;, Temperatura_Intemperie_150cm_Minima &lt;lgl&gt;,
 ## #   Humedad_Suelo &lt;lgl&gt;, Precipitacion_Pluviometrica &lt;dbl&gt;,
-## #   Precipitacion_Cronologica &lt;dbl&gt;, Precipitacion_Maxima_30minutos &lt;dbl&gt;,
-## #   Heliofania_Efectiva &lt;lgl&gt;, Heliofania_Relativa &lt;lgl&gt;,
-## #   Tesion_Vapor_Media &lt;dbl&gt;, Humedad_Media &lt;dbl&gt;, Humedad_Media_8_14_20 &lt;dbl&gt;,
-## #   Rocio_Medio &lt;dbl&gt;, Duracion_Follaje_Mojado &lt;lgl&gt;,
-## #   Velocidad_Viento_200cm_Media &lt;lgl&gt;, Direccion_Viento_200cm &lt;chr&gt;,
-## #   Velocidad_Viento_1000cm_Media &lt;lgl&gt;, Direccion_Viento_1000cm &lt;chr&gt;,
-## #   Velocidad_Viento_Maxima &lt;lgl&gt;, Presion_Media &lt;lgl&gt;, Radiacion_Global &lt;lgl&gt;,
-## #   Horas_Frio &lt;dbl&gt;, Unidades_Frio &lt;dbl&gt;, mes &lt;chr&gt;</code></pre>
+## #   Precipitacion_Cronologica &lt;dbl&gt;, Precipitacion_Maxima_30minutos &lt;dbl&gt;, …</code></pre>
 <div class="alert alert-success">
-<p>La mayoría de las funciones de R pueden trabajar sobre vectores (y las columnas de un data.frame son como vectores ordenados!) y lo hacen <strong>elemento a elemento</strong>.</p>
-<p>En este caso <code>if_else()</code> recorre la columna con la información de humedad y <em>elemento a elemento</em> revisa si el valor es igual a 100. Luego decide si debe modificar o no cada elemento, en el orden en el que aparecen.</p>
+<p>La mayoría de las funciones de R pueden trabajar sobre vectores (y
+las columnas de un data.frame son como vectores ordenados!) y lo hacen
+<strong>elemento a elemento</strong>.</p>
+<p>En este caso <code>if_else()</code> recorre la columna con la
+información de humedad y <em>elemento a elemento</em> revisa si el valor
+es igual a 100. Luego decide si debe modificar o no cada elemento, en el
+orden en el que aparecen.</p>
 </div>
 <div class="alert alert-info">
 <p><strong>Desafío</strong></p>
-<p>Ahora es tu turno, “arreglá” las variables <code>Temperatura_Abrigo_150cm_Maxima</code> y <code>Temperatura_Abrigo_150cm_Minima</code> para aplicar la misma corrección de 2 grados.</p>
+<p>Ahora es tu turno, “arreglá” las variables
+<code>Temperatura_Abrigo_150cm_Maxima</code> y
+<code>Temperatura_Abrigo_150cm_Minima</code> para aplicar la misma
+corrección de 2 grados.</p>
 </div>
 </div>
 <div id="desagrupando-con-ungroup" class="section level2">
 <h2>Desagrupando con <code>ungroup()</code></h2>
-<p>En general, la mayoría de las funciones de {dplyr} “entienden” cuando una tabla está agrupada y realizan las operaciones para cada grupo.</p>
+<p>En general, la mayoría de las funciones de {dplyr} “entienden” cuando
+una tabla está agrupada y realizan las operaciones para cada grupo.</p>
 <div class="alert alert-info">
 <p><strong>Desafío:</strong></p>
-<p>¿Cuál de estos dos códigos agrega una columna llamada “Temperatura_max_media” con el la temperatura máxima media para cada mes? ¿Qué hace el otro?</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb37-2"><a href="#cb37-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb37-3"><a href="#cb37-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_max_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </span>
-<span id="cb37-4"><a href="#cb37-4"></a></span>
-<span id="cb37-5"><a href="#cb37-5"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb37-6"><a href="#cb37-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_max_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))  </span></code></pre></div>
+<p>¿Cuál de estos dos códigos agrega una columna llamada
+“Temperatura_max_media” con el la temperatura máxima media para cada
+mes? ¿Qué hace el otro?</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(mes) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Temperatura_max_media =</span> <span class="fu">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Temperatura_max_media =</span> <span class="fu">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))  </span></code></pre></div>
 </div>
-<p>En otras palabras, los resultados de <code>mutate()</code>, <code>filter()</code>, <code>summarise()</code> y otras funciones cambian según si la tabla está agrupada o no. Como a veces uno se puede olvidar que quedaron grupos, es conveniente usar la función <code>ungroup()</code> una vez que dejás de trabajar con grupos:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>bariloche <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="st">  </span><span class="kw">group_by</span>(mes) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Temperatura_max_media =</span> <span class="kw">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st">  </span></span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="st">  </span><span class="kw">ungroup</span>()</span></code></pre></div>
-<pre><code>## # A tibble: 3,024 x 32
-##    Fecha               Temperatura_Abr… Temperatura_Abr… Temperatura_Abr…
-##    &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1 2011-05-28 00:00:00            NA                NA               NA  
-##  2 2011-05-29 00:00:00             4.27             12.8             -1.2
-##  3 2011-05-30 00:00:00             1.69              9.2             -2.8
-##  4 2011-05-31 00:00:00             3.47              9.6              0.5
-##  5 2011-06-01 00:00:00             2.90              9.6             -1.5
-##  6 2011-06-02 00:00:00             6.26             13.3              2.9
-##  7 2011-06-03 00:00:00             3.45             12.6             -1.8
-##  8 2011-06-04 00:00:00             6.09             10.2              3.9
-##  9 2011-06-05 00:00:00             5.00              7.1              3.4
-## 10 2011-06-06 00:00:00             5.45              9.5              3.2
+<p>En otras palabras, los resultados de <code>mutate()</code>,
+<code>filter()</code>, <code>summarise()</code> y otras funciones
+cambian según si la tabla está agrupada o no. Como a veces uno se puede
+olvidar que quedaron grupos, es conveniente usar la función
+<code>ungroup()</code> una vez que dejás de trabajar con grupos:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>bariloche <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(mes) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Temperatura_max_media =</span> <span class="fu">mean</span>(Temperatura_Abrigo_150cm_Maxima, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span>  </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 3,024 × 32
+##    Fecha               Temperatura_Abrigo_150… Temperatura_Abr… Temperatura_Abr…
+##    &lt;dttm&gt;                                &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 2011-05-28 00:00:00                   NA                NA               NA  
+##  2 2011-05-29 00:00:00                    4.27             12.8             -1.2
+##  3 2011-05-30 00:00:00                    1.69              9.2             -2.8
+##  4 2011-05-31 00:00:00                    3.47              9.6              0.5
+##  5 2011-06-01 00:00:00                    2.90              9.6             -1.5
+##  6 2011-06-02 00:00:00                    6.26             13.3              2.9
+##  7 2011-06-03 00:00:00                    3.45             12.6             -1.8
+##  8 2011-06-04 00:00:00                    6.09             10.2              3.9
+##  9 2011-06-05 00:00:00                    5.00              7.1              3.4
+## 10 2011-06-06 00:00:00                    5.45              9.5              3.2
 ## # … with 3,014 more rows, and 28 more variables:
 ## #   Temperatura_Intemperie_5cm_Minima &lt;lgl&gt;,
 ## #   Temperatura_Intemperie_50cm_Minima &lt;lgl&gt;,
 ## #   Temperatura_Suelo_5cm_Media &lt;lgl&gt;, Temperatura_Suelo_10cm_Media &lt;dbl&gt;,
 ## #   Temperatura_Inte_5cm &lt;lgl&gt;, Temperatura_Intemperie_150cm_Minima &lt;lgl&gt;,
 ## #   Humedad_Suelo &lt;lgl&gt;, Precipitacion_Pluviometrica &lt;dbl&gt;,
-## #   Precipitacion_Cronologica &lt;dbl&gt;, Precipitacion_Maxima_30minutos &lt;dbl&gt;,
-## #   Heliofania_Efectiva &lt;lgl&gt;, Heliofania_Relativa &lt;lgl&gt;,
-## #   Tesion_Vapor_Media &lt;dbl&gt;, Humedad_Media &lt;dbl&gt;, Humedad_Media_8_14_20 &lt;dbl&gt;,
-## #   Rocio_Medio &lt;dbl&gt;, Duracion_Follaje_Mojado &lt;lgl&gt;,
-## #   Velocidad_Viento_200cm_Media &lt;lgl&gt;, Direccion_Viento_200cm &lt;chr&gt;,
-## #   Velocidad_Viento_1000cm_Media &lt;lgl&gt;, Direccion_Viento_1000cm &lt;chr&gt;,
-## #   Velocidad_Viento_Maxima &lt;lgl&gt;, Presion_Media &lt;lgl&gt;, Radiacion_Global &lt;lgl&gt;,
-## #   Horas_Frio &lt;dbl&gt;, Unidades_Frio &lt;dbl&gt;, mes &lt;chr&gt;,
-## #   Temperatura_max_media &lt;dbl&gt;</code></pre>
+## #   Precipitacion_Cronologica &lt;dbl&gt;, Precipitacion_Maxima_30minutos &lt;dbl&gt;, …</code></pre>
 <div class="btn-group" role="group" aria-label="Navegación">
-<p><a href= "04-lectura.html" class = "btn btn-primary">Anterior</a> <a href= "06-dplyr-tidyr-II.html" class = "btn btn-primary">Siguiente</a></p>
+<p><a href= "04-lectura.html" class = "btn btn-primary">Anterior</a>
+<a href= "06-dplyr-tidyr-II.html" class = "btn btn-primary">Siguiente</a></p>
 </div>
 </div>
 
@@ -1065,7 +1060,7 @@ div.tocify {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -1083,7 +1078,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -1097,6 +1092,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

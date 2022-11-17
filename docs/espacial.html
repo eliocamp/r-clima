@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Pao Corrales" />
 
 
-<title>Desafío 1: Leer una base de datos</title>
+<title>R y datos espaciales</title>
 
 <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -323,60 +324,81 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Desafío 1: Leer una base de datos</h1>
+<h1 class="title toc-ignore">R y datos espaciales</h1>
+<h4 class="author">Pao Corrales</h4>
+<h4 class="date">10/1/2021</h4>
 
 </div>
 
 
-<p>El objetivo de este desafío es que armes un proyecto y que leas una
-archivo de datos para aplicar lo que aprendas en el resto del curso.</p>
-<div id="creá-un-proyecto-de-rstudio" class="section level3">
-<h3>1. Creá un proyecto de RStudio</h3>
-<p>Si te olvidaste cómo se hace, revisa <a href="02-proyectos.html">esta
-sección</a>. Asegurate de usar un nombre descriptivo, asociado a los
-datos o el análisis que tenés en mente.</p>
+<div id="grillas-regulares" class="section level2">
+<h2>Grillas regulares</h2>
+<pre class="r"><code># file &lt;- system.file(&quot;extdata&quot;, &quot;temperature.nc&quot;, package = &quot;metR&quot;)
+
+GlanceNetCDF(&quot;datos/temperatura.nc&quot;)</code></pre>
+<pre><code>## ----- Variables ----- 
+## air:
+##     mean Daily Air temperature in degK
+##     Dimensions: lon by lat by level by time
+## 
+## 
+## ----- Dimensions ----- 
+##   time: 1 values from 2010-07-09 to 2010-07-09 
+##   level: 17 values from 10 to 1000 millibar
+##   lat: 73 values from -90 to 90 degrees_north
+##   lon: 144 values from 0 to 357.5 degrees_east</code></pre>
+<pre class="r"><code>temperatura &lt;- ReadNetCDF(&quot;datos/temperatura.nc&quot;, 
+                          vars = &quot;air&quot;,
+                          subset = list(level = 1000,
+                                        lat = c(-55, -20),
+                                        lon = c(280, 310)))</code></pre>
+<pre class="r"><code>ggplot(temperatura, aes(lon, lat)) +
+  geom_point(aes(color = air))</code></pre>
+<p><img src="espacial_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>grafico &lt;- ggplot(temperatura, aes(lon, lat)) +
+  geom_raster(aes(fill = air))
+
+grafico</code></pre>
+<p><img src="espacial_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div id="mapas" class="section level3">
+<h3>Mapas</h3>
+<pre class="r"><code>mapa &lt;- rnaturalearth::ne_countries(country = c(&quot;argentina&quot;, &quot;chile&quot;, &quot;uruguay&quot;, 
+                                                &quot;paraguay&quot;, &quot;brazil&quot;, &quot;bolivia&quot;, 
+                                                &quot;falkland islands&quot;), 
+                                    returnclass = &quot;sf&quot;)
+
+ggplot(mapa) +
+  geom_sf()</code></pre>
+<p><img src="espacial_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>mi_mapa &lt;- geom_sf(data = mapa, inherit.aes = FALSE, fill = NA, color = &quot;black&quot;, size = 0.2) </code></pre>
+<pre class="r"><code>ggplot(temperatura, aes(ConvertLongitude(lon), lat)) +
+  geom_raster(aes(fill = air)) +
+  mi_mapa</code></pre>
+<p><img src="espacial_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code># Esto no
+ggplot(temperatura, aes(ConvertLongitude(lon), lat)) +
+  mi_mapa +
+  geom_raster(aes(fill = air)) </code></pre>
+<p><img src="espacial_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+<pre class="r"><code>ggplot(temperatura, aes(ConvertLongitude(lon), lat)) +
+  geom_raster(aes(fill = air)) +
+  mi_mapa +
+  coord_sf(xlim = c(-80, -50), ylim = c(-55, -20))</code></pre>
+<p><img src="espacial_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(temperatura, aes(ConvertLongitude(lon), lat)) +
+  #geom_raster(aes(fill = air)) +
+  geom_contour2(aes(z = air, color = stat(level))) +
+  mi_mapa +
+  coord_sf(xlim = c(-80, -50), ylim = c(-55, -20))</code></pre>
+<p><img src="espacial_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(temperatura, aes(ConvertLongitude(lon), lat)) +
+  #geom_raster(aes(fill = air)) +
+  geom_contour_fill(aes(z = air)) +
+  geom_contour2(aes(z = air), color = &quot;white&quot;, size = 0.1) +
+  mi_mapa +
+  coord_sf(xlim = c(-80, -50), ylim = c(-55, -20)) </code></pre>
+<p><img src="espacial_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
-<div id="decidí-que-datos-usar" class="section level3">
-<h3>2. Decidí que datos usar</h3>
-<p>Buscá algún set de datos que hayas usado para algo o quieras usar.
-Puede ser en formato .csv o de Excel. Guardalo en una carpeta llamada
-“datos” dentro de la carpeta de tu proyecto.</p>
-</div>
-<div id="lee-los-datos-en-r" class="section level3">
-<h3>3. Lee los datos en R</h3>
-<p>Creá un archivo de RMarkdown (por las dudas, <a
-href="03-reportes-I.html">esta es la sección asociada</a>). Además de un
-título informativo, describí los datos con tus palabras. ¿Cuál es la
-fuente? ¿Qué variables incluyen? Armá un <em>chunk</em> para leer los
-datos (podés revisar <a href="04-lectura.html">esta sección</a> y
-mostralos. ¿Cuántas observaciones tiene? ¿Qué tipo de datos tiene cada
-columna?</p>
-</div>
-<div id="generá-nuevas-columnas" class="section level3">
-<h3>4. Generá nuevas columnas</h3>
-<p>Es posible que necesites alguna nueva variable, por ejemplo la suma
-entre otras dos columnas para calcular un total o la diferencia entre
-otras dos. La clave será usar la función <code>mutate()</code> (como
-viste en <a
-href="05-dplyr.html#Creando_nuevas_columnas_con_mutate()">esta
-sección</a>) y ya que estamos aplicá otro verbo de {dplyr} para
-seleccionar esas nuevas columnas y mostrarlas (fijate <a
-href="05-dplyr.html#Seleccionando_columnas_con_select()">acá</a> si
-necesitás refrescar la memoria).</p>
-<p>Hacé cada operación en un <em>chunk</em> separado explicando en el
-texto qué hace cada paso, por qué y qué esperás encontrar.</p>
-</div>
-<div id="resumen-de-datos" class="section level3">
-<h3>5. Resumen de datos</h3>
-<p>Ahora calculá un promedio o determiná el valor máximo o mínimo de
-alguna columna usando <code>summarise()</code>. Si tu base de datos
-tiene alguna variable con categorías, también probá hacer los mismos
-cálculos pero agrupando las observaciones (viste esto <a
-href="05-dplyr.html#Agrupando_y_reduciendo_con_group_by()_%%_summarise()">en
-esta sección</a>).</p>
-<p>Podés analizar los datos tanto como se te ocurra, la idea es que te
-familiarices con los verbos de {dplyr} al mismo tiempo que sacas
-información de la base de datos que estás utilizando.</p>
 </div>
 
 
